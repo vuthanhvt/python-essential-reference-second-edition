@@ -1,0 +1,235 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Performance and Memory Considerations</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="33.html" class="navtitle">3. Types and Objects</a> &gt; <span class="nonavtitle">Performance and Memory Considerations</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="40.html" title="Special Methods"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=41" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="41.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="43.html" title="4. Operators and Expressions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A55%3A15+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104029061152217152035180</font><a href="read4.asp?bookname=0735710910&snode=41&now=5%2F28%2F2002+8%3A55%3A15+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Performance and Memory Considerations</h3>
+<p>All Python objects minimally include an integer reference count, a descriptor defining the type, and the representation of the actual data. <a HREF="41#2.html">Table 3.12</a> shows the approximate memory requirements of various built-in objects based on the C implementation of Python 2.0 running on a 32-bit machine. The precise values may vary slightly according to the implementation of the interpreter and machine architecture. (For instance, the memory requirements may double on a 64-bit machine.) Although you may never need to think about memory utilization, Python is used in a variety of high-performance and memory-critical applications ranging from supercomputing to mobile computing. The memory footprint of the built-in types is presented here to help programmers make informed design decisions in memory-critical settings.</p>
+
+<a nAME="2"></A><p><tabLE BOrder="1" cellspacing="0" cellpAddIng="1" wIdth="100%">
+<cAptiON><H5>Table 3.12.  Memory Size of Built-in Datatypes</H5></captION><ColgrOUP Span="2">
+<tR>
+<TH Valign="top">
+<font size="2">
+<p><b>Type</b></p>
+</fonT></th>
+<Th vaLign="top">
+<fOnt sIZE="2">
+<P><b>Size</b></p>
+</fONT></Th>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p>Integer</p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>12 bytes</p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Long integer</p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>12 bytes + (nbits/16 + 1)*2 bytes</p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P>Floats</P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p>16 bytes</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Complex</p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>24 bytes</p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p>List</p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>16 bytes + 4 bytes for each item</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p>Tuple</p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>16 bytes + 4 bytes for each item</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>String</P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>20 bytes + 1 byte per character</p>
+</Font></Td>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Unicode string</p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>24 bytes + 2 bytes per character</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>Dictionary</P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>24 bytes + 12*2<SUp>n</sup> bytes, <i>n</i> = log<sub>2</sub>(<i>n</i>items)+1</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>Class instance</p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>16 bytes plus a dictionary object</p>
+</font></td>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p>Xrange object</p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>24 bytes</P>
+</Font></tD>
+</TR>
+</Colgroup>
+</table></p>
+
+<p>Because strings are used so frequently, the interpreter uses a number of optimizations. First, a string <i><tt claSs="monofont">s</tT></i>
+ can be <i>interned</i> using the built-in function <Tt claSs="monofont">intern(</tt><I><TT Class="monofont">s</TT></I>
+<Tt claSS="monofont">)</TT>. This function looks in an internal hash table to see whether the string value already exists. If so, a reference to that string—instead of a copy of the string data—is stored in the string object. If not, the data in <i><tt cLASS="monofont">s</tt></i>
+ is added to the hash table. Interned strings live until the interpreter exits; if you’re concerned about memory, you shouldn’t intern infrequently used strings. Also, to increase the performance of dictionary lookups, strings cache their last computed hash-table value.</p>
+
+<p>Dictionaries are implemented using a hash table with open indexing. The number of entries allocated to a dictionary is equal to twice the smallest power of 2 that’s greater than the number of objects stored in the dictionary. When a dictionary expands, its size doubles. On average, about half of the entries allocated to a dictionary are unused.</p>
+
+<p>The execution of a Python program is primarily a sequence of function calls involving the special methods described in the earlier section “<a href="40.html">Special Methods</a>.” Next to choosing the most efficient algorithm, performance improvements can be made by understanding Python’s object model and trying to minimize the number of special method calls that occur during execution. This is especially true for name lookups on modules and classes. For example, consider the following code:</p>
+
+<pre>
+
+import math 
+d = 0.0 
+for i in xrange(1000000): 
+     d = d + math.sqrt(i) </pre>
+
+<P>In this case, each iteration of the loop involves two name lookups. First, the <tt ClasS="monofont">math</tt> module is located in the global namespace; then it’s searched for a function object named <tt ClasS="monofont">sqrt</TT>. Now consider the following modification:</P>
+
+<pre>
+
+from math import sqrt 
+d = 0.0 
+for i in xrange(1000000): 
+     d = d + sqrt(i) </pRE>
+
+<P>In this case, one name lookup is eliminated from the inner loop. In fact, when running on the author’s speedy 200 MHz PC, this simple change makes the code run more than twice as fast as before.</P>
+
+<p>Unnecessary method calls can also be eliminated by making careful use of temporary values and avoiding unnecessary lookups in sequences and dictionaries. For example, consider the two classes shown in <a hrEF="41#4.html">Listing 3.2</A>:</P>
+
+
+<h5>
+<a naME="4"></A>Listing 3.2 Unnecessary Method Calls</H5>
+<pre class="monofont">
+class Point: 
+    def _ _init_ _(self,x,y,z): 
+          self.x = x 
+          self.y = y 
+          self.z = z 
+
+class Poly: 
+    def _ _init_ _(self): 
+          self.pts = [ ] 
+    def addpoint(self,pt): 
+          self.pts.append(pt) 
+    def perimeter(self): 
+          d = 0.0 
+          self.pts.append(self.pts[0])     # Temporarily close the polygon 
+          for i in xrange(len(self.pts)-1): 
+               d2 = (self.pts[i+1].x - self.pts[i].x)**2 + \ 
+                    (self.pts[i+1].y - self.pts[i].y)**2 + \ 
+                    (self.pts[i+1].z - self.pts[i].z)**2 
+               d = d + math.sqrt(d2) 
+          self.pts.pop()                   # Restore original list of points 
+          return d </pre>
+<p>In the <tt class="monofont">perimeter()</tT> method, each occurrence of <tt ClasS="monofont">self.pts[i]</tt> involves two special-method lookups—one involving a dictionary and another involving a sequence. You can reduce the number of lookups by rewriting the method as shown in <a hRef="41#6.html">Listing 3.3</a>:</P>
+
+
+<H5>
+<A Name="6"></a>Listing 3.3 Improved Version of Listing 3.2</H5>
+<PRE clasS="monofont">
+class Poly: 
+      ... 
+      def perimeter(self): 
+          d = 0.0 
+          pts = self.pts 
+          pts.append(pts[0]) 
+          for i in xrange(len(pts)-1): 
+                p1 = pts[i+1] 
+                p2 = pts[i] 
+                d2 = (p1.x - p2.x)**2 + \ 
+                     (p1.y - p2.y)**2 + \ 
+                     (p1.z - p2.z)**2 
+                d = d + math.sqrt(d2) 
+          pts.pop() 
+          return d </PRE>
+<p>Although the performance gains made by such modifications are often modest (15–20%), an understanding of the underlying object model and the manner in which special methods are invoked can result in faster programs. Of course, if performance is extremely critical, you often can export functionality to a Python extension module written in C.</p>
+</foNT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="40.html" title="Special Methods"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=41" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="41.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="43.html" title="4. Operators and Expressions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

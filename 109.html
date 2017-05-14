@@ -1,0 +1,1298 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Mathematics</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="105.html" class="navtitle">A. The Python Library</a> &gt; <span class="nonavtitle">Mathematics</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="108.html" title="Python Services"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=109" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="109.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="110.html" title="String Handling"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A05%3A29+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105083198025091079203031</font><a href="read5.asp?bookname=0735710910&snode=109&now=5%2F28%2F2002+9%3A05%3A29+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Mathematics</h3>
+<p>The modules in this section provide a variety of mathematical functions.</p>
+
+<A NAMe="2"></a>
+<h4><tT CLAss="monofont">array</tt></H4>
+<P>The <TT class="monofont">array</tt>  module defines a new object type <tt class="monofont">ArrayType</tt>  that works almost exactly like other sequence types except that its contents are constrained to a single type. The type of an array is determined at the time of creation, using one of the following typecodes:</p>
+
+<p><taBle BordEr="1" celLspaCING="0" cellPADDing="1" wIDTH="100%">
+<colgROUP span="4">
+<tr>
+<th valign="top">
+<font siZe="2">
+<p><B>Type Code</b></p>
+</fOnt></th>
+<Th vaLIGN="top">
+<font SIZE="2">
+<p><b>Description</b></p>
+</FONT></th>
+<th VALIgn="top">
+<font size="2">
+<p><b>C Type</b></p>
+</font></th>
+<Th vAligN="top">
+<font Size="2">
+<P><B>Minimum Size (in bytes)</B></P>
+</font></TH>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">'c'</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p>8-bit character</P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">char</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>1</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">'b'</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>8-bit integer</p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">signedchar</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>1</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">'B'</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p>8-bit unsigned integer</p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">unsignedchar</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>1</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">'h'</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p>16-bit integer</p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">short</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>2</P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">'H'</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>16-bit unsigned integer</P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">unsignedshort</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>2</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">'i'</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>integer</p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">int</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p>4 or 8</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">'I'</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>unsigned integer</p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">unsigned int</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>4 or 8</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">'l'</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>long integer</p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">long</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>4 or 8</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">'L'</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p>unsigned long integer</P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">unsigned long</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>4 or 8</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">'f'</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>single-precision float</p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">float</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>4</p>
+</font></td>
+</tr>
+<tr>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">'d'</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>double-precision float</p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">double</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>8</p>
+</foNT></TD>
+</tr>
+</colgroup>
+</table></p>
+
+<p>The representation of integers and long integers is determined by the machine architecture (they may be 32 or 64 bits).When values stored as <tt cLasS="monofont">'L'</tt> or <tT clasS="monofont">'I'</tt> are returned, they’re returned as Python long integers.</p>
+
+<P>The module defines the following function:</P>
+
+<PRe>
+
+<b>array(</b><b><I>typecode</I></B> <B>[,</b> <b><i>initializer</i></B><B>])</B> </Pre>
+
+<p>Creates an array of type <i><TT CLass="monofont">typecode</tt></i>
+. <i><tt class="monofont">initializer</tt></i>
+ is a string or list of values used to initialize values in the array. The following attributes and methods apply to an array object <i><tt ClaSs="monofont">a</tt></I>
+:</p>
+
+<p><taBle bORDEr="1" celLSPAcing="0" CELLpaddING="1" Width="100%">
+<colgroup span="2">
+<tr>
+<th ValIgn="top">
+<fOnt siZe="2">
+<p><b>Item</B></P>
+</FOnt></th>
+<TH VAlign="top">
+<FONT size="2">
+<P><B>Description</B></P>
+</font></th>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><I><tt clAss="monofont">a</tT></I>
+<TT clasS="monofont">.typecode</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Typecode character used to create the array.</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><i><TT CLass="monofont">a</tT></I>
+<TT clasS="monofont">.itemsize</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>Size of items stored in the array (in bytes).</p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><i><TT CLass="monofont">a</tT></I>
+<TT clasS="monofont">.append(</TT><I><tt class="monofont">x</tt></i>
+<tt class="monofont">)</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p>Appends <i><TT CLass="monofont">x</tT></I>
+ to the end of the array.</P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><i><tT clAss="monofont">a</tT></i>
+<tt cLass="monofont">.buffer_info()</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Returns <TT class="monofont">(</tt><i><tt class="monofont">address</tt></i>
+<tt ClaSs="monofont">, </tt><I><tt clAss="monofont">length</tT></I>
+<TT clasS="monofont">)</TT>, giving the memory location and length of the buffer used to store the array.</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><i><tt class="monofont">a</tT></i>
+<tT claSs="monofont">.byteswap()</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Swaps the byte ordering of all items in the array from big-endian to little-endian or vice versa. This is only supported for integer values.</P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><i><Tt cLass="monofont">a</Tt></i>
+<tt ClasS="monofont">.count(</TT><I><tt clASS="monofont">x</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>Returns the number of occurrences of <i><Tt cLass="monofont">x</Tt></i>
+ in <i><tT claSS="monofont">a</TT></i>
+.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><i><tt class="monofont">a</tt></i>
+<tt clAss="monofont">.extend(</Tt><i><tT clasS="monofont">b</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p>Appends array <i><tt class="monofont">b</tt></i>
+ to the end of array <i><tt cLasS="monofont">a</tt></i>
+.</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt clASS="monofont">a</Tt></i>
+<tt class="monofont">.fromfile(</tt><i><tt class="monofont">f</tT></i>
+<tT claSs="monofont">, </tt><i><Tt clASS="monofont">n</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p>Reads <i><tt class="monofont">n</tT></i>
+ items (in binary format) from the file object <i><Tt clAss="monofont">f</tt></I>
+ and appends to the end of the array. <i><tt CLASs="monofont"><sup>f</SUP></Tt></i>
+ must be a file object. Raises <tt CLASs="monofont">EOFError</tt>  if fewer than <i><TT CLass="monofont">n</tt></i>
+ items can be read.</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><i><tT CLAss="monofont">a</tt></I>
+<TT Class="monofont">.fromlist(</TT><I><Tt claSS="monofont">list</TT></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Appends items from <i><tT CLAss="monofont">list</tt></I>
+ to the end of the array.</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><i><tt class="monofont">a</tt></i>
+<Tt cLass="monofont">.fromstring(</Tt><i><tt ClasS="monofont">s</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>Appends items from string <i><tt class="monofont">s</tt></i>
+ where <I><tt ClasS="monofont">s</tt></i>
+ is interpreted as a string of binary values—same as would have been read using <tT claSS="monofont">fromfile()</TT>.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><i><tt class="monofont">a</tt></i>
+<tt claSs="monofont">.index(</tT><i><tt Class="monofont">x</Tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Returns the index of the first occurrence of <i><tt class="monofont">x</tt></i>
+ in <i><tt clAss="monofont">a</Tt></i>
+. Raises <tT clasS="monofont">ValueError</tt> if not found.</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt class="monofont">a</tt></i>
+<tt class="monofont">.insert(</tt><i><Tt cLass="monofont">i</Tt></i>
+<tt ClasS="monofont">, </TT><I><tt clASS="monofont">x</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>Inserts <i><Tt cLass="monofont">x</Tt></i>
+ before position <i><tT claSS="monofont">i</TT></i>
+.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><i><tt class="monofont">a</tt></i>
+<tt clAss="monofont">.pop([</Tt><i><tT clasS="monofont">i</tt></i>
+<TT CLass="monofont">])</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p>Removes item <i><tt class="monofont">i</tt></i>
+ from the array and returns it. If <i><tt cLasS="monofont">i</tt></i>
+ is omitted, the last element is removed.</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt clASS="monofont">a</Tt></i>
+<tt class="monofont">.remove(</tt><i><tt class="monofont">x</tT></i>
+<tT claSs="monofont">)</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Remove the first occurrence of <I><tt clASS="monofont">x</Tt></i>
+ from the array. Raises <tt class="monofont">ValueError</tt>  if not found.</p>
+</font></td>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><I><tt clASS="monofont">a</Tt></i>
+<tt CLASs="monofont">.reverse()</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>Reverses the order of the array.</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><I><tt clASS="monofont">a</Tt></i>
+<tt CLASs="monofont">.tofile(</tt><i><tt class="monofont">f</tt></i>
+<tt clasS="monofont">)</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Writes all items to file <I><tt clASS="monofont">f</Tt></i>
+. Data is saved in native binary format.</p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><i><Tt clAss="monofont">a</tt></I>
+<tt cLASS="monofont">.tolist()</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Converts the array to an ordinary list of values.</p>
+</font></td>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><i><tT claSS="monofont">a</TT></i>
+<tt cLASS="monofont">.tostring()</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Converts to a string of binary data—the same data as would be written using <tt class="monofont">tofile()</tt>.</p>
+</FonT></td>
+</tR>
+</colgRoup>
+</TABLe></p>
+
+<p>When items are inserted into an array, a <tT CLAss="monofont">TypeError</tt>  exception is generated if the type of the item doesn’t match the type used to create the array.</P>
+
+
+<H5>Notes</H5>
+<Ul>
+<li>
+<p>This module is used to create large lists in a storage-efficient manner. The resulting arrays are not suitable for numeric work. For example, the addition operator doesn’t add the corresponding elements of the arrays; it appends one array to the other. To create storage- and calculation-efficient arrays, use the <TT CLass="monofont">Numeric</tt> extension available at <a target="_blank" href="http://numpy.sourceforge.net/">http://numpy.sourceforge.net/</a>. Note that the <tt cLasS="monofont">Numeric</tt> API is completely different.</p>
+</Li>
+<li>
+<p>The type of an array object is <Tt clASS="monofont">array.ArrayType</Tt>.</p>
+</li>
+</UL>
+<P>? <B>See Also</b> <a hrEF="110#22.html">struct</A> (144), <A href="115#40.html">xdrlib</A> (277) .</P>
+
+<A Name="6"></a>
+<h4><tt class="monofont">cmath</tt></h4>
+<p>The <tt clAss="monofont">cmath</Tt>  module provides mathematical functions for complex numbers. All functions accept and return complex numbers.</p>
+
+<p><Table BordER="1" CEllspACINg="0" celLPADding="1" WIDTh="100%">
+<colgroup span="2">
+<tr>
+<th valIgn="top">
+<Font Size="2">
+<p><B>Function</b></p>
+</fONT></Th>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Description</b></P>
+</FONt></th>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">acos(</tT><i><tt CLASs="monofont">x</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>Returns the arccosine of <i><tt clasS="monofont">x</tt></I>
+</p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">acosh(</tT><I><TT class="monofont">x</tt></i>
+<tt class="monofont">)</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Returns the arc hyperbolic cosine of <i><tt CLASs="monofont">x</tt></i>
+</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">asin(</Tt><i><tT clasS="monofont">x</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p>Returns the arcsine of <i><tt class="monofont">x</tt></i>
+</p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">asinh(</tT><I><TT clasS="monofont">x</TT></I>
+<tt class="monofont">)</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>Returns the arc hyperbolic sine of <i><tt CLASs="monofont">x</tt></i>
+</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">atan(</tt><i><tt ClaSs="monofont">x</tt></I>
+<tt clAss="monofont">)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Returns the arctangent of <I><TT class="monofont">x</tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">atanh(</tT><I><TT clasS="monofont">x</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>Returns the arc hyperbolic tangent of <i><tT clasS="monofont">x</tt></i>
+</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">cos(</tt><i><tt class="monofont">x</tt></i>
+<Tt cLass="monofont">)</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Returns the cosine of <I><TT clasS="monofont">x</TT></I>
+</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">cosh(</tT><I><TT clasS="monofont">x</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>Returns the hyperbolic cosine of <i><tt ClaSs="monofont">x</tt></I>
+</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">exp(</Tt><i><tt class="monofont">x</tt></i>
+<tt class="monofont">)</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P>Returns <TT Class="monofont">e ** </TT><I><Tt claSS="monofont">x</TT></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">log(</TT><I><Tt claSS="monofont">x</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Returns the natural logarithm of <i><tT clAss="monofont">x</tT></i>
+</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">log10(</tt><i><tt class="monofont">x</tt></i>
+<tt class="monofont">)</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>Returns the base 10 logarithm of <I><Tt claSS="monofont">x</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">sin(</tt><i><tT claSS="monofont">x</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Returns the sine of <i><tt class="monofont">x</tt></I>
+</p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">sinh(</tt><i><tT CLAss="monofont">x</tt></i>
+<tt class="monofont">)</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>Returns the hyperbolic sine of <I><Tt claSS="monofont">x</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">sqrt(</Tt><i><Tt clAss="monofont">x</tt></I>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Returns the square root of <i><tt class="monofont">x</tt></i>
+</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">tan(</tt><i><tT CLAss="monofont">x</tt></I>
+<TT Class="monofont">)</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>Returns the tangent of <i><tT claSS="monofont">x</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">tanh(</tt><i><tt claSs="monofont">x</tT></i>
+<tt Class="monofont">)</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Returns the hyperbolic tangent of <i><tT CLAss="monofont">x</tt></i>
+</p>
+</font></td>
+</tr>
+</colgroUp>
+</tAble></P>
+
+<p>The following constants are defined:</p>
+
+<p><tAble BORDer="1" ceLLSPacinG="0" CELlpadDING="1" width="100%">
+<colgroup span="2">
+<tr>
+<tH vaLign="top">
+<Font sIze="2">
+<p><B>Constant</B></P>
+</Font></tH>
+<TH ValigN="top">
+<FONt sizE="2">
+<P><B>Description</B></p>
+</font></th>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">pi</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Mathematical constant pi, as a real</P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">e</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Mathematical constant e, as a real</p>
+</fONT></Td>
+</tr>
+</colgroup>
+</table></p>
+
+<p>? <b>See Also</b> <A hrEf="109#8.html">math</a> (129).</p>
+
+<A name="8"></A>
+<h4><tt CLASs="monofont">math</tt></h4>
+<P>The <TT Class="monofont">math</TT>  module defines standard mathematical functions. These functions operate on integers and floats, but don’t work with complex numbers.</P>
+
+<P><tablE BORder="1" cellspacing="0" cellpaDdiNg="1" wiDth="100%">
+<coLgroUP SPan="2">
+<tr>
+<TH VAlign="top">
+<FONT size="2">
+<P><B>Function</B></P>
+</font></th>
+<th valign="top">
+<font siZe="2">
+<p><B>Description</b></p>
+</fOnt></th>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">acos(</TT><I><Tt class="monofont">x</tt></i>
+<tt class="monofont">)</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>Returns the arccosine of <i><tT CLAss="monofont">x</tt></I>
+</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">asin(</tt><i><Tt claSs="monofont">x</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p>Returns the arcsine of <i><tt class="monofont">x</tt></i>
+</p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">atan(</TT><I><Tt claSS="monofont">x</TT></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Returns the arctangent of <i><tT CLAss="monofont">x</tt></I>
+</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">atan2(</tt><i><tT clAss="monofont">y</tT></i>
+<tt cLass="monofont">, </TT><I><Tt claSS="monofont">x</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Returns atan(<i><tT clAss="monofont">y</tT></i>
+<tt cLass="monofont"> / </TT><I><Tt claSS="monofont">x</TT></i>
+)</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">ceil(</Tt><i><Tt clAss="monofont">x</tt></I>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Returns the ceiling of <i><tt class="monofont">x</tt></i>
+</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">cos(</tt><i><tT CLAss="monofont">x</tt></I>
+<TT Class="monofont">)</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>Returns the cosine of <i><tT claSS="monofont">x</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">cosh(</tt><i><tt claSs="monofont">x</tT></i>
+<tt Class="monofont">)</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Returns the hyperbolic cosine of <i><tT CLAss="monofont">x</tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">exp(</tt><i><tT CLAss="monofont">x</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>Returns <tT claSs="monofont">e ** </tt><i><Tt clASS="monofont">x</Tt></i>
+</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">fabs(</tt><i><tt clAss="monofont">x</Tt></i>
+<tT clasS="monofont">)</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Returns the absolute value of <i><TT CLass="monofont">x</tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">floor(</tt><i><TT CLass="monofont">x</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>Returns the floor of <I><tt cLass="monofont">x</tT></i>
+</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">fmod(</tt><i><tt class="monofont">x</tt></i>
+<tt ClaSs="monofont">, </tt><I><tt clAss="monofont">y</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Returns <i><tt class="monofont">x</tt></i>
+<tt ClaSs="monofont"> % </tt><I><tt clAss="monofont">y</tT></I>
+</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">frexp(</tt><i><tt class="monofont">x</tT></i>
+<tT claSs="monofont">)</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Returns the positive mantissa and exponent of <I><tt clASS="monofont">x</Tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">hypot(</TT><I><tt clASS="monofont">x</Tt></i>
+<tt CLASs="monofont">, </tt><i><TT CLass="monofont">y</tt></i>
+<tt class="monofont">)</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>Returns the Euclidean distance, <Tt claSS="monofont">sqrt(</TT><i><tt cLASS="monofont">x</tt></i>
+<tT CLAss="monofont"> * </tt><i><tt class="monofont">x</tt></i>
+<tt claSs="monofont"> + </tT><i><tt Class="monofont">y</Tt></i>
+<tT CLAss="monofont"> * </tt><I><TT Class="monofont">y</TT></I>
+<Tt claSS="monofont">)</TT></p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">ldexp(</tT><I><TT clasS="monofont">x</TT></I>
+<tt clASS="monofont">, </Tt><i><tt CLASs="monofont">i</tt></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Returns <I><TT clasS="monofont">x</TT></I>
+<tt clASS="monofont"> * (2 ** </Tt><i><tt CLASs="monofont">i</tt></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">log(</tt><i><tT CLAss="monofont">x</tt></I>
+<TT Class="monofont">)</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>Returns the natural logarithm of <i><tT claSS="monofont">x</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">log10(</tt><i><tt claSs="monofont">x</tT></i>
+<tt Class="monofont">)</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Returns the base 10 logarithm of <i><tT CLAss="monofont">x</tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">modf(</tt><i><tT CLAss="monofont">x</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>Returns the fractional and integer parts of <i><Tt clAss="monofont">x</tt></I>
+ (both have the same sign as <i><tt CLASs="monofont">x</tt></i>
+)</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">pow(</tt><i><tt ClaSs="monofont">x</tt></I>
+<tt clAss="monofont">, </tT><I><TT clasS="monofont">y</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>Returns <i><tt ClaSs="monofont">x</tt></I>
+<tt clAss="monofont"> ** </tT><I><TT clasS="monofont">y</TT></I>
+</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">sin(</tT><i><tT claSs="monofont">x</tt></i>
+<Tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Returns the sine of <i><tt class="monofont">x</tt></i>
+</p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">sinh(</Tt><i><tt CLASs="monofont">x</tt></i>
+<TT CLass="monofont">)</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>Returns the hyperbolic sine of <i><tt ClasS="monofont">x</TT></I>
+</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">sqrt(</tt><i><tt clasS="monofont">x</tt></I>
+<tt cLass="monofont">)</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Returns the square root of <i><tt CLASs="monofont">x</tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">tan(</Tt><i><tt CLASs="monofont">x</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P>Returns the tangent of <i><tT claSs="monofont">x</tt></i>
+</P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">tanh(</tt><i><tt class="monofont">x</tt></i>
+<tt clAss="monofont">)</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Returns the hyperbolic tangent of <i><tt CLASs="monofont">x</tt></i>
+</P>
+</FONt></td>
+</tr>
+</colgroup>
+</table></p>
+
+<p>The following constants are defined:</P>
+
+<p><tAble BordeR="1" celLSPAcing="0" CELLpaddING="1" Width="100%">
+<COLGroup span="2">
+<tr>
+<th valign="top">
+<foNt sIze="2">
+<p><B>Constant</b></p>
+</foNt></th>
+<TH VAlign="top">
+<FONT size="2">
+<P><B>Description</B></P>
+</font></TH>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">pi</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Mathematical constant pi</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">e</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Mathematical constant e</p>
+</foNT></TD>
+</tr>
+</coLGROup>
+</table></p>
+
+<p>? <b>See Also</b> <a href="109#6.html">cmath</a> (129).</p>
+
+
+<h4><tT clAss="monofont">random</tT></h4>
+<p>The <tt ClasS="monofont">random</TT>  module provides a variety of functions for generating pseudo-random numbers as well as functions for randomly generating values according to various distributions on the real numbers. Most of the functions in this module depend on the function <Tt claSS="monofont">random()</TT>, which generates uniformly distributed numbers in the range (<tt clASS="monofont">0.0, 1.0</Tt>) using the standard Wichmann-Hill generator.</p>
+
+<p>The following functions are used to control the state of the underlying random-number generator:</p>
+
+<PRE>
+
+<B>seed([ x ])</b> </pre>
+
+<p>Initializes the random-number generator. If <i><tt class="monofont">x</tt></i>
+ is omitted or is <tt clAss="monofont">None</Tt>, the system time is used to seed the generator. Otherwise, if <i><tT clasS="monofont">x</tt></i>
+ is an integer or long integer, its value is used. If <I><TT Class="monofont">x</TT></I>
+ is not an integer, it must be a hashable object and the value of <Tt claSS="monofont">hash(</TT><i><tt cLASS="monofont">x</tt></i>
+<tt class="monofont">)</tt> is used as a seed.</p>
+
+<pre>
+
+<b>getstate()</b> </prE>
+
+<p>Returns an object representing the current state of the generator. This object can later be passed to <tT claSs="monofont">setstate()</tt> to restore the state.</p>
+
+<Pre>
+
+<b>setstate(</B><B><I>state</I></b><b>)</b> </pRE>
+
+<P>Restores the state of the random-number generator from an object returned by <Tt claSS="monofont">getstate()</TT>.</p>
+
+<pre>
+
+<B>jumpahead(</B><B><I>n</i></b><b>)</b> </pre>
+
+<p>Quickly changes the state of the generator to what it would be if <tt class="monofont">random()</tt> were called <i><tt ClaSs="monofont">n</tt></I>
+ times in a row. <i><tt cLass="monofont">n</TT></I>
+ must be a non-negative integer.</P>
+
+<p>The following function can be used to generate random integers:</p>
+
+<prE>
+
+<B>randrange(</B><B><i>start</i></b><b>,</B> <B><I>stop</I></b> <b>[,</b> <b><I>step</I></B><B>])</b> </pre>
+
+<p>Returns a random integer in <tt class="monofont">range(</tt><i><tt claSs="monofont">start</tT></i>
+<tt Class="monofont">,</Tt><i><tT CLAss="monofont">stop</tt></I>
+<TT Class="monofont">,</TT><I><Tt claSS="monofont">step</TT></i>
+<tt class="monofont">)</tt>. Doesn’t include the endpoint.</p>
+
+<p>The following functions can be used to randomly manipulate sequences:</p>
+
+<pre>
+
+<b>choice(</b><b><i>seq</I></b><b>)</B> </pre>
+
+<P>Returns a random element from the nonempty sequence <i><tt cLass="monofont">seq</TT></I>
+.</P>
+
+<pre>
+
+<b>shuffle(</B><B><I>x</I></b> <b>[,</b> <b><I>random</I></B><B>])</b> </pre>
+
+<P>Randomly shuffles the items in the list <I><TT class="monofont">x</tt></i>
+ in place. <i><tt class="monofont">random</tt></i>
+ is an optional argument that specifies a random-generation function. If supplied, it must be a function that takes no arguments and that returns a floating-point number in the range (<tT clAss="monofont">0.0, 1.0</tT>).</p>
+
+<p>The following functions generate random numbers on real numbers. Parameter names correspond to the names in the distribution’s standard mathematical equation.</p>
+
+<pRe>
+
+<b>betavariate(</b><B><I>alpha</I></B><b>,</b> <b><i>beta</I></B><B>)</B> </pre>
+
+<p>Returns a value between <TT CLass="monofont">0</tT>  and <TT Class="monofont">1</tt> from the Beta distribution. <i><tt class="monofont">alpha</tt></i>
+<tt cLasS="monofont"> &gt; -1</tt> and <i><Tt claSs="monofont">beta</tt></I>
+<TT Class="monofont"> &gt; -1</TT>.</P>
+
+<Pre>
+
+<b>cunifvariate(</b><B><I>mean</I></B><b>,</b> <b><i>arc</I></B><B>)</B> </pre>
+
+<p>Circular uniform distribution. <i><tt class="monofont">mean</tt></i>
+ is the mean angle and <i><tt clAss="monofont">arc</Tt></i>
+ is the range of the distribution, centered around the mean angle. Both of these values must be specified in radians in the range between <tT clasS="monofont">0</tt> and <tT CLAss="monofont">pi</tt>. Returned values are in the range <TT CLass="monofont">(</tT><I><TT clasS="monofont">mean</TT></I>
+<tt class="monofont"> - </tt><i><tt class="monofont">arc</tt></i>
+<Tt cLass="monofont">/2, </Tt><i><tt ClasS="monofont">mean</TT></I>
+<tt clASS="monofont"> + </Tt><i><tt CLASs="monofont">arc</tt></i>
+<TT CLass="monofont">/2)</tt>.</p>
+
+<pre>
+
+<b>expovariate(</b><b><i>lambd</i></b><b>)</b> </pre>
+
+<P>Exponential distribution. <i><tT claSs="monofont">lambd</tt></i>
+ is <Tt clASS="monofont">1.0</Tt>  divided by the desired mean. Returns values in the range <tt cLASS="monofont">(0, +8)</tt>.</p>
+
+<pRE>
+
+<B>gamma(</B><b><i>alpha</i></b><B>,</B> <B><I>beta</i></b><b>)</b> </pre>
+
+<p>Gamma distribution. <i><tt class="monofont">alpha</tt></i>
+<tT clAss="monofont"> &gt; -1, </tT><i><tt cLass="monofont">beta</TT></I>
+<Tt claSS="monofont"> &gt; 0</TT>.</p>
+
+<pre>
+
+<B>gauss(</B><B><I>mu</i></b><b>,</b> <B><I>sigma</I></B><b>)</b> </pre>
+
+<p>Gaussian distribution with mean <i><tt class="monofont">mu</tt></i>
+ and standard deviation <i><tt ClaSs="monofont">sigma</tt></I>
+. Slightly faster than <tt clAss="monofont">normalvariate()</tT>.</P>
+
+<PRe>
+
+<b>lognormvariate(</b><b><I>mu</I></B><B>,</b> <b><i>sigma</i></B><B>)</B> </Pre>
+
+<p>Log normal distribution. Taking the natural logarithm of this distribution results in a normal distribution with mean <i><TT CLass="monofont">mu</tt></i>
+, standard deviation <i><tt class="monofont">sigma</tt></i>
+.</p>
+
+<prE>
+
+<b>normalvariate(</b><B><i>mu</i></b><B>,</b> <b><i>sigma</i></B><b>)</b> </pRE>
+
+<P>Normal distribution with mean <I><tt clASS="monofont">mu</Tt></i>
+ and standard deviation <i><tT CLAss="monofont">sigma</tt></I>
+.</P>
+
+<PRe>
+
+<b>paretovariate(</b><b><i>alpha</i></b><b>)</b> </pre>
+
+<p>Pareto distribution with shape parameter <i><tt clasS="monofont">alpha</tt></I>
+.</p>
+
+<prE>
+
+<b>vonmisesvariate(</b><b><i>mu</I></b><b>,</b> <B><I>kappa</I></B><b>)</b> </prE>
+
+<P>von Mises distribution where <I><Tt claSS="monofont">mu</TT></i>
+ is the mean angle in radians between <tt cLASS="monofont">0</tt> and <tt class="monofont">2 * pi</tt>, and <i><tt class="monofont">kappa</tT></i>
+ is a non-negative concentration factor. If <i><Tt clAss="monofont">kappa</tt></I>
+ is zero, the distribution reduces to a uniform random angle over the range <tt cLASS="monofont">0</tt> to <tt CLASs="monofont">2 * pi</tt>.</p>
+
+<PRE>
+
+<B>weibullvariate(</b><b><i>alpha</i></B><B>,</B> <B><i>beta</i></b><b>)</b> </pre>
+
+<p>Weibull distribution with scale parameter <i><tt class="monofont">alpha</tt></i>
+ and shape parameter <I><tt ClasS="monofont">beta</tt></i>
+.</p>
+
+
+<H5>Notes</h5>
+<ul>
+<LI>
+<P>The <Tt claSS="monofont">Numeric</TT>  extension also provides a number of efficient generators for large samples and creating independent random-number streams.</p>
+</li>
+<lI>
+<P>The functions in this module are not thread-safe. If you’re generating random numbers in different threads, you should use locking to prevent concurrent access.</P>
+</Li>
+<li>
+<p>The period of the random-number generator (before numbers start repeating) is 6,953,607,871,644. Although this is better than that found in many programming libraries, it’s not suitable for all applications—especially those related to cryptography.</P>
+</LI>
+<Li>
+<p>New types of random-number generators can be created by subclassing <tt class="monofont">random.Random</tt>  and implementing the <tt class="monofont">random()</tt>, <Tt cLass="monofont">seed()</Tt>, <tt cLass="monofont">getstate()</TT>, <TT clasS="monofont">getstate()</TT>, and <Tt claSS="monofont">jumpahead()</TT> methods. All the other functions in this module are actually internally implemented as methods of <tt clASS="monofont">Random</Tt>. Thus, they could be accessed as methods on an instance of the new random-number generator.</p>
+</li>
+<li>
+<p>Significant modifications were made to this module in Python 2.1. Furthermore, some of its functionality was previously found in the deprecated <tt class="monofont">whrandom</tt>  module. Please refer to the online documentation for details of these changes.</p>
+</li>
+</uL></foNt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="108.html" title="Python Services"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=109" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="109.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="110.html" title="String Handling"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

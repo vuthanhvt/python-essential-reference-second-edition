@@ -1,0 +1,77 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Loops</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="12.html" class="navtitle">1. A Tutorial Introduction</a> &gt; <span class="nonavtitle">Loops</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="19.html" title="Lists and Tuples"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=20" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="20.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="21.html" title="Dictionaries"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A33%3A39+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137110162165009205247068184</font><a href="read6.asp?bookname=0735710910&snode=20&now=5%2F28%2F2002+8%3A33%3A39+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Loops</h3>
+<p>The simple loops shown earlier used the <tT CLAss="monofont">while</tt>  statement. The other looping construct is the <TT CLass="monofont">for</tT>  statement, which iterates over the members of a sequence, such as a string, list, or tuple. Here’s an example:</P>
+
+<PRe>
+
+for i in range(1,10): 
+        print "2 to the %d power is %d" % (i, 2**i) </pre>
+
+<p>The <tt class="monofont">range(</tt><i><tt claSs="monofont">i</tT></i>
+<tt Class="monofont">,</Tt><i><tT CLAss="monofont">j</tt></I>
+<TT Class="monofont">)</TT> function constructs a list of integers with values from <I><Tt claSS="monofont">i</TT></i>
+ to <i><tt class="monofont">j-1</tt></i>
+. If the starting value is omitted, it’s taken to be zero. An optional stride can also be given as a third argument. For example:</p>
+
+<pre>
+
+a = range(5)         # a = [0,1,2,3,4] 
+b = range(1,8)       # b = [1,2,3,4,5,6,7] 
+c = range(0,14,3)    # c = [0,3,6,9,12] 
+d = range(8,1,-1)    # d = [8,7,6,5,4,3,2] </pre>
+
+<p>The <Tt cLass="monofont">for</Tt>  statement can iterate over any sequence type and isn’t limited to sequences of integers:</p>
+
+<prE>
+
+a = "Hello World" 
+# Print out the characters in a 
+for c in a: 
+        print c 
+
+b = ["Dave","Mark","Ann","Phil"] 
+# Print out the members of a list 
+for name in b: 
+        print name </pre>
+
+<P><TT Class="monofont">range()</TT> works by constructing a list and populating it with values according to the starting, ending, and stride values. For large ranges, this process is expensive in terms of both memory and runtime performance. To avoid this, you can use the <TT clasS="monofont">xrange()</TT> function, as shown here:</P>
+
+<pre>
+
+for i in xrange(1,10): 
+        print "2 to the %d power is %d" % (i, 2**i) 
+
+a = xrange(100000000)       # a = [0,1,2, ..., 99999999] 
+b = xrange(0,100000000,5)   # b = [0,5,10, ...,99999995] </pRE>
+
+<P>Rather than creating a sequence populated with values, the sequence returned by <Tt class="monofont">xrange()</tt> computes its values from the starting, ending, and stride values whenever it’s accessed.</p>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="19.html" title="Lists and Tuples"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=20" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="20.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="21.html" title="Dictionaries"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

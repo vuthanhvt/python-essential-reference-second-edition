@@ -1,0 +1,87 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Inheritance</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="72.html" class="navtitle">7. Classes and Object-Oriented Programming</a> &gt; <span class="nonavtitle">Inheritance</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="76.html" title="Reference Counting and Instance Destruction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=77" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="77.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="78.html" title="Polymorphism"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A00%3A48+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105086039028125016133222</font><a href="read5.asp?bookname=0735710910&snode=77&now=5%2F28%2F2002+9%3A00%3A48+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Inheritance</h3>
+<p><i>Inheritance</I> is a mechanism for creating a new class that specializes or modifies the behavior of an existing class. The original class is called a <I>base class</I> or a <I>superclass</i>. The new class is called a <i>derived class</i> or a <i>subclass</I>. When a class is created via inheritance, it “inherits” the attributes defined by its base classes. However, a derived class may redefine any of these attributes and add new attributes of its own.</P>
+
+<P>Inheritance is specified with a comma-separated list of base-class names in the <Tt claSS="monofont">class</TT>  statement. For example:</p>
+
+<pre>
+
+class A: 
+    varA = 42 
+    def method1(self): 
+        print "Class A : method1" 
+
+class B: 
+    varB = 37 
+    def method1(self): 
+        print "Class B : method1" 
+    def method2(self): 
+        print "Class B : method2"   
+class C(A,B):      # Inherits from A and B 
+    varC = 3.3 
+    def method3(self): 
+        print "Class C : method3" 
+
+class D: pass 
+class E(C,D): pass </pre>
+
+<p>When searching for an attribute defined in a base class, the base classes are searched using a depth-first search algorithm in the same order as specified in the class definition. For example, in class E in the preceding example, base classes are searched in the order C,A, B, D. In the event that multiple base classes define the same symbol, the first symbol encountered in the search process is used. For example:</p>
+
+<pre>
+
+c = C()            # Create a 'C' 
+c.method3()        # Invoke C.method3(c) 
+c.method1()        # Invoke A.method1(c) 
+c.varB             # Access B.varB </pre>
+
+<p>If a derived class defines an attribute with the same name as an attribute in a base class, instances of the derived class use the attributes in the derived class. If it’s ever necessary to access the original attribute, a fully qualified name can be used as follows:</p>
+
+<pre>
+
+class D(A): 
+   def method1(self): 
+       print "Class D : method1" 
+       A.method1(self)            # Invoke base class method </Pre>
+
+<P>One notable use of this is in the initialization of class instances. When an instance is created, the <tt cLass="monofont">_ _init_ _()</tT> methods of base classes are not invoked. Thus, it’s up to a derived class to perform the proper initialization of its base classes, if necessary. For example:</p>
+
+<prE>
+
+class D(A): 
+    def _ _init_ _(self, args1): 
+        # Initialize the base class 
+        A._ _init_ _(self) 
+        # Initialize myself 
+        ... </PRE>
+
+<p>Similar steps may also be necessary when defining cleanup actions in the <tt cLASS="monofont">_ _del_ _()</tt> method.</p>
+</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="76.html" title="Reference Counting and Instance Destruction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=77" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="77.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="78.html" title="Polymorphism"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

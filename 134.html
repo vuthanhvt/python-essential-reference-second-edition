@@ -1,0 +1,61 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Threads</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="121.html" class="navtitle">B. Extending and Embedding Python</a> &gt; <span class="nonavtitle">Threads</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="133.html" title="Special Methods for Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=134" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="134.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="135.html" title="Embedding"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A10%3A49+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161104058145062058222054053</font><a href="read2.asp?bookname=0735710910&snode=134&now=5%2F28%2F2002+9%3A10%3A49+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Threads</h3>
+<p>When using threads, a global interpreter lock is used to prevent more than one thread from executing in the interpreter at once. If a function written in an extension module executes for a long time, it will block the execution of other threads until it completes. This is because the lock is held whenever an extension function is invoked. If the extension module is thread-safe, the following macros can be used to release and reacquire the global interpreter lock:</p>
+
+<PRE>
+
+<B>Py_BEGIN_ALLOW_THREADS</b> </pre>
+
+<P>Releases the global interpreter lock and allows other threads to run in the interpreter. The C extension must not invoke any functions in the Python C API while the lock is released.</P>
+
+<PRe>
+
+<b>Py_END_ALLOW_THREADS</b> </pRE>
+
+<P>Reacquires the global interpreter lock. The extension will block until the lock can be acquired successfully in this case.</P>
+
+<p>The following example illustrates the use of these macros:</p>
+
+<pre>
+
+PyObject *spamfunction(PyObject *self, PyObject *args) {
+         ... 
+         PyArg_ParseTuple(args, ...) 
+         Py_BEGIN_ALLOW_THREADS 
+         result = run_long_calculation(args); 
+         Py_END_ALLOW_THREADS 
+         ... 
+         return Py_BuildValue(fmt,result); 
+} </pre>
+
+<p>Many more subtle aspects of threads are not covered here. Readers are strongly advised to consult the C API Reference Manual. In addition, you may need to take steps to make sure that your C extension is thread-safe, as it could be invoked by other Python threads shortly after the interpreter lock is released.</p>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="133.html" title="Special Methods for Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=134" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="134.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="135.html" title="Embedding"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

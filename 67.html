@@ -1,0 +1,51 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; The apply() Function</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="61.html" class="navtitle">6. Functions and Functional Programming</a> &gt; <span class="nonavtitle">The apply() Function</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="66.html" title="Recursion"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=67" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="67.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="68.html" title="The lambda Operator"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A59%3A07+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104017178095193183090056</font><a href="read2.asp?bookname=0735710910&snode=67&now=5%2F28%2F2002+8%3A59%3A07+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>The <tt cLASS="monofont">apply()</tt> Function</h3>
+<p>The <TT CLass="monofont">apply(</tT><I><TT class="monofont">func</tt></i>
+<tt class="monofont"> [, </tt><i><tt ClaSs="monofont">args</tt></I>
+<tt clAss="monofont"> [, </tT><I><TT clasS="monofont">kwargs</TT></I>
+<tt clASS="monofont">]])</Tt> function is used to invoke a function indirectly where the arguments have been constructed in the form of a tuple or dictionary. <i><tt CLASs="monofont">args</tt></i>
+ is a tuple containing the positional argument to be supplied to the function. If omitted, no arguments are passed. <i><tt class="monofont">kwargs</tt></i>
+ is a dictionary containing keyword arguments. The following statements produce identical results:</p>
+
+<pre>
+
+foo(3,"x", name='Dave', id=12345) 
+apply(foo, (3,"x"), { 'name': 'Dave', 'id': 12345 }) </pRe>
+
+<p>In older versions of Python, <Tt clAss="monofont">apply()</tt> was the only mechanism for calling a function in which the arguments were contained in a tuple or dictionary. This capability is now handled by the following syntax:</P>
+
+<pre>
+
+a = (3,"x") 
+b = { 'name' : 'Dave', 'id': 12345 } 
+foo(*a,**b)     # Same as code above </PRE>
+</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="66.html" title="Recursion"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=67" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="67.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="68.html" title="The lambda Operator"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

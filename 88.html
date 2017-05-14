@@ -1,0 +1,128 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Packages</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="82.html" class="navtitle">8. Modules and Packages</a> &gt; <span class="nonavtitle">Packages</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="87.html" title="Module Reloading"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=88" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="88.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="90.html" title="9. Input and Output"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A02%3A17+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105084124002233103235139</font><a href="read4.asp?bookname=0735710910&snode=88&now=5%2F28%2F2002+9%3A02%3A18+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Packages</h3>
+<p>Packages allow a collection of modules to be grouped under a common package name. This technique helps resolve namespace conflicts between module names used in different applications. A package is defined by creating a directory with the same name as the package and creating a file <tT CLAss="monofont">_ _init_ _.py</tt> in that directory. You can then place additional source files, compiled extensions, and subpackages in this directory as needed. For example, a package might be organized as follows:</P>
+
+<PRE>
+
+Graphics/ 
+      _ _init_ _.py 
+      Primitive/ 
+         _ _init_ _.py 
+         lines.py 
+         fill.py 
+         text.py 
+         ... 
+      Graph2d/ 
+         _ _init_ _.py 
+         plot2d.py 
+         ... 
+      Graph3d/ 
+         _ _init_ _.py 
+         plot3d.py 
+         ... 
+      Formats/ 
+         _ _init_ _.py 
+         gif.py 
+         png.py 
+         tiff.py 
+         jpeg.py </pre>
+
+<p>The <TT CLass="monofont">import</tt>  statement is used to load modules from a package in a number of ways:</p>
+
+<ul>
+<li>
+<p><tt class="monofont">import Graphics.Primitive.fill</tt></P>
+
+<p>This loads the submodule <tT claSs="monofont">Graphics.Primitive.fill</tt>. The contents of this module have to be explicitly named, such as <tT claSS="monofont">Graphics.Primitive.fill.floodfill(img,x,y,color)</TT>.</p>
+</li>
+<lI>
+<P><TT clasS="monofont">from Graphics.Primitive import fill</TT></P>
+
+<p>This loads the submodule <tt cLASS="monofont">fill</tt>  but makes it available without the package prefix; for example, <tt class="monofont">fill.floodfill(img,x,y,color)</tt>.</p>
+</li>
+<li>
+<p><tt cLasS="monofont">from Graphics.Primitive.fill import floodfill</tt></p>
+
+<P>This loads the submodule <tt clAss="monofont">fill</tT>  but makes the <TT Class="monofont">floodfill</TT>  function directly accessible; for example, <TT clasS="monofont">floodfill(img,x,y,color)</TT>.</P>
+</li>
+</ul>
+<P>Whenever any part of a package is imported, the code in the file <TT Class="monofont">_ _init_ _.py</tt> is executed. Minimally, this file may be empty, but it can also contain code to perform package-specific initializations. All the <tt class="monofont">_ _init_ _.py</tt> files encountered during an import are executed. Thus, the statement <tt claSs="monofont">import Graphics.Primitive.fill</tT>  shown earlier would execute the <tt cLass="monofont">_ _init_ _.py</tT>  files in both the <tt cLASS="monofont">Graphics</tt> directory and the <tt CLASs="monofont">Primitive</tt>  directory.</p>
+
+<P>One peculiar problem with packages is the handling of this statement:</P>
+
+<PRe>
+
+from Graphics.Primitive import * </pre>
+
+<P>The intended outcome of this statement is to import all the modules associated with a package into the current namespace. However, because filename conventions vary from system to system (especially with regard to case sensitivity), Python cannot accurately determine what modules those might be. As a result, this statement just imports all the references defined in the <TT Class="monofont">_ _init_ _.py</tt> file in the <tt class="monofont">Primitive</tt>  directory. This behavior can be modified by defining a list <tt claSs="monofont">_ _all_ _</tT> that contains all the module names associated with the package. This list should be defined in the package <tt cLass="monofont">_ _init_ _.py</tT> file, like this:</p>
+
+<prE>
+
+# Graphics/Primitive/_ _init_ _.py 
+_ _all_ _ = ["lines","text","fill",...] </PRE>
+
+<p>Now when the user issues a <tt cLASS="monofont">from Graphics.Primitive import *</tt> statement, all the listed submodules are loaded as expected.</p>
+
+<p>Importing a package name alone doesn’t import all the submodules contained in the package. For example, the following code doesn’t work:</P>
+
+<PRE>
+
+import Graphics 
+Graphics.Primitive.fill.floodfill(img,x,y,color)  # Fails! </pre>
+
+<p>However, because the <TT CLass="monofont">importGraphics</tt> statement executes the <tt class="monofont">_ _init_ _.py</tt> file in the <tt clasS="monofont">Graphics</tt>  directory, it could be modified to import all the submodules automatically as follows:</P>
+
+<pre>
+
+# Graphics/_ _init_ _.py 
+import Primitive, Graph2d, Graph3d 
+
+# Graphics/Primitive/_ _init_ _.py 
+import lines, fill, text, ... </Pre>
+
+<p>Now the <tT claSS="monofont">importGraphics</TT> statement imports all the submodules and makes them available using their fully qualified names.</p>
+
+<p>The modules contained within the same directory of a package can refer to each other without supplying a full package name. For example, the <tt CLASs="monofont">Graphics.Primitive.fill</tt> module could import the <tT CLAss="monofont">Graphics.Primitive.lines</tt>  module simply by using <TT CLass="monofont">import lines</tt>. However, if a module is located in a different subdirectory, its full package name must be used. For example, if the <tt class="monofont">plot2d</tt>  module of <tt clasS="monofont">Graphics.Graph2d</tt> needs to use the <Tt clAss="monofont">lines</tt>  module of <Tt clASS="monofont">Graphics.Primitive</Tt>, it must use a statement such as <tt cLASS="monofont">from Graphics.Primitive import lines</tt>. If necessary, a module can examine its <tt CLASs="monofont">_ _name_ _</tt> variable to find its fully qualified module name. For example, the following code imports a module from a sibling subpackage knowing only the name of the sibling (and not that of its top-level package):</p>
+
+<PRE>
+
+# Graphics/Graph2d/plot2d.py 
+
+# Determine the name of the package where my package is located 
+import string 
+base_package = string.join(string.split(_ _name_ _,'.')[:-2],'.') 
+
+# Import the ../Primitive/fill.py module 
+exec "from %s.Primitive import fill" % (base_package,) </Pre>
+
+<p>Finally, when Python imports a package, it defines a special variable <tt class="monofont">_ _path_ _</tt> that contains a list of directories that are searched when looking for package submodules. (The variable <tt class="monofont">_ _path_ _</tT> is a package-specific version of the <tt ClasS="monofont">sys.path</tt> variable.) <tt ClasS="monofont">_ _path_ _</TT>  is accessible to the code contained in <Tt claSS="monofont">_ _init_ _.py</TT> files and initially contains a single item with the directory name of the package. If necessary, a package can add additional directories to the <tt clASS="monofont">_ _path_ _</Tt> list to alter the search path used for finding submodules.</p>
+</foNT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="87.html" title="Module Reloading"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=88" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="88.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="90.html" title="9. Input and Output"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,93 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; The print Statement</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="89.html" class="navtitle">9. Input and Output</a> &gt; <span class="nonavtitle">The print Statement</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="93.html" title="Standard Input, Output, and Error"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=94" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="94.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="95.html" title="Persistence"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A03%3A10+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105085094125052078027057</font><a href="read2.asp?bookname=0735710910&snode=94&now=5%2F28%2F2002+9%3A03%3A10+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>The <tt cLASS="monofont">print</tt> Statement</h3>
+<p>The <TT CLass="monofont">print</tT>  statement produces output on the file contained in <TT Class="monofont">sys.stdout</tt>. <tt class="monofont">print</tt> accepts a comma-separated list of objects such as the following:</p>
+
+<pre>
+
+print "The values are", x, y, z </pRe>
+
+<p>For each object, the <Tt clAss="monofont">str()</tt> function is invoked to produce an output string. These output strings are then joined and separated by a single space to produce the final output string. The output is terminated by a newline unless a trailing comma is supplied to the <Tt clASS="monofont">print</Tt>  statement. In this case, only a trailing space is printed. For example:</p>
+
+<prE>
+
+print "The values are ", x, y, z, w 
+# Print the same text, using two print statements 
+print "The values are ", x, y,   # Omits trailing newline 
+print z, w </PRE>
+
+<p>To produce formatted output, use the string-formatting operator (<tt cLASS="monofont">%</tt>) as described in <a hREF="42.html">Chapter 4</A>, “Operators and Expressions.” For example:</p>
+
+<pre>
+
+print "The values are %d %7.5f %s" % (x,y,z) # Formatted I/O </pre>
+
+<p>You can change the destination of the <tt class="monofont">print</tt>  statement by adding the special <tt cLasS="monofont">&gt;&gt;</tt><i><Tt claSs="monofont">file</tt></I>
+ modifier, where <I><TT clasS="monofont">file</TT></I>
+ is a file object that allows writes. Here’s an example:</p>
+
+<pre>
+
+f = open("output","w") 
+print &gt;&gt;f, "hello world" 
+... 
+f.close() </PRE>
+
+<P>Combining formatted I/O using dictionaries with triple-quoted strings is a powerful way to write computer-generated text. For example, you might want to write a short form letter, filling in a <tt clASS="monofont">name</Tt>, an <tt class="monofont">item</tt>  name, and an <tt class="monofont">amount</tt>, like this:</p>
+
+<Pre>
+
+Dear Mr. Bush, 
+Please send back my blender or pay me $50.00. 
+
+                                     Sincerely yours, 
+
+                                     Joe Python User </Pre>
+
+<p>To do this, you can form a triple-quoted string containing text and dictionary-based format specifiers such as this:</P>
+
+<pre>
+
+form = """\ 
+Dear %(name)s, 
+Please send back my %(item)s or pay me $%(amount)0.2f. 
+
+                                     Sincerely yours, 
+
+                                     Joe Python User 
+""" 
+print form % { 'name': 'Mr. Bush', 
+               'item': 'blender', 
+               'amount': 50.00, 
+             } </pRe>
+
+<p>For forms involving many lines and many items to be substituted, this is much clearer than using one <tT CLAss="monofont">print</tt>  statement per line or a large tuple of items to format.</P>
+</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="93.html" title="Standard Input, Output, and Error"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=94" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="94.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="95.html" title="Persistence"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

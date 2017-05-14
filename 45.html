@@ -1,0 +1,568 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Operations on Sequences</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="42.html" class="navtitle">4. Operators and Expressions</a> &gt; <span class="nonavtitle">Operations on Sequences</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="44.html" title="Operations on Numbers"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=45" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="45.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="46.html" title="Operations on Dictionaries"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A55%3A53+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104029061156021238067083</font><a href="read7.asp?bookname=0735710910&snode=45&now=5%2F28%2F2002+8%3A55%3A53+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Operations on Sequences</h3>
+<p>The following operators can be applied to sequence types, including strings, lists, and tuples:</p>
+
+<P><TABle boRDER="1" cellSPACing="0" cellpadding="1" width="100%">
+<cOlgRoup Span="2">
+<tR>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Operation</b></P>
+</FONt></th>
+<tH VALign="top">
+<font size="2">
+<p><b>Description</b></p>
+</font></tH>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><i><tT CLAss="monofont">s</tt></I>
+<TT Class="monofont"> + </TT><I><Tt class="monofont">r</tt></i>
+</p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>Concatenation</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT class="monofont">s</tt></i>
+<tt class="monofont"> * </tt><i><tt ClaSs="monofont">n</tt></I>
+<tt clAss="monofont">, </tT><I><TT clasS="monofont">n</TT></I>
+<tt clASS="monofont"> * </Tt><i><tt CLASs="monofont">s</tt></i>
+</p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Makes <i><tt cLass="monofont">n</TT></I>
+ copies of <I><tt clASS="monofont">s</Tt></i>
+, where <i><tT CLAss="monofont">n</tt></I>
+ is an integer</P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><i><tT clasS="monofont">s</tt></i>
+<TT CLass="monofont"> % </tT><I><TT clasS="monofont">d</TT></I>
+</p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p>String formatting (strings only)</p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><I><TT Class="monofont">s</TT></I>
+<Tt claSS="monofont">[</TT><i><tt class="monofont">i</tt></i>
+<tt class="monofont">]</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Indexing</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><i><tt class="monofont">s</tt></i>
+<tT clAss="monofont">[</tT><i><tt cLass="monofont">i</TT></I>
+<Tt claSS="monofont">:</TT><i><tt cLASS="monofont">j</tt></i>
+<tT CLAss="monofont">]</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Slicing</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">x</tt></i>
+<tt class="monofont"> in </tt><i><tt class="monofont">s</Tt></i>
+<Tt clAss="monofont">, </tt><I><tt cLASS="monofont">x</tt></i>
+<tT CLAss="monofont"> not in </tt><I><TT Class="monofont">s</TT></I>
+</P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>Membership</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">for </tt><I><TT Class="monofont">x</tt></i>
+<tt class="monofont"> in </tt><i><tt cLasS="monofont">s</tt></i>
+<Tt claSs="monofont">:</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Iteration</P>
+</FONt></td>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">len(</tT><i><tt CLASs="monofont">s</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>Length</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">min(</tt><i><tT CLAss="monofont">s</tt></I>
+<TT Class="monofont">)</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>Minimum item</p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">max(</tt><i><tt class="monofont">s</tt></i>
+<tt clasS="monofont">)</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Maximum item</P>
+</font></TD>
+</TR>
+</colgROUP>
+</table></p>
+
+<p>The <tt class="monofont">+</tt> operator concatenates two sequences of the same type. The <i><tt cLasS="monofont">s</tt></i>
+<Tt claSs="monofont"> * </tt><I><TT Class="monofont">n</TT></I>
+ operator makes <I><tt clASS="monofont">n</Tt></i>
+ copies of a sequence. However, these are shallow copies that replicate elements by reference only. For example, consider the following code:</p>
+
+<pRE>
+
+a = [3,4,5]        # A list 
+b = [a]            # A list containing a 
+c = 4*b            # Make four copies of b 
+
+# Now modify a 
+a[0] == -7 
+
+# Look at c 
+print c </PRe>
+
+<p>The output of this program is the following:</p>
+
+<pre>
+
+[[-7, 4, 5], [-7, 4, 5], [-7, 4, 5], [-7, 4, 5]] </pre>
+
+<p>In this case, a reference to the list <tt class="monofont">a</tt> was placed in the list <tT clAss="monofont">b</tT>. When <tt clAss="monofont">b</tT> was replicated, four additional references to <TT Class="monofont">a</TT> were created. Finally, when <TT clasS="monofont">a</TT> was modified, this change was propagated to all of the other “copies” of <Tt claSS="monofont">a</TT>. This behavior of sequence multiplication is often unexpected and not the intent of the programmer. One way to work around the problem is to manually construct the replicated sequence by duplicating the contents of <tt class="monofont">a</tt>. For example:</p>
+
+<pre>
+
+a = [ 3,, 4, 5 ] 
+c = [a[:] for j in range((4)]  # [:] makes a copy of a list </pre>
+
+<p>The <tt cLasS="monofont">copy</tt>  module in the standard library can also be used to make copies of objects.</p>
+
+<P>The indexing operator <i><tt cLass="monofont">s</TT></I>
+<Tt claSS="monofont">[</TT><i><tt cLASS="monofont">n</tt></i>
+<tT CLAss="monofont">]</tt> returns the <i>n</i>th object from a sequence in which <i><tt class="monofont">s</tt></i>
+<tt cLasS="monofont">[0]</tt> is the first object. Negative indices can be used to fetch items from the end of a sequence. For example, <i><Tt claSs="monofont">s</tt></I>
+<TT Class="monofont">[-1]</TT> returns the last item. Otherwise, attempts to access elements that are out of range result in an <TT clasS="monofont">IndexError</TT>  exception.</P>
+
+<p>The slicing operator <i><tt CLASs="monofont">s</tt></i>
+<tt class="monofont">[</tt><i><tt clasS="monofont">i</tt></I>
+<tt cLass="monofont">:</tT><i><tt CLASs="monofont">j</tt></i>
+<TT CLass="monofont">]</tT> extracts a subsequence from <I><TT clasS="monofont">s</TT></I>
+ consisting of the elements with index <i><tt class="monofont">k</tt></i>
+ where <i><tt class="monofont">i</tT></i>
+<tT claSs="monofont"> &lt;= </tt><i><Tt clASS="monofont">k</Tt></i>
+<tt CLASs="monofont"> &lt; </tt><i><TT CLass="monofont">j</tT></I>
+. Both <I><Tt class="monofont">i</tt></i>
+ and <i><tt class="monofont">j</tt></i>
+ must be integers or long integers. If the starting or ending index is omitted, the beginning or end of the sequence is assumed, respectively. Negative indices are allowed and assumed to be relative to the end of the sequence. If <I><tt ClasS="monofont">i</tt></i>
+ or <i><Tt clASS="monofont">j</Tt></i>
+ is out of range, they’re assumed to refer to the beginning or end of a sequence, depending on whether their value refers to an element before the first item or after the last item, respectively.</p>
+
+<p>The <I><TT Class="monofont">x</TT></I>
+<Tt claSS="monofont"> in </TT><i><tt class="monofont">s</tt></i>
+ operator tests to see whether the object <i><tt class="monofont">x</tT></i>
+ is in the sequence <i><Tt clAss="monofont">s</tt></I>
+ and returns <tt cLASS="monofont">1</tt>  if true, <tt CLASs="monofont">0</tt> if false. Similarly, the <i><TT CLass="monofont">x</tT></I>
+<TT class="monofont"> not in </tt><i><tt class="monofont">s</tt></i>
+ operator tests whether <i><tT clAss="monofont">x</tT></i>
+ is not in the sequence <i><tt ClasS="monofont">s</TT></I>
+. The <tt clASS="monofont">for </Tt><i><tt CLASs="monofont">x</tt></i>
+<TT CLass="monofont"> in </tt><i><tt class="monofont">s</tt></i>
+ operator iterates over all the elements of a sequence and is described further in <a hreF="54.html">Chapter 5</a>, “Control Flow.” <tT claSs="monofont">len(</tt><i><Tt clASS="monofont">s</Tt></i>
+<tt CLASs="monofont">)</tt> returns the number of elements in a sequence. <tT CLAss="monofont">min(</tt><I><TT Class="monofont">s</tt></i>
+<tt class="monofont">)</tt> and <tt clAss="monofont">max(</Tt><i><tT clasS="monofont">s</tt></i>
+<TT CLass="monofont">)</tT> return the minimum and maximum values of a sequence, although the result may only make sense if the elements can be ordered with respect to the <TT Class="monofont">&lt;</TT> operator. (For example, it would make little sense to find the maximum value of a list of file objects.)</P>
+
+<P>Strings and tuples are immutable and cannot be modified after creation. Lists can be modified with the following operators:</p>
+
+<p><taBLE Border="1" cellspacing="0" cellPadDing="1" Width="100%">
+<ColgROUP span="2">
+<TR>
+<TH valiGN="top">
+<FOnt siZE="2">
+<P><B>Operation</b></p>
+</font></th>
+<th valign="top">
+<font SizE="2">
+<p><b>Description</b></P>
+</font></Th>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt clASS="monofont">s</Tt></i>
+<tt class="monofont">[</tt><i><tt class="monofont">i</tT></i>
+<tT claSs="monofont">] = </tt><i><Tt clASS="monofont">x</Tt></i>
+</p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Index assignment</p>
+</font></td>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><i><tT claSS="monofont">s</TT></i>
+<tt cLASS="monofont">[</tt><i><tT CLAss="monofont">i</tt></I>
+<TT Class="monofont">:</tt><i><tt class="monofont">j</tt></i>
+<tt cLasS="monofont">] = </tt><i><Tt claSs="monofont">r</tt></I>
+</P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Slice assignment</P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">del </Tt><i><tT CLAss="monofont">s</tt></I>
+<TT Class="monofont">[</TT><I><Tt claSS="monofont">i</TT></i>
+<tt class="monofont">]</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Deletes an element</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">del </tt><i><tt class="monofont">s</tt></i>
+<tt ClaSs="monofont">[</tt><I><tt clAss="monofont">i</tT></I>
+<TT clasS="monofont">:</TT><I><tt clASS="monofont">j</Tt></i>
+<tt CLASs="monofont">]</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p>Deletes a slice</P>
+</font></Td>
+</tr>
+</COLGroup>
+</TABLe></p>
+
+<p>The <i><TT CLass="monofont">s</tT></I>
+<TT class="monofont">[</tt><i><tt class="monofont">i</tt></i>
+<tt ClaSs="monofont">] = </tt><I><tt clAss="monofont">x</tT></I>
+ operator changes element <I><Tt claSS="monofont">i</TT></i>
+ of a list to refer to object <i><tt CLASs="monofont">x</tt></i>
+, increasing the reference count of <I><TT Class="monofont">x</tt></i>
+. Negative indices are relative to the end of the list and attempts to assign a value to an out-of-range index result in an <tt class="monofont">IndexError</tt>  exception. The slicing assignment operator <i><tt cLasS="monofont">s</tt></i>
+<Tt claSs="monofont">[</tt><I><TT Class="monofont">i</TT></I>
+<Tt claSS="monofont">:</TT><i><tt cLASS="monofont">j</tt></i>
+<tt class="monofont">] = </tt><i><tt class="monofont">r</Tt></i>
+ replaces elements <I><tt cLass="monofont">k</tT></i>
+ where <i><tT CLAss="monofont">i</tt></I>
+<TT Class="monofont"> &lt;= </TT><I><Tt claSS="monofont">k</TT></i>
+<tt class="monofont"> &lt; </tt><i><tt class="monofont">j</tt></I>
+ with elements from sequence <i><tT claSs="monofont">r</tt></i>
+. Indices may have the same values as for slicing and are adjusted to the beginning or end of the list if they’re out of range. If necessary, the sequence <I><tt cLASS="monofont">s</tt></i>
+ is expanded or reduced to accommodate all the elements in <i><TT CLass="monofont">r</tT></I>
+. For example:</P>
+
+<Pre>
+
+a = [1,2,3,4,5] 
+a[1] = 6            # a = [1,6,3,4,5] 
+a[2:4] = [10,11]    # a = [1,6,10,11,5] 
+a[3:4] = [-1,-2,-3] # a = [1,6,10,-1,-2,-3,5] 
+a[2:] = [0]         # a = [1,6,0] </prE>
+
+<P>The <TT class="monofont">del </tt><i><tt class="monofont">s</tt></i>
+<tt ClaSs="monofont">[</tt><I><tt clAss="monofont">i</tT></I>
+<TT clasS="monofont">]</TT> operator removes element <I><tt clASS="monofont">i</Tt></i>
+ from a list and decrements its reference count. <tt CLASs="monofont">del </tt><i><tt class="monofont">s</tt></i>
+<tt clasS="monofont">[</tt><I><tt cLass="monofont">i</tT></i>
+<tt CLASs="monofont">:</tt><i><TT CLass="monofont">j</tT></I>
+<TT clasS="monofont">]</TT> removes all the elements in a slice.</P>
+
+<p>Sequences are compared using the operators <tt class="monofont">&lt;</tt>, <tt class="monofont">&gt;</tt>, <tT clAss="monofont">&lt;=</tT>, <tt clAss="monofont">&gt;=</tT>, <TT Class="monofont">==</TT>, and <TT clasS="monofont">!=</TT>. When comparing two sequences, the first elements of each sequence are compared. If they differ, this determines the result. If they’re the same, the comparison moves to the second element of each sequence. This process continues until two different elements are found or no more elements exist in either of the sequences. If <I><tt clASS="monofont">a</Tt></i>
+ is an initial subsequence of <i><tt class="monofont">b</tt></i>
+, then <i><tt clasS="monofont">a</tt></I>
+<tt cLass="monofont"> &lt; </tT><i><tt CLASs="monofont">b</tt></i>
+. Strings are compared using lexicographical ordering. Each character is assigned a unique index determined by the machine’s character set (such as ASCII or Unicode). A character is less than another character if its index is less.</P>
+
+<P>The modulo operator <I><Tt claSS="monofont">s</TT></i>
+<tt cLASS="monofont"> % </tt><i><tt class="monofont">d</tt></i>
+ produces a formatted string, given a format string <i><tt clasS="monofont">s</tt></I>
+ and a collection of objects in a tuple or mapping object (dictionary). The string <i><tt Class="monofont">s</Tt></i>
+ may be a standard or a Unicode string. The behavior of this operator is similar to the C <tT CLAss="monofont">sprintf()</tt> function. The format string contains two types of objects: ordinary characters (which are left unmodified) and conversion specifiers—each of which is replaced with a formatted string representing an element of the associated tuple or mapping. If <I><TT Class="monofont">d</TT></I>
+ is a tuple, the number of conversion specifiers must exactly match the number of objects in <I><tt clASS="monofont">d</Tt></i>
+. If <i><tt class="monofont">d</tt></i>
+ is a mapping, each conversion specifier must be associated with a valid key name in the mapping (using parentheses, as described shortly). Each conversion specifier starts with the <tt class="monofont">%</Tt> character and ends with one of the conversion characters shown in <a Href="45#2.html">Table 4.1</A>.</p>
+
+<a naMe="2"></a><p><TABLe borDER="1" CellsPACIng="0" ceLLPAdding="1" width="100%">
+<caption><h5>Table 4.1.  String Formatting Conversions</h5></cAptIon><cOlgroUp spAN="2">
+<TR>
+<th vaLIGN="top">
+<font SIZE="2">
+<p><b>Character</b></p>
+</FONT></th>
+<th valign="top">
+<font size="2">
+<p><b>Output Format</B></p>
+</fOnt></tH>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">d,i</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Decimal integer or long integer.</p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">u</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>Unsigned integer or long integer.</p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">o</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p>Octal integer or long integer.</p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">x</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>Hexadecimal integer or long integer.</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">X</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p>Hexadecimal integer (uppercase letters).</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">f</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Floating point as <tt class="monofont">[-]</tt><i><tt class="monofont">m</Tt></i>
+<Tt clAss="monofont">.</tt><I><tt cLASS="monofont">dddddd</tt></i>
+.</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">e</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>Floating point as <tt clASS="monofont">[-]</Tt><i><tt CLASs="monofont">m</tt></i>
+<TT CLass="monofont">.</tt><i><tt class="monofont">dddddde</tt></i>
+<tt clAss="monofont">±</Tt><i><tT clasS="monofont">xx</tt></i>
+.</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">E</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>Floating point as <tt cLASS="monofont">[-]</tt><i><tT CLAss="monofont">m</tt></I>
+<TT Class="monofont">.</TT><I><Tt class="monofont">ddddddE</tt></i>
+<tt class="monofont">±</tt><i><tT clAss="monofont">xx</tT></i>
+.</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">g,G</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>Use <tT clasS="monofont">%e</tt>  or <tT CLAss="monofont">%E</tt>  for exponents less than -4 or greater than the precision; otherwise, use <TT CLass="monofont">%f</tT>.</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">s</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>String or any object. The formatting code uses <tt CLASs="monofont">str()</tt> to generate strings.</p>
+</FONT></td>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">r</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Produces the same string as produced by <tt clASS="monofont">repr()</Tt>.</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">c</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Single character.</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">%</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Literal <tT CLAss="monofont">%</tt>.</p>
+</font></td>
+</tr>
+</colgrouP>
+</taBle></p>
+
+<P>Between the <tt clAss="monofont">%</tT> and the conversion character, the following modifiers may appear, in this order:</P>
+
+<OL type="1">
+<LI>
+
+<P> A key name in parentheses, which selects a specific item out of the mapping object. If no such element exists, a <Tt claSS="monofont">KeyError</TT>  exception is raised.</p>
+</li>
+<lI>
+
+<P> One or more of the following:</P>
+
+<Ul>
+<li>
+<p>sign, indicating left alignment.</p>
+</li>
+<li>
+<p><tt class="monofont">+</tt> sign, indicating that the numeric sign should be included (even if positive).</p>
+</Li>
+<lI>
+<p><tt Class="monofont">0</Tt>, indicating a zero fill.</p>
+</lI>
+</UL></Li>
+<li>
+
+<p> A number specifying the minimum field width. The converted value will be printed in a field at least this wide and padded on the left (or right if the flag is given) to make up the field width.</P>
+</LI>
+<Li>
+
+<p> A period separating the field width from a precision.</p>
+</lI>
+<LI>
+
+<P> A number specifying the maximum number of characters to be printed from a string, the number of digits following the decimal point in a floating-point number, or the minimum number of digits for an integer.</p>
+</li>
+</oL>
+
+<P>In addition, the asterisk (<TT class="monofont">*</tt>) character may be used in place of a number in any width field. If present, the width will be read from the next item in the tuple.</p>
+
+<p>The following code illustrates a few examples:</p>
+
+<pre>
+
+a = 42 
+b = 13.142783 
+c = "hello" 
+d = {'x':13, 'y':1.54321, 'z':'world'} 
+e = 5628398123741234L 
+
+print 'a is %d' % a             #  "a is 42" 
+print '%10d %f' % (a,b)         #  " 42 13.142783" 
+print '%+010d %E' % (a,b)       #  "+000000042 1.314278E+01" 
+print '%(x)-10d %(y)0.3g' % d   #  "13         1.54" 
+print '%0.4s %s' % (c, d['z'])  #  "hell world" 
+print '%*.*f' % (5,3,b)         #  "13.143" 
+print 'e = %d' % e              #  "e = 5628398123741234" </pre>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="44.html" title="Operations on Numbers"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=45" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="45.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="46.html" title="Operations on Dictionaries"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

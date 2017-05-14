@@ -1,0 +1,99 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Defining New Exceptions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="54.html" class="navtitle">5. Control Flow</a> &gt; <span class="nonavtitle">Defining New Exceptions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="58.html" title="Exceptions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=59" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="59.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="60.html" title="Assertions and _ _debug_ _ "><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A58%3A06+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104016132043219194028022</font><a href="read7.asp?bookname=0735710910&snode=59&now=5%2F28%2F2002+8%3A58%3A06+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Defining New Exceptions</h3>
+<p>All the built-in exceptions are defined in terms of classes. To create a new exception, create a new class definition that inherits from <tT CLAss="monofont">exceptions. Exception</tt>  such as the following:</P>
+
+<PRE>
+
+import exceptions 
+# Exception class 
+class NetworkError(exceptions.Exception): 
+     def _ _init_ _(self,args=None): 
+         self.args = args </pre>
+
+<p>The name <TT CLass="monofont">args</tt>  should be used as shown. This allows the value used in the <tt class="monofont">raise</tt> statement to be properly printed in tracebacks and other diagnostics. In other words,</p>
+
+<pre>
+
+raise NetworkError, "Cannot find host." </prE>
+
+<p>creates an instance of <tT claSs="monofont">NetworkError</tt>  using the call</p>
+
+<Pre>
+
+NetworkError("Cannot find host.") </pRE>
+
+<P>The object that is created will print itself as <Tt claSS="monofont">NetworkError: Cannot find host</TT>. If you use a name other than <tt clASS="monofont">self.args</Tt>  or you don’t store the argument, this feature won’t work correctly.</p>
+
+<p>When an exception is raised, the optional value supplied in the <tT CLAss="monofont">raise</tt>  statement is used as the argument to the exception’s class constructor. If the constructor for an exception requires more than one argument, it can be raised in two ways:</p>
+
+<pre>
+
+import exceptions 
+# Exception class 
+class NetworkError(exceptions.Exception): 
+     def _ _init_ _(self,errno,msg): 
+     self.args = (errno, msg) 
+     self.errno = errno 
+     self.errmsg = msg 
+
+# Raises an exception (multiple arguments) 
+def error2(): 
+     raise NetworkError(1, 'Host not found') 
+
+# Raises an exception (multiple arguments) 
+def error3(): 
+     raise NetworkError, (1, 'Host not found') </pre>
+
+<p>Class-based exceptions enable you to create hierarchies of exceptions. For instance, the <tt class="monofont">NetworkError</tT>  exception defined earlier could serve as a base class for a variety of more specific errors. For example:</p>
+
+<pRe>
+
+class HostnameError(NetworkError): 
+    pass 
+
+class TimeoutError(NetworkError): 
+    pass 
+
+def error3(): 
+    raise HostnameError 
+
+def error4(): 
+    raise TimeoutError 
+
+try: 
+    error3() 
+except NetworkError: 
+    import sys 
+    print sys.exc_type    # Prints exception type </prE>
+
+<p>In this case, the <tt cLass="monofont">exceptNetworkError</TT> statement catches any exception derived from <TT clasS="monofont">NetworkError</TT>. To find the specific type of error that was raised, examine the variable <Tt claSS="monofont">sys.exc_type</TT>. Similarly, the <tt clASS="monofont">sys.exc_value</Tt>  variable contains the value of the last exception. Alternatively, the <tt class="monofont">sys.exc_info()</tt> function can be used to retrieve exception information in a manner that doesn’t rely on global variables and is thread-safe.</p>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="58.html" title="Exceptions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=59" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="59.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="60.html" title="Assertions and _ _debug_ _ "><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,126 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Reference Counting</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="121.html" class="navtitle">B. Extending and Embedding Python</a> &gt; <span class="nonavtitle">Reference Counting</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="127.html" title="Error Handling"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=128" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="128.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="129.html" title="Calling Python from C"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A09%3A38+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105095080115231005169016</font><a href="read9.asp?bookname=0735710910&snode=128&now=5%2F28%2F2002+9%3A09%3A38+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Reference Counting</h3>
+<p>Unlike programs written in Python, C extensions have to manipulate the reference count of Python objects. This is done using the following macros:</p>
+
+<P><TABle boRDER="1" cellSPACing="0" cellpadding="1" width="100%">
+<cOlgRoup Span="2">
+<tR>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Macro</b></P>
+</FONt></th>
+<tH VALign="top">
+<font size="2">
+<p><b>Description</b></p>
+</font></tH>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">Py_INCREF(</tt><i><TT CLass="monofont">obj</tT></I>
+<TT class="monofont">)</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>Increments the reference count of <i><Tt clASS="monofont">obj</Tt></i>
+, which must be non-<tt CLASs="monofont">NULL</tt></p>
+</FONT></td>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">Py_DECREF(</tT><i><tt Class="monofont">obj</Tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Decrements the reference count of <i><tt class="monofont">obj</tt></i>
+, which must be non-<tt claSs="monofont">NULL</tT></p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">Py_XINCREF(</tT><I><TT class="monofont">obj</tt></i>
+<tt class="monofont">)</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Increments the reference count of <i><tt CLASs="monofont">obj</tt></i>
+, which may be <TT CLass="monofont">NULL</tT></P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">Py_XDECREF(</Tt><i><tT CLAss="monofont">obj</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p>Decrements the reference count of <i><tt claSs="monofont">obj</tT></i>
+, which may be <tt Class="monofont">NULL</Tt></p>
+</fONT></Td>
+</tr>
+</cOLGRoup>
+</tABLE></p>
+
+<p>Manipulating the reference count of Python objects in C is a delicate topic, and readers are strongly advised to consult the “Extending and Embedding the Python Interpreter” document available at <a tARGEt="_blank" href="http://www.python.org/doc/ext">http://www.python.org/doc/ext</a> before proceeding any further. With this in mind, all Python objects are manipulated in C through the use of pointers of type <tt class="monofont">PyObject *</tt>. Furthermore, these pointers are classified into two categories: owned references and borrowed references. An <i>owned reference</i> is a pointer to a Python object in which the reference count of that object has been updated to reflect the fact that some piece of C code or a C data structure is holding a pointer to it. A <i>borrowed reference,</i> on the other hand, is simply a bare pointer to a Python object in which the reference count of the object has not been updated.</p>
+
+<P>Owned references are most commonly created by functions that create new Python objects, such as <tt ClasS="monofont">Py_BuildValue()</tt>, <tt ClasS="monofont">PyInt_FromLong()</TT>, and <Tt claSS="monofont">PyList_New()</TT>. When called, a new Python object is created and the object is said to be <i>owned</i> by the calling function. Borrowed references often appear when a function obtains a pointer to a Python object from elsewhere or when the contents of Python objects such as lists and dictionaries are extracted. For example, the <tt CLASs="monofont">self</tt>  and <tT CLAss="monofont">args</tt> parameters of a wrapper function are borrowed references, as is the pointer returned by functions such as <tt class="monofont">PyList_GetItem()</tt>.</p>
+
+<p>The owner of a reference must either give up ownership using the <tt claSs="monofont">Py_DECREF()</tT> macro or transfer ownership elsewhere. For example, temporary objects created inside a wrapper function should be destroyed using <tt cLass="monofont">Py_DECREF()</tT>, whereas the return value of a wrapper is an owned reference that’s given back to the interpreter. Likewise, the holder of a borrowed reference can obtain ownership using the <tt cLASS="monofont">Py_INCREF()</tt> macro. However, special care is in order. For example, decrementing the reference count of a borrowed reference may cause the interpreter to crash with a segmentation fault at a later time during execution. Likewise, failure to release an owned reference or inadvertently increasing the reference count of an object will lead to memory leaks.</p>
+
+<p>Figuring out Python’s reference-counting scheme is tricky because there are several inconsistencies in its treatment of references. However, here are a few general rules:</P>
+
+<UL>
+<Li>
+<p>Functions that create new Python objects always return owned references.</p>
+</lI>
+<LI>
+<P>If you want to save a reference to a Python object, use <tt clASS="monofont">Py_INCREF()</Tt> to increase the reference count.</p>
+</li>
+<li>
+<p>To dispose of an owned reference, use <tt class="monofont">Py_DECREF()</tt>.</p>
+</li>
+<lI>
+<p>Many (but not all) functions that return pointers to objects contained in sequences and mapping objects return owned references.</p>
+</Li>
+<li>
+<P>Many (but not all) functions that store objects in containers such as sequences and mappings increase the reference count of objects they contain.</p>
+</li>
+<lI>
+<p>All C wrapper functions must return an owned reference.</p>
+</lI>
+</UL>
+<P>Exceptions to these rules are noted in later sections of this appendix.</p>
+</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="127.html" title="Error Handling"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=128" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="128.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="129.html" title="Calling Python from C"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

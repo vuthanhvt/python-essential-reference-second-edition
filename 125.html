@@ -1,0 +1,588 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Converting Data from Python to C</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="121.html" class="navtitle">B. Extending and Embedding Python</a> &gt; <span class="nonavtitle">Converting Data from Python to C</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="124.html" title="Compilation of Extensions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=125" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="125.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="126.html" title="Converting Data from C to Python"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A09%3A04+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105095080112008053028057</font><a href="read5.asp?bookname=0735710910&snode=125&now=5%2F28%2F2002+9%3A09%3A04+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Converting Data from Python to C</h3>
+<p>The following functions are used to convert arguments passed from Python to C.</p>
+
+<PRE>
+
+<B>int PyArg_ParseTuple(PyObject *</b> <b><i>args</i></B><B>, char *</B> <B><i>format</i></b><b>, ...);</B> </PRE>
+
+<p>Parses a tuple of objects in <i><tt class="monofont">args</tt></i>
+  into a series of C variables. <i><tt class="monofont">format</Tt></i>
+  is a format string containing zero or more of the specifier strings from Table B.1, which describes the expected contents of <I><tt cLass="monofont">args</tT></i>
+. All the remaining arguments contain the addresses of C variables into which the results will be placed. The order and types of these arguments must match the specifiers used in <i><tT CLAss="monofont">format</tt></I>
+  and use the C datatypes listed in <A HRef="125#2.html">Table B.1</a>. Zero is returned if the arguments could not be parsed.</p>
+
+<PRE>
+
+<B>int PyArg_ParseTupleAndKeywords(PyObject *</b> <b><i>args</i></B><B>, PyObject *</B> <B><i>kwdict</i></b><b>,</b> 
+                                <b>char *</b> <b><i>format</i></b><b>, char **</b> <b><i>kwlist</i></b><b>, ...);</b> </pRe>
+
+<p>Parses both a tuple of arguments and a dictionary containing keyword arguments contained in <I><tt cLass="monofont">kwdict</tT></i>
+  . <i><tT CLAss="monofont">format</tt></I>
+ has the same meaning as for <TT Class="monofont">PyArg_ParseTuple()</TT>. The only difference is that <I><Tt claSS="monofont">kwlist</TT></i>
+  is a null-terminated list of strings containing the names of all the arguments. Returns <tt class="monofont">1</tt>  on success, <tt class="monofont">0</tt> on error.</p>
+
+<P><i>Note:</i> In Table B.1, results of a conversion (for example, in <Tt clAss="monofont">char *</tt><I><tt cLASS="monofont">r</tt></i>
+ or <tT CLAss="monofont">char **</tt><I><TT Class="monofont">r</TT></I>
+) are always placed in the parameter labeled <I><tt class="monofont">r</tt></i>
+. When applicable, a length is stored in <i><tt class="monofont">len</tt></I>
+.</p>
+
+<a Name="2"></A><p><tabLe boRDER="1" cellSPACing="0" cELLPaddiNG="1" WIdth="100%">
+<caption><h5>Table B.1.  Base Format Specifiers and Associated C Datatypes for <tt class="monofont">PyArg_Parse*</tt></H5></caPtioN><colgRoup SPAN="3">
+<tr>
+<th VALIgn="top">
+<foNT SIze="2">
+<p><b>Format</B></P>
+</FOnt></th>
+<th valign="top">
+<font size="2">
+<P><b>Python Type</b></P>
+</fonT></th>
+<th ValiGN="top">
+<FOnt siZE="2">
+<P><B>C Type</b></p>
+</foNT></TH>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">"s"</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>String or Unicode</P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">char **</tt><i><tt clAss="monofont">r</Tt></i>
+</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">"s#"</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>String or Unicode</P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">char **</TT><i><tt cLASS="monofont">r</tt></i>
+<tt class="monofont">, int *</tt><i><tt class="monofont">len</Tt></i>
+</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">"z"</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p>String, Unicode, or None</P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">char **</tT><I><TT clasS="monofont">r</TT></I>
+</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">"z#"</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>String, Unicode, or None</P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">char **r, int *</tt><i><tT claSS="monofont">len</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">"u"</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>Unicode</P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">Py_UNICODE **</tt><i><tt class="monofont">r</tt></i>
+</p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">"u#"</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>Unicode</p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><Tt claSS="monofont">Py_UNICODE **</TT><i><tt cLASS="monofont">r</tt></i>
+<tT CLAss="monofont">, int *</tt><i><tt class="monofont">len</tt></i>
+</p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">"es"</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p>String, Unicode, or buffer</p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">const char *</tT><I><TT clasS="monofont">enc</TT></I>
+<tt clASS="monofont">, char **</Tt><i><tt class="monofont">r</tt></i>
+</p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">"es#"</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>String, Unicode, or buffer</p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">const char *</tt><i><tT CLAss="monofont">enc</tt></I>
+<TT Class="monofont">, char **</TT><I><Tt class="monofont">r</tt></i>
+<tt class="monofont">, int *</tt><i><tT clAss="monofont">len</tT></i>
+</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">"b"</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>Integer</p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">char *</tt><i><TT CLass="monofont">r</tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">"h"</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Integer</p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">short *</tt><I><TT Class="monofont">r</TT></I>
+</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">"i"</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Integer</P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">int *</tt><i><tt clasS="monofont">r</tt></I>
+</p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">"l"</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P>Integer</p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">long int *</TT><I><Tt claSS="monofont">r</TT></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">"c"</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>String of length 1</P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">char *</tt><i><Tt clASS="monofont">r</Tt></i>
+</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">"f"</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>Float</P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">float *</tt><i><tt class="monofont">r</tt></i>
+</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">"d"</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p>Float</p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">double *</Tt><i><tt CLASs="monofont">r</tt></i>
+</P>
+</FONt></td>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">"D"</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Complex</p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">Py_complex *</tt><i><Tt claSs="monofont">r</tt></I>
+</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">"O"</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Any</p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">PyObject **</tt><i><tt class="monofont">r</tt></i>
+</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">"O!"</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p>Any</p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">PyTypeObject *</tt><I><TT Class="monofont">type</TT></I>
+<Tt claSS="monofont">, PyObject **</TT><i><tt class="monofont">r</tt></i>
+</p>
+</font></td>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><Tt claSS="monofont">"O&amp;"</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p>Any</p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">int (*</Tt><i><tt CLASs="monofont">converter</tt></i>
+<TT CLass="monofont">)(PyObject *, void *), void *</tT><I><TT class="monofont">r</tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">"S"</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p>String</p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">PyObject **</TT><I><Tt claSS="monofont">r</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">"U"</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>Unicode</P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">PyObject **</tt><i><tt clAss="monofont">r</Tt></i>
+</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">"t#'</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>Read-only buffer</P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">char **</TT><i><tt cLASS="monofont">r</tt></i>
+<tt class="monofont">, int *</tt><i><tt class="monofont">len</Tt></i>
+</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">"w"</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p>Read-write buffer</P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">char **</tT><I><TT clasS="monofont">r</TT></I>
+</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">"w#"</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Read-write buffer</P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">char **</tt><i><tT claSS="monofont">r</TT></i>
+<tt cLASS="monofont">, int *</tt><i><tT CLAss="monofont">len</tt></I>
+</P>
+</FOnt></td>
+</tr>
+</colgroup>
+</table></p>
+
+<P>When converting integer values, an <tt ClasS="monofont">OverflowError</tt>  exception is raised if the Python integer is too large to fit into the requested C datatype. Long integers may also be used anyplace an integer is expected, provided that they’re small enough to fit.</p>
+
+<p>When converting strings with the <Tt clASS="monofont">"s"</Tt>, <tt cLASS="monofont">"s#"</tt>, <tt CLASs="monofont">"z"</tt>, or <tT CLAss="monofont">"z#"</tt> specifiers, both standard and Unicode strings may be used. The <tt class="monofont">"z"</tt>  specifiers also allow <tt class="monofont">None</Tt> to be passed, in which case a <tT claSs="monofont">NULL</tt>  pointer is returned. In both cases, it’s unnecessary to allocate space for the returned string—a pointer to the raw string data stored in the Python interpreter is returned. When Unicode strings are passed, they’re first converted to an 8-bit string using the default Unicode encoding. The <tT claSS="monofont">"u"</TT> and <tt clASS="monofont">"u#"</Tt> specifiers require a Unicode string and return a pointer to raw Unicode string data, where each character is of type <tt cLASS="monofont">Py_UNICODE</tt> (which is currently the same as the  C <tt CLASs="monofont">wchar_t</tt>  type). The <tt class="monofont">"s#"</tt>, <tt class="monofont">"z#"</tT>, and <tt ClasS="monofont">"u#"</tt> specifiers return the string length in addition to the string data.</p>
+
+<p>The <Tt clASS="monofont">"es"</Tt> and <tt cLASS="monofont">"es#"</tt> specifiers are used to read a string or Unicode string that has been encoded according to a specific encoding rule. For example:</p>
+
+<pRE>
+
+char *buffer; 
+PyArg_ParseTuple(args,"es","utf-8",&amp;buffer); </PRe>
+
+<p>In this case, <tt CLASs="monofont">PyArg_ParseTuple()</tt> first reads an encoding name and then returns a pointer to a buffer in which an encoded version of the string has been placed. This buffer contains dynamically allocated memory and must be explicitly deallocated using <tt class="monofont">PyMem_Free()</tt> after the caller has finished using the encoded contents. The <tt class="monofont">"es#"</tT> specifier optionally accepts a buffer length. In this case, a user can pass the address and length of a preallocated buffer in which encoded string data will be placed. The <i><tT claSs="monofont">len</tt></i>
+  parameter is always set to the actual length of the encoded data upon return.</P>
+
+<p>The <tt CLASs="monofont">"t#"</tt>, <tT CLAss="monofont">"w"</tt>, and <TT CLass="monofont">"w#"</tT> specifiers are similar to the string-conversion specifiers, but return a pointer to byte-oriented data stored in a Python object implementing the buffer interface. String and Unicode objects provide this interface, as do selected types in the standard library, such as arrays created with the <TT Class="monofont">array</tt>  module and <tt class="monofont">mmap</tt>  objects created by the <tt claSs="monofont">mmap</tT>  module.</p>
+
+<p>The <tT clasS="monofont">"O"</tt>, <tT CLAss="monofont">"S"</tt>, and <TT CLass="monofont">"U"</tT> specifiers return raw Python objects of type <TT Class="monofont">PyObject *</TT>. <TT class="monofont">"S"</tt> and <tt class="monofont">"U"</tt> restrict this object to be a string or Unicode string, respectively.</p>
+
+<p>The <tt ClaSs="monofont">"O!"</tt> conversion requires two C arguments: a pointer to a Python type object and a pointer to a <Tt claSs="monofont">PyObject *</tt> into which a pointer to the object is placed. A <TT CLass="monofont">TypeError</tT> is raised if the type of the object doesn’t match the type object. For example:</P>
+
+<PRe>
+
+/* Parse a List Argument */ 
+PyObject *listobj1; 
+PyArg_ParseTuple(args,"O!", &amp;PyList_Type, &amp;listobj1); </pre>
+
+<P>The <TT Class="monofont">"O&amp;"</TT> conversion takes two arguments (<I><Tt class="monofont">converter</tt></i>
+<tt class="monofont">, </tt><i><tT clAss="monofont">addr</tT></i>
+) and uses a function to convert a <tt cLass="monofont">PyObject *</TT>  to a C datatype. <I><Tt claSS="monofont">converter</TT></i>
+ is a pointer to a function with the prototype <tt cLASS="monofont">int </tt><i><tT CLAss="monofont">converter</tt></i>
+<tt class="monofont">(PyObject *</tt><i><tt claSs="monofont">obj</tT></i>
+<tt Class="monofont">, void *</Tt><i><tT CLAss="monofont">addr</tt></I>
+<TT Class="monofont">)</TT>,  where <I><Tt claSS="monofont">obj</TT></i>
+ is the passed Python object, and <i><tt class="monofont">addr</tt></i>
+  is the address supplied as the second argument. <i><tt class="monofont">converter</Tt></i>
+<Tt clAss="monofont">()</tt> should return <Tt clASS="monofont">1</Tt>  on success, <tt cLASS="monofont">0</tt> on failure. On error, the converter should also raise an exception. For example:</p>
+
+<pRE>
+
+struct Point {
+     int x; 
+     int y; 
+}; 
+
+int convert_point(PyObject *obj, void *addr) {
+    Point *p = (Point *) addr; 
+    return PyArg_ParseTuple(obj,"ii", &amp;p-&gt;x, &amp;p-&gt;y); 
+} 
+... 
+PyObject *wrapper(PyObject *self, PyObject *args) {
+    Point p; 
+    ... 
+    /* Get a point */ 
+    if (!PyArg_ParseTuple(args,'O&amp;",convert_point, &amp;p)) 
+        return NULL; 
+    ... 
+} </PRe>
+
+<p><a hREF="125#4.html">Table B.2</A> lists format modifiers that can also be used in format strings.</p>
+
+<a name="4"></a><p><table border="1" cEllSpacIng="0" ceLlpaDDINg="1" widTH="100%">
+<CAptioN><H5>Table B.2.  Format String Modifiers</H5></CaptiON><COlgroup span="2">
+<tr>
+<th valign="top">
+<FonT sizE="2">
+<p><b>Format String</b></p>
+</Font></TH>
+<TH valiGN="top">
+<FOnt siZE="2">
+<P><B>Description</b></p>
+</foNT></TH>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">"(</tt><i><tT claSS="monofont">items</TT></i>
+<tt cLASS="monofont">)"</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>A tuple of objects</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">"|"</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Start of optional arguments</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">":"</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>End of arguments (the remaining text is the function name)</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">";"</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>End of arguments (the remaining text is the error message)</p>
+</font></td>
+</tr>
+</colgroup>
+</taBle></P>
+
+<p><tt Class="monofont">"|"</Tt> specifies that all remaining arguments are optional. This can appear only once in a format specifier and cannot be nested. <tt CLASs="monofont">":"</tt> indicates the end of the arguments. Any text that follows is used as the function name in any error messages. <tT CLAss="monofont">";"</tt> signals the end of the arguments. Any following text is used as the error message. <I>Note:</I> Only one of <TT clasS="monofont">:</TT> and <Tt class="monofont">;</tt> should be used. <a href="125#6.html">Listing B.2</a> shows some examples:</p>
+
+
+<h5>
+<a namE="6"></a>Listing B.2 Format Specifiers</h5>
+<Pre cLass="monofont">
+int       ival, ival2, len; 
+double    dval; 
+char     *sval; 
+PyObject *o1, *o2; 
+
+/* Parse an integer, double, and a string */ 
+PyArg_ParseTuple(args,"ids", &amp;ival, &amp;dval, &amp;sval); 
+
+/* Parse a string and length */ 
+PyArg_ParseTuple(args,"s#", &amp;sval, &amp;len); 
+
+/* Parse optional arguments */ 
+PyArg_ParseTuple(args,"id|s", &amp;ival, &amp;dval, &amp;sval); 
+
+/* Parse with an error message */ 
+PyArg_ParseTuple(args,"ii; gcd requires 2 integers", &amp;ival, &amp;ival2); 
+
+/* Parse two tuples */ 
+PyArg_ParseTuple(args,"(ii)(ds)", &amp;ival, &amp;ival2, &amp;dval, &amp;sval); </pRe></foNT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="124.html" title="Compilation of Extensions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=125" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="125.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="126.html" title="Converting Data from C to Python"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

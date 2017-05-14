@@ -1,0 +1,231 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Augmented Assignment</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="42.html" class="navtitle">4. Operators and Expressions</a> &gt; <span class="nonavtitle">Augmented Assignment</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="46.html" title="Operations on Dictionaries"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=47" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="47.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="48.html" title="The Attribute ( . ) Operator"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A56%3A16+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104030195076075218197060</font><a href="read1.asp?bookname=0735710910&snode=47&now=5%2F28%2F2002+8%3A56%3A16+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Augmented Assignment</h3>
+<p>Python provides the following set of augmented assignment operators:</p>
+
+<P><TABle boRDER="1" cellSPACing="0" cellpadding="1" width="100%">
+<cOlgRoup Span="2">
+<tR>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Operation</b></P>
+</FONt></th>
+<tH VALign="top">
+<font size="2">
+<p><b>Description</b></p>
+</font></tH>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><i><tT CLAss="monofont">x</tt></I>
+<TT Class="monofont"> += </TT><I><Tt class="monofont">y</tt></i>
+</p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P><i><tt CLASs="monofont">x</tt></i>
+<TT CLass="monofont"> = </tT><I><TT clasS="monofont">x</TT></I>
+<tt class="monofont"> + </tt><i><tt class="monofont">y</tt></i>
+</P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">x</tt></i>
+<tT CLAss="monofont"> -= </tt><i><tt class="monofont">y</tt></i>
+</p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><I><tt clASS="monofont">x</Tt></i>
+<tt CLASs="monofont"> = </tt><i><TT CLass="monofont">x</tt></i>
+<tt class="monofont"> - </tt><i><tt clAss="monofont">y</Tt></i>
+</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><I><Tt claSS="monofont">x</TT></i>
+<tt class="monofont"> *= </tt><i><tt class="monofont">y</tt></I>
+</p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P><I><TT clasS="monofont">x</TT></I>
+<tt clASS="monofont"> = </Tt><i><tt class="monofont">x</tt></i>
+<tt class="monofont"> * </tT><i><tT claSs="monofont">y</tt></i>
+</P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><I><TT Class="monofont">x</tt></i>
+<tt class="monofont"> /= </tt><i><tt cLasS="monofont">y</tt></i>
+</P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><TT CLass="monofont">x</tT></I>
+<TT class="monofont"> = </tt><i><tt class="monofont">x</tt></i>
+<tt ClaSs="monofont"> / </tt><I><tt clAss="monofont">y</tT></I>
+</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><i><tt class="monofont">x</tt></i>
+<tt class="monofont"> **= </Tt><i><Tt clAss="monofont">y</tt></I>
+</p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt CLASs="monofont">x</tt></i>
+<tt class="monofont"> = </tt><i><tt clasS="monofont">x</tt></I>
+<tt cLass="monofont"> ** </tT><i><tt CLASs="monofont">y</tt></i>
+</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><i><tt class="monofont">x</tt></i>
+<tT clAss="monofont"> %= </tT><i><tt cLass="monofont">y</TT></I>
+</P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt class="monofont">x</tt></i>
+<tt class="monofont"> = </tt><i><Tt cLass="monofont">x</Tt></i>
+<tt ClasS="monofont"> % </TT><I><tt clASS="monofont">y</Tt></i>
+</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><i><tt claSs="monofont">x</tT></i>
+<tt Class="monofont"> &amp;= </Tt><i><tT CLAss="monofont">y</tt></I>
+</P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p><i><tt class="monofont">x</tt></i>
+<tt clAss="monofont"> = </Tt><i><tT clasS="monofont">x</tt></i>
+<TT CLass="monofont"> &amp; </tT><I><TT clasS="monofont">y</TT></I>
+</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><I><tt ClasS="monofont">x</tt></i>
+<tT claSS="monofont"> |= </TT><i><tt cLASS="monofont">y</tt></i>
+</p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p><i><tt class="monofont">x</tT></i>
+<tT claSs="monofont"> = </tt><i><Tt clASS="monofont">x</Tt></i>
+<tt CLASs="monofont"> | </tt><i><TT CLass="monofont">y</tT></I>
+</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><i><Tt claSs="monofont">x</tt></I>
+<TT Class="monofont"> ^= </TT><I><Tt claSS="monofont">y</TT></i>
+</p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p><i><tt ClaSs="monofont">x</tt></I>
+<tt clAss="monofont"> = </tT><I><TT clasS="monofont">x</TT></I>
+<tt clASS="monofont"> ^ </Tt><i><tt CLASs="monofont">y</tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><I><tt cLASS="monofont">x</tt></i>
+<tT CLAss="monofont"> &gt;&gt;= </tt><I><TT Class="monofont">y</TT></I>
+</P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p><I><tt cLass="monofont">x</tT></i>
+<tt CLASs="monofont"> = </tt><i><TT CLass="monofont">x</tT></I>
+<TT clasS="monofont"> &gt;&gt; </TT><I><tt class="monofont">y</tt></i>
+</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><I><Tt claSS="monofont">x</TT></i>
+<tt cLASS="monofont"> &lt;&lt;= </tt><i><tT CLAss="monofont">y</tt></i>
+</p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p><i><tt ClasS="monofont">x</TT></I>
+<tt clASS="monofont"> = </Tt><i><tt CLASs="monofont">x</tt></i>
+<TT CLass="monofont"> &lt;&lt; </tt><i><tt class="monofont">y</tt></i>
+</p>
+</fonT></td>
+</Tr>
+</coLgrouP>
+</tabLE></P>
+
+<P>These operators can be used anywhere that ordinary assignment is used. For example:</p>
+
+<pre>
+
+a = 3 
+b = [1,2] 
+c = "%s %s" 
+a += 1                      # a = 4 
+b[1] += 10                  # b = [1, 12] 
+c %= ("Douglas", "Adams")    # c = "Douglas Adams" </PRE>
+
+<P>Augmented assignment doesn’t violate mutability or perform in-place modification of objects. Therefore, writing <i><tt cLASS="monofont">x</tt></i>
+<tT CLAss="monofont"> += </tt><i><tt class="monofont">y</tt></i>
+ creates an entirely new object <i><tt clAss="monofont">x</Tt></i>
+ with the value <i><Tt claSs="monofont">x</tt></I>
+<TT Class="monofont"> + </TT><I><Tt claSS="monofont">y</TT></i>
+. User-defined classes can redefine the augmented assignment operators using the special methods described in <a hrEF="33.html">Chapter 3</A>, “Types and Objects.”</P>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="46.html" title="Operations on Dictionaries"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=47" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="47.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="48.html" title="The Attribute ( . ) Operator"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

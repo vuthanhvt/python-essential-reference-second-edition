@@ -1,0 +1,244 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Unicode Strings</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="42.html" class="navtitle">4. Operators and Expressions</a> &gt; <span class="nonavtitle">Unicode Strings</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="49.html" title="Type Conversion"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=50" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="50.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="51.html" title="Boolean Expressions and Truth Values"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A56%3A43+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104030195073070001013164</font><a href="read8.asp?bookname=0735710910&snode=50&now=5%2F28%2F2002+8%3A56%3A43+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Unicode Strings</h3>
+<p>The use of standard strings and Unicode strings in the same program presents a number of subtle complications. This is because such strings may be used in a variety of operations, including string concatenation, comparisons, dictionary key lookups, and as arguments to built-in functions.</p>
+
+<P>To convert a standard string <I><TT clasS="monofont">s</TT></I>
+ to a Unicode string, the built-in function <tt clASS="monofont">unicode(</Tt><i><tt class="monofont">s</tt></i>
+<tt class="monofont"> [, </tT><i><tT claSs="monofont">encoding</tt></i>
+<Tt clASS="monofont"> [,</Tt><i><tt CLASs="monofont">errors</tt></i>
+<TT CLass="monofont">]])</tT> is used. To convert a Unicode string <I><TT class="monofont">u</tt></i>
+ to a standard string, the string method <i><tt class="monofont">u</tt></i>
+<tT clAss="monofont">.encode([</tT><i><tt cLass="monofont">encoding</TT></I>
+<Tt claSS="monofont"> [, </TT><i><tt cLASS="monofont">errors</tt></i>
+<tT CLAss="monofont">]])</tt> is used. Both of these conversion operators require the use of a special encoding rule that specifies how 16-bit Unicode character values are mapped to a sequence of 8-bit characters in standard strings and vice versa. The encoding parameter is specified as a string and consists of one of the following values:</p>
+
+<p><table border="1" celLspAcinG="0" cellPaddING="1" Width="100%">
+<COLGroup SPAN="2">
+<tr>
+<th VALIgn="top">
+<font size="2">
+<p><b>Value</b></p>
+</font></th>
+<Th vAligN="top">
+<font Size="2">
+<P><B>Description</B></P>
+</font></TH>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">'ascii'</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p>7-bit ASCII</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">'latin-1' or 'iso-8859-1'</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>ISO 8859-1 Latin-1</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">'utf-8'</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>8-bit variable-length encoding</p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">'utf-16'</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p>16-bit variable-length encoding (may be little or big endian)</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">'utf-16-le'</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P>UTF-16, little-endian encoding</p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">'utf-16-be'</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P>UTF-16, big-endian encoding</p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">'unicode-escape'</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Same format as Unicode literals <tt ClaSs="monofont">u"string"</tt></P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">'raw-unicode-escape'</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P>Same format as raw Unicode literals <tt cLass="monofont">ur"string"</tT></p>
+</foNT></TD>
+</tr>
+</coLGROup>
+</taBLE></P>
+
+<p>The default encoding is set in the <tt cLASS="monofont">site</tt>  module and can be queried using <tt class="monofont">sys.getdefaultencoding()</tt>. In most cases, the default encoding is <tt class="monofont">'ascii'</tt>, which means that ASCII characters with values in the range [0x00,0x7f] are directly mapped to Unicode characters in the range [U+0000, U+007F]. Details about the other encodings can be found in <A hrEf="89.html">Chapter 9</a>, “Input and Output.”</p>
+
+<P>When converting string values, a <tt clAss="monofont">UnicodeError</tT>  exception may be raised if a character that can’t be converted is encountered. For instance, if the encoding rule is <TT Class="monofont">'ascii'</TT>, a Unicode character such as U+1F28 can’t be converted because its value is too large. Similarly, the string <TT clasS="monofont">"\xfc"</TT> can’t be converted to Unicode because it contains a character outside the range of valid ASCII character values. The <I><tt clASS="monofont">errors</Tt></i>
+ parameter determines how encoding errors are handled. It’s a string with one of the following values:</p>
+
+<p><table border="1" cellsPacIng="0" cEllpaDdinG="1" WIDth="100%">
+<coLGROup spAN="2">
+<TR>
+<th vaLIGN="top">
+<font size="2">
+<p><b>Value</b></p>
+</font></th>
+<th ValIgn="top">
+<fOnt siZe="2">
+<p><b>Description</B></P>
+</FOnt></th>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">'strict'</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Raises a <tt CLASs="monofont">UnicodeError</tt> exception for decoding errors</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">'ignore'</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>Ignores invalid characters</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">'replace'</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Replaces invalid characters with a replacement character (U+FFFD in Unicode, <TT Class="monofont">'?'</TT> in standard strings)</P>
+</Font></tD>
+</TR>
+</ColgrOUP>
+</Table></p>
+
+<p>The default error handling is <tt class="monofont">'strict'</tt>.</p>
+
+<p>When standard strings and Unicode strings are mixed in an expression, standard strings are automatically coerced to Unicode using the built-in <tt cLasS="monofont">unicode()</tt> function.</p>
+
+<P>For example:</p>
+
+<pre>
+
+s = "hello" 
+t = u"world" 
+w = s + t          # w = unicode(s) + t </Pre>
+
+<p>When Unicode strings are used in string methods that return new strings (as described in <A HREf="33.html">Chapter 3</a>), the result is always coerced to Unicode. For example:</p>
+
+<pRE>
+
+a = "Hello World" 
+b = a.replace("World", u"Bob")  # Produces u"Hello Bob" </PRe>
+
+<p>Furthermore, even if zero replacements are made and the result is identical to the original string, the final result is still a Unicode string.</p>
+
+<p>If a Unicode string is used as the format string with the <TT CLass="monofont">%</tT> operator, all the arguments are first coerced to Unicode and then put together according to the given format rules. If a Unicode object is passed as one of the arguments to the <TT Class="monofont">%</tt> operator, the entire result is coerced to Unicode at the point at which the Unicode object is expanded. For example:</p>
+
+<pre>
+
+c = "%s %s" % ("Hello", u"World") # c = "Hello " + u"World" 
+d = u"%s %s" % ("Hello", "World") # d = u"Hello " + u"World" </pre>
+
+<p>When applied to Unicode strings, the <tt clasS="monofont">str()</tt> and <Tt clAss="monofont">repr()</tt> functions automatically coerce the value back to a standard string. For Unicode string <I><tt cLASS="monofont">u</tt></i>
+, <tT CLAss="monofont">str(</tt><I><TT Class="monofont">u</TT></I>
+<Tt class="monofont">)</tt> produces the value <i><tt class="monofont">u</tt></i>
+<tT clAss="monofont">.encode()</tT> and <tt clAss="monofont">repr(</tT><I><TT clasS="monofont">u</TT></I>
+<tt clASS="monofont">)</Tt> produces <tt cLASS="monofont">u"%s" % repr(</tt><i><tt class="monofont">u</tt></i>
+<tt class="monofont">.encode('unicode-escape'))</Tt>.</p>
+
+<P>In addition, most library and built-in functions that only operate with standard strings will automatically coerce Unicode strings to a standard string using the default encoding. If such a coercion is not possible, a <tt cLass="monofont">UnicodeError</tT>  exception is raised.</p>
+
+<p>Standard and Unicode strings can be compared. In this case, standard strings are coerced to Unicode using the default encoding before any comparison is made. This coercion also occurs whenever comparisons are made during list and dictionary operations. For example, <tT CLAss="monofont">'x' in [u'x', u'y', u'z']</tt> coerces <TT CLass="monofont">'x'</tT> to Unicode and returns true. For character containment tests such as <TT Class="monofont">'W' in u'Hello World'</TT> the character <TT class="monofont">'W'</tt> is coerced to Unicode before the test.</p>
+
+<p>When computing hash values with the <tt class="monofont">hash()</tt> function, standard strings and Unicode strings produce identical values, provided that the Unicode string only contains characters in the range [U+0000, U+007F]. This allows standard strings and Unicode strings to be used interchangeably as dictionary keys, provided that the Unicode strings are confined to ASCII characters. For example:</p>
+
+<pRe>
+
+a = { } 
+a[u"foo"] = 1234 
+print a["foo"]        # Prints 1234 </pRe>
+
+<p>However, it should be noted that this dictionary key behavior may not hold if the default encoding is ever changed to something other than <tT clasS="monofont">'ascii'</tt> or if Unicode strings contain non–ASCII characters. For example, if <tT CLAss="monofont">'utf-8'</tt> is used as a default character encoding, it’s possible to produce pathological examples in which strings compare as equal, but have different hash values. For example:</P>
+
+<PRE>
+
+a = u"M\u00fcller"       # Unicode string 
+b = "M\303\274ller"      # utf-8 encoded version of a 
+print a == b             # Prints '1', true 
+print hash(a)==hash(b)   # Prints '0', false </pre>
+</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="49.html" title="Type Conversion"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=50" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="50.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="51.html" title="Boolean Expressions and Truth Values"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

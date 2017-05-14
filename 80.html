@@ -1,0 +1,81 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Operator Overloading</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="72.html" class="navtitle">7. Classes and Object-Oriented Programming</a> &gt; <span class="nonavtitle">Operator Overloading</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="79.html" title="Information Hiding"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=80" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="80.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="81.html" title="Classes, Types, and Membership Tests"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A01%3A16+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105087128014158189098045</font><a href="read1.asp?bookname=0735710910&snode=80&now=5%2F28%2F2002+9%3A01%3A16+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Operator Overloading</h3>
+<p>User-defined objects can be made to work with all of Python’s built-in operators by adding implementations of the special methods described in <a HREF="33.html">Chapter 3</a> to a class. For example, the class in <a hrEF="80#2.html">Listing 7.2</A> implements the complex numbers with some of the standard mathematical operators and type coercion to allow complex numbers to be mixed with integers and floats.</P>
+
+
+<h5>
+<a naME="2"></A>Listing 7.2 Mathematical Operators and Type Coercion</H5>
+<pre class="monofont">
+class Complex: 
+    def _ _init_ _(self,real,imag=0): 
+        self.real = float(real) 
+        self.imag = float(imag) 
+    def _ _repr_ _(self): 
+        return "Complex(%s,%s)" % (self.real, self.imag) 
+    def _ _str_ _(self): 
+        return "(%g+%gj)" % (self.real, self.imag) 
+    # self + other 
+    def _ _add_ _(self,other): 
+        return Complex(self.real + other.real, self.imag + other.imag) 
+    # self - other 
+    def _ _sub_ _(self,other): 
+        return Complex(self.real - other.real, self.imag - other.imag) 
+    # -self 
+    def _ _neg_ _(self): 
+        return Complex(-self.real, -self.imag) 
+    # other + self 
+    def _ _radd_ _(self,other): 
+        return Complex._ _add_ _(other,self) 
+    # other - self 
+    def _ _rsub_ _(self,other): 
+        return Complex._ _sub_ _(other,self) 
+    # Coerce other numerical types to complex 
+    def _ _coerce_ _(self,other): 
+        if isinstance(other,Complex): 
+            return self,other 
+        try:   # See if it can be converted to float 
+            return self, Complex(float(other)) 
+        except ValueError: 
+            pass </pre>
+<p>In this example, there are a few items of interest:</p>
+
+<ul>
+<li>
+<p>First, the normal behavior of <tt ClaSs="monofont">_ _repr_ _()</tt> is to create a string that can be evaluated to re-create the object. In this case, a string of the form <Tt claSs="monofont">"Complex(r,i)"</tt> is created. On the other hand, the <TT CLass="monofont">_ _str_ _()</tT> method creates a string that’s intended for nice output formatting (this is the string that would be produced by the <TT Class="monofont">print</TT>  statement).</P>
+</Li>
+<li>
+<p>Second, to handle operators in which complex numbers appear on both the left and right side of operators, both the <TT CLass="monofont">_ _op_ _()</tt> and <tt class="monofont">_ _rop_ _()</tt> methods for each operation must be provided.</p>
+</li>
+<li>
+<p>Finally, the <Tt cLass="monofont">_ _coerce_ _</Tt> method is used to handle operations involving mixed types. In this case, other numeric types are converted to complex numbers so that they can be used in the complex arithmetic methods.</p>
+</li>
+</Ul></foNT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="79.html" title="Information Hiding"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=80" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="80.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="81.html" title="Classes, Types, and Membership Tests"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

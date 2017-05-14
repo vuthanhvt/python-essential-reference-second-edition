@@ -1,0 +1,313 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Files</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="89.html" class="navtitle">9. Input and Output</a> &gt; <span class="nonavtitle">Files</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="91.html" title="Reading Options and Environment Variables"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=92" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="92.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="93.html" title="Standard Input, Output, and Error"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A02%3A47+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105084124007242194071231</font><a href="read3.asp?bookname=0735710910&snode=92&now=5%2F28%2F2002+9%3A02%3A47+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Files</h3>
+<p>The built-in function <tT CLAss="monofont">open(</tt><I><TT Class="monofont">name</TT></I>
+<Tt class="monofont"> [,</tt><i><tt class="monofont">mode</tt></i>
+<tT clAss="monofont">])</tT> opens and creates files, as shown here:</p>
+
+<pre>
+
+f = open('foo')        # Opens 'foo' for reading 
+f = open('foo','w')    # Open for writing </Pre>
+
+<p>The file mode is <TT CLass="monofont">'r'</tT> for read, <TT Class="monofont">'w'</TT> for write, or <TT clasS="monofont">'a'</TT> for append. The mode character can be followed by <Tt class="monofont">'b'</tt> for binary data, such as <tt class="monofont">'rb'</tt> or <tt cLasS="monofont">'wb'</tt>. This is optional on UNIX, but required on Windows, and should be included if you’re concerned about portability. In addition, a file can be opened for updates by supplying a plus (<tT clasS="monofont">+</tt>) character, such as <tT CLAss="monofont">'r+'</tt> or <TT CLass="monofont">'w+'</tT>. When a file is opened for update, you can perform both input and output, as long as all output operations flush their data before any subsequent input operations. If a file is opened using <TT Class="monofont">'w+'</TT> mode, its length is first truncated to zero.</P>
+
+<P><tt class="monofont">open()</tt> returns a file object that supports the methods shown in <a href="92#2.html">Table 9.1</a>.</p>
+
+<a namE="2"></a><p><TablE bordEr="1" ceLLSPacinG="0" CELlpadDING="1" widtH="100%">
+<CAPtion><h5>Table 9.1.  File Methods</h5></caption><colgrouP spAn="2">
+<tr>
+<Th valIgn="top">
+<fONT Size="2">
+<p><B>Method</B></P>
+</Font></tH>
+<TH ValigN="top">
+<FONt size="2">
+<p><b>Description</b></p>
+</font></th>
+</tr>
+<tr>
+<tD vaLign="top">
+<Font sIze="2">
+<p><I><TT Class="monofont">f</TT></I>
+<Tt claSS="monofont">.read([</TT><i><tt cLASS="monofont">n</tt></i>
+<tt class="monofont">])</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p>Reads at most <I><TT Class="monofont">n</TT></I>
+ bytes.</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><i><tt class="monofont">f</tT></i>
+<tT claSs="monofont">.readline([</tt><i><Tt clASS="monofont">n</Tt></i>
+<tt CLASs="monofont">])</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p>Reads a single line of input up to <i><tt class="monofont">n</tT></i>
+ characters. If <i><Tt clAss="monofont">n</tt></I>
+ is omitted, reads the entire line.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT class="monofont">f</tt></i>
+<tt class="monofont">.readlines()</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Reads all the lines and returns a list.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><i><tt class="monofont">f</tt></i>
+<tt clAss="monofont">.xreadlines()</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Returns an opaque sequence object where each iteration reads a new line from the file.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><i><tt clasS="monofont">f</tt></I>
+<tt cLass="monofont">.write(</tT><i><tt CLASs="monofont">s</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>Writes string <i><tt clasS="monofont">s</tt></I>
+.</p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><I><TT Class="monofont">f</TT></I>
+<Tt class="monofont">.writelines(</tt><i><tt class="monofont">l</tt></i>
+<tT clAss="monofont">)</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Writes all strings in list <I><TT Class="monofont">l</TT></I>
+.</P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><I><tt clAss="monofont">f</tT></I>
+<TT clasS="monofont">.close()</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Closes the file.</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><i><TT CLass="monofont">f</tT></I>
+<TT clasS="monofont">.tell()</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>Returns the current file pointer.</p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><i><TT CLass="monofont">f</tT></I>
+<TT clasS="monofont">.seek(</TT><I><tt class="monofont">offset</tt></i>
+<tt class="monofont"> [, </tt><i><Tt cLass="monofont">where</Tt></i>
+<tt ClasS="monofont">])</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Seeks to a new file position.</P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><I><tt clAss="monofont">f</tT></I>
+<TT clasS="monofont">.isatty()</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Returns <tt class="monofont">1</tt> if <i><tt cLasS="monofont">f</tt></i>
+ is an interactive terminal.</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt clASS="monofont">f</Tt></i>
+<tt class="monofont">.flush()</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>Flushes the output buffers.</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt class="monofont">f</tt></i>
+<tt class="monofont">.truncate([</tt><i><Tt cLass="monofont">size</Tt></i>
+<tt ClasS="monofont">])</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Truncates the file to at most <I><tt class="monofont">size</tt></i>
+ bytes.</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><I><Tt claSS="monofont">f</TT></i>
+<tt cLASS="monofont">.fileno()</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Returns an integer file descriptor.</p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><I><Tt claSS="monofont">f</TT></i>
+<tt cLASS="monofont">.readinto(</tt><i><tt class="monofont">buffer</tt></i>
+<tt class="monofont">,</Tt><i><Tt clAss="monofont">nbytes</tt></I>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Read <i><tt class="monofont">nbytes</tt></i>
+ of data into a writable buffer object.</p>
+</font></td>
+</Tr>
+</cOlgrOup>
+</taBle></p>
+
+<P>The <TT Class="monofont">read()</TT>  method returns the entire file as a string unless an optional <I><Tt claSS="monofont">length</TT></i>
+ parameter is given specifying the maximum number of bytes. The <tt cLASS="monofont">readline()</tt> method returns the next line of input, including the terminating newline; the <tt class="monofont">readlines()</tt> method returns all the input lines as a list of strings. The <tt class="monofont">readline()</tt> method optionally accepts a maximum line length <I><tt ClasS="monofont">n</tt></i>
+. If a line longer than <i><Tt clASS="monofont">n</Tt></i>
+ bytes is read, the first <i><tT CLAss="monofont">n</tt></I>
+ bytes are returned. The remaining line data is not discarded and will be returned on subsequent read operations. Both the <TT Class="monofont">readline()</TT> and <TT class="monofont">readlines()</tt> methods are platform-aware and handle different representations of newlines properly (for example, <tt class="monofont">'\n'</tt> versus <tt clAss="monofont">'\r\n'</Tt>). The <tt Class="monofont">xreadlines()</Tt> method returns a special opaque sequence object that allows the lines of a file to be read using iteration instead of first being read entirely into memory, as with the <tt CLASs="monofont">readlines()</tt> method. For example:</p>
+
+<PRE>
+
+for line in f.xreadlines(): 
+    # Do something with line 
+    ... </Pre>
+
+<p>The <tT CLAss="monofont">write()</tt> method writes a string to the file, and the <TT CLass="monofont">writelines()</tt> method writes a list of strings to the file. In all these cases, the string can contain binary data, including embedded null characters.</p>
+
+<p>The <tt class="monofont">seek()</tt>  method is used to randomly access parts of a file given an <i><tt cLasS="monofont">offset</tt></i>
+ and a placement rule in <I><tt clAss="monofont">where</tT></I>
+. If <I><Tt claSS="monofont">where</TT></i>
+ is <tt cLASS="monofont">0</tt>  (the default), <tt CLASs="monofont">seek()</tt> assumes that <i><tt class="monofont">offset</tt></i>
+ is relative to the start of the file; if <i><tt claSs="monofont">where</tT></i>
+ is <tt Class="monofont">1</Tt>, the position is moved relative to the current position; and if <i><tT CLAss="monofont">where</tt></I>
+ is <TT Class="monofont">2</TT>, the offset is taken from the end of the file. The <TT clasS="monofont">fileno()</TT> method returns the integer file-descriptor for a file and is sometimes used in low-level I/O operations in certain library modules. On machines that support large files (greater than 2GB), the <Tt class="monofont">seek()</tt> and <tt class="monofont">tell()</tt> methods use long integers. However, enabling such support may require a reconfiguration and recompilation of the Python interpreter.</p>
+
+<p>File objects also have the data attributes shown in the following table.</p>
+
+<P><taBle bOrder="1" CellSPACing="0" cELLPaddiNG="1" WIdth="100%">
+<cOLGRoup span="2">
+<tr>
+<th valign="top">
+<fonT siZe="2">
+<p><b>Attribute</B></p>
+</fonT></th>
+<tH VALign="top">
+<fONT Size="2">
+<p><B>Description</B></P>
+</Font></tH>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><i><tT clAss="monofont">f</tT></i>
+<tt cLass="monofont">.closed</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Boolean value indicates the file state: <TT class="monofont">0</tt>  if the file is open, <tt class="monofont">1</tt>  if closed.</p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><I><TT Class="monofont">f</TT></I>
+<Tt claSS="monofont">.mode</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P>The I/O mode for the file.</p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><I><TT Class="monofont">f</TT></I>
+<Tt class="monofont">.name</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p>Name of the file if created using <Tt clASS="monofont">open()</Tt>. Otherwise, it will be a string indicating the source of the file.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><i><tt class="monofont">f</tt></i>
+<tt clAss="monofont">.softspace</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Boolean value indicating whether a space character needs to be printed before another value when using the <tt cLASS="monofont">print</tt>  statement. Classes that emulate files must provide a writable attribute of this name that’s initially initialized to zero.</p>
+</fONT></Td>
+</tr>
+</colgroup>
+</table></p>
+</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="91.html" title="Reading Options and Environment Variables"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=92" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="92.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="93.html" title="Standard Input, Output, and Error"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

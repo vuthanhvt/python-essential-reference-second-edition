@@ -1,0 +1,89 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Variables and Arithmetic Expressions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="12.html" class="navtitle">1. A Tutorial Introduction</a> &gt; <span class="nonavtitle">Variables and Arithmetic Expressions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="14.html" title="Running Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=15" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="15.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="16.html" title="Conditionals"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A32%3A28+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137110163131203146201222029</font><a href="read6.asp?bookname=0735710910&snode=15&now=5%2F28%2F2002+8%3A32%3A28+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Variables and Arithmetic Expressions</h3>
+<p>The program in <a HREF="15#2.html">Listing 1.1</a> shows the use of variables and expressions by performing a simple compound-interest calculation:</p>
+
+
+<h5>
+<a NAME="2"></a>Listing 1.1 Simple Compound-Interest Calculation</h5>
+<prE CLAss="monofont">
+principal = 1000        # Initial amount 
+rate = 0.05             # Interest rate 
+numyears = 5            # Number of years 
+year = 1 
+while year &lt;= numyears: 
+        principal = principal*(1+rate) 
+        print year, principal 
+        year += 1 </pre>
+<p>The output of this program is the following table:</p>
+
+<pre>
+
+1050.0 
+1102.5 
+1157.625 
+1215.50625 
+1276.2815625 </pre>
+
+<p>Python is a dynamically typed language in which names can represent values of different types during the execution of the program. In fact, the names used in a program are really just labels for various quantities and objects. The assignment operator simply creates an association between that name and a value. This is different from C, for example, in which a name represents a fixed size and location in memory into which results are placed. The dynamic behavior of Python can be seen in <a href="15#2.html">Listing 1.1</a> with the <Tt cLass="monofont">principal</Tt>  variable. Initially, it’s assigned to an integer value. However, later in the program it’s reassigned as follows:</p>
+
+<prE>
+
+principal = principal*(1+rate) </pre>
+
+<P>This statement evaluates the expression and reassociates the name <TT Class="monofont">principal</TT>  with the result. When this occurs, the original binding of <TT clasS="monofont">principal</TT>  to the integer <Tt claSS="monofont">1000</TT>  is lost. Furthermore, the result of the assignment may change the <i>type</i> of a variable. In this case, the type of <tt class="monofont">principal</tt>  changes from an integer to a floating-point number because <tt class="monofont">rate</tt>  is a floating-point number.</P>
+
+<p>A newline terminates each individual statement. You also can use a semicolon to separate statements, as shown here:</p>
+
+<Pre>
+
+principal = 1000; rate = 0.05; numyears = 5; </pRe>
+
+<p>The <tt ClasS="monofont">while</TT>  statement tests the conditional expression that immediately follows. If the tested expression is true, the body of the <Tt claSS="monofont">while</TT>  statement executes. The condition is then retested and the body executed again until the condition becomes false. Because the body of the loop is denoted by indentation, the three statements following the <tt clASS="monofont">while</Tt>  in <a hrEF="15#2.html">Listing 1.1</A> execute on each iteration. Python doesn’t specify the amount of required indentation, as long as it’s consistent within a block.</P>
+
+<p>One problem with the program in <a href="15#2.html">Listing 1.1</a> is that the output isn’t very pretty. To make it better, you could right-align the columns and limit the precision of <tt class="monofont">principal</tt>  to two digits by modifying the <tt clAss="monofont">print</Tt>  to use a <i>format string</i>, like this:</P>
+
+<pre>
+
+print "%3d %0.2f" % (year, principal) </pRe>
+
+<p>Now the output of the program looks like this:</p>
+
+<PRE>
+
+1050.00 
+1102.50 
+1157.63 
+1215.51 
+1276.28 </Pre>
+
+<p>Format strings contain ordinary text and special formatting-character sequences such as <tT CLAss="monofont">"%d"</tt>, <TT CLass="monofont">"%s"</tT>, or <TT Class="monofont">"%f"</tt>. These sequences specify the formatting of a particular type of data such as an integer, string, or floating-point number, respectively. The special-character sequences can also contain modifiers that specify a width and precision. For example, <tt class="monofont">"%3d"</tt> formats an integer right-aligned in a column of width 3, and <tt claSs="monofont">"%0.2f"</tT> formats a floating-point number so that only two digits appear after the decimal point. The behavior of format strings is almost identical to the C <tt cLass="monofont">sprintf()</tT> function and is described in detail in <a hrEF="42.html">Chapter 4</A>, “Operators and Expressions.”</P>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="14.html" title="Running Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=15" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="15.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="16.html" title="Conditionals"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

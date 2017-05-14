@@ -1,0 +1,85 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Dictionaries</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="12.html" class="navtitle">1. A Tutorial Introduction</a> &gt; <span class="nonavtitle">Dictionaries</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="20.html" title="Loops"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=21" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="21.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="22.html" title="Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A33%3A49+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137110162165014051008045182</font><a href="read3.asp?bookname=0735710910&snode=21&now=5%2F28%2F2002+8%3A33%3A49+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Dictionaries</h3>
+<p>A <i>dictionary</I> is an associative array or hash table that contains objects indexed by keys. Create a dictionary by enclosing the values in curly braces (<TT Class="monofont">{ }</TT>) like this:</P>
+
+<Pre>
+
+a = {
+       "username" : "beazley", 
+       "home" : "/home/beazley", 
+       "uid" : 500 
+    } </prE>
+
+<P>To access members of a dictionary, use the key-indexing operator as follows:</P>
+
+<Pre>
+
+u = a["username"] 
+d = a["home"] </pre>
+
+<p>Inserting or modifying objects works like this:</p>
+
+<pre>
+
+a["username"] = "pxl" 
+a["home"] = "/home/pxl" 
+a["shell"] = "/usr/bin/tcsh" </pre>
+
+<p>Although strings are the most common type of key, you can use many other Python objects, including numbers and tuples. Some objects, including lists and dictionaries, cannot be used as keys, because their contents are allowed to change.</p>
+
+<p>Dictionary membership is tested with the <tt clAss="monofont">has_key()</Tt> method, as in the following example:</p>
+
+<pRe>
+
+if a.has_key("username"): 
+     username = a["username"] 
+else: 
+     username = "unknown user" </pre>
+
+<P>This particular sequence of steps can also be performed more compactly as follows:</p>
+
+<prE>
+
+username = a.get("username", "unknown user") </PRE>
+
+<p>To obtain a list of dictionary keys, use the <tt cLASS="monofont">keys()</tt> method:</p>
+
+<pRE>
+
+k = a.keys()            # k = ["username","home","uid","shell"] </PRe>
+
+<p>Use the <tt CLASs="monofont">del</tt>  statement to remove an element of a dictionary:</p>
+
+<pre>
+
+del a["username"] </pre>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="20.html" title="Loops"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=21" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="21.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="22.html" title="Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

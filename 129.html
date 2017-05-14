@@ -1,0 +1,105 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Calling Python from C</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="121.html" class="navtitle">B. Extending and Embedding Python</a> &gt; <span class="nonavtitle">Calling Python from C</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="128.html" title="Reference Counting"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=129" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="129.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="130.html" title="Abstract Object Layer"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A09%3A49+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105095080116218138201087</font><a href="read7.asp?bookname=0735710910&snode=129&now=5%2F28%2F2002+9%3A09%3A49+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Calling Python from C</h3>
+<p>Sometimes it’s useful to call Python functions from C programs. To do this, the following functions can be used:</p>
+
+<PRE>
+
+<B>PyObject *PyEval_CallObject(PyObject *</b><b><i>func</i></B><B>, PyObject *</B><B><i>args</i></b><b>)</B> </PRE>
+
+<p>Call <i><tt class="monofont">func</tt></i>
+  with arguments <i><tt class="monofont">args</Tt></i>
+. <I><tt cLass="monofont">func</tT></i>
+  is a Python callable object (function, method, class, and so on). <i><tT CLAss="monofont">args</tt></I>
+  is a tuple of arguments.</P>
+
+<PRe>
+
+<b>PyObject *PyEval_CallObjectWithKeywords(PyObject *</b><b><I>func</I></B><B>, PyObject *</b><b><i>args</i></B><B>, PyObject *</B><B><i>kwargs</i></b><b>)</b> </pre>
+
+<p>Call <i><tt class="monofont">func</tt></i>
+ with positional arguments <I><tt ClasS="monofont">args</tt></i>
+ and keyword arguments <i><Tt clASS="monofont">kwargs</Tt></i>
+. <i><tT CLAss="monofont">func</tt></I>
+ is a callable object, <I><TT clasS="monofont">args</TT></I>
+  is a tuple, and <i><tt class="monofont">kwargs</tt></i>
+  is a dictionary.</p>
+
+<p>The following example illustrates the use of these functions:</p>
+
+<pre>
+
+/* Call a python function */ 
+
+PyObject *func;    /* Callable object. */ 
+PyObject *args; 
+PyObject *result; 
+int       arg1, arg2; 
+
+func = get_python_function()  /* See below */ 
+args = Py_BuildValue("(ii)", arg1, arg2);  /* Build argument list */ 
+result = PyEval_CallObject(func,args);     /* Call function       */ </pre>
+
+<P>The only remaining problem is that C code, at compile time, cannot know the address of a Python object that has not yet been created, since Python is dynamic. One approach is to let Python create the function object and then register the address with a callback function. To deal with this, extension code such as the following can be used to set the callback function:</p>
+
+<pRe>
+
+static PyObject *func = 0;    /* Callback function */ 
+
+static PyObject * 
+set_callback(PyObject *self, PyObject *args) {
+     PyObject *f; 
+     if (PyArg_ParseTuple(args,"O",&amp;f)) {
+        if (!PyCallable_Check(f)) {
+           PyErr_SetString(PyExc_TypeError, "expected a callable"); 
+           return NULL; 
+        }   
+       Py_XINCREF(f);        /* Save reference to callback */ 
+       Py_XDECREF(func);     /* Release any previous callback */ 
+       func = f; 
+       Py_INCREF(Py_None); 
+       return Py_None; 
+    } 
+    return NULL; 
+} </prE>
+
+<p>This function would then be invoked from the interpreter as follows:</p>
+
+<prE>
+
+# Some function 
+def foo(x,y): 
+return x+y 
+... 
+set_callback(foo) </pre>
+
+<P>Alternatively, it might be possible to obtain Python callable objects using functions in the embedding API, described later in this appendix.</P>
+</FOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="128.html" title="Reference Counting"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=129" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="129.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="130.html" title="Abstract Object Layer"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,79 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Classes, Types, and Membership Tests</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="72.html" class="navtitle">7. Classes and Object-Oriented Programming</a> &gt; <span class="nonavtitle">Classes, Types, and Membership Tests</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="80.html" title="Operator Overloading"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=81" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="81.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="83.html" title="8. Modules and Packages"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A01%3A25+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105087128013202153097093</font><a href="read1.asp?bookname=0735710910&snode=81&now=5%2F28%2F2002+9%3A01%3A25+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Classes, Types, and Membership Tests</h3>
+<p>Currently, there’s a separation between types and classes. In particular, built-in types such as lists and dictionaries cannot be specialized via inheritance, nor does a class define a new type. In fact, all class definitions have a type of <tT CLAss="monofont">ClassType</tt>, while all class instances have a type of <TT CLass="monofont">InstanceType</tT>. Thus, the following expression is true for any two objects that are instances of a class (even if they were created by different classes):</P>
+
+<PRe>
+
+type(a) == type(b) </pre>
+
+<p>To test for membership in a class, use the built-in function <tt class="monofont">isinstance(</tt><i><tt claSs="monofont">obj</tT></i>
+<tt Class="monofont">,</Tt><i><tT CLAss="monofont">cname</tt></I>
+<TT Class="monofont">)</TT>. This function returns true if an object <I><Tt claSS="monofont">obj</TT></i>
+ belongs to the class <i><tt class="monofont">cname</tt></i>
+ or any class derived from <i><tt class="monofont">cname</Tt></i>
+. For example:</P>
+
+<pre>
+
+class A: pass 
+class B(A): pass 
+class C: pass 
+
+a = A()          # Instance of 'A' 
+b = B()          # Instance of 'B' 
+c = C()          # Instance of 'C' 
+
+isinstance(a,A)  # Returns 1 
+isinstance(b,A)  # Returns 1, B derives from A 
+isinstance(b,C)  # Returns 0, C not derived from A </Pre>
+
+<p>Similarly, the built-in function <tT claSS="monofont">issubclass(</TT><i><tt cLASS="monofont">A</tt></i>
+<tT CLAss="monofont">,</tt><I><TT Class="monofont">B</tt></i>
+<tt class="monofont">)</tt> returns true if the class <i><tt cLasS="monofont">A</tt></i>
+ is a subclass of class <I><tt clAss="monofont">B</tT></I>
+. For example:</P>
+
+<Pre>
+
+issubclass(B,A)   # Returns 1 
+issubclass(C,A)   # Returns 0 </prE>
+
+<P>The <TT clasS="monofont">isinstance()</TT> function can be used to perform type-checking against any of the built-in types:</P>
+
+<pre>
+
+import types 
+isinstance(3, types.IntType)     # Returns 1 
+isinstance(3, types.FloatType)   # Returns 0 </pRE>
+
+<P>This is the recommended way to perform type-checking with the built-in types, as the distinction between types and classes may disappear in a future release.</P>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="80.html" title="Operator Overloading"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=81" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="81.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="83.html" title="8. Modules and Packages"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

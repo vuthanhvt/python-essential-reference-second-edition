@@ -1,0 +1,88 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; The class statement</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="72.html" class="navtitle">7. Classes and Object-Oriented Programming</a> &gt; <span class="nonavtitle">The class statement</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="73.html" title="7. Classes and Object-Oriented Programming"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=74" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="74.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="75.html" title="Class Instances"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A00%3A09+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105086039024252108091154</font><a href="read7.asp?bookname=0735710910&snode=74&now=5%2F28%2F2002+9%3A00%3A09+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>The <tt cLASS="monofont">class</tt> statement</h3>
+<p>A <I>class</I> defines a set of attributes that are associated with a collection of objects known as <I>instances</I>. These attributes typically include variables that are known as <i>class variables</i> and functions that are known as <i>methods</i>.</P>
+
+<P>Classes are defined using the <TT class="monofont">class</tt>  statement. The body of a class contains a series of statements that are executed when the class is first defined (see <a href="74#2.html">Listing 7.1</a>).</p>
+
+
+<h5>
+<a name="2"></A>Listing 7.1 Classes</h5>
+<pRe clAss="monofont">
+class Account: 
+     "A simple class" 
+     account_type = "Basic" 
+     def _ _init_ _(self,name,balance): 
+         "Initialize a new Account instance" 
+         self.name = name 
+         self.balance = balance 
+     def deposit(self,amt): 
+         "Add to the balance" 
+         self.balance = self.balance + amt 
+     def withdraw(self,amt): 
+         "Subtract from the balance" 
+         self.balance = self.balance - amt 
+     def inquiry(self): 
+         "Return the current balance" 
+         return self.balance </prE>
+<p>The objects created during the execution of the class body are placed into a class object that serves as a namespace. For example, the members of the <tt CLASs="monofont">Account</tt>  class are accessible as follows:</p>
+
+<PRE>
+
+Account.account_type 
+Account._ _init_ _ 
+Account.deposit 
+Account. withdrawAccount. 
+inquiry </Pre>
+
+<p>It’s important to note that a class statement doesn’t create any instances of a class (for example, no accounts are actually created in the preceding example). Rather, a class only defines the set of attributes that are shared by all of the instances that will be created.</p>
+
+<P>The functions defined within a class (methods) always operate on a class instance that’s passed as the first argument. By convention, this argument is called <TT Class="monofont">self</TT>, although any legal identifier name can be used. Class variables such as <TT class="monofont">account_type</tt> are shared among all instances of a class (that is, they’re not individually assigned to each instance). Although a class defines a namespace, this namespace is not a scope for code appearing inside the class body. Thus, references to other attributes of a class must use a fully qualified name, as shown in the following example:</p>
+
+<pre>
+
+class Foo: 
+    def bar(self): 
+        print "bar!" 
+    def spam(self): 
+        bar(self)     # Incorrect! 'bar' generates a NameError 
+        Foo.bar(self) # This works </pre>
+
+<p>Finally, you cannot define class methods that don’t operate on instances:</p>
+
+<pre>
+
+class Foo: 
+    def add(x,y): 
+        return x+y 
+
+a = Foo.add(3,4)      # TypeError. Need class instance as first argument </pRe>
+</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="73.html" title="7. Classes and Object-Oriented Programming"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=74" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="74.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="75.html" title="Class Instances"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

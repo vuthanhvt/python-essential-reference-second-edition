@@ -1,0 +1,58 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Exceptions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="12.html" class="navtitle">1. A Tutorial Introduction</a> &gt; <span class="nonavtitle">Exceptions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="23.html" title="Classes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=24" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="24.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="25.html" title="Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A52%3A18+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104026065049168166116064</font><a href="read7.asp?bookname=0735710910&snode=24&now=5%2F28%2F2002+8%3A52%3A18+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Exceptions</h3>
+<p>If an error occurs in your program, an <i>exception</I> is raised and an error message such as the following appears:</P>
+
+<PRe>
+
+Traceback (most recent call last): 
+ File "&lt;interactive input&gt;", line 42, in foo.py 
+NameError: a </pre>
+
+<P>The error message indicates the type of error that occurred, along with its location. Normally, errors cause a program to abort. However, you can catch and handle exceptions using the <TT Class="monofont">try</TT>  and <TT class="monofont">except</tt>  statements, like this:</p>
+
+<pre>
+
+try: 
+    f = open("file.txt","r") 
+except IOError, e: 
+    print e </pre>
+
+<p>If an <tt claSs="monofont">IOError</tT>  occurs, details concerning the cause of the error are placed in <tt cLass="monofont">e</tT> and control passes to the code in the <tt cLASS="monofont">except</tt>  block. If some other kind of exception is raised, it’s passed to the enclosing code block (if any). If no errors occur, the code in the <tt CLASs="monofont">except</tt>  block is ignored.</p>
+
+<P>The <TT Class="monofont">raise</TT>  statement is used to signal an exception. When raising an exception, you can use one of the built-in exceptions, like this:</P>
+
+<Pre>
+
+raise RuntimeError, "Unrecoverable error" </pre>
+
+<p>Or you can create your own exceptions, as described in the section “<a href="59.html">Defining New Exceptions</a>” in <a href="54.html">Chapter 5</a>, “Control Flow.”</p>
+</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="23.html" title="Classes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=24" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="24.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="25.html" title="Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

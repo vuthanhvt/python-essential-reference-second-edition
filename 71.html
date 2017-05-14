@@ -1,0 +1,95 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; eval() , exec , execfile() , and compile() </TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="61.html" class="navtitle">6. Functions and Functional Programming</a> &gt; <span class="nonavtitle">eval() , exec , execfile() , and compile() </span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="70.html" title="List Comprehensions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=71" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="71.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="73.html" title="7. Classes and Object-Oriented Programming"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A59%3A47+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104017178091035069051057</font><a href="read3.asp?bookname=0735710910&snode=71&now=5%2F28%2F2002+8%3A59%3A47+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3><tt cLASS="monofont">eval()</tt>, <tt CLASs="monofont">exec</tt>, <tT CLAss="monofont">execfile()</tt>, and <tt class="monofont">compile()</tt></h3>
+<p>The <tt claSs="monofont">eval(str [,</tT><i><tt Class="monofont">globals</Tt></i>
+<tT CLAss="monofont"> [,</tt><I><TT Class="monofont">locals</TT></I>
+<Tt claSS="monofont">]])</TT> function executes an expression string and returns the result. For example:</p>
+
+<pre>
+
+a = eval('3*math.sin(3.5+x) + 7.2') </pre>
+
+<p>Similarly, the <tt class="monofont">exec</tt>  statement executes a string containing arbitrary Python code. The code supplied to <tt cLasS="monofont">exec</tt>  is executed within the namespace of the caller as if the code actually appeared in place of the <tT clasS="monofont">exec</tt>  statement. For example:</p>
+
+<PRE>
+
+a = [3, 5, 10, 13] 
+exec "for i in a: print i" </Pre>
+
+<p>Finally, the <tT CLAss="monofont">execfile(</tt><I><TT Class="monofont">filename</TT></I>
+<Tt class="monofont"> [,</tt><i><tt class="monofont">globals</tt></i>
+<tT clAss="monofont"> [,</tT><i><tt cLass="monofont">locals</TT></I>
+<Tt claSS="monofont">]])</TT> function executes the contents of a file. For example:</p>
+
+<pre>
+
+execfile("foo.py") </PRE>
+
+<P>All these functions execute within the namespace of the caller (which is used to resolve any symbols that appear within a string or file). Optionally, <tt clASS="monofont">eval()</Tt>, <tt class="monofont">exec</tt>, and <tt class="monofont">execfile()</tt> can accept one or two dictionaries that serve as the global and local namespaces for the code to be executed, respectively. For example:</p>
+
+<Pre>
+
+globals = {'x': 7, 
+           'y': 10, 
+           'birds': ['Parrot', 'Swallow', 'Albatross'] 
+          } 
+
+locals = { } 
+
+# Execute using the above dictionaries as the global and local namespace 
+a = eval("3*x + 4*y", globals, locals) 
+exec "for b in birds: print b" in globals, locals   # Note unusual syntax 
+execfile("foo.py", globals, locals) </Pre>
+
+<p>If you omit one or both namespaces, the current values of the global and local namespaces are used. Also, due to issues related to nested scopes, the use of <Tt claSs="monofont">exec</tt>  or <TT CLass="monofont">execfile()</tT>  inside a function body may result in a <TT Class="monofont">SyntaxError</TT> exception if that function also contains nested function definitions or uses the <TT clasS="monofont">lambda</TT>  operator.</P>
+
+<p>Note that the syntax of the <tt class="monofont">exec</tt>  statement in the example is different from that of <tt class="monofont">eval()</tt>  and <tT clAss="monofont">execfile()</tT>. <tt clAss="monofont">exec</tT>  is a statement (much like <TT Class="monofont">print</TT> or <TT clasS="monofont">while</TT>), whereas <Tt claSS="monofont">eval()</TT> and <tt class="monofont">execfile()</tt> are built-in functions.</p>
+
+<p>When a string is passed to <tt class="monofont">exec</tt>, <Tt cLass="monofont">eval()</Tt>, or <tt cLass="monofont">execfile()</TT>, the parser first compiles it into bytecode. Because this process is expensive, it may be better to precompile the code and reuse the bytecode on subsequent calls if the code will be executed multiple times.</P>
+
+<P>The <tt clASS="monofont">compile(</Tt><i><tt CLASs="monofont">str</tt></i>
+<TT CLass="monofont">,</tt><i><tt class="monofont">filename</tt></i>
+<tt clAss="monofont">,</Tt><i><tT clasS="monofont">kind</tt></i>
+<TT CLass="monofont">)</tT> function compiles a string into bytecode in which <I><TT clasS="monofont">str</TT></I>
+ is a string containing the code to be compiled and <i><tt cLASS="monofont">filename</tt></i>
+ is the file in which the string is defined (for use in traceback generation). The <i><tt class="monofont">kind</tt></i>
+ argument specifies the type of code being compiled— <tt clasS="monofont">'single'</tt> for a single statement, <Tt clAss="monofont">'exec'</tt> for a set of statements, or <Tt clASS="monofont">'eval'</Tt> for an expression. The code object returned by the <tt cLASS="monofont">compile()</tt>  function can also be passed to the <tt CLASs="monofont">eval()</tt> function and <tT CLAss="monofont">exec</tt> statement. For example:</p>
+
+<pre>
+
+str = "for i in range(0,10): print i" 
+c = compile(str,"','exec')      # Compile into a code object 
+exec c                          # Execute it 
+
+str2 = "3*x + 4*y" 
+c2 = compile(str2, '', 'eval')  # Compile into an expression 
+result = eval(c2)               # Execute it </pre>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="70.html" title="List Comprehensions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=71" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="71.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="73.html" title="7. Classes and Object-Oriented Programming"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

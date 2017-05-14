@@ -1,0 +1,1297 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Special Methods</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="33.html" class="navtitle">3. Types and Objects</a> &gt; <span class="nonavtitle">Special Methods</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="39.html" title="Built-in Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=40" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="40.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="41.html" title="Performance and Memory Considerations"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A55%3A00+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104029061153098000086086</font><a href="read3.asp?bookname=0735710910&snode=40&now=5%2F28%2F2002+8%3A55%3A00+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Special Methods</h3>
+<p>All the built-in datatypes consist of some data and a collection of special object methods. The names of special methods are always preceded and followed by double underscores (<tT CLAss="monofont">_ _</tt>). These methods are automatically triggered by the interpreter as a program executes. For example, the operation <I><TT Class="monofont">x</TT></I>
+<Tt class="monofont"> + </tt><i><tt class="monofont">y</tt></i>
+ is mapped to an internal method <i><Tt cLass="monofont">x</Tt></i>
+<tt ClasS="monofont">._ _add_ _ (</TT><I><tt clASS="monofont">y</Tt></i>
+<tt CLASs="monofont">)</tt>, and an indexing operation <i><TT CLass="monofont">x</tt></i>
+<tt class="monofont">[</tt><i><tt clAss="monofont">k</Tt></i>
+<tT clasS="monofont">]</tt> is mapped to <i><TT CLass="monofont">x</tT></I>
+<TT clasS="monofont">._ _getitem_ _ (</TT><I><tt clASS="monofont">k</Tt></i>
+<tt class="monofont">)</tt>. The behavior of each datatype depends entirely on the set of special methods that it implements.</p>
+
+<p>Although it’s not possible to alter the behavior of built-in types (or even to invoke any of their special methods directly by name, as just suggested), it’s possible to use class definitions to define new objects that behave like the built-in types. To do this, supply implementations of the special methods described in this section.</p>
+
+
+<h4>Object Creation, Destruction, and Representation</h4>
+<p>The methods in <a hrEf="40#4.html">Table 3.7</a> initialize, destroy, and represent objects. The <Tt clAss="monofont">_ _init_ _()</tt> method initializes the attributes of an object and is called immediately after an object has been newly created. The <Tt clASS="monofont">_ _del_ _( )</Tt> method is invoked when an object is about to be destroyed. This method is invoked only when an object is no longer in use. It’s important to note that the statement <tt cLASS="monofont">delx </tt><i><tT CLAss="monofont">x</tt></I>
+ only decrements an object’s reference count and doesn’t necessarily result in a call to this function.</P>
+
+<A Name="4"></a><p><table border="1" cellSpaCing="0" CellpAddiNG="1" WIdth="100%">
+<cAPTIon><h5>Table 3.7.  Special Methods for Object Creation, Destruction, and Representation</h5></CAPTion><cOLGRoup span="2">
+<tr>
+<th valign="top">
+<fonT siZe="2">
+<p><b>Method</B></p>
+</fonT></th>
+<tH VALign="top">
+<fONT Size="2">
+<p><B>Description</B></P>
+</Font></tH>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">_ _init_ _(</tt><I><tt clAss="monofont">self</tT></I>
+<TT clasS="monofont"> [,</TT><I><tt clASS="monofont">args</Tt></i>
+<tt CLASs="monofont">])</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p>Called to initialize a new instance</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">_ _del_ _(</TT><i><tt class="monofont">self</tt></i>
+<tt class="monofont">)</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Called to destroy an instance</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">_ _repr_ _(</tt><i><tt ClaSs="monofont">self</tt></I>
+<tt clAss="monofont">)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Creates a full string representation of an object</P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">_ _str_ _ (</Tt><i><tT CLAss="monofont">self</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p>Creates an informal string representation</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">_ _cmp_ _(</tt><i><TT CLass="monofont">self</tT></I>
+<TT class="monofont">,</tt><i><tt class="monofont">other</tt></i>
+<tt ClaSs="monofont">)</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Compares two objects and returns negative, zero, or positive</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">_ _hash_ _(</tT><i><tt Class="monofont">self</Tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Computes a 32-bit hash index</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">_ _nonzero_ _(</Tt><i><tt CLASs="monofont">self</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P>Returns <tt ClasS="monofont">0</tt> or <tt ClasS="monofont">1</TT> for truth-value testing</P>
+</font></TD>
+</TR>
+</colgROUP>
+</tablE></P>
+
+<P>The <Tt class="monofont">_ _repr_ _()</tt> and <tt class="monofont">_ _str_ _()</tt> methods create string representations of an object. The <tt cLasS="monofont">_ _repr_ _()</tt> method normally returns an expression string that can be evaluated to re-create the object. This method is invoked by the built-in <tT clasS="monofont">repr()</tt> function and by the backquotes operator (<tT CLAss="monofont">`</tt>). For example:</P>
+
+<PRE>
+
+a = [2,3,4,5]      # Create a list 
+s = repr(a)        # s = '[2, 3, 4, 5]' 
+                   # Note : could have also used s = `a` 
+b = eval(s)        # Turns s back into a list </pre>
+
+<p>If a string expression cannot be created, the convention is for <TT CLass="monofont">_ _repr_ _()</tT> to return a string of the form <TT Class="monofont">&lt;...</tt><i><tt class="monofont">message</tt></i>
+<tt cLasS="monofont">...&gt;</tt>, as shown here:</p>
+
+<Pre>
+
+f = open("foo") 
+a = repr(f)        # a = "&lt;open file 'foo', mode 'r' at dc030&gt;" </prE>
+
+<p>The <tt CLASs="monofont">_ _str_ _()</tt> method is called by the built-in <tT CLAss="monofont">str()</tt> function and by the <TT CLass="monofont">print</tT> statement. It differs from <TT Class="monofont">_ _repr_ _()</tt> in that the string it returns can be more concise and informative to the user. If this method is undefined, the <tt class="monofont">_ _repr_ _()</tt> method is invoked.</p>
+
+<p>The <tt cLasS="monofont">_ _cmp_ _(</tt><i><Tt claSs="monofont">self</tt></I>
+<TT Class="monofont">,</TT><I><Tt claSS="monofont">other</TT></i>
+<tt cLASS="monofont">)</tt> method is used by the other comparison operators. It returns a negative number if <i><tt class="monofont">self</tt></i>
+<tt class="monofont"> &lt; </Tt><i><Tt clAss="monofont">other</tt></I>
+, zero if <i><tt CLASs="monofont">self</tt></i>
+<TT CLass="monofont"> == </tT><I><TT clasS="monofont">other</TT></I>
+, and positive if <i><tt class="monofont">self</tt></i>
+<tt class="monofont"> &gt; </tt><I><tt ClasS="monofont">other</tt></i>
+. If this method is undefined for an object, the object will be compared by object identity. In addition, an object may define an alternative set of comparison functions for each of the relational operators. These are known as <i>rich comparisons</I>, and are described shortly. The <tt cLASS="monofont">_ _nonzero_ _()</tt> method is used for truth-value testing and should return <tt CLASs="monofont">0</tt> or <tT CLAss="monofont">1</tt>. If undefined, the <TT CLass="monofont">_ _len_ _()</tt> method is invoked to determine truth. Finally, the <tt class="monofont">_ _hash_ _()</tt> method computes an integer hash key used in dictionary operations. (The hash value can also be returned using the built-in function <tt clasS="monofont">hash()</tt>.) The value returned should be identical for two objects that compare as equal. Furthermore, mutable objects should not define this method; any changes to an object will alter the hash value and make it impossible to locate an object on subsequent dictionary lookups. An object should not define a <Tt clAss="monofont">_ _hash_ _()</tt> method without also defining <Tt clASS="monofont">_ _cmp_ _()</Tt>.</p>
+
+
+<h4>Attribute Access</h4>
+<P>The methods in <A HRef="40#8.html">Table 3.8</a> read, write, and delete the attributes of an object using the dot (<tT CLAss="monofont">.</tt>) operator and the <TT CLass="monofont">del</tt> operator, respectively.</p>
+
+<a name="8"></a><p><table boRdeR="1" celLspacIng="0" cELLPaddiNG="1" WIdth="100%">
+<cAPTIon><h5>Table 3.8.  Special Methods for Attribute Access</h5></CAPTion><colgroup span="2">
+<tr>
+<th vAliGn="top">
+<foNt sizE="2">
+<p><b>Method</b></P>
+</FONt></th>
+<tH VALign="top">
+<fONT Size="2">
+<p><B>Description</B></P>
+</Font></th>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">_ _getattr_ _(</tt><i><TT CLass="monofont">self</tT></I>
+<TT clasS="monofont">, </TT><I><tt clASS="monofont">name</Tt></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>Returns the attribute <i><TT CLass="monofont">self</tT></I>
+<TT clasS="monofont">.</TT><I><tt clASS="monofont">name</Tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">_ _setattr_ _(</TT><I><tt clASS="monofont">self</Tt></i>
+<tt CLASs="monofont">, </tt><i><TT CLass="monofont">name</tt></i>
+<tt class="monofont">, </tt><i><tt clAss="monofont">value</Tt></i>
+<tT clasS="monofont">)</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Sets the attribute <i><TT CLass="monofont">self</tt></i>
+<tt class="monofont">.</tt><i><tt clAss="monofont">name</Tt></i>
+<tT clasS="monofont"> = </tt><i><TT CLass="monofont">value</tT></I>
+</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">_ _delattr_ _(</tt><i><Tt cLass="monofont">self</Tt></i>
+<tt ClasS="monofont">, </TT><I><tt clASS="monofont">name</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>Deletes the attribute <i><Tt cLass="monofont">self</Tt></i>
+<tt ClasS="monofont">.</TT><I><tt clASS="monofont">name</Tt></i>
+</p>
+</fONT></Td>
+</tr>
+</cOLGRoup>
+</table></p>
+
+<p>For example:</p>
+
+<pre>
+
+a = x.s       # Invokes _ _getattr_ _(x,"s") 
+x.s = b       # Invokes _ _setattr_ _(x,"s", b) 
+del x.s       # Invokes _ _delattr_ _(x,"s") </pre>
+
+<p>For class instances, the <tt ClaSs="monofont">_ _getattr_ _()</tt> method is invoked only if the search for the attribute in the object’s local dictionary or corresponding class definition fails. This method should return the attribute value or raise an <Tt claSs="monofont">AttributeError</tt>  exception on failure.</P>
+
+<A NAme="10"></a>
+<h4>Sequence and Mapping Methods</H4>
+<P>The methods in <A Href="40#12.html">Table 3.9</a> are used by objects that want to emulate sequence and mapping objects.</P>
+
+<A NAme="12"></a><p><TABLe border="1" cellspacing="0" ceLlpAddiNg="1" widTh="100%">
+<caPTIOn><h5>Table 3.9.  Methods for Sequences and Mappings</h5></cAPTIon><coLGROup spAN="2">
+<TR>
+<th valign="top">
+<font size="2">
+<p><b>Method</b></p>
+</FonT></th>
+<tH valiGn="top">
+<foNT SIze="2">
+<p><b>Description</B></P>
+</FOnt></th>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">_ _len_ _(</tt><i><tT clAss="monofont">self</tT></i>
+<tt cLass="monofont">)</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Returns the length of <I><Tt class="monofont">self</tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">_ _getitem_ _(</TT><I><Tt claSS="monofont">self</TT></i>
+<tt cLASS="monofont">, </tt><i><tt class="monofont">key</tt></i>
+<tt class="monofont">)</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>Returns <I><Tt claSS="monofont">self</TT></i>
+<tt cLASS="monofont">[</tt><i><tt class="monofont">key</tt></i>
+<tt class="monofont">]</Tt></p>
+</Font></Td>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">_ _setitem_ _(</tt><i><TT CLass="monofont">self</tt></i>
+<tt class="monofont">, </tt><i><tt clAss="monofont">key</Tt></i>
+<tT clasS="monofont">, </tt><i><TT CLass="monofont">value</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>Sets <i><tt clAss="monofont">self</Tt></i>
+<tT clasS="monofont">[</tt><i><TT CLass="monofont">key</tT></I>
+<TT clasS="monofont">] = </TT><I><tt clASS="monofont">value</Tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">_ _delitem_ _(</TT><I><tt clASS="monofont">self</Tt></i>
+<tt CLASs="monofont">, </tt><i><TT CLass="monofont">key</tt></i>
+<tt class="monofont">)</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>Deletes <I><tt clASS="monofont">self</Tt></i>
+<tt CLASs="monofont">[</tt><i><TT CLass="monofont">key</tt></i>
+<tt class="monofont">]</tt></p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">_ _getslice_ _(</tt><I><TT Class="monofont">self</TT></I>
+<Tt class="monofont">,</tt><i><tt class="monofont">i</tt></i>
+<tT clAss="monofont">,</tT><i><tt cLass="monofont">j</TT></I>
+<Tt claSS="monofont">)</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p>Returns <i><tt class="monofont">self</tt></i>
+<tT clAss="monofont">[</tT><i><tt cLass="monofont">i</TT></I>
+<Tt claSS="monofont">:</TT><i><tt cLASS="monofont">j</tt></i>
+<tT CLAss="monofont">]</tt></p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">_ _setslice_ _(</Tt><i><tt CLASs="monofont">self</tt></i>
+<TT CLass="monofont">,</tT><I><TT class="monofont">i</tt></i>
+<tt class="monofont">,</tt><i><tt ClaSs="monofont">j</tt></I>
+<tt clAss="monofont">,</tT><I><TT clasS="monofont">s</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>Sets <i><tt ClaSs="monofont">self</tt></I>
+<tt clAss="monofont">[</tT><I><TT clasS="monofont">i</TT></I>
+<tt clASS="monofont">:</Tt><i><tt CLASs="monofont">j</tt></i>
+<tt class="monofont">] = </tt><i><tt clasS="monofont">s</tt></I>
+</p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">_ _delslice_ _(</tT><I><TT class="monofont">self</tt></i>
+<tt class="monofont">,</tt><i><tt ClaSs="monofont">i</tt></I>
+<tt clAss="monofont">,</tT><I><TT clasS="monofont">j</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>Deletes <i><tt ClaSs="monofont">self</tt></I>
+<tt clAss="monofont">[</tT><I><TT clasS="monofont">i</TT></I>
+<tt clASS="monofont">:</Tt><i><tt CLASs="monofont">j</tt></i>
+<tt class="monofont">]</tt></p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">_ _contains_ _(</tt><i><tT CLAss="monofont">self</tt></I>
+<TT Class="monofont">,</tt><i><tt class="monofont">obj</tt></i>
+<tt cLasS="monofont">)</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Returns <i><tT CLAss="monofont">obj</tt></I>
+ in <I><TT class="monofont">self</tt></i>
+</p>
+</font></td>
+</tr>
+</colGroUp>
+</taBle></p>
+
+<p>For example:</P>
+
+<pre>
+
+a = [1,2,3,4,5,6] 
+len(a)               # _ _len_ _(a) 
+x = a[2]             # _ _getitem_ _(a,2) 
+a[1] == 7            # _ _setitem_ _(a,1,7) 
+del a[2]             # _ _delitem_ _(a,2) 
+x = a[1:5]           # _ _getslice_ _(a,1,5) 
+a[1:3] = [10,11,12]  # _ _setslice_ _(a,1,3,[10,11,12]) 
+del a[1:4]           # _ _delslice_ _(a,1,4) </PRE>
+
+<P>The <tt clASS="monofont">_ _len_ _</Tt> method is called by the built-in <tt cLASS="monofont">len()</tt> function to return a non-negative length. This function also determines truth values unless the <tt CLASs="monofont">_ _nonzero_ _()</tt> method has also been defined.</p>
+
+<p>For manipulating individual items, the <tt class="monofont">_ _getitem_ _()</tt> method can return an item by key value. The key can be any Python object, but is typically an integer for sequences. The <tt clasS="monofont">_ _setitem_ _()</tt> method assigns a value to an element. The <Tt clAss="monofont">_ _delitem_ _()</tt>  method is invoked whenever the <Tt clASS="monofont">del</Tt> operation is applied to a single element.</p>
+
+<p>The slicing methods support the slicing operator <i><TT CLass="monofont">s</tT></I>
+<TT clasS="monofont">[</TT><I><tt class="monofont">i</tt></i>
+<tt class="monofont">:</tt><i><Tt cLass="monofont">j</Tt></i>
+<tt ClasS="monofont">]</TT>. The <Tt claSS="monofont">_ _getslice_ _()</TT> method returns a slice, which is normally the same type of sequence as the original object. The indices <i><tt cLASS="monofont">i</tt></i>
+ and <i><TT CLass="monofont">j</tt></i>
+ must be integers, but their interpretation is up to the method. Missing values for <i><tt class="monofont">i</tt></i>
+ and <i><tt ClaSs="monofont">j</tt></I>
+ are replaced with <tt clAss="monofont">0</tT> and <TT Class="monofont">sys.maxint</TT>, respectively. The <TT clasS="monofont">_ _setslice_ _()</TT> method assigns values to a slice. Similarly, <Tt claSS="monofont">_ _delslice_ _()</TT> deletes all the elements in a slice.</p>
+
+<p>The <tt class="monofont">_ _contains_ _()</tt> method is used to implement the <tt class="monofont">in</tt> operator.</P>
+
+<p>In addition to implementing the methods just described, sequences and mappings implement a number of mathematical methods, including <tT claSs="monofont">_ _add_ _()</tt>, <tT claSS="monofont">_ _radd_ _()</TT>, <tt clASS="monofont">_ _mul_ _()</Tt>, and <tt cLASS="monofont">_ _rmul_ _()</tt> to support concatenation and sequence replication. These methods are described shortly.</p>
+
+<p>Finally, Python supports an extended slicing operation that’s useful for working with multidimensional data structures such as matrices and arrays. Syntactically, you specify an extended slice as follows:</P>
+
+<PRE>
+
+a = m[0:100:10]          # Strided slice (stride=10) 
+b = m[1:10, 3:20]        # Multidimensional slice 
+c = m[0:100:10, 50:75:5] # Multiple dimensions with strides 
+m[0:5, 5:10] = n         # extended slice assignment 
+del m[:10, 15:]          # extended slice deletion </pre>
+
+<p>The general format for each dimension of an extended slice is <i><tt class="monofont">i</tt></i>
+<tt claSs="monofont">:</tT><i><tt Class="monofont">j</Tt></i>
+<tT CLAss="monofont">[:</tt><I><TT Class="monofont">stride</TT></I>
+<Tt claSS="monofont">]</TT>, where <i><tt class="monofont">stride</tt></i>
+ is optional. As with ordinary slices, you can omit the starting or ending values for each part of a slice. In addition, a special object known as the Ellipsis and written as <tt class="monofont">…</tt> is available to denote any number of trailing or leading dimensions in an extended slice:</P>
+
+<prE>
+
+a = m[..., 10:20]    # extended slice access with Ellipsis 
+m[10:20, ...] = n </pre>
+
+<P>When using extended slices, the <tt clAss="monofont">_ _getitem_ _()</tT>, <TT Class="monofont">_ _setitem_ _()</TT>, and <TT clasS="monofont">_ _delitem_ _()</TT> methods implement access, modification, and deletion, respectively. However, instead of an integer, the value passed to these methods is a tuple containing one or more slice objects and at most one instance of the <Tt claSS="monofont">Ellipsis</TT>  type. For example,</p>
+
+<pre>
+
+a = m[0:10, 0:100:5, ...] </pre>
+
+<p>invokes <tt class="monofont">_ _getitem_ _()</tt> as follows:</p>
+
+<prE>
+
+a = _ _getitem_ _(m, (slice(0,10,None), slice(0,100,5), Ellipsis)) </prE>
+
+<p>At this time, none of the built-in datatypes supports extended slices, so using them is likely to result in an error. However, special-purpose extensions, especially those with a scientific flavor, may provide new types and objects that support the extended slicing operation.</p>
+
+<a Name="14"></a>
+<H4>Mathematical Operations</h4>
+<p><a HREF="40#16.html">Table 3.10</a> lists special methods that objects must implement to emulate numbers. Mathematical operations associate from left to right; when an expression such as <i><tt CLASs="monofont">x</tt></i>
+<TT CLass="monofont"> + </tT><I><TT class="monofont">y</tt></i>
+ appears, the interpreter tries to invoke the method <i><tt class="monofont">x</tt></i>
+<tT clAss="monofont">._ _add_ _(</tT><i><tt cLass="monofont">y</TT></I>
+<Tt claSS="monofont">)</TT>. The special methods beginning with <i><tt cLASS="monofont">r</tt></i>
+ support operations with reversed operands. These are invoked only if the left operand doesn’t implement the specified operation. For example, if <i><TT CLass="monofont">x</tt></i>
+ in <i><tt class="monofont">x</tt></i>
+<tt cLasS="monofont"> + </tt><i><Tt claSs="monofont">y</tt></I>
+ doesn’t support the <TT Class="monofont">_ _add_ _()</TT> method, the interpreter tries to invoke the method <I><Tt claSS="monofont">y</TT></i>
+<tt cLASS="monofont">._ _radd_ _(</tt><i><tt class="monofont">x</tt></i>
+<tt class="monofont">)</Tt>.</p>
+
+<A namE="16"></a><p><taBle bORDEr="1" celLSPAcing="0" CELLpaddING="1" Width="100%">
+<caption><h5>Table 3.10.  Methods for Mathematical Operations</h5></caption><ColGrouP span="2">
+<Tr>
+<th VALIgn="top">
+<foNT SIze="2">
+<p><b>Method</B></P>
+</FOnt></th>
+<TH VAlign="top">
+<font size="2">
+<p><b>Result</b></p>
+</font></Th>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">_ _add_ _(</tt><I><TT Class="monofont">self</TT></I>
+<Tt class="monofont">,</tt><i><tt class="monofont">other</tt></i>
+<tT clAss="monofont">)</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><I><TT Class="monofont">self</TT></I>
+<Tt class="monofont"> + </tt><i><tt class="monofont">other</tt></i>
+</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">_ _sub_ _(</TT><i><tt cLASS="monofont">self</tt></i>
+<tt class="monofont">,</tt><i><tt class="monofont">other</Tt></i>
+<Tt clAss="monofont">)</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">self</tt></i>
+<tt class="monofont"> - </tt><i><tt class="monofont">other</Tt></i>
+</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">_ _mul_ _(</tt><I><TT Class="monofont">self</tt></i>
+<tt class="monofont">,</tt><i><tt cLasS="monofont">other</tt></i>
+<Tt claSs="monofont">)</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><I><TT Class="monofont">self</tt></i>
+<tt class="monofont"> * </tt><i><tt cLasS="monofont">other</tt></i>
+</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">_ _div_ _(</TT><i><tt class="monofont">self</tt></i>
+<tt class="monofont">,</tt><I><tt ClasS="monofont">other</tt></i>
+<tT claSS="monofont">)</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt class="monofont">self</tt></i>
+<tt class="monofont"> / </tt><I><tt ClasS="monofont">other</tt></i>
+</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">_ _mod_ _(</tt><i><tt class="monofont">self</tt></i>
+<tt claSs="monofont">,</tT><i><tt Class="monofont">other</Tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><i><tt class="monofont">self</tt></i>
+<tt claSs="monofont"> % </tT><i><tt Class="monofont">other</Tt></i>
+</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">_ _divmod_ _(</tt><i><tt class="monofont">self</tt></i>
+<tT clAss="monofont">,</tT><i><tt cLass="monofont">other</TT></I>
+<Tt claSS="monofont">)</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">divmod(</tt><i><tt ClaSs="monofont">self</tt></I>
+<tt clAss="monofont">,</tT><I><TT clasS="monofont">other</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">_ _pow_ _(</tt><i><tT claSS="monofont">self</TT></i>
+<tt cLASS="monofont">,</tt><i><tT CLAss="monofont">other</tt></I>
+<TT Class="monofont"> [,</tt><i><tt class="monofont">modulo</tt></i>
+<tt cLasS="monofont">])</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><i><tT CLAss="monofont">self</tt></I>
+<TT Class="monofont"> ** </tt><i><tt class="monofont">other</tt></i>
+<tt cLasS="monofont">, pow(</tt><i><Tt claSs="monofont">self</tt></I>
+<TT Class="monofont">, </TT><I><Tt claSS="monofont">other</TT></i>
+<tt cLASS="monofont">, </tt><i><tt class="monofont">modulo</tt></i>
+<tt class="monofont">)</Tt></p>
+</Font></Td>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">_ _lshift_ _(</tt><i><TT CLass="monofont">self</tt></i>
+<tt class="monofont">,</tt><i><tt clAss="monofont">other</Tt></i>
+<tT clasS="monofont">)</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><TT CLass="monofont">self</tt></i>
+<tt class="monofont"> &lt;&lt; </tt><i><tt clAss="monofont">other</Tt></i>
+</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">_ _rshift_ _(</TT><I><tt class="monofont">self</tt></i>
+<tt class="monofont">,</tt><i><Tt cLass="monofont">other</Tt></i>
+<tt ClasS="monofont">)</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt class="monofont">self</tt></i>
+<tt class="monofont"> &gt;&gt; </tt><i><Tt cLass="monofont">other</Tt></i>
+</p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">_ _and_ _(</tt><i><tt class="monofont">self</tt></i>
+<tt clasS="monofont">,</tt><I><tt cLass="monofont">other</tT></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><tt class="monofont">self</tt></i>
+<tt clasS="monofont"> &amp; </tt><I><tt cLass="monofont">other</tT></i>
+</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">_ _or_ _(</tt><i><tt class="monofont">self</tt></i>
+<tt ClaSs="monofont">,</tt><I><tt clAss="monofont">other</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p><i><tt class="monofont">self</tt></i>
+<tt ClaSs="monofont">  | </tt><I><tt clAss="monofont">other</tT></I>
+</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">_ _xor_ _(</tt><i><tt class="monofont">self</tT></i>
+<tT claSs="monofont">,</tt><i><Tt clASS="monofont">other</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p><i><tt class="monofont">self</tT></i>
+<tT claSs="monofont"> ^ </tt><i><Tt clASS="monofont">other</Tt></i>
+</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">_ _radd_ _(</tt><i><tt clAss="monofont">self</Tt></i>
+<tT clasS="monofont">,</tt><i><TT CLass="monofont">other</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p><i><tt clAss="monofont">other</Tt></i>
+<tT clasS="monofont"> + </tt><i><TT CLass="monofont">self</tT></I>
+</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">_ _rsub_ _(</tt><i><Tt cLass="monofont">self</Tt></i>
+<tt ClasS="monofont">,</TT><I><tt clASS="monofont">other</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p><i><Tt cLass="monofont">other</Tt></i>
+<tt ClasS="monofont"> - </TT><I><tt clASS="monofont">self</Tt></i>
+</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">_ _rmul_ _(</tt><I><tt cLass="monofont">self</tT></i>
+<tt CLASs="monofont">,</tt><i><TT CLass="monofont">other</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p><I><tt cLass="monofont">other</tT></i>
+<tt CLASs="monofont"> * </tt><i><TT CLass="monofont">self</tT></I>
+</P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">_ _rdiv_ _(</tt><I><tt clAss="monofont">self</tT></I>
+<TT clasS="monofont">,</TT><I><tt clASS="monofont">other</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p><I><tt clAss="monofont">other</tT></I>
+<TT clasS="monofont"> / </TT><I><tt clASS="monofont">self</Tt></i>
+</p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">_ _rmod_ _(</tt><i><Tt clASS="monofont">self</Tt></i>
+<tt CLASs="monofont">,</tt><i><TT CLass="monofont">other</tT></I>
+<TT class="monofont">)</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><i><Tt clASS="monofont">other</Tt></i>
+<tt CLASs="monofont"> % </tt><i><TT CLass="monofont">self</tT></I>
+</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">_ _rdivmod_ _(</tt><i><TT CLass="monofont">self</tT></I>
+<TT clasS="monofont">,</TT><I><tt clASS="monofont">other</Tt></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">divmod(</tt><I><TT Class="monofont">other</TT></I>
+<Tt claSS="monofont">,</TT><i><tt class="monofont">self</tt></i>
+<tt class="monofont">)</tt></P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">_ _rpow_ _(</Tt><i><tt CLASs="monofont">self</tt></i>
+<tt class="monofont">,</tt><i><tt clasS="monofont">other</tt></I>
+<tt cLass="monofont">)</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt CLASs="monofont">other</tt></i>
+<tt class="monofont"> ** </tt><i><tt clasS="monofont">self</tt></I>
+</p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">_ _rlshift_ _(</tT><I><TT class="monofont">self</tt></i>
+<tt class="monofont">,</tt><i><tt ClaSs="monofont">other</tt></I>
+<tt clAss="monofont">)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT class="monofont">other</tt></i>
+<tt class="monofont"> &lt;&lt; </tt><i><tt ClaSs="monofont">self</tt></I>
+</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">_ _rrshift_ _(</Tt><i><tt class="monofont">self</tt></i>
+<tt class="monofont">,</tT><i><tT claSs="monofont">other</tt></i>
+<Tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt class="monofont">other</tt></i>
+<tt class="monofont"> &gt;&gt; </tT><i><tT claSs="monofont">self</tt></i>
+</P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">_ _rand_ _(</tt><i><tt class="monofont">self</tt></i>
+<tt clAss="monofont">,</Tt><i><tT clasS="monofont">other</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p><i><tt class="monofont">other</tt></i>
+<tt clAss="monofont"> &amp; </Tt><i><tT clasS="monofont">self</tt></i>
+</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">_ _ror_ _(</tt><i><tt class="monofont">self</tt></i>
+<Tt cLass="monofont">,</Tt><i><tt ClasS="monofont">other</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p><i><tt class="monofont">other</tt></i>
+<Tt cLass="monofont"> | </Tt><i><tt ClasS="monofont">self</TT></I>
+</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">_ _rxor_ _(</tt><i><tt clasS="monofont">self</tt></I>
+<tt cLass="monofont">,</tT><i><tt CLASs="monofont">other</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p><i><tt clasS="monofont">other</tt></I>
+<tt cLass="monofont"> ^ </tT><i><tt CLASs="monofont">self</tt></i>
+</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">_ _iadd_ _(</tt><i><tt ClaSs="monofont">self</tt></I>
+<tt clAss="monofont">,</tT><I><TT clasS="monofont">other</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p><i><tt ClaSs="monofont">self</tt></I>
+<tt clAss="monofont"> += </tT><I><TT clasS="monofont">other</TT></I>
+</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">_ _isub_ _(</tT><i><tT claSs="monofont">self</tt></i>
+<Tt clASS="monofont">,</Tt><i><tt CLASs="monofont">other</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P><i><tT claSs="monofont">self</tt></i>
+<Tt clASS="monofont"> -= </Tt><i><tt CLASs="monofont">other</tt></i>
+</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">_ _imul_ _(</Tt><i><tT clasS="monofont">self</tt></i>
+<TT CLass="monofont">,</tT><I><TT clasS="monofont">other</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p><i><tT clasS="monofont">self</tt></i>
+<TT CLass="monofont"> *= </tT><I><TT clasS="monofont">other</TT></I>
+</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">_ _idiv_ _(</Tt><i><tt ClasS="monofont">self</TT></I>
+<tt clASS="monofont">,</Tt><i><tt CLASs="monofont">other</tt></i>
+<TT CLass="monofont">)</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p><i><tt ClasS="monofont">self</TT></I>
+<tt clASS="monofont"> /= </Tt><i><tt CLASs="monofont">other</tt></i>
+</P>
+</FONt></td>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">_ _imod_ _(</tT><i><tt CLASs="monofont">self</tt></i>
+<TT CLass="monofont">,</tT><I><TT clasS="monofont">other</TT></I>
+<tt class="monofont">)</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P><i><tt CLASs="monofont">self</tt></i>
+<TT CLass="monofont"> %= </tT><I><TT clasS="monofont">other</TT></I>
+</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">_ _ipow_ _(</tT><I><TT clasS="monofont">self</TT></I>
+<tt clASS="monofont">,</Tt><i><tt CLASs="monofont">other</tt></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P><I><TT clasS="monofont">self</TT></I>
+<tt clASS="monofont"> **= </Tt><i><tt CLASs="monofont">other</tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">_ _iand_ _(</Tt><i><tt CLASs="monofont">self</tt></i>
+<TT CLass="monofont">,</tT><I><TT class="monofont">other</tt></i>
+<tt class="monofont">)</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p><i><tt CLASs="monofont">self</tt></i>
+<TT CLass="monofont"> &amp;= </tT><I><TT class="monofont">other</tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">_ _ior_ _(</tT><I><TT clasS="monofont">self</TT></I>
+<tt clASS="monofont">,</Tt><i><tt class="monofont">other</tt></i>
+<tt class="monofont">)</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P><I><TT clasS="monofont">self</TT></I>
+<tt clASS="monofont">  |= </Tt><i><tt class="monofont">other</tt></i>
+</p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">_ _ixor_ _(</Tt><i><tt CLASs="monofont">self</tt></i>
+<TT CLass="monofont">,</tt><i><tt class="monofont">other</tt></i>
+<tt clAss="monofont">)</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt CLASs="monofont">self</tt></i>
+<TT CLass="monofont"> ^= </tt><i><tt class="monofont">other</tt></i>
+</p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">_ _ilshift_ _(</tT><I><TT clasS="monofont">self</TT></I>
+<tt class="monofont">,</tt><i><tt class="monofont">other</tt></i>
+<Tt cLass="monofont">)</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT clasS="monofont">self</TT></I>
+<tt class="monofont"> &lt;&lt;= </tt><i><tt class="monofont">other</tt></i>
+</P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">_ _irshift_ _(</Tt><i><tt CLASs="monofont">self</tt></i>
+<tt class="monofont">,</tt><i><tt clasS="monofont">other</tt></I>
+<tt cLass="monofont">)</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt CLASs="monofont">self</tt></i>
+<tt class="monofont"> &gt;&gt;= </tt><i><tt clasS="monofont">other</tt></I>
+</p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">_ _neg_ _(</tT><I><TT class="monofont">self</tt></i>
+<tt class="monofont">)</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">-</tt><i><tT CLAss="monofont">self</tt></I>
+</P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">_ _pos_ _(</Tt><i><tT CLAss="monofont">self</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">+</tt><I><tt cLass="monofont">self</tT></i>
+</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">_ _abs_ _(</tt><i><tt class="monofont">self</tt></i>
+<tt ClaSs="monofont">)</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">abs(</tt><I><TT Class="monofont">self</tt></i>
+<tt class="monofont">)</tt></p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">_ _invert_ _(</tT><I><TT clasS="monofont">self</TT></I>
+<tt class="monofont">)</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">~</tt><i><tT CLAss="monofont">self</tt></I>
+</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">_ _int_ _(</tt><i><Tt claSs="monofont">self</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">int(</tt><i><tt clAss="monofont">self</Tt></i>
+<tT clasS="monofont">)</tt></p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">_ _long_ _(</tt><i><tt class="monofont">self</tt></i>
+<tT clAss="monofont">)</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">long(</tT><I><TT class="monofont">self</tt></i>
+<tt class="monofont">)</tt></p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">_ _float_ _(</TT><I><Tt claSS="monofont">self</TT></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">float(</tt><i><TT CLass="monofont">self</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">_ _complex_ _(</tt><I><TT Class="monofont">self</TT></I>
+<Tt claSS="monofont">)</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">complex(</Tt><i><tT clasS="monofont">self</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">_ _oct_ _(</tt><i><tT clAss="monofont">self</tT></i>
+<tt cLass="monofont">)</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">oct(</tt><i><tt class="monofont">self</tt></i>
+<tt ClaSs="monofont">)</tt></P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">_ _hex_ _(</TT><i><tt class="monofont">self</tt></i>
+<tt class="monofont">)</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">hex(</tT><I><TT clasS="monofont">self</TT></I>
+<tt class="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">_ _coerce_ _(</TT><I><Tt claSS="monofont">self</TT></i>
+<tt cLASS="monofont">,</tt><i><tt class="monofont">other</tt></i>
+<tt class="monofont">)</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">Type coercion</TT></P>
+</font></TD>
+</TR>
+</colgroup>
+</table></p>
+
+<p>The methods <tt claSs="monofont">_ _iadd_ _()</tT>, <tt cLass="monofont">_ _isub_ _()</tT>, and so forth are used to support in-place arithmetic operators such as <tt cLASS="monofont">a+=b</tt>  and <tt CLASs="monofont">a-=b</tt> (also known as <i>augmented assignment</I>). A distinction is made between these operators and the standard arithmetic methods because the implementation of the in-place operators might be able to provide certain customizations such as performance optimizations. For instance, if the <I><TT clasS="monofont">self</TT></I>
+ parameter is not shared, it might be possible to modify its value in place without having to allocate a newly created object for the result.</p>
+
+<p>The conversion methods <tt class="monofont">_ _int_ _()</tt>, <tt class="monofont">_ _long_ _()</tt>, <Tt cLass="monofont">_ _float_ _()</Tt>, and <tt cLass="monofont">_ _complex_ _()</TT> convert an object into one of the four built-in numerical types. The <TT clasS="monofont">_ _oct_ _()</TT> and <Tt claSS="monofont">_ _hex_ _()</TT> methods return strings representing the octal and hexadecimal values of an object, respectively.</p>
+
+<p>The <tt CLASs="monofont">_ _coerce_ _(</tt><i><tt class="monofont">x</tt></i>
+<tt clasS="monofont">,</tt><I><tt cLass="monofont">y</tT></i>
+<tt CLASs="monofont">)</tt> method is used in conjunction with mixed-mode numerical arithmetic. This method returns either a 2-tuple containing the values of <i><TT CLass="monofont">x</tT></I>
+ and <I><Tt claSS="monofont">y</TT></i>
+ converted to a common numerical type, or <tt class="monofont">None</tt>  if no such conversion is possible. To evaluate an operation <i><tt class="monofont">x op y</tt></I>
+ where <i><tT claSs="monofont">op</tt></i>
+ is an operation such as <Tt clASS="monofont">+</Tt>, the following rules are applied, in order:</p>
+
+<ol TYPE="1">
+<li>
+
+<p> If <i><TT CLass="monofont">x</tT></I>
+ has a <TT class="monofont">_ _coerce_ _()</tt> method, replace <i><tt class="monofont">x</tt></i>
+ and <i><tT clAss="monofont">y</tT></i>
+ with the values returned by <i><tt ClasS="monofont">x</TT></I>
+<tt clASS="monofont">._ _coerce_ _(</Tt><i><tt CLASs="monofont">y</tt></i>
+<TT CLass="monofont">)</tt>. If <tt class="monofont">None</tt>  is returned, skip to step 3.</p>
+</li>
+<li>
+
+<p> If <I><tt ClasS="monofont">x</tt></i>
+ has a method <tT claSS="monofont">_ _</TT><i><tt cLASS="monofont">op</tt></i>
+<tT CLAss="monofont">_ _()</tt>, return <I><TT Class="monofont">x</tt></i>
+<tt class="monofont">._ _</tt><i><tt cLasS="monofont">op</tt></i>
+<Tt claSs="monofont">_ _(</tt><I><TT Class="monofont">y</TT></I>
+<Tt claSS="monofont">)</TT>. Otherwise, restore <i><tt cLASS="monofont">x</tt></i>
+ and <i><tt class="monofont">y</tt></i>
+ to their original values and continue.</p>
+</li>
+<li>
+
+<p> If <I><tt ClasS="monofont">y</tt></i>
+ has a <tT claSS="monofont">_ _coerce_ _()</TT> method, replace <i><tt cLASS="monofont">x</tt></i>
+ and <i><TT CLass="monofont">y</tT></I>
+ with the values returned by <I><Tt class="monofont">y</tt></i>
+<tt class="monofont">._ _coerce_ _(</tt><i><tT clAss="monofont">x</tT></i>
+<tt cLass="monofont">)</TT>. If <TT clasS="monofont">None</TT>  is returned, raise an exception.</P>
+</li>
+<li>
+
+<P> If <I><TT clasS="monofont">y</TT></I>
+ has a method <tt class="monofont">_ _rop_ _()</tt>, return <i><tt class="monofont">y</tt></i>
+<Tt cLass="monofont">._ _rop_ _(</Tt><i><tt ClasS="monofont">x</TT></I>
+<tt clASS="monofont">)</Tt>. Otherwise, raise an exception.</p>
+</li>
+</OL>
+
+<P>Although strings define a few arithmetic operations, the <Tt claSS="monofont">_ _coerce_ _()</TT> method is not used in operations involving standard and Unicode strings.</p>
+
+<p>The interpreter supports only a limited number of mixed-type operations involving the built-in types, in particular the following:</p>
+
+<ul>
+<li>
+<p>If <i><tt class="monofont">x</tt></i>
+ is a string, <i><Tt cLass="monofont">x</Tt></i>
+<tt ClasS="monofont"> % </TT><I><tt clASS="monofont">y</Tt></i>
+ invokes the string-formatting operation, regardless of the type of <tt CLASs="monofont">y</tt>.</p>
+</LI>
+<LI>
+<p>If <i><tt class="monofont">x</tt></i>
+ is a sequence, <i><tt class="monofont">x</Tt></i>
+<Tt clAss="monofont"> + </tt><I><tt cLASS="monofont">y</tt></i>
+ invokes sequence concatenation.</p>
+</LI>
+<LI>
+<p>If either <i><tt CLASs="monofont">x</tt></i>
+ or <I><TT Class="monofont">y</tt></i>
+ is a sequence and the other operand is an integer, <i><tt class="monofont">x</tt></i>
+<tt ClaSs="monofont"> * </tt><I><tt clAss="monofont">y</tT></I>
+ invokes sequence repetition.</P>
+</Li>
+</ul>
+
+<h4>Comparison Operations</H4>
+<P><A Href="40#20.html">Table 3.11</a> lists special methods that objects can implement to provide individualized versions of the relational operators (<TT CLass="monofont">&lt;</tT>, <TT Class="monofont">&gt;</tt>, <tt class="monofont">&lt;=</tt>, <tt claSs="monofont">&gt;=</tT>, <tt cLass="monofont">==</tT>, <tt cLASS="monofont">!=</tt>). These are known as <i>rich comparisons</i> and were first introduced in Python 2.1. Each of these functions takes two arguments and can return any kind of object, including a Boolean value, a list, or any other Python type. For instance, a numerical package might use this to perform an element-wise comparison of two matrices, returning a matrix with the results. If a comparison cannot be made, these functions may also raise an exception.</P>
+
+<A NAme="20"></a><p><TABLe borDER="1" Cellspacing="0" cellpaddinG="1" wiDth="100%">
+<cAptioN><h5>Table 3.11.  Methods for Comparisons</h5></cAPTIon><coLGROup spAN="2">
+<TR>
+<th vaLIGN="top">
+<font size="2">
+<p><b>Method</b></p>
+</font></th>
+<th ValIgn="top">
+<fOnt siZe="2">
+<p><b>Result</B></P>
+</FOnt></th>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">_ _lt_ _(</tt><i><tt class="monofont">self</tt></I>
+<tt ClasS="monofont">,</tt><i><tT claSS="monofont">other</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p><i><tt class="monofont">self</tt></I>
+<tt ClasS="monofont"> &lt; </tt><i><tT claSS="monofont">other</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">_ _le_ _(</tt><i><tt claSs="monofont">self</tT></i>
+<tt Class="monofont">,</Tt><i><tT CLAss="monofont">other</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p><i><tt claSs="monofont">self</tT></i>
+<tt Class="monofont"> &lt;= </Tt><i><tT CLAss="monofont">other</tt></I>
+</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">_ _gt_ _(</tt><i><tT clAss="monofont">self</tT></i>
+<tt cLass="monofont">,</TT><I><Tt claSS="monofont">other</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p><i><tT clAss="monofont">self</tT></i>
+<tt cLass="monofont"> &gt; </TT><I><Tt claSS="monofont">other</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">_ _ge_ _(</Tt><i><Tt clAss="monofont">self</tt></I>
+<tt cLASS="monofont">,</tt><i><tT CLAss="monofont">other</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p><i><Tt clAss="monofont">self</tt></I>
+<tt cLASS="monofont"> &gt;= </tt><i><tT CLAss="monofont">other</tt></I>
+</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">_ _eq_ _(</tt><i><Tt claSs="monofont">self</tt></I>
+<TT Class="monofont">,</TT><I><Tt claSS="monofont">other</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p><i><Tt claSs="monofont">self</tt></I>
+<TT Class="monofont"> == </TT><I><Tt claSS="monofont">other</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">_ _ne_ _(</tt><i><tT claSS="monofont">self</TT></i>
+<tt cLASS="monofont">,</tt><i><tT CLAss="monofont">other</tt></I>
+<TT Class="monofont">)</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p><i><tT claSS="monofont">self</TT></i>
+<tt cLASS="monofont"> != </tt><i><tT CLAss="monofont">other</tt></I>
+</P>
+</FOnt></td>
+</tr>
+</colgroup>
+</table></p>
+
+
+<H4>Callable Objects</h4>
+<p>Finally, an object can emulate a function by providing the <Tt clAss="monofont">_ _call_ _(</tt><I><tt cLASS="monofont">self</tt></i>
+<tT CLAss="monofont"> [,</tt><I><TT Class="monofont">args</TT></I>
+<Tt class="monofont">])</tt> method. If an object <i><tt class="monofont">x</tt></i>
+ provides this method, it can be invoked like a function. That is, <i><Tt cLass="monofont">x</Tt></i>
+<tt ClasS="monofont"> (</TT><I><tt clASS="monofont">arg1</Tt></i>
+<tt CLASs="monofont">, </tt><i><TT CLass="monofont">arg2</tt></i>
+<tt class="monofont">, ...)</tt> invokes <i><tt clAss="monofont">x</Tt></i>
+<tT clasS="monofont">._ _call_ _(</tt><i><TT CLass="monofont">self</tT></I>
+<TT clasS="monofont">, </TT><I><tt clASS="monofont">arg1</Tt></i>
+<tt class="monofont">, </tt><i><tt class="monofont">arg2</tT></i>
+<tT claSs="monofont">, ...)</tt>.</p>
+</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="39.html" title="Built-in Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=40" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="40.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="41.html" title="Performance and Memory Considerations"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

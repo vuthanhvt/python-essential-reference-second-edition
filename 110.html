@@ -1,0 +1,2905 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; String Handling</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="105.html" class="navtitle">A. The Python Library</a> &gt; <span class="nonavtitle">String Handling</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="109.html" title="Mathematics"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=110" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="110.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="111.html" title="Data Management and Object Persistence"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A05%3A46+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105083198031187007140042</font><a href="read7.asp?bookname=0735710910&snode=110&now=5%2F28%2F2002+9%3A05%3A46+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>String Handling</h3>
+<p>The modules in this section are used for string processing.</p>
+
+
+<H4><TT Class="monofont">codecs</TT></H4>
+<P>The <tt clASS="monofont">codecs</Tt>  module provides an interface for accessing different string encoding and decoding functions (<i>codecs</i>) as well as a collection of base classes that can be used to define new codecs. The following functions are available:</p>
+
+<pre>
+
+<b>register(</b><b><i>search_function</i></b><b>)</b> </pre>
+
+<p>Registers a new codec search function. This function should take a single argument in the form of an encoding string (for example, <tT clAss="monofont">'utf-8'</tT>) and return a tuple of functions <tt clAss="monofont">(</tT><I><TT clasS="monofont">encoder</TT></I>
+<tt clASS="monofont">, </Tt><i><tt CLASs="monofont">decoder</tt></i>
+<tt class="monofont">, </tt><i><tt clasS="monofont">streamreader</tt></I>
+<tt cLass="monofont">, </tT><i><tt CLASs="monofont">streamwriter</tt></i>
+<TT CLass="monofont">)</tT>.</P>
+
+<PRe>
+
+<b>lookup(</b><b><I>encoding</I></B><B>)</b> </pre>
+
+<p>Looks up a codec in the codec registry. <i><tt class="monofont">encoding</tt></i>
+ is a string such as <tt clAss="monofont">'utf-8'</Tt>. Returns a tuple of functions <tt Class="monofont">(</Tt><i><tT CLAss="monofont">encoder</tt></I>
+<TT Class="monofont">, </TT><I><Tt claSS="monofont">decoder</TT></i>
+<tt class="monofont">, </tt><i><tt class="monofont">streamreader</tt></I>
+<tt ClasS="monofont">, </tt><i><tT claSS="monofont">streamwriter</TT></i>
+<tt cLASS="monofont">)</tt>. Internally, this function keeps a cache of previously used encodings. If a match is not found in the cache, all the registered search functions are invoked until a match is found. If no match is found, <tt CLASs="monofont">LookupError</tt>  is raised.</p>
+
+<PRE>
+
+<B>open(</b><b><i>filename</i></b><b>,</b> <b><i>mode</i></b><b>[,</b> <b><i>encoding</i></b><b>[,</b> <b><I>errors</i></b><B>[,</b> <b><i>buffering</I></b><b>]]])</b> </pRe>
+
+<p>Opens <i><TT CLass="monofont">filename</tT></I>
+ in the given <I><Tt claSS="monofont">mode</TT></i>
+ and provides transparent data encoding/ decoding according to the encoding specified in <i><tt CLASs="monofont">encoding</tt></i>
+. <i><tt class="monofont">errors</tt></i>
+ is one of <tt claSs="monofont">'strict'</tT>, <tt cLass="monofont">'ignore'</tT>, or <tt cLASS="monofont">'replace'</tt>. The default is <tt CLASs="monofont">'strict'</tt>. <i><TT CLass="monofont">buffering</tT></I>
+ has the same meaning as for the built-in <TT class="monofont">open()</tt> function.</p>
+
+<pre>
+
+<b>EncodedFile(</b><b><i>file</i></b><b>,</b> <b><I>inputenc</i></b><B>[,</b> <b><i>outputenc</I></b> <b>[,</b> <b><I>errors</i></b><b>]])</B> </PRE>
+
+<p>A class that provides an encoding wrapper around a file object <i><tt CLASs="monofont">file</tt></i>
+. Data written to the file is first interpreted according to the input encoding <I><TT Class="monofont">inputenc</TT></I>
+ and then written to the file using the output encoding <I><tt class="monofont">outputenc</tt></i>
+. Data read from the file is decoded according to <i><tt class="monofont">inputenc</tt></I>
+. If <i><tT claSs="monofont">outputenc</tt></i>
+ is omitted, it defaults to <I><tt cLASS="monofont">inputenc</tt></i>
+. <i><TT CLass="monofont">errors</tT></I>
+ has the same meaning as for <TT clasS="monofont">open()</TT> and defaults to <Tt class="monofont">'strict'</tt>.</p>
+
+<p>To define new codecs, the <tt class="monofont">codecs</tt>  module defines a base class <tT clAss="monofont">Codec</tT>  that is subclassed when defining encoders and decoders. The interface to a <tt clAss="monofont">Codec</tT>  object <I><TT clasS="monofont">c</TT></I>
+ is as follows:</p>
+
+<pre>
+
+<B>c.encode(</B><B><I>self</i></b><b>,</b> <B><I>input</I></B> <b>[,</b> <b><i>errors</i></b><b>])</b> </pre>
+
+<p>Encodes input and returns a tuple <tt class="monofont">(</tT><i><tT claSs="monofont">output</tt></i>
+<Tt clASS="monofont">, </Tt><i><tt CLASs="monofont">length</tt></i>
+<TT CLass="monofont">)</tT>  where <I><TT class="monofont">length</tt></i>
+ is the length of the data in <i><tt class="monofont">input</tt></i>
+ that was consumed in the encoding. <i><Tt cLass="monofont">errors</Tt></i>
+ is one of <tt ClasS="monofont">'strict'</TT>, <Tt claSS="monofont">'ignore'</TT>, or <tt clASS="monofont">'replace'</Tt> and defaults to <tt cLASS="monofont">'strict'</tt>.</p>
+
+<pre>
+
+<b><i>c</i></b><b>.decode(</b><b><i>self</i></b><b>,</b> <b><i>input</I></b> <b>[,</B> <b><i>errors</i></B><b>])</b> </prE>
+
+<p>Decodes input and returns a tuple (<i><tT CLAss="monofont">output</tt></I>
+, <I><TT clasS="monofont">length</TT></I>
+) where <i><tt cLASS="monofont">length</tt></i>
+ is the length of the data that was consumed in the decoding. <i><tt class="monofont">errors</tt></i>
+ defaults to <tt clasS="monofont">'strict'</tt>.</P>
+
+<p>Neither the <tt Class="monofont">encode()</Tt> nor <tt CLASs="monofont">decode()</tt> method should maintain internal state. In addition, both methods must be able to operate with zero-length input, producing a zero-length output object of the proper type.</p>
+
+<P>In addition, the <TT Class="monofont">codecs</TT>  module provides base classes for four different types of I/O interfaces. All of these classes are subclasses of <TT clasS="monofont">Codec</TT>.</P>
+
+<pre>
+
+<b>StreamWriter(</b><b><i>stream</i></b> <b>[,</b> <b><i>errors</i></b><b>])</b> </pre>
+
+<P>Provides a wrapper around <i><tT claSs="monofont">stream</tt></i>
+ for producing an encoded output stream. An instance <I><tt cLASS="monofont">w</tt></i>
+ of <tT CLAss="monofont">StreamWriter</tt> provides the same methods as <I><TT Class="monofont">stream</TT></I>
+. In addition, the following methods are defined:</P>
+
+<pre>
+
+<b>w.write(</b><b><i>object</i></b><b>)</b> </pre>
+
+<p>Writes an encoded version of <i><tt clAss="monofont">object</Tt></i>
+ to <i><Tt claSs="monofont">w</tt></I>
+.</P>
+
+<PRe>
+
+<b>w.writelines(</b><b><I>list</I></B><B>)</b> </pre>
+
+<P>Writes a concatenated list of strings to <I><TT clasS="monofont">w</TT></I>
+.</p>
+
+<pre>
+
+<b><i>w</i></b><b>.reset()</b> </pre>
+
+<p>Flushes the output buffers and resets the internal encoding state.</p>
+
+<pre>
+
+<b>StreamReader(</b><B><i>stream</i></B> <b>[,</b> <b><I>errors</i></b><b>])</b> </Pre>
+
+<p>Provides a wrapper around <I><TT Class="monofont">stream</TT></I>
+ for reading an encoded input stream. An instance <I><tt clASS="monofont">r</Tt></i>
+ of <tt CLASs="monofont">StreamReader</tt>  provides the same methods as <i><tt class="monofont">stream</tt></i>
+ in addition to the following methods:</p>
+
+<pre>
+
+<b><i>r</I></b><b>.read([</B><b><i>size</i></B><b>])</b> </prE>
+
+<p>Reads decoded data from <i><tT CLAss="monofont">r</tt></I>
+<I>.</I> <I><tt clASS="monofont">size</Tt></i>
+ is the approximate number of bytes to read. The decoder may adjust this value slightly to accommodate the underlying encoding. If <i><tT CLAss="monofont">size</tt></i>
+ is omitted, all data is read and decoded.</p>
+
+<pre>
+
+<b><i>r</i></b><b>.readline([</b><b><i>size</i></b><b>])</B> </prE>
+
+<p>Reads a single line of input using the underlying stream’s <tt Class="monofont">readline()</Tt> method and returns as decoded data. <i><tT CLAss="monofont">size</tt></I>
+ is simply passed to the underlying <TT Class="monofont">readline()</TT> method.</P>
+
+<Pre>
+
+<b><i>r</I></B><B>.readlines([</B><b><i>size</i></b><b>])</b> </pre>
+
+<p>Reads all lines and returns as a list of decoded lines.</p>
+
+<pre>
+
+<b><i>r</i></b><b>.reset()</b> </Pre>
+
+<P>Resets the codec buffers. This is usually used to recover from decoding errors.</p>
+
+<prE>
+
+<b>StreamReaderWriter(</b><b><i>stream</I></b><b>,</b> <B><I>reader</I></B><b>,</b> <b><i>writer</I></B> <B>[,</B> <b><i>errors</i></b><B>])</B> </PRe>
+
+<p>Provides a wrapper around a stream that provides both encoding and decoding. <i><tT CLAss="monofont">stream</tt></i>
+ is any file object. <i><tt class="monofont">reader</tt></i>
+ must be a factory function or class implementing the <tt clAss="monofont">StreamReader</Tt>  interface. <i><tT clasS="monofont">writer</tt></i>
+ must be a factory function or class implementing the <TT CLass="monofont">StreamWriter</tT>  interface. A <TT Class="monofont">StreamWriter</TT>  instance provides the combined interface of <TT clasS="monofont">StreamReader</TT>  and <Tt class="monofont">StreamWriter</tt>.</p>
+
+<pre>
+
+<b>StreamRecoder(</b><b><i>stream</i></b><b>,</b> <B><i>encode</i></B><b>,</b> <b><I>decode</i></b><b>,</b> <B><i>reader</i></b><B>,</B> <B><I>writer</i></b> <b>[,</b> <B><I>errors</I></B><b>])</b> </prE>
+
+<P>Provides a wrapper around <I><Tt claSS="monofont">stream</TT></i>
+ that allows for conversion between two different encodings (for example, UTF-8 to and from UTF-16). <i><tt class="monofont">stream</tt></i>
+ may be any filelike object. The <i><tt class="monofont">encode</Tt></i>
+ and <I><tt cLass="monofont">decode</tT></i>
+ arguments define the encoding and decoding functions that are returned or accepted by the <tt CLASs="monofont">read()</tt> and <tT CLAss="monofont">write()</tt> methods, respectively; that is, data returned by <TT CLass="monofont">read()</tT>  is encoded according to <I><TT class="monofont">encode</tt></i>
+ and data given to <tt class="monofont">write()</tt>  is decoded according to <i><tt ClaSs="monofont">decode</tt></I>
+. <i><tt cLass="monofont">reader</TT></I>
+ and <I><tt clASS="monofont">writer</Tt></i>
+ are the <tt CLASs="monofont">StreamReader</tt> and <tT CLAss="monofont">StreamWriter</tt>  classes used to read and write the actual contents of the data stream. A <tt class="monofont">StreamRecoder</tt>  object provides the combined interface of <tt class="monofont">StreamReader</Tt>  and <tT claSs="monofont">StreamWriter</tt>.</p>
+
+<P><tt cLASS="monofont">codecs</tt>  also defines the following byte-order marker constants that can be used to help interpret platform-specific files:</p>
+
+<p><TABLe borDER="1" CellsPACIng="0" cellpadding="1" width="100%">
+<coLgrOup sPan="2">
+<tr>
+<Th vaLIGN="top">
+<font SIZE="2">
+<p><b>Constant</b></p>
+</FONT></th>
+<th VALIgn="top">
+<font size="2">
+<p><b>Description</b></p>
+</font></th>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">BOM</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Native byte-order marker for the machine</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">BOM_BE</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Big-endian byte-order marker</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">BOM_LE</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Little-endian byte-order marker</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">BOM32_BE</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>32-bit big-endian marker</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">BOM32_LE</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>32-bit little-endian marker</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">BOM64_BE</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>64-bit big-endian marker</p>
+</FONT></td>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">BOM64_LE</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>64-bit little-endian marker</p>
+</fonT></TD>
+</Tr>
+</colgroup>
+</table></p>
+
+
+<h5>Example</h5>
+<p>The following example illustrates the implementation of a new encoding using simple exclusive-or (XOR) based encryption. This only works for 8-bit strings, but it could be extended to support Unicode:</p>
+
+<pRe>
+
+# xor.py: Simple encryption using XOR 
+import codecs 
+
+# Encoding/decoding function (works both ways) 
+def xor_encode(input, errors = 'strict', key=0xff): 
+    output = "".join([chr(ord(c) ^ key) for c in input]) 
+    return (output,len(input)) 
+
+# XOR Codec class 
+class Codec(codecs.Codec): 
+    key = 0xff 
+    def encode(self,input, errors='strict'): 
+        return xor_encode(input,errors,self.key) 
+    def decode(self,input, errors='strict'): 
+        return xor_encode(input,errors,self.key) 
+
+# StreamWriter and StreamReader classes 
+class StreamWriter(Codec,codecs.StreamWriter): 
+    pass 
+
+class StreamReader(Codec,codecs.StreamReader): 
+    pass 
+
+# Factory functions for creating StreamWriter and 
+# StreamReader objects with a given key value. 
+
+def xor_writer_factory(stream,errors,key=0xff): 
+    s = StreamWriter(stream,errors) 
+    s.key = key 
+    return s; 
+
+def xor_reader_factory(stream,errors,key=0xff): 
+    r = StreamReader(stream,errors) 
+    r.key = key 
+    return r 
+
+# Function registered with the codecs module.  Recognizes any 
+# encoding of the form 'xor-hh' where hh is a hexadecimal number. 
+
+def lookup(s): 
+    if (s[:4] == 'xor-'): 
+        key = int(s[4:],16) 
+    # Create some functions with key set to desired value 
+    e = lambda x,err='strict',key=key:xor_encode(x,err,key) 
+    r = lambda x,err='strict',key=key:xor_reader_factory(x,err,key) 
+    w = lambda x,err='strict',key=key:xor_writer_factory(x,err,key) 
+    return (e,e,r,w) 
+
+# Register with the codec module 
+codecs.register(lookup) </pRe>
+
+<p>Now, here’s a short program that uses the encoding:</p>
+
+<Pre>
+
+import xor, codecs 
+f = codecs.open("foo","w","xor-37") 
+f.write("Hello World\n")        # Writes an "encrypted" version 
+f.close() 
+
+(enc,dec,r,w) = codecs.lookup("xor-ae") 
+a = enc("Hello World") 
+# a = ('\346\313\302\302\301\216\371\301\334\302\312', 11) </prE>
+
+
+<h5>Notes</h5>
+<uL>
+<LI>
+<P>Further use of the <tt clASS="monofont">codecs</Tt>  module is described in <a hrEF="89.html">Chapter 9</A>.</P>
+</li>
+<li>
+<P>Most of the built-in encodings are provided to support Unicode string encoding. In this case, the encoding functions produce 8-bit strings and the decoding functions produce Unicode strings.</P>
+</LI>
+</ul>
+<p>? <b>See Also</b> <a href="89.html">Chapter 9</a>.</p>
+
+<a name="8"></a>
+<h4><tT clAss="monofont">re</tT></h4>
+<p>The <tt ClasS="monofont">re</TT>  module is used to perform regular-expression pattern matching and replacement in strings. Both ordinary and Unicode strings are supported. Regular-expression patterns are specified as strings containing a mix of text and special-character sequences. Since patterns often make extensive use of special characters and the backslash, they’re usually written as “raw” strings such as <Tt claSS="monofont">r'(?P&lt;</TT><i><tt cLASS="monofont">int</tt></i>
+<tT CLAss="monofont">&gt;\d+)\.(\d*)'</tt>. For the remainder of this section, all regular-expression patterns are denoted using the raw string syntax.</p>
+
+<p>The following special-character sequences are recognized in regular expression patterns:</p>
+
+<p><table border="1" cEllSpacIng="0" ceLlpaDDINg="1" widTH="100%">
+<COlgroUP SPan="2">
+<tr>
+<TH VAlign="top">
+<font size="2">
+<p><b>Character(s)</b></p>
+</font></Th>
+<tH valIgn="top">
+<foNt siZE="2">
+<P><B>Description</b></p>
+</foNT></TH>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><i><tt class="monofont">text</tt></i>
+</p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>Matches the literal string <i><tt cLASS="monofont">text</tt></i>
+.</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">.</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P>Matches any character except newline.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">^</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P>Matches the start of a string.</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">$</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>Matches the end of the string.</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">*</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>Matches zero or more repetitions of the preceding expression, matching as many repetitions as possible.</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">+</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p>Matches one or more repetitions of the preceding expression, matching as many repetitions as possible.</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">?</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>Matches zero repetitions or one repetition of the preceding expression.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">*?</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>Matches zero or more repetitions of the preceding expression, matching as few repetitions as possible.</p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">+?</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p>Matches one or more repetitions of the preceding expression, matching as few repetitions as possible.</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">??</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P>Matches zero or one repetitions of the preceding expression, matching as few repetitions as possible.</p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">{</tT><I><TT class="monofont">m</tt></i>
+<tt class="monofont">, </tt><i><tt ClaSs="monofont">n</tt></I>
+<tt clAss="monofont">}</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Matches from <I><TT class="monofont">m</tt></i>
+ to <i><tt class="monofont">n</tt></i>
+ repetitions of the preceding expression, matching as many repetitions as possible.</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">{</TT><i><tt cLASS="monofont">m</tt></i>
+<tt class="monofont">, </tt><i><tt class="monofont">n</Tt></i>
+<Tt clAss="monofont">}?</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Matches from <i><tt cLASS="monofont">m</tt></i>
+ to <i><tt class="monofont">n</tt></i>
+ repetitions of the preceding expression, matching as few repetitions as possible.</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">[...]</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p>Matches a set of characters such as <tt class="monofont">r'[abcdef]'</tt> or <Tt cLass="monofont">r'[a-zA-z]'</Tt>. Special characters such as <tt cLass="monofont">*</TT> are not active inside a set.</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">[^...]</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>Matches the characters not in the set, such as <tT CLAss="monofont">r'[^0-9]'</tt>.</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><i><tt class="monofont">A</tt></i>
+<tT clAss="monofont">|</tT><i><tt cLass="monofont">B</TT></I>
+</P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Matches either <I><tt class="monofont">A</tt></i>
+ or <i><tt class="monofont">B</tt></I>
+ where <i><tT claSs="monofont">A</tt></i>
+ and <I><tt cLASS="monofont">B</tt></i>
+ are both regular expressions.</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">(...)</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>Matches the regular expression inside the parentheses as a group and saves the matched substring.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">(?iLmsux)</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Interprets the letters <TT Class="monofont">'i'</TT>, <TT clasS="monofont">'L'</TT>, <Tt claSS="monofont">'m'</TT>, <tt class="monofont">'s'</tt>, <tt class="monofont">'u'</tt>, and <tt ClaSs="monofont">'x'</tt> as flag settings corresponding to the <Tt claSs="monofont">re.I</tt>, <TT CLass="monofont">re.L</tT>, <TT Class="monofont">re.M</TT>, <TT clasS="monofont">re.S</TT>, <Tt class="monofont">re.U</tt>, <tt class="monofont">re.X</tt>  flag settings given to <tt cLasS="monofont">re.compile()</tt>.</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">(?:...)</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>Matches the regular expression inside the parentheses, but discards the matched substring.</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">(?P&lt;</tt><I><TT Class="monofont">name</tt></i>
+<tt class="monofont">&gt;...)</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>Matches the regular expression in the parentheses and creates a named group.The group name must be a valid Python identifier.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">(?P=</tt><i><tt clasS="monofont">name</tt></I>
+<tt cLass="monofont">)</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Matches the same text that was matched by an earlier named group.</p>
+</foNT></TD>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">(?#...)</tt></p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>A comment. The contents of the parentheses are ignored.</P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">(?=...)</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Matches the preceding expression only if followed by the pattern in the parentheses. For example, <tT CLAss="monofont">r'Hello (?=World)'</tt> matches <TT CLass="monofont">'Hello '</tt> only if followed by <tt class="monofont">'World'</tt>.</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">(?!...)</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p>Matches the preceding expression only if it’s <i>not</i> followed by the pattern in parentheses. For example, <tt class="monofont">r'Hello (?!World)'</Tt> matches <tT claSs="monofont">'Hello '</tt> only if it’s not followed by <tT claSS="monofont">'World'</TT>.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">(?&lt;=...)</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Matches the following expression if it’s preceded by a match of the pattern in parentheses. For example, <TT Class="monofont">r'(?&lt;=abc)def'</TT> matches <TT clasS="monofont">'def'</TT> only if it’s preceded by <Tt claSS="monofont">'abc'</TT>.</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">(?&lt;!...)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Matches the following expression only if it’s <I>not</I> preceded by a match of the pattern in parentheses. For example, <Tt class="monofont">r'(?&lt;!abc)def'</tt> matches <tt class="monofont">'def'</tt> only if it’s not preceded by <tt cLasS="monofont">'abc'</tt>.</p>
+</Font></tD>
+</tr>
+</cOLGRoup>
+</tABLE></p>
+
+<p>Standard character escape sequences such as <tt CLASs="monofont">'\n'</tt> or <tT CLAss="monofont">'\t'</tt> are recognized as standard characters in a regular expression; for example, <tt class="monofont">r'\n+'</tt> would match one or more newline characters. In addition, literal symbols that normally have special meaning in a regular expression can be specified by preceding them with a backslash. For example, <tt class="monofont">r'\*'</Tt> matches the character <tT claSs="monofont">*</tt>. In addition, a number of backslash sequences correspond to special sets of characters:</p>
+
+<P><tabLE BOrder="1" CELLspacING="0" CellpADDIng="1" width="100%">
+<colgroup span="2">
+<tR>
+<th ValiGn="top">
+<fonT sizE="2">
+<P><B>Character(s)</B></p>
+</fonT></TH>
+<Th valIGN="top">
+<Font sIZE="2">
+<P><b>Description</b></p>
+</font></th>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">\</TT><I><tt clASS="monofont">number</Tt></i>
+</p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Matches the text that was matched by a previous group number. Groups are numbered from 1 to 99, starting from the left.</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">\A</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Matches only at the start of the string.</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">\b</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Matches the empty string at the beginning or end of a word. A <i>word</i> is a sequence of alphanumeric characters terminated by whitespace or any other non-alphanumeric character.</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">\B</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Matches the empty string not at the beginning or end of a word.</p>
+</font></td>
+</tr>
+<tr>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">\d</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Matches any decimal digit. Same as <tt class="monofont">r'[0-9]'</tt>.</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">\D</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p>Matches any non-digit character. Same as <tt class="monofont">r'[^0-9]'</tt>.</p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">\s</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p>Matches any whitespace character. Same as <tt class="monofont">r'[ \t\n\r\f\v]'</tT>.</p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">\S</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Matches any non-whitespace character. Same as <tt ClaSs="monofont">r'[^ \t\n\r\f\v]'</tt>.</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">\w</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P>Matches any alphanumeric character.</p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">\W</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P>Matches any character not contained in the set defined by <tt ClasS="monofont">\w</tt>.</p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">\Z</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p>Matches only at the end of the string.</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">\\</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P>Matches a literal backslash.</p>
+</foNt></td>
+</tR>
+</colGROUp>
+</tabLE></P>
+
+<P>The following functions are used to perform pattern matching and replacement.</p>
+
+<pre>
+
+<B>compile(</B><B><I>str</i></b> <b>[,</b> <B><I>flags</I></B><b>])</b> </pre>
+
+<p>Compiles a regular-expression pattern string into a regular-expression object. This object can be passed as the pattern argument to all the functions that follow. <i><tt class="monofont">flags</tt></i>
+ is the bitwise-or of the following:</p>
+
+<p><tAblE borDer="1" ceLlspACINg="0" celLPADding="1" WIDTh="100%">
+<colGROUp span="2">
+<tr>
+<th valign="top">
+<font sIze="2">
+<P><b>Flag</b></p>
+</Font></tH>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Description</b></P>
+</FONt></th>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">I</Tt>  or <tt Class="monofont">IGNORECASE</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Performs non–case-sensitive matching.</p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">L</tt>  or <tT claSS="monofont">LOCALE</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Uses locale settings for <tt class="monofont">\w</tt>, <tt class="monofont">\W</tt>, <tt ClaSs="monofont">\b</tt>, and <Tt claSs="monofont">\B</tt>.</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">M</tt>  or <tt class="monofont">MULTILINE</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>Makes <tt CLASs="monofont">^</tt> and <tT CLAss="monofont">$</tt> apply to each line in addition to the beginning and end of the entire string. (Normally <TT CLass="monofont">^</tt> and <tt class="monofont">$</tt> apply only to the beginning and end of an entire string.)</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">S</tt>  or <tT CLAss="monofont">DOTALL</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p>Makes the dot (<Tt cLass="monofont">.</Tt>) character match all characters, including the newline.</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">U</tt>  or <tt class="monofont">UNICODE</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>Uses information from the Unicode character properties database for <tT CLAss="monofont">\w</tt>, <TT CLass="monofont">\W</tT>, <TT Class="monofont">\b</TT>, and <TT class="monofont">\B</tt>.</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">X</tt>  or <TT CLass="monofont">VERBOSE</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>Ignores unescaped whitespace and comments.</p>
+</font></td>
+</Tr>
+</cOlgrOup>
+</taBle></p>
+
+<PRE>
+
+<B>search(</b><b><i>pattern</i></B><B>,</B> <B><i>string</i></b> <b>[,</B> <B><I>flags</I></b><b>])</b> </pRE>
+
+<P>Searches <I><tt class="monofont">string</tt></i>
+ for the first match of <i><tt class="monofont">pattern</tt></I>
+. <i><tT claSs="monofont">flags</tt></i>
+ has the same meaning as for <Tt clASS="monofont">compile()</Tt>. Returns a <tt cLASS="monofont">MatchObject</tt>  on success, <tt CLASs="monofont">None</tt>  if no match was found.</p>
+
+<PRE>
+
+<B>match(</b><b><i>pattern</i></b><b>,</b> <b><i>string</i></b> <b>[,</b> <b><i>flags</i></b><b>])</b> </pRe>
+
+<p>Checks whether zero or more characters at the beginning of <I><tt cLass="monofont">string</tT></i>
+ match <i><tT CLAss="monofont">pattern</tt></I>
+. Returns a <TT Class="monofont">MatchObject</TT>  on success, or <TT clasS="monofont">None</TT>.</P>
+
+<pre>
+
+<b>split(</b><b><i>pattern</i></b><b>,</b> <b><i>string</i></b> <b>[,</b> <b><i>maxsplit</i></B> <b>= 0])</b> </Pre>
+
+<p>Splits <I><tt clAss="monofont">string</tT></I>
+ by the occurrences of <I><Tt claSS="monofont">pattern</TT></i>
+. Returns a list of strings including the text matched by any groups in the pattern. <i><tt CLASs="monofont">maxsplit</tt></i>
+ is the maximum number of splits to perform. By default, all possible splits are performed.</P>
+
+<PRE>
+
+<b>findall(</b><b><i>pattern</i></b><b>,</b> <b><i>string</i></b><b>)</b> </pre>
+
+<p>Returns a list of all non-overlapping matches of <i><tT clAss="monofont">pattern</tT></i>
+ in <i><tt ClasS="monofont">string</TT></I>
+, including empty matches. If the pattern has groups, a list of the text matched by the groups is returned. If more than one group is used, each item in the list is a tuple containing the text for each group.</p>
+
+<pre>
+
+<B>sub(</B><B><I>pattern</i></b><b>,</b> <B><I>repl</I></B><b>,</b> <b><i>string</I></B> <B>[,</B> <b><i>count</i></b> <b>= 0])</b> </pre>
+
+<p>Replaces the leftmost non-overlapping occurrences of <i><tt class="monofont">pattern</tt></I>
+ in <i><tT claSs="monofont">string</tt></i>
+ by the replacement <I><tt cLASS="monofont">repl</tt></i>
+. <i><TT CLass="monofont">repl</tT></I>
+ can be a string or a function. If it’s a function, it’s called with a <TT clasS="monofont">MatchObject</TT>  and should return the replacement string. If <I><tt class="monofont">repl</tt></i>
+ is a string, back references such as <tt class="monofont">'\6'</tt> are used to refer to groups in the pattern.The sequence <tT clAss="monofont">'\g&lt;</tT><i><tt cLass="monofont">name</TT></I>
+<Tt claSS="monofont">&gt;'</TT> is used to refer to a named group. <i><tt cLASS="monofont">count</tt></i>
+ is the maximum number of substitutions to perform. By default, all occurrences are replaced. Although these functions don’t accept a <i><TT CLass="monofont">flags</tt></i>
+ parameter like <tt class="monofont">compile()</tt>, the same effect can be achieved by using the <tt claSs="monofont">(?iLmsux)</tT> notation described earlier in this section.</p>
+
+<prE>
+
+<b>subn(</b><b><i>pattern</I></b><b>,</b> <B><I>repl</I></B><b>,</b> <b><i>string</I></B> <B>[,</B> <b><i>count</i></b> <B>= 0])</B> </PRe>
+
+<p>Same as <tt CLASs="monofont">sub()</tt>, but returns a tuple containing the new string and the number of substitutions.</p>
+
+<pre>
+
+<b>escape(</b><b><i>string</i></b><b>)</b> </pre>
+
+<p>Returns a string with all non-alphanumerics backslashed.</p>
+
+<P>A compiled regular-expression object <i><tT claSs="monofont">r</tt></i>
+ created by the <Tt clASS="monofont">compile()</Tt> function has the following methods and attributes:</p>
+
+<prE>
+
+<B><I>r</I></b><b>.search(</b><b><I>string</I></B> <B>[,</b> <b><i>pos</i></B> <B>[,</B> <B><i>endpos</i></b><b>]])</b> </pre>
+
+<p>Searches <i><tt class="monofont">string</tt></i>
+ for a match. <I><tt ClasS="monofont">pos</tt></i>
+ and <i><Tt clASS="monofont">endpos</Tt></i>
+ specify the starting and ending positions for the search. Returns a <tt CLASs="monofont">MatchObject</tt>  for a match, <tT CLAss="monofont">None</tt>  otherwise.</P>
+
+<PRE>
+
+<b><i>r</i></b><b>.match(</b><b><i>string</i></b> <b>[,</b> <b><i>pos</i></b> <b>[,</b> <b><i>endpos</I></b><b>]])</B> </pre>
+
+<P>Checks whether zero or more characters at the beginning of <i><tt cLass="monofont">string</TT></I>
+ match. <I><tt clASS="monofont">pos</Tt></i>
+ and <i><tT CLAss="monofont">endpos</tt></I>
+ specify the range of <I><TT class="monofont">string</tt></i>
+ to be searched. Returns a <tt class="monofont">MatchObject</tt>  for a match, <tt cLasS="monofont">None</tt>  otherwise.</p>
+
+<Pre>
+
+<b><i>r</I></b><b>.split(</b><B><I>string</I></B> <b>[,</b> <b><i>maxsplit</I></B> <B>= 0])</B> </pre>
+
+<p>Identical to the <TT CLass="monofont">split()</tT> function.</P>
+
+<PRe>
+
+<b><i>r</i></b><b>.findall(</b><b><i>string</i></b><b>)</b> </pre>
+
+<p>Identical to the <tt cLasS="monofont">findall()</tt> function.</p>
+
+<Pre>
+
+<b><i>r</I></b><b>.sub(</b><B><I>repl</I></B><b>,</b> <b><i>string</I></B> <B>[,</B> <b><i>count</i></b> <B>= 0])</B> </PRe>
+
+<p>Identical to the <tt CLASs="monofont">sub()</tt> function.</p>
+
+<pre>
+
+<b><i>r</i></b><b>.subn(</b><b><i>repl</i></b><b>,</b> <b><I>string</i></b> <B>[,</b> <b><i>count</I></b> <b>= 0])</b> </pRe>
+
+<p>Identical to the <tT CLAss="monofont">subn()</tt> function.</P>
+
+<PRE>
+
+<b><i>r</i></b><B>.flags</B> </PRe>
+
+<p>The <i><tT CLAss="monofont">flags</tt></i>
+ argument used when the regular expression object was compiled, or <tt class="monofont">0</tt>.</p>
+
+<pre>
+
+<b><i>r</I></b><b>.groupindex</B> </pre>
+
+<P>A dictionary mapping symbolic group names defined by <tt clAss="monofont">r'(?P&lt;</tT><I><TT clasS="monofont">id</TT></I>
+<tt clASS="monofont">&gt;)'</Tt> to group numbers.</p>
+
+<prE>
+
+<B><I>r</I></b><b>.pattern</b> </pre>
+
+<p>The pattern string from which the regular expression object was compiled.</p>
+
+<p>The <tt class="monofont">MatchObject</tt>  instances returned by <tt ClaSs="monofont">search()</tt> and <Tt claSs="monofont">match()</tt> contain information about the contents of groups as well as positional data about where matches occurred. A <TT CLass="monofont">MatchObject</tT>  instance <I><TT clasS="monofont">m</TT></I>
+ has the following methods and attributes:</p>
+
+<pre>
+
+<B><I>m</I></B><b>. expand(</b><b><i>template</i></b><b>)</b> </pre>
+
+<p>Returns a string that would be obtained by doing regular-expression backslash substitution on the string <i><tt class="monofont">template</Tt></i>
+. Numeric back-references such as <Tt clAss="monofont">"\1"</tt> and <Tt clASS="monofont">"\2"</Tt> and named references such as <tt cLASS="monofont">"\g&lt;</tt><i><tT CLAss="monofont">n</tt></I>
+<TT Class="monofont">&gt;"</tt> and <tt class="monofont">"\g&lt;</tt><i><tt clAss="monofont">name</Tt></i>
+<tT clasS="monofont">&gt;"</tt> are replaced by the contents of the corresponding group. <i>Note:</I> These sequences should be specified using raw strings or with a literal backslash character such as <TT Class="monofont">r'\1'</TT> or <TT clasS="monofont">'\\1'</TT>.</P>
+
+<pre>
+
+<b><I>m</I></B><B>.group([</b><b><i>group1</i></b><b>,</b> <b><i>group2</i></b><b>, ...])</b> </pre>
+
+<p>Returns one or more subgroups of the match. The arguments specify group numbers or group names. If no group name is given, the entire match is returned. If only one group is given, a string containing the text matched by the group is returned. Otherwise, a tuple containing the text matched by each of the requested groups is returned. An <tt cLasS="monofont">IndexError</tt>  is raised if an invalid group number or name is given.</p>
+
+<Pre>
+
+<b><i>m</I></b><b>.groups([</b><B><I>default</I></B><b>])</b> </prE>
+
+<P>Returns a tuple containing the text matched by all groups in a pattern. <I><Tt claSS="monofont">default</TT></i>
+ is the value returned for groups that didn’t participate in the match (the default is <tt cLASS="monofont">None</tt>).</p>
+
+<pre>
+
+<b><i>m</i></b><b>.groupdict([</b><b><i>default</i></b><b>])</b> </prE>
+
+<p>Returns a dictionary containing all the named subgroups of the match. <i><Tt clAss="monofont">default</tt></I>
+ is the value returned for groups that didn’t participate in the match (the default is <tt cLASS="monofont">None</tt>).</p>
+
+<pRE>
+
+<B><I>m</i></b><b>.start([</b><B><I>group</I></B><b>])</b> 
+<b><i>m</I></B><B>.end([</B><b><i>group</i></b><b>])</b> </pre>
+
+<p>Returns the indices of the start and end of the substring matched by a group. If <i><tt class="monofont">group</tt></I>
+ is omitted, the entire matched substring is used. Returns <tt ClasS="monofont">None</tt>  if the group exists but didn’t participate in the match.</p>
+
+<pRe>
+
+<b><i>m</I></B><B>.span([</B><b><i>group</i></b><B>])</B> </PRe>
+
+<p>Returns a 2-tuple <tt CLASs="monofont">(</tt><i><TT CLass="monofont">m</tt></i>
+<tt class="monofont">.start(</tt><i><tt clAss="monofont">group</Tt></i>
+<tT clasS="monofont">), </tt><i><TT CLass="monofont">m</tT></I>
+<TT clasS="monofont">.end(</TT><I><tt clASS="monofont">group</Tt></i>
+<tt class="monofont">))</tt>. If <i><tt class="monofont">group</tT></i>
+ didn’t contribute to the match, this returns <tT claSs="monofont">(None, None)</tt>. If <i><Tt clASS="monofont">group</Tt></i>
+ is omitted, the entire matched substring is used.</p>
+
+<pRE>
+
+<B><I>m</i></b><b>.pos</b> </PRE>
+
+<P>The value of <i><tt cLASS="monofont">pos</tt></i>
+ passed to the <tt class="monofont">search()</tt> or <tt class="monofont">match()</tT> function.</p>
+
+<pRe>
+
+<b><i>m</I></b><b>.endpos</b> </pRe>
+
+<p>The value of <i><TT CLass="monofont">endpos</tT></I>
+ passed to the <TT clasS="monofont">search()</TT> or <Tt claSS="monofont">match()</TT> function.</p>
+
+<pre>
+
+<b><i>m</i></b><b>.re</b> </pre>
+
+<p>The regular-expression object whose <tt clasS="monofont">match()</tt> or <Tt clAss="monofont">search()</tt> method produced this <Tt clASS="monofont">MatchObject</Tt>  instance.</p>
+
+<prE>
+
+<B><I>m</I></b><b>.string</b> </pRE>
+
+<P>The string passed to <Tt claSS="monofont">match()</TT> or <tt class="monofont">search()</tt>.</p>
+
+<p>When pattern strings don’t specify a valid regular expression, the <tt class="monofont">re.error</tt>  exception is raised.</P>
+
+<prE>
+
+<b><i>m</i></B><b>.lastindex</b> </prE>
+
+<p>The integer index of the last matched capturing group. <tt CLASs="monofont">None</tt>  if no group was matched.</p>
+
+<PRE>
+
+<B><i>m</i></b><b>.lastgroup</B> </PRE>
+
+<p>The name of the last matched capturing group. <tt cLASS="monofont">None</tt>  if the group didn’t have a name or no group was matched.</p>
+
+
+<h5>Examples</h5>
+<pre>
+
+import re 
+s = open('foo').read()         # Read some text 
+
+# Replace all occurrences of 'foo' with 'bar' 
+t = re.sub('foo','bar',s) 
+
+# Get the title of an HTML document 
+tmatch = re.search(r'&lt;title&gt;(.*?)&lt;/title&gt;',s, re.IGNORECASE) 
+if tmatch: title = tmatch.group(1) 
+
+# Extract a list of possible e-mail addresses from s 
+pat = re.compile(r'([a-zA-Z][\w-]*@[\w-]+(?:\.[\w-]+)*)') 
+addrs = re.findall(pat,s) 
+
+# Replace strings that look like URLs such as 'http://www.python.org' 
+# with an HTML anchor tag of the form 
+# &lt;a href='http://www.python.org'&gt;http://www.python.org&lt;/a&gt; 
+
+pat = re.compile(r'((ftp|http)://[\w-]+(?:\.[\w-]+)*(?:/[\w-]*)*)') 
+t = pat.sub('&lt;a href='\\1'&gt;\\1&lt;/a&gt;', s) </pre>
+
+
+<h5>Notes</h5>
+<ul>
+<li>
+<p>The implementation of the <tt ClaSs="monofont">re</tt>  module is actually found in the module <Tt claSs="monofont">sre</tt>, which provides support for standard and Unicode strings. An older implementation of <TT CLass="monofont">re</tT>  that supports only standard strings is available in the <TT Class="monofont">pre</TT> module.</P>
+</Li>
+<li>
+<p>Detailed information about the theory and implementation of regular expressions can be found in textbooks on compiler construction. The book <I>Mastering Regular Expressions</I> by Jeffrey Friedl (O’Reilly &amp; Associates, 1997) may also be useful.</P>
+</Li>
+<li>
+<p>The <tt class="monofont">re</tt>  module is 8-bit clean and can process strings that contain null bytes and characters whose high bit is set. Regular expression patterns cannot contain null bytes, but can match against the null byte by writing the escape sequence <tt class="monofont">'\000'</Tt>.</p>
+</Li>
+</ul>
+<P>? <b>See Also</b> <a hRef="110#14.html">string</a> (142).</P>
+
+<A NAme="14"></a>
+<h4><TT CLass="monofont">string</tT></H4>
+<P>The <Tt claSS="monofont">string</TT>  module contains a number of useful constants and functions for manipulating strings. Most of the functionality of this module is also available in the form of string methods. The following constants are defined:</p>
+
+<p><table border="1" cellspaCinG="0" celLpaddIng="1" wIDTH="100%">
+<colgROUP span="2">
+<TR>
+<TH valiGN="top">
+<FOnt size="2">
+<p><b>Constant</b></p>
+</font></th>
+<th vaLigN="top">
+<fonT size="2">
+<P><b>Description</b></p>
+</FONT></th>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">digits</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p>The string <Tt clASS="monofont">'0123456789'</Tt>.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">hexdigits</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>The string <TT clasS="monofont">'0123456789abcdefABCDEF'</TT>.</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">letters</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Concatenation of lowercase and uppercase.</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">lowercase</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>String containing all lowercase letters.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">octdigits</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>The string <TT clasS="monofont">'01234567'</TT>.</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">punctuation</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>String of ASCII punctuation characters.</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">printable</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>String of ASCII characters considered to be printable.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">uppercase</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>String containing all uppercase letters.</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">whitespace</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>String containing all whitespace characters. This usually includes space, tab, linefeed, return, formfeed, and vertical tab.</p>
+</FONT></td>
+</tr>
+</COLGroup>
+</TABLe></p>
+
+<p>The following functions are available:</p>
+
+<PRE>
+
+<B>atof(</b><b><i>s</i></b><b>)</b> </pre>
+
+<p>Converts string <tt class="monofont">s</tt> to a floating-point number. See the built-in <Tt cLass="monofont">float()</Tt> function.</p>
+
+<prE>
+
+<b>atoi(</b><b><I>s</I></B> <B>[,</b> <b><i>base</i></B><B>])</B> </Pre>
+
+<p>Converts string <i><TT CLass="monofont">s</tT></I>
+ to an integer. <I><Tt class="monofont">base</tt></i>
+ is an optional base. See the built-in <tt class="monofont">int()</tt> function.</p>
+
+<pRe>
+
+<b>atol(</B><b><i>s</i></B> <b>[,</b> <b><i>base</I></b><b>])</b> </PRE>
+
+<P>Converts string <i><tt cLASS="monofont">s</tt></i>
+ to a long integer. <i><TT CLass="monofont">base</tT></I>
+ is an optional base. See the built-in <TT class="monofont">long()</tt> function.</p>
+
+<pre>
+
+<b>capitalize(</b><b><i>s</i></b><b>)</b> </pRe>
+
+<p>Capitalizes the first character of <I><tt cLass="monofont">s</tT></i>
+. Same as <i><tT CLAss="monofont">s</tt></I>
+<TT Class="monofont">.capitalize()</TT>.</P>
+
+<Pre>
+
+<b>capwords(</b><B><I>s</I></B><b>)</b> </pre>
+
+<p>Capitalizes the first letter of each word in <i><tt class="monofont">s</tt></i>
+, replaces repeated whitespace characters with a single space, and removes leading and trailing whitespace.</p>
+
+<prE>
+
+<b>count(</b><B><i>s</i></b><B>,</b> <b><i>sub</i></B> <b>[,</b> <b><I>start</I></B> <B>[,</b> <b><i>end</i></B><B>]])</B> </Pre>
+
+<p>Counts the number of non-overlapping occurrences of <i><TT CLass="monofont">sub</tT></I>
+ in <I><Tt class="monofont">s</tt></i>
+<tt class="monofont">[</tt><i><tT clAss="monofont">start</tT></i>
+<tt cLass="monofont">:</TT><I><Tt claSS="monofont">end</TT></i>
+<tt cLASS="monofont">]</tt>. Same as <i><tT CLAss="monofont">s</tt></i>
+<tt class="monofont">.count(</tt><i><tt claSs="monofont">sub</tT></i>
+<tt Class="monofont">, </Tt><i><tT CLAss="monofont">start</tt></I>
+<TT Class="monofont">, </TT><I><Tt claSS="monofont">end</TT></i>
+<tt class="monofont">)</tt>.</p>
+
+<pre>
+
+<b>expandtabs(</b><b><i>s</i></b> <B>[,</b> <b><I>tabsize</i></b><b>=8])</B> </pre>
+
+<p>Expands tabs in string <I><tt cLASS="monofont">s</tt></i>
+ with whitespace. <i><TT CLass="monofont">tabsize</tT></I>
+ specifies the number of characters between tab stops. Same as <I><Tt claSS="monofont">s</TT></i>
+<tt class="monofont">.expandtab(</tt><i><tt class="monofont">tabsize</tt></I>
+<tt ClasS="monofont">)</tt>.</p>
+
+<pRe>
+
+<b>find(</b><B><I>s</I></B><b>,</b> <b><i>sub</I></B> <B>[,</B> <b><i>start</i></b> <B>[,</B> <B><I>end</i></b><b>]])</b> 
+<B>index(</B><B><I>s</i></b><b>,</b> <b><i>sub</i></b> <b>[,</b> <b><i>start</i></b> <b>[,</b> <b><i>end</i></b><B>]])</b> </pRe>
+
+<p>Returns the first index in <i><Tt claSs="monofont">s</tt></I>
+<TT Class="monofont">[</TT><I><Tt claSS="monofont">start</TT></i>
+<tt cLASS="monofont">:</tt><i><tt class="monofont">end</tt></i>
+<tt class="monofont">]</Tt>  where the substring <i><Tt clAss="monofont">sub</tt></I>
+ is found. If <i><tt CLASs="monofont">start</tt></i>
+ and <I><TT Class="monofont">end</TT></I>
+ are omitted, the entire string is searched. <Tt claSS="monofont">find()</TT>  returns <tt class="monofont">-1</tt> if not found, while <tt class="monofont">index()</tt>  raises a <tt ClaSs="monofont">ValueError</tt> exception. Same as <I><tt clAss="monofont">s</tT></I>
+<TT clasS="monofont">.find(</TT><I><tt clASS="monofont">sub</Tt></i>
+<tt CLASs="monofont">,</tt><i><tt class="monofont">start</tt></i>
+<tt clasS="monofont">,</tt><I><tt cLass="monofont">end</tT></i>
+<tt CLASs="monofont">)</tt> and <i><TT CLass="monofont">s</tT></I>
+<TT clasS="monofont">.index(</TT><I><tt class="monofont">sub</tt></i>
+<tt class="monofont">,</tt><i><Tt cLass="monofont">start</Tt></i>
+<tt ClasS="monofont">,</TT><I><tt clASS="monofont">end</Tt></i>
+<tt CLASs="monofont">)</tt>.</p>
+
+<PRE>
+
+<B>rfind(</b><b><i>s</i></b><b>,</b> <b><i>sub</i></b> <b>[,</b> <b><i>start</i></b> <b>[,</b> <b><I>end</i></b><B>]])</b> 
+<b>rindex(</b><B><i>s</i></b><b>,</B> <b><i>sub</i></B> <B>[,</B> <B><i>start</i></b> <b>[,</B> <B><I>end</I></b><b>]])</b> </pRE>
+
+<P>Like <Tt claSS="monofont">find()</TT> and <tt class="monofont">index()</tt>, but finds the highest index. Same as <i><tt class="monofont">s</tt></i>
+<Tt cLass="monofont">.rfind(</Tt><i><tt ClasS="monofont">sub</TT></I>
+<tt clASS="monofont">,</Tt><i><tt CLASs="monofont">start</tt></i>
+<TT CLass="monofont">,</tt><i><tt class="monofont">end</tt></i>
+<tt clAss="monofont">)</Tt> and <i><tT clasS="monofont">s</tt></i>
+<TT CLass="monofont">.rindex(</tT><I><TT clasS="monofont">sub</TT></I>
+<tt clASS="monofont">,</Tt><i><tt class="monofont">start</tt></i>
+<tt class="monofont">,</tT><i><tT claSs="monofont">end</tt></i>
+<Tt clASS="monofont">)</Tt>.</p>
+
+<prE>
+
+<B>lower(</B><B><i>s</i></b><b>)</B> </PRE>
+
+<p>Converts all uppercase characters in <i><tt CLASs="monofont">s</tt></i>
+ to lowercase. Same as <i><tt class="monofont">s</tt></i>
+<tt claSs="monofont">.lower().</tT></p>
+
+<prE>
+
+<b>maketrans(</b><b><i>from</I></b><b>,</b> <B><I>to</I></B><b>)</b> </prE>
+
+<P>Creates a translation table that maps each character in <I><Tt claSS="monofont">from</TT></i>
+ to the character in the same position in <i><tt CLASs="monofont">to</tt></i>
+. <i><tt class="monofont">from</tt></i>
+ and <i><tt clAss="monofont">to</Tt></i>
+ must be the same length.</p>
+
+<Pre>
+
+<b>split(</b><B><i>s</i></b> <B>[,</B> <B><I>sep</i></b> <b>[,</b> <B><I>maxsplit</I></B><b>]])</b> 
+<b>splitfields(</b><B><I>s</I></B> <b>[,</b> <b><i>sep</I></B> <B>[,</B> <b><i>maxsplit</i></b><b>]])</b> </pre>
+
+<p>Returns a list of words in <i><tt class="monofont">s</tt></I>
+. If <i><tT claSs="monofont">sep</tt></i>
+ is omitted or <Tt clASS="monofont">None</Tt>, the words are separated by whitespace. Otherwise, the string in <i><tt CLASs="monofont">sep</tt></i>
+ is used as a delimiter. <I><TT Class="monofont">maxsplit</TT></I>
+ specifies the maximum number of splits that can occur.The remainder of the string will be returned as the last element. <Tt class="monofont">split()</tt> is the same as <i><tt class="monofont">s</tt></i>
+<tT clAss="monofont">.split(</tT><i><tt cLass="monofont">sep</TT></I>
+<Tt claSS="monofont">,</TT><i><tt cLASS="monofont">maxsplit</tt></i>
+<tT CLAss="monofont">)</tt>.</p>
+
+<pre>
+
+<b>join(</b><b><i>words</i></b> <b>[,</b> <b><i>sep</i></b><B>])</b> 
+<b>joinfields(</B><b><i>words</i></B> <b>[,</b> <b><i>sep</I></b><b>])</b> </PRE>
+
+<P>Concatenates a sequence of words into a string, with words separated by the string in <i><tt cLASS="monofont">sep</tt></i>
+. If omitted, the words are separated by whitespace. Same as <i><TT CLass="monofont">sep</tT></I>
+<TT class="monofont">.join(</tt><i><tt class="monofont">words</tt></i>
+<tt ClaSs="monofont">)</tt>.</P>
+
+<pre>
+
+<b>lstrip(</B><b><i>s</i></B><B>)</B> 
+<B>rstrip(</b><b><i>s</i></B><B>)</B> 
+<B>strip(</b><b><i>s</i></B><B>)</B> </Pre>
+
+<p>Strips leading and/or trailing whitespace from <i><TT CLass="monofont">s</tt></i>
+. Same as <i><tt class="monofont">s</tt></i>
+<tt cLasS="monofont">.lstrip()</tt>, <i><Tt claSs="monofont">s</tt></I>
+<TT Class="monofont">.rstrip()</TT>, and <I><Tt claSS="monofont">s</TT></i>
+<tt cLASS="monofont">.strip()</tt>.</p>
+
+<pre>
+
+<b>swapcase(</b><b><i>s</i></b><b>)</b> </pre>
+
+<p>Changes uppercase to lowercase and lowercase to uppercase in <i><tT clAss="monofont">s</tT></i>
+. Same as <i><tt ClasS="monofont">s</TT></I>
+<tt clASS="monofont">.swapcase()</Tt>.</p>
+
+<prE>
+
+<B>translate(</B><B><i>s</i></b><b>,</B> <B><I>table</I></b> <b>[,</b> <b><i>delchars</i></b><b>])</b> </pre>
+
+<p>Deletes all characters from <i><tt clasS="monofont">s</tt></I>
+ that are in <i><tt Class="monofont">delchars</Tt></i>
+ and translates the remaining characters using <i><TT CLass="monofont">table</tT></I>
+. <I><Tt claSS="monofont">table</TT></i>
+ must be a 256-character string mapping characters to characters as created by <tt cLASS="monofont">maketrans()</tt>. Same as <i><tt class="monofont">s</tt></i>
+<tt class="monofont">.translate(</Tt><i><Tt clAss="monofont">table</tt></I>
+<tt cLASS="monofont">,</tt><i><tT CLAss="monofont">delchars</tt></I>
+<TT Class="monofont">)</TT>.</P>
+
+<Pre>
+
+<b>upper(</b><b><i>s</i></b><b>)</b> </pre>
+
+<p>Converts all lowercase characters in <i><tt claSs="monofont">s</tT></i>
+ to uppercase. Same as <i><tT clasS="monofont">s</tt></i>
+<TT CLass="monofont">.upper()</tT>.</P>
+
+<PRe>
+
+<b>ljust(</b><b><I>s</I></B><B>,</b> <b><i>width</i></B><B>)</B> 
+<B>rjust(</b><b><i>s</i></b><b>,</b> <b><i>width</i></b><b>)</b> 
+<b>center(</b><b><i>s</i></b><b>,</B> <b><i>width</I></b><b>)</b> </Pre>
+
+<p>Left-aligns, right-aligns, or centers <i><Tt clASS="monofont">s</Tt></i>
+ in a field of width <i><tT CLAss="monofont">width</tt></I>
+. Same as <I><TT clasS="monofont">s</TT></I>
+<tt class="monofont">.ljust(</tt><i><tt class="monofont">width</tt></i>
+<Tt cLass="monofont">)</Tt>, <i><tt ClasS="monofont">s</TT></I>
+<tt clASS="monofont">.rjust(</Tt><i><tt CLASs="monofont">width</tt></i>
+<TT CLass="monofont">)</tt>, and <i><tt class="monofont">s</tt></i>
+<tt clAss="monofont">.center(</Tt><i><tT clasS="monofont">width</tt></i>
+<TT CLass="monofont">)</tT>.</P>
+
+<PRe>
+
+<b>zfill(</b><b><I>s</I></B><B>,</b> <b><i>width</i></B><B>)</B> </Pre>
+
+<p>Pads a numeric string on the left with <tt class="monofont">0</tt> digits up to the given width.</p>
+
+<pre>
+
+<b>replace(</b><b><i>str</I></b><b>,</B> <b><i>old</i></B><b>,</b> <b><i>new</I></b> <b>[,</b> <B><I>max</I></B><b>])</b> </prE>
+
+<P>Replaces <I><Tt claSS="monofont">max</TT></i>
+ occurrences of <i><tt CLASs="monofont">old</tt></i>
+ with <i><tt class="monofont">new</tt></i>
+ in <i><tt clAss="monofont">str</Tt></i>
+. If <i><Tt claSs="monofont">max</tt></I>
+ is omitted, all occurrences are replaced. Same as <I><TT clasS="monofont">s</TT></I>
+<tt clASS="monofont">.replace(</Tt><i><tt CLASs="monofont">old</tt></i>
+<tt class="monofont">,</tt><i><tt clasS="monofont">new</tt></I>
+<tt cLass="monofont">,</tT><i><tt CLASs="monofont">max</tt></i>
+<TT CLass="monofont">)</tT>.</P>
+
+
+<H5>Notes</H5>
+<ul>
+<li>
+<P>This module is officially considered to be deprecated due to the addition of string methods in Python 2.0, but is still widely used in existing Python programs.</P>
+</LI>
+<li>
+<p>Unicode and standard strings are supported by the module, but standard strings are coerced to Unicode when necessary.</p>
+</li>
+</ul>
+<p>? <b>See Also</b> <a href="110#8.html">re</a> (136), <a hrEf="33.html">Chapter 3</a>.</P>
+
+<a naMe="18"></a>
+<h4><tT claSS="monofont">StringIO</TT> and <tt clASS="monofont">cStringIO</Tt></h4>
+<p>The <tT CLAss="monofont">StringIO</tt>  and <TT CLass="monofont">cStringIO</tt>  modules define an object that behaves like a file but reads and writes data from a string buffer.</p>
+
+<pre>
+
+<b>StringIO([</b><b><i>buffer</i></b><b>])</b> </pre>
+
+<P>Creates a new <tt ClasS="monofont">StringIO</tt>  object. <i><tT claSS="monofont">buffer</TT></i>
+ is an initial value (by default, the empty string).</p>
+
+<p>A <tT CLAss="monofont">StringIO</tt>  object supports all the standard file operations— <TT CLass="monofont">read()</tT>, <TT Class="monofont">write()</tt>, and so on—and the following methods:</p>
+
+<pre>
+
+<b><i>s</i></b><b>.getvalue()</b> </pre>
+
+<p>Returns the contents of the string buffer before <Tt cLass="monofont">close()</Tt> is called.</p>
+
+<prE>
+
+<b><i>s</i></B><B>.close()</B> </Pre>
+
+<p>Releases the memory buffer.</p>
+
+
+<H5>Note</H5>
+<UL>
+<li>
+<p>The <tT CLAss="monofont">StringIO</tt>  module defines <TT CLass="monofont">StringIO</tt>  as a class. <tt class="monofont">cStringIO</tt>  defines it as an extension type and provides significantly faster performance.</p>
+</li>
+</ul>
+<p>? <B>See Also</b> <a Href="89.html">Chapter 9</A>, the section “Files” (for file methods).</p>
+
+<a naMe="22"></a>
+<h4><TT CLass="monofont">struct</tT></H4>
+<P>The <Tt claSS="monofont">struct</TT>  module is used to convert data between Python and binary data structures (represented as Python strings). These data structures are often used when interacting with functions written in C or with binary network protocols.</p>
+
+<pre>
+
+<B>pack(</B><B><I>fmt</i></b><b>,</b> <b><i>v1</i></b><b>,</b> <b><i>v2</i></b><b>, ...)</b> </pre>
+
+<p>Packs the values <I><tt ClasS="monofont">v1</tt></i>
+, <i><Tt clASS="monofont">v2</Tt></i>
+, and so on into a string according to the format string in <i><tT CLAss="monofont">fmt</tt></I>
+.</P>
+
+<PRe>
+
+<b>unpack(</b><b><I>fmt</I></B><B>,</b> <b><i>string</i></b><b>)</b> </pre>
+
+<p>Unpacks the contents of <i><tt class="monofont">string</tT></i>
+ according to the format string in <i><Tt clAss="monofont">fmt</tt></I>
+. Returns a tuple of the unpacked values.</p>
+
+<prE>
+
+<B>calcsize(</B><B><i>fmt</i></b><b>)</B> </PRE>
+
+<p>Calculates the size in bytes of the structure corresponding to a format string <i><tt CLASs="monofont">fmt</tt></i>
+.</P>
+
+<P>The format string is a sequence of characters with the following interpretations:</P>
+
+<P><table border="1" cellspaciNg="0" cEllpAddinG="1" widTH="100%">
+<COlgroUP SPan="3">
+<tr>
+<TH VAlign="top">
+<FONT size="2">
+<p><b>Format</b></p>
+</font></th>
+<th valiGn="top">
+<fOnt sIze="2">
+<p><b>C Type</B></p>
+</foNT></TH>
+<th vaLIGN="top">
+<font SIZE="2">
+<p><b>Python Type</b></p>
+</FONT></th>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">'x'</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">pad byte</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>No value</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">'c'</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">char</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>String of length 1</P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">'b'</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">signed char</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P>Integer</p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">'B'</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">unsigned char</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Integer</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">'h'</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">short</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>Integer</p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">'H'</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">unsigned short</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Integer</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">'i'</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">int</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>Integer</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">'I'</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">unsigned int</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p>Integer</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">'l'</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">long</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>Integer</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">'L'</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">unsigned long</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>Integer</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">'f'</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">float</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p>Float</p>
+</font></td>
+</tr>
+<tr>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">'d'</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">double</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>Float</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">'s'</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">char[]</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>String</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">'p'</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">char[]</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>String with length encoded in the first byte</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">'P'</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">void *</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Integer</P>
+</FOnt></td>
+</tr>
+</colgroup>
+</table></p>
+
+<P>Each format character can be preceded by an integer to indicate a repeat count (for example, <tt ClasS="monofont">'4i'</tt> is the same as <tt ClasS="monofont">'iiii'</TT>). For the <Tt claSS="monofont">'s'</TT> format, the count represents the maximum length of the string, so <tt clASS="monofont">'10s'</Tt> represents a 10-byte string. A format of <tt cLASS="monofont">'0s'</tt> indicates a string of zero length. The <tt class="monofont">'p'</tt> format is used to encode a string in which the length appears in the first byte, followed by the string data. This is useful when dealing with Pascal code, as is sometimes necessary on the Macintosh. <i>Note:</i> The length of the string in this case is limited to 255 characters.</p>
+
+<p>When the <tt claSs="monofont">'I'</tT> and <tt cLass="monofont">'L'</tT> formats are used to unpack a value, the return value is a Python long integer. In addition, the <tt cLASS="monofont">'P'</tt> format may return an integer or long integer, depending on the word size of the machine.</p>
+
+<p>The first character of each format string can also specify a byte ordering and alignment of the packed data, as shown in the following table.</P>
+
+<P><TAble bORDEr="1" celLSPAcing="0" cellpadding="1" width="100%">
+<ColGrouP span="3">
+<Tr>
+<th VALIgn="top">
+<foNT SIze="2">
+<p><b>Format</B></P>
+</FOnt></th>
+<TH VAlign="top">
+<font size="2">
+<p><b>Byte Order</b></p>
+</font></Th>
+<tH valIgn="top">
+<foNt siZE="2">
+<P><B>Size and Alignment</b></p>
+</foNT></TH>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">'@'</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>Native</P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Native</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">'='</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Native</p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>Standard</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">'&lt;'</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p>Little-endian</p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>Standard</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">'&gt;'</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Big-endian</P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Standard</P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">'!'</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Network (big-endian)</p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Standard</p>
+</fOnt></Td>
+</tr>
+</ColgrOup>
+</tABLE></p>
+
+<p>Native byte ordering may be little-endian or big-endian, depending on the machine architecture. The native sizes and alignment correspond to the values used by the C compiler and are implementation-specific. The standard alignment assumes that no alignment is needed for any type. The standard size assumes that <tt CLASs="monofont">short</tt>  is 2 bytes, <tT CLAss="monofont">int</tt>  is 4 bytes, <TT CLass="monofont">long</tt>  is 4 bytes, <tt class="monofont">float</tt>  is 32 bits, and <tt clasS="monofont">double</tt>  is 64 bits. The <Tt clAss="monofont">'P'</tt> format can only use native byte ordering.</P>
+
+<p>Sometimes it’s necessary to align the end of a structure to the alignment requirements of a particular type. To do this, end the structure-format string with the code for that type with a repeat count of zero. For example, the format <tt CLASs="monofont">'llh0l'</tt> specifies a structure that ends on a four-byte boundary (assuming that longs are aligned on four-byte boundaries). In this case, two pad bytes would be inserted after the short value specified by the <tT CLAss="monofont">'h'</tt> code. This only works when native size and alignment are being used—standard size and alignment don’t enforce alignment rules.</P>
+
+<P>? <B>See Also</B> <a hreF="109#2.html">array</A> (127), <A Href="115#40.html">xdrlib</a> (277).</p>
+
+
+<h4><tt class="monofont">unicodedata</tt></h4>
+<p>The <tt cLasS="monofont">unicodedata</tt>  modules provide access to the Unicode character database, which contains character properties for all Unicode characters.</p>
+
+<Pre>
+
+<b>decimal(</b><B><i>unichr</i></b><B>[,</B> <B><I>default</i></b><b>])</b> </PRE>
+
+<P>Returns the decimal integer value assigned to the character <i><tt cLASS="monofont">unichr</tt></i>
+. If <i><TT CLass="monofont">unichr</tt></i>
+ is not a decimal digit, <i><tt class="monofont">default</tt></i>
+ is returned or <tt cLasS="monofont">ValueError</tt>  is raised.</p>
+
+<Pre>
+
+<b>digit(</b><B><i>unichr</i></b><B>[,</B> <B><I>default</i></b><b>])</b> </PRE>
+
+<P>Returns the integer digit value assigned to the character <i><tt cLASS="monofont">unichr</tt></i>
+. If <i><TT CLass="monofont">unichr</tt></i>
+ is not a digit, <i><tt class="monofont">default</tt></i>
+ is returned or <tt cLasS="monofont">ValueError</tt>  is raised. This function differs from <tT clasS="monofont">decimal()</tt> in that it works with characters that may represent digits, but that are not decimal digits.</p>
+
+<PRE>
+
+<B>numeric(</b><b><i>unichr</i></B><B>[,</B> <B><i>default</i></b><b>])</B> </PRE>
+
+<p>Returns the value assigned to the Unicode character <i><tt CLASs="monofont">unichr</tt></i>
+ as a floating-point number. If no numeric value is defined, <i><tt class="monofont">default</tt></i>
+ is returned or <tt claSs="monofont">ValueError</tT>  is raised. For example, the numeric value of U+2155 (the character for the fraction <tt cLass="monofont">'1/5'</tT>) is <tt cLASS="monofont">0.2</tt>.</p>
+
+<pRE>
+
+<B>category(</B><b><i>unichr</i></b><B>)</B> </PRe>
+
+<p>Returns a string describing the general category of <i><tT CLAss="monofont">unichr</tt></i>
+. The returned string is one of the following values:</p>
+
+<p><table border="1" ceLlsPaciNg="0" celLpadDING="1" widtH="100%">
+<COLgrouP SPAn="2">
+<tr>
+<tH VALign="top">
+<font size="2">
+<p><b>Value</b></p>
+</font></tH>
+<th ValiGn="top">
+<fonT sizE="2">
+<P><B>Description</B></p>
+</fonT></TH>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">Lu</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Letter, Uppercase</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">Ll</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Letter, Lowercase</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">Lt</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>Letter,Titlecase</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">Mn</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Mark, Non-Spacing</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">Mc</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>Mark, Spacing Combining</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">Me</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>Mark, Enclosing</p>
+</Font></Td>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">Nd</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>Number, Decimal Digit</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">Nl</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p>Number, Letter</p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">No</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>Number, Other</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">Zs</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Separator, Space</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">Zl</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Separator, Line</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">Zp</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Separator, Paragraph</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">Cc</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Other, Control</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">Cf</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Other, Format</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">Cs</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Other, Surrogate</p>
+</FONT></td>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">Co</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Other, Private Use</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">Cn</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Other, Not Assigned</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">Lm</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Letter, Modifier</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">Lo</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Letter, Other</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">Pc</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Punctuation, Connector</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">Pd</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Punctuation, Dash</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">Ps</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>Punctuation, Open</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">Pe</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>Punctuation, Close</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">Pi</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p>Punctuation, Initial quote</P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">Pf</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>Punctuation, Final quote</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">Po</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>Punctuation, Other</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">Sm</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>Symbol, Math</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">Sc</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p>Symbol, Currency</P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">Sk</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>Symbol, Modifier</p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">So</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p>Symbol, Other</p>
+</font></tD>
+</tr>
+</ColgRoup>
+</tAble></P>
+
+<PRE>
+
+<b>bidirectional(</b><b><i>unichr</I></B><B>)</B> </pre>
+
+<p>Returns the bi-directional category assigned to <I><TT Class="monofont">unichr</TT></I>
+ as a string, or an empty string if no such value is defined. Returns one of the following:</P>
+
+<p><table border="1" cellspacIng="0" CellPaddiNg="1" wiDTH="100%">
+<ColgrOUP Span="2">
+<tR>
+<TH ValigN="top">
+<FONt size="2">
+<p><b>Value</b></p>
+</font></th>
+<th valIgn="top">
+<Font Size="2">
+<p><B>Description</b></p>
+</fONT></Th>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">L</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>Left-to-Right</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">LRE</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Left-to-Right Embedding</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">LRO</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>Left-to-Right Override</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">R</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>Right-to-Left</p>
+</Font></Td>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">AL</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>Right-to-Left Arabic</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">RLE</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p>Right-to-Left Embedding</p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">RLO</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>Right-to-Left Override</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">PDF</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Pop Directional Format</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">EN</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p> European Number</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">ES</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>European Number Separator</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">ET</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>European Number Terminator</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">AN</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Arabic Number</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">CS</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Common Number Separator</p>
+</FONT></td>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">NSM</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Non-Spacing Mark</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">BN</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Boundary Neutral</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">B</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Paragraph Separator</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">S</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Segment Separator</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">WS</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Whitespace</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">ON</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Other Neutrals</p>
+</foNT></TD>
+</tr>
+</coLGROup>
+</taBLE></P>
+
+<pre>
+
+<b>combining(</b><b><i>unichr</i></b><b>)</b> </pre>
+
+<p>Returns an integer describing the combining class for <i><tt clAss="monofont">unichr</Tt></i>
+, or <tT clasS="monofont">0</tt> if no combining class is defined. One of the following values is returned:</p>
+
+<P><TABle boRDER="1" cellSPACing="0" cELLPadding="1" width="100%">
+<colgroup sPan="2">
+<Tr>
+<th ValigN="top">
+<fonT SIZe="2">
+<p><b>Value</b></P>
+</FONt></th>
+<tH VALign="top">
+<fONT Size="2">
+<p><b>Description</b></p>
+</font></th>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">0</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Spacing, split, enclosing, reordrant, and Tibetan subjoined</p>
+</font></td>
+</tr>
+<tr>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">1</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Overlays and interior</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">7</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Nuktas</P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">8</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Hiragana/Katakana voicing marks</p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">9</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Viramas</P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">10-199</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Fixed position classes</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">200</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Below left attached</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">202</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>Below attached</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">204</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p>Below right attached</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">208</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>Left attached</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">210</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Right attached</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">212</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Above left attached</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">214</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>Above attached</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">216</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Above right attached</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">218</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>Below left</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">220</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>Below</p>
+</Font></Td>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">222</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>Below right</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">224</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p>Left</p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">226</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>Right</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">228</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Above left</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">230</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Above</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">232</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Above right</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">233</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Double below</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">234</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Double above</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">240</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Below (iota subscript)</p>
+</FONT></td>
+</tr>
+</colgroup>
+</table></p>
+
+<prE>
+
+<b>mirrored(</b><B><i>unichr</i></b><B>)</b> </pre>
+
+<P>Returns <tt cLASS="monofont">1</tt>  if <i><tT CLAss="monofont">unichr</tt></I>
+ is a “mirrored” character in bi-directional text, <TT Class="monofont">0</TT> otherwise.</P>
+
+<Pre>
+
+<b>decomposition(</b><b><i>unichr</i></b><b>)</b> </pre>
+
+<p>Returns a string containing the decomposition mapping of <i><tt claSs="monofont">unichr</tT></i>
+, or the empty string if no such mapping is defined. Typically, characters containing accent marks can be decomposed into multicharacter sequences. For example, <tt Class="monofont">decomposition(u'\u00fc') ('ü')</Tt> returns the string <tt CLASs="monofont">'0075 0308'</tt> corresponding to the letter <i>u</I> and the umlaut (¨) accent mark. The string returned by this function may also include the following strings:</P>
+
+<P><Table BORDer="1" ceLLSPacing="0" cellpadding="1" widtH="100%">
+<coLgroUp spaN="2">
+<tr>
+<tH VALign="top">
+<fONT Size="2">
+<p><B>Value</B></P>
+</Font></tH>
+<TH Valign="top">
+<font size="2">
+<p><b>Description</b></p>
+</fonT></th>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">&lt;font&gt;</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>A font variant (for example, a blackletter form)</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">&lt;noBreak&gt;</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>A nonbreaking version of a space or hyphen</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">&lt;initial&gt;</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>An initial presentation form (Arabic)</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">&lt;medial&gt;</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>A medial presentation form (Arabic)</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">&lt;final&gt;</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>A final presentation form (Arabic)</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">&lt;isolated&gt;</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>An isolated presentation form (Arabic)</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">&lt;circle&gt;</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>An encircled form</p>
+</FONT></td>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">&lt;super&gt;</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>A superscript form</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">&lt;sub&gt;</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>A subscript form</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">&lt;vertical&gt;</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>A vertical layout presentation form</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">&lt;wide&gt;</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>A wide (or zenkaku) compatibility character</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">&lt;narrow&gt;</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>A narrow (or hankaku) compatibility character</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">&lt;small&gt;</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>A small variant form (CNS compatibility)</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">&lt;square&gt;</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>A CJK squared-font variant</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">&lt;fraction&gt;</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>A vulgar fraction form</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">&lt;compat&gt;</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p>Otherwise unspecified compatibility character</P>
+</fonT></TD>
+</Tr>
+</colGROUp>
+</tabLE></P>
+
+
+<H5>Note</h5>
+<ul>
+<lI>
+<P>For further details about the Unicode character database, see <A Target="_blank" href="http://www.unicode.org">http://www.unicode.org</a>.</p>
+</li>
+</ul></font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="109.html" title="Mathematics"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=110" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="110.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="111.html" title="Data Management and Object Persistence"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

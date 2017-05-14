@@ -1,0 +1,112 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; What’s Inside?</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="9.html" class="navtitle">Introduction</a> &gt; <span class="nonavtitle">What’s Inside?</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="10.html" title="Introduction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=11" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="11.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="13.html" title="1. A Tutorial Introduction"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A31%3A37+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137110160242232029007026194</font><a href="read5.asp?bookname=0735710910&snode=11&now=5%2F28%2F2002+8%3A31%3A37+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>What’s Inside?</h3>
+<p>The contents of this book are based on Python 2.1. However, readers should be aware that Python is a constantly evolving language. Most of the topics described herein are likely to be applicable to future versions of Python 2.x. In addition, most topics are applicable to earlier releases. To a lesser extent, the topics in this book also apply to JPython, an implementation of Python entirely in Java. However, that is not the primary focus of this book.</p>
+
+<P>It should be noted that just as Python is an evolving language, the Second Edition of <I>Python Essential Reference</I> has evolved to make use of new language features and new library modules added in Python 2.1. Rather than merely describing new language features as an afterthought, recently added features have been freely used and incorporated throughout the text. Although no distinction is given to new additions, detailed descriptions of language changes can easily be found online.</P>
+
+<p>Finally, note that Python is distributed with hundreds of pages of reference documentation. The contents of this book are largely based on that documentation, but with a number of enhancements, additions, and omissions. First, this reference presents most of the same material in a more compact form, with different examples and alternative descriptions of many topics. Second, a significant number of topics in the library reference have been expanded to include additional outside reference material. This is especially true for low-level system and networking modules in which effective use of a module normally relies on a myriad of options listed in UNIX manual pages and outside reference material. In addition, in order to produce a more concise reference, a number of deprecated and relatively obscure library modules have been omitted. Finally, this reference doesn’t attempt to cover large frameworks such as Tkinter, XML, or the COM extensions, as these topics are beyond the scope of this book and are described in books of their own.</p>
+
+<p>In writing this book, it has been my goal to produce a reference containing virtually everything I have needed to use Python and its large collection of modules. Although this is by no means a gentle introduction to the Python language, I hope that you find the contents of this book to be a useful addition to your programming reference library for many years to come. I welcome your comments.</p>
+
+<P>—David Beazley Chicago, IL 6/1/2001</P>
+
+
+<H4>Conventions Used in This Book</H4>
+<p><tabLE BOrder="1" cellspacing="0" cellpAddIng="1" wIdth="100%">
+<cOlgrOUP Span="2">
+<tR>
+<TH ValigN="top">
+<FONt sizE="2">
+<P><B>Convention</B></p>
+</font></th>
+<th valign="top">
+<font sIze="2">
+<P><b>Usage</b></p>
+</Font></tH>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">monospace text</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>Datatypes, classes, modules, constants, and so on—basically, anything that constitutes part of the Python language or any command you could present to the computer. The monospaced font is also used for Internet addresses such as <Font Color="#000000"><Tt clASS="monofont">www.python.org</Tt></fonT>.</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><i><tt class="monofont">italic monospace</tt></i>
+</P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Variables such as <I><TT Class="monofont">x</TT></I> in <Tt claSS="monofont">abs</TT><i><tt class="monofont">(x)</tt></i>
+.</p>
+</font></td>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><Tt claSS="monofont">[ ]</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p>Brackets are used in syntax lines to indicate optional elements, such as <i><tt class="monofont">object</tt></i>
+ in <tT clAss="monofont">dir([</tT><i><tt cLass="monofont">object</TT></I>
+<Tt claSS="monofont">])</TT>. In the syntax <tt clASS="monofont">[</Tt><i><tt CLASs="monofont">arg = value</tt></i>
+<tt class="monofont">]</tt>, <i><tt clasS="monofont">value</tt></I>
+ indicates the default value of <i><tt Class="monofont">arg</Tt></i>
+. Brackets are also used to denote Python lists; in all coding examples, this is the interpretation.</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>
+
+
+<Img border="0" width="14" height="9" sRc="graphics/ccc.gif" aLt="graphics/ccc.gif"></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Code-continuation characters are inserted into code when a line shouldn’t be broken, but we simply ran out of room on the page.</p>
+</foNT></TD>
+</tr>
+</coLGROup>
+</table></p>
+
+
+<h4>Web Site</h4>
+<p>For downloadable source files from the code listings in this book, visit <a target="_blank" hrEf="http://www.newriders.com">www.newriders.com</a>.</P>
+</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="10.html" title="Introduction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=11" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="11.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="13.html" title="1. A Tutorial Introduction"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

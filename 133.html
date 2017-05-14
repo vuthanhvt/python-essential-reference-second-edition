@@ -1,0 +1,1204 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Special Methods for Types</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="121.html" class="navtitle">B. Extending and Embedding Python</a> &gt; <span class="nonavtitle">Special Methods for Types</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="132.html" title="Defining New Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=133" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="133.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="134.html" title="Threads"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A10%3A40+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161104058145062051086240154</font><a href="read0.asp?bookname=0735710910&snode=133&now=5%2F28%2F2002+9%3A10%3A40+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Special Methods for Types</h3>
+<p>This section describes the C data structures used to implement types. This is an advanced topic and the presentation here is only intended to be a quick reference.</p>
+
+<P>Types are defined by a structure with the following fields. Many of the fields in this structures use <TT Class="monofont">typedef</TT>  names such as <TT clasS="monofont">hashfunc</TT>, <Tt class="monofont">binaryfunc</tt>, <tt class="monofont">intargfunc</tt>, and so forth. These types are defined later in this appendix in <a hrEf="133#10.html">Table B.26</a>.</P>
+
+<pre>
+
+typedef struct _typeobject {
+
+    PyObject_VAR_HEAD 
+    char              *tp_name; 
+    int                tp_basicsize; 
+    int                tp_itemsize; 
+    destructor         tp_dealloc; 
+    printfunc          tp_print; 
+    getattrfunc        tp_getattr; 
+    setattrfunc        tp_setattr; 
+    cmpfunc            tp_compare; 
+    reprfunc           tp_repr; 
+
+    PyNumberMethods   *tp_as_number; 
+    PySequenceMethods *tp_as_sequence; 
+    PyMappingMethods  *tp_as_mapping; 
+
+    hashfunc           tp_hash; 
+    ternaryfunc        tp_call; 
+    reprfunc           tp_str; 
+    getattrofunc       tp_getattro; 
+    setattrofunc       tp_setattro; 
+
+    PyBufferProcs     *tp_as_buffer; 
+    long               tp_flags; 
+    traverseproc       tp_traverse; 
+    inquiry            tp_clear; 
+    richcmpfunc        tp_richcompare; 
+    long               tp_weaklistoffset; 
+} PyTypeObject; </Pre>
+
+<p>Most of the special methods for a type are encapsulated in four data structures: <tT claSS="monofont">PySequenceMethods</TT>, <tt clASS="monofont">PyMappingMethods</Tt>, <tt cLASS="monofont">PyNumberMethods</tt>, and <tt CLASs="monofont">PyBufferProcs</tt>. Tables <a href="133#2.html">B.22</a> through <a href="133#10.html">B.26</a> show the contents of these structures.</p>
+
+<a namE="2"></a><p><TablE bordEr="1" ceLLSPacinG="0" CELlpadDING="1" widtH="100%">
+<CAPtion><h5>Table B.22.  <tt class="monofont">PySequenceMethods</tt>  Structure</h5></captiOn><cOlgrOup spAn="3">
+<tr>
+<TH VAlign="top">
+<FONT size="2">
+<P><B>C Datatype</B></P>
+</font></TH>
+<TH valign="top">
+<font size="2">
+<p><b>Name</b></p>
+</foNt></tH>
+<th vAlign="top">
+<Font SIZE="2">
+<p><b>Python Method</b></p>
+</FONT></th>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">(inquiry)</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">sq_length</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">_ _len_ _(</tt><i><tT clAss="monofont">x</tT></i>
+<tt cLass="monofont">)</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">(binaryfunc)</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">sq_concat</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">_ _add_ _(</tt><i><tt clasS="monofont">x</tt></I>
+<tt cLass="monofont">,</tT><i><tt CLASs="monofont">y</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">(intargfunc)</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">sq_repeat</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">_ _mul_ _(</tT><i><tt cLass="monofont">x</TT></I>
+<Tt claSS="monofont">,</TT><i><tt cLASS="monofont">n</tt></i>
+<tT CLAss="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">(intargfunc)</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">sq_item</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">_ _getitem_ _(</tt><i><TT CLass="monofont">x</tT></I>
+<TT clasS="monofont">,</TT><I><tt class="monofont">n</tt></i>
+<tt class="monofont">)</tt></p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">(intintargfunc)</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">sq_slice</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">_ _getslice_ _(</tt><i><tT CLAss="monofont">x</tt></i>
+<tt class="monofont">,</tt><i><tt claSs="monofont">i</tT></i>
+<tt Class="monofont">,</Tt><i><tT CLAss="monofont">j</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">(intobjargproc)</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">sq_ass_item</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">_ _setitem_ _(</Tt><i><tt ClasS="monofont">x</TT></I>
+<tt clASS="monofont">,</Tt><i><tt CLASs="monofont">n</tt></i>
+<TT CLass="monofont">,</tt><i><tt class="monofont">v</tt></i>
+<tt clAss="monofont">)</Tt></p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">(intintobjargproc)</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">sq_ass_slice</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">_ _setslice_ _(</TT><i><tt class="monofont">x</tt></i>
+<tt class="monofont">,</tt><I><tt ClasS="monofont">i</tt></i>
+<tT claSS="monofont">,</TT><i><tt cLASS="monofont">j</tt></i>
+<tT CLAss="monofont">,</tt><I><TT Class="monofont">v</tt></i>
+<tt class="monofont">)</tt></p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">(objobjproc)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">sq_contains</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">_ _contains_ _(</TT><I><tt clASS="monofont">x</Tt></i>
+<tt class="monofont">,</tt><i><tt class="monofont">o</tT></i>
+<tT claSs="monofont">)</tt></p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">(binaryfunc)</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">sq_inplace_concat</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">_ _iadd_ _(</tt><i><tt class="monofont">x</tt></i>
+<tt cLasS="monofont">,</tt><i><Tt claSs="monofont">y</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">(intargfunc)</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">sq_inplace_repeat</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">_ _imul_ _(</tT><i><tT claSs="monofont">x</tt></i>
+<Tt clASS="monofont">,</Tt><i><tt CLASs="monofont">n</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+</tr>
+</colgroup>
+</table></p>
+
+<P><taBle bOrder="1" CellSPACing="0" cELLPaddiNG="1" WIdth="100%">
+<cAPTIon><h5>Table B.23.  <tt class="monofont">PyMappingMethods</tt>  Structure</h5></caption><ColGrouP span="3">
+<Tr>
+<th VALIgn="top">
+<foNT SIze="2">
+<p><b>C Datatype</B></P>
+</FOnt></th>
+<TH VAlign="top">
+<font size="2">
+<p><b>Name Python</b></p>
+</font></Th>
+<tH valIgn="top">
+<foNt siZE="2">
+<P><B>Method</b></p>
+</foNT></TH>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">(inquiry)</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">mp_length</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">_ _len_ _(</tt><i><tt cLasS="monofont">x</tt></i>
+<Tt claSs="monofont">)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">(binaryfunc)</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">mp_subscript</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">_ _getitem_ _(</tt><i><tt class="monofont">x</tT></i>
+<tT claSs="monofont">,</tt><i><Tt clASS="monofont">key</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">(objobjargproc)</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">mp_ass_subscript</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">_ _setitem_ _(</tt><i><Tt claSs="monofont">x</tt></I>
+<TT Class="monofont">,</TT><I><Tt claSS="monofont">key</TT></i>
+<tt cLASS="monofont">,</tt><i><tt class="monofont">value</tt></i>
+<tt class="monofont">)</Tt></p>
+</Font></Td>
+</tr>
+</cOlgrOUP>
+</Table></P>
+
+<P><TAble bORDEr="1" celLSPAcing="0" cellpadding="1" width="100%">
+<CapTion><H5>Table B.24.  <tt clAss="monofont">PyNumberMethods</tT>  Structure</H5></CAptioN><COLgrouP SPAn="3">
+<tr>
+<tH VALign="top">
+<font size="2">
+<p><b>C Datatype</b></p>
+</font></tH>
+<th ValiGn="top">
+<fonT sizE="2">
+<P><B>Name</B></p>
+</fonT></TH>
+<Th valIGN="top">
+<Font sIZE="2">
+<P><b>Python Method</b></p>
+</font></th>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">(binaryfunc)</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">nb_add</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">_ _add_ _(</Tt><i><tt CLASs="monofont">x</tt></i>
+<TT CLass="monofont">,</tT><I><TT class="monofont">y</tt></i>
+<tt class="monofont">)</tt></p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">(binaryfunc)</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">nb_subtract</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">_ _sub_ _(</TT><i><tt cLASS="monofont">x</tt></i>
+<tt class="monofont">,</tt><i><tt class="monofont">y</Tt></i>
+<Tt clAss="monofont">)</tt></P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">(binaryfunc)</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">nb_multiply</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">_ _mul_ _(</tt><i><tt class="monofont">x</tt></i>
+<tt ClaSs="monofont">,</tt><I><tt clAss="monofont">y</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">(binaryfunc)</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">nb_divide</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">_ _div_ _(</Tt><i><Tt clAss="monofont">x</tt></I>
+<tt cLASS="monofont">,</tt><i><tT CLAss="monofont">y</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">(binaryfunc)</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">nb_remainder</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">_ _mod_ _(</tT><I><TT clasS="monofont">x</TT></I>
+<tt clASS="monofont">,</Tt><i><tt CLASs="monofont">y</tt></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">(binaryfunc)</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">nb_divmod</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">_ _divmod_ _(</tt><I><TT Class="monofont">x</TT></I>
+<Tt class="monofont">,</tt><i><tt class="monofont">y</tt></i>
+<tT clAss="monofont">)</tT></p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">(ternaryfunc)</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">nb_power</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">_ _pow_ _(</tt><i><tt class="monofont">x</tt></i>
+<tt clasS="monofont">,</tt><I><tt cLass="monofont">y</tT></i>
+<tt CLASs="monofont">,</tt><i><TT CLass="monofont">n</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">(unaryfunc)</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">nb_negative</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">_ _neg_ _(</TT><I><Tt claSS="monofont">x</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">(unaryfunc)</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">nb_positive</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">_ _pos_ _(</tT><i><tt CLASs="monofont">x</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">(unaryfunc)</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">nb_absolute</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">_ _abs_ _(</tT><i><tt cLass="monofont">x</TT></I>
+<Tt claSS="monofont">)</TT></p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">(inquiry)</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">nb_nonzero</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">_ _zero_ _(</tt><I><tt cLass="monofont">x</tT></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">(unaryfunc)</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">nb_invert</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">_ _invert_ _(</tt><i><tT clAss="monofont">x</tT></i>
+<tt cLass="monofont">)</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">(binaryfunc)</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">nb_lshift</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">_ _lshift_ _(</tt><i><tt clasS="monofont">x</tt></I>
+<tt cLass="monofont">,</tT><i><tt CLASs="monofont">y</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">(binaryfunc)</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">nb_rshift</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">_ _rshift_ _(</tT><i><tt cLass="monofont">x</TT></I>
+<Tt claSS="monofont">,</TT><i><tt cLASS="monofont">y</tt></i>
+<tT CLAss="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">(binaryfunc)</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">nb_and</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">_ _and_ _(</tt><i><TT CLass="monofont">x</tT></I>
+<TT clasS="monofont">,</TT><I><tt class="monofont">y</tt></i>
+<tt class="monofont">)</tt></p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">(binaryfunc)</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">nb_xor</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">_ _xor_ _(</tt><i><tT CLAss="monofont">x</tt></i>
+<tt class="monofont">,</tt><i><tt claSs="monofont">y</tT></i>
+<tt Class="monofont">)</Tt></p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">(binaryfunc)</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">nb_or</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">_ _or_ _(</tt><i><tt class="monofont">x</tt></i>
+<Tt cLass="monofont">,</Tt><i><tt ClasS="monofont">y</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">(coercion)</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">nb_coerce</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">_ _coerce_ _(</tT><i><tt Class="monofont">x</Tt></i>
+<tT CLAss="monofont">,</tt><I><TT Class="monofont">y</TT></I>
+<Tt claSS="monofont">)</TT></p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">(unaryfunc)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">nb_int</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">_ _int_ _(</TT><I><tt clASS="monofont">x</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">(unaryfunc)</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">nb_long</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">_ _long_ _(</Tt><i><tT CLAss="monofont">x</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">(unaryfunc)</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">nb_float</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">_ _float_ _(</Tt><i><tt ClasS="monofont">x</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">(unaryfunc)</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">nb_oct</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">_ _oct_ _(</tT><i><tt Class="monofont">x</Tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">(unaryfunc)</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">nb_hex</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">_ _hex_ _(</tt><i><Tt cLass="monofont">x</Tt></i>
+<tt ClasS="monofont">)</TT></P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">(binaryfunc)</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">nb_inplace_add</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">_ _iadd_ _(</tt><i><tt claSs="monofont">x</tT></i>
+<tt Class="monofont">,</Tt><i><tT CLAss="monofont">y</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">(binaryfunc)</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">nb_inplace_subtract</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">_ _isub_ _(</Tt><i><tt ClasS="monofont">x</TT></I>
+<tt clASS="monofont">,</Tt><i><tt CLASs="monofont">y</tt></i>
+<TT CLass="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">(binaryfunc)</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">nb_inplace_multiply</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">_ _imul_ _(</tt><I><TT Class="monofont">x</TT></I>
+<Tt claSS="monofont">,</TT><i><tt class="monofont">y</tt></i>
+<tt class="monofont">)</tt></P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">(binaryfunc)</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">nb_inplace_divide</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">_ _idiv_ _(</tt><i><TT CLass="monofont">x</tt></i>
+<tt class="monofont">,</tt><i><tt clAss="monofont">y</Tt></i>
+<tT clasS="monofont">)</tt></p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">(binaryfunc)</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">nb_inplace_remainder</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">_ _imod_ _(</tt><i><tt class="monofont">x</tt></I>
+<tt ClasS="monofont">,</tt><i><tT claSS="monofont">y</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">(ternaryfunc)</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">nb_inplace_power</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">_ _ipow_ _(</Tt><i><tT clasS="monofont">x</tt></i>
+<TT CLass="monofont">,</tT><I><TT clasS="monofont">y</TT></I>
+<tt clASS="monofont">,</Tt><i><tt class="monofont">n</tt></i>
+<tt class="monofont">)</tT></p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">(binaryfunc)</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">nb_inplace_lshift</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">_ _ilshift_ _(</tt><I><TT Class="monofont">x</tt></i>
+<tt class="monofont">,</tt><i><tt cLasS="monofont">y</tt></i>
+<Tt claSs="monofont">)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">(binaryfunc)</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">nb_inplace_rshift</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">_ _irshift_ _(</tt><i><tt class="monofont">x</tT></i>
+<tT claSs="monofont">,</tt><i><Tt clASS="monofont">y</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">(binaryfunc)</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">nb_inplace_and</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">_ _iand_ _(</tt><i><Tt claSs="monofont">x</tt></I>
+<TT Class="monofont">,</TT><I><Tt claSS="monofont">y</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">(binaryfunc)</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">nb_inplace_xor</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">_ _ixor_ _(</Tt><i><tt CLASs="monofont">x</tt></i>
+<TT CLass="monofont">,</tT><I><TT class="monofont">y</tt></i>
+<tt class="monofont">)</tt></p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">(binaryfunc)</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">nb_inplace_or</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">_ _ior_ _(</TT><i><tt cLASS="monofont">x</tt></i>
+<tt class="monofont">,</tt><i><tt class="monofont">y</Tt></i>
+<Tt clAss="monofont">)</tt></P>
+</fonT></TD>
+</Tr>
+</colGROUp>
+</tabLE></P>
+
+<P><tablE BORder="1" cellspacing="0" cellpaDdiNg="1" wiDth="100%">
+<caPtioN><H5>Table B.25.  <TT clasS="monofont">PyBufferProcs</TT>  Methods</H5></captION><ColgrOUP Span="2">
+<tr>
+<th valign="top">
+<font sizE="2">
+<p><b>C Datatype</B></p>
+</foNt></th>
+<tH valIGN="top">
+<Font sIZE="2">
+<P><b>Python Method</b></p>
+</fONT></Th>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">(getreadbufferproc)</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">bf_getreadbuffer</TT></p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">(getwritebufferproc)</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">bf_getwritebuffer</TT></P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">(getsegcountproc)</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">bf_getsegcount</tt></p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">(getcharbufferproc)</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">bf_getcharbuffer</tt></p>
+</font></td>
+</tr>
+</cOlgRoup>
+</Table></P>
+
+<a naME="10"></A><P><tablE BORder="1" cELLSpaciNG="0" CEllpadding="1" width="100%">
+<captioN><h5>Table B.26.  C Prototypes for Methods Defined in This Section</h5></CaptIon><coLgroUP SPan="2">
+<tr>
+<TH VAlign="top">
+<FONT size="2">
+<P><B>C Datatype</B></P>
+</font></th>
+<th valign="top">
+<font siZe="2">
+<p><B>Prototype</b></p>
+</fOnt></th>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">(inquiry)</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">int (*)(PyObject *)</tt></p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">(unaryfunc)</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">PyObject (*)(PyObject *)</tT></P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">(binaryfunc)</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">PyObject (*)(PyObject *, PyObject *)</tt></p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">(ternaryfunc)</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">PyObject (*)(PyObject *, PyObject *, PyObject *)</Tt></p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">(coercion)</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">int (*)(PyObject **, PyObject **)</TT></P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">(intargfunc)</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">PyObject (*)(PyObject *, int)</tT></P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">(intintargfunc)</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">PyObject (*)(PyObject *, int, int)</tt></p>
+</font></td>
+</tr>
+<tr>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">(intobjargproc)</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">int (*)(PyObject *, int, PyObject *)</tt></p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">(intintobjargproc)</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">int (*)(PyObject *, int, int, PyObject *)</tt></p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">(destructor)</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">void (*)(PyObject *)</tT></p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">(printfunc)</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">int (*)(PyObject *, FILE *, int)</tt></P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">(getattrfunc)</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">PyObject (*)(PyObject *, char *)</tT></p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">(getattrofunc)</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">PyObject (*)(PyObject *, PyObject *)</TT></P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">(setattrfunc)</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">int (*)(PyObject *, char *, PyObject *)</tT></P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">(setattrofunc)</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">int (*)(PyObject *, PyObject *, PyObject *)</tt></p>
+</FONT></td>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">(cmpfunc)</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">int (*)(PyObject *, PyObject *)</Tt></p>
+</foNT></TD>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">(reprfunc)</tt></p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">PyObject (*)(PyObject *)</TT></P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">(hashfunc)</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">long (*)(PyObject *)</tt></p>
+</font></td>
+</tr>
+<tr>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">(objobjfunc)</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">int (*)(PyObject *, PyObject *)</tt></p>
+</font></td>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><Tt claSS="monofont">(getreadbufferproc)</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">int (*)(PyObject *, int, void **)</tt></p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">(getwritebufferproc)</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">int (*)(PyObject *, int, void **)</tt></P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">(getsegcountproc)</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">int (*)(PyObject *, int *)</Tt></p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">(getcharbufferproc)</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">int (*)(PyObject *, int, const char **)</tt></p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">(richcmpfunc)</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">PyObject *(*)(PyObject *, PyObject *, int);</Tt></p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">(visitproc)</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">int (*)(PyObject *, void *)</TT></P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">(traverseproc)</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">int (*)(PyObject *, visitproc, void *)</tT></P>
+</FOnt></td>
+</TR>
+</COlgroup>
+</table></p>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="132.html" title="Defining New Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=133" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="133.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="134.html" title="Threads"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

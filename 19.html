@@ -1,0 +1,135 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Lists and Tuples</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="12.html" class="navtitle">1. A Tutorial Introduction</a> &gt; <span class="nonavtitle">Lists and Tuples</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="18.html" title="Strings"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=19" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="19.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="20.html" title="Loops"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A33%3A26+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137110162165008178174077032</font><a href="read6.asp?bookname=0735710910&snode=19&now=5%2F28%2F2002+8%3A33%3A26+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Lists and Tuples</h3>
+<p>Just as strings are sequences of characters, lists and tuples are sequences of arbitrary objects. You create a list as follows:</p>
+
+<PRE>
+
+names = [ "Dave", "Mark", "Ann", "Phil" ] </Pre>
+
+<p>Lists are indexed by integers starting with zero. Use the indexing operator to access and modify individual items of the list:</p>
+
+<PRE>
+
+a = names[2]             # Returns the third item of the list, "Ann" 
+names[0] = "Jeff"        # Changes the first item to "Jeff" </Pre>
+
+<p>The length of a list can be obtained using the <tT CLAss="monofont">len()</tt> function:</p>
+
+<pre>
+
+print len(names)        # prints 4 </pre>
+
+<p>To append new items to a list, use the <tt class="monofont">append()</tT> method:</p>
+
+<pRe>
+
+names.append("Kate") </prE>
+
+<p>To insert an item into the list, use the <tt cLass="monofont">insert()</TT> method:</P>
+
+<Pre>
+
+names.insert(2, "Sydney") </prE>
+
+<P>You can extract or reassign a portion of a list by using the slicing operator:</P>
+
+<Pre>
+
+b = names[0:2]                      # Returns [ "Jeff", "Mark" ] 
+c = names[2:]                       # Returns [ "Sydney", "Ann", "Phil", "Kate" ] 
+names[1] = 'Jeff'                   # Replace the 2nd item in names with "Jeff" 
+names[0:2] = ['Dave','Mark','Jeff'] # Replace the first two items of 
+                                    # the list with the list on the right. </prE>
+
+<P>Use the plus (<TT clasS="monofont">+</TT>) operator to concatenate lists:</P>
+
+<pre>
+
+a = [1,2,3] + [4,5]     # Result is [1,2,3,4,5] </pre>
+
+<p>Lists can contain any kind of Python object, including other lists, as in the following example:</p>
+
+<pre>
+
+a = [1,"Dave",3.14, ["Mark", 7, 9, [100,101]], 10] </pre>
+
+<p><i>Nested lists</i> are accessed as follows:</p>
+
+<prE>
+
+a[1]            # Returns "Dave" 
+a[3][2]         # Returns 9 
+a[3][3][1]      # Returns 101 </prE>
+
+<p>The program in <a hRef="19#2.html">Listing 1.2</a> illustrates a few more advanced features of lists by reading a list of numbers from a file and outputting the minimum and maximum values.</p>
+
+
+<H5>
+<a naME="2"></A>Listing 1.2 Advanced List Features</H5>
+<pre cLASS="monofont">
+import sys                       # Load the sys module 
+f = open(sys.argv[1])            # Filename on the command line 
+svalues = f.readlines()          # Read all lines into a list 
+f.close() 
+
+# Convert all of the input values from strings to floats 
+fvalues = [float(s) for s in svalues] 
+
+# Print min and max values 
+print "The minimum value is ", min(fvalues) 
+print "The maximum value is ", max(fvalues) </pre>
+<p>The first line of this program uses the <TT CLass="monofont">import</tT>  statement to load the <TT Class="monofont">sys</tt>  module from the Python library.</p>
+
+<p>The <tt class="monofont">open()</tt> method uses a filename that has been supplied as a command-line option and stored in the list <tt cLasS="monofont">sys.argv</tt>. The <tT clasS="monofont">readlines()</tt> method reads all the input lines into a list of strings.</p>
+
+<P>The expression <TT Class="monofont">[float(s) for s in svalues]</TT> constructs a new list by looping over all the strings in the list <TT clasS="monofont">svalues</TT>  and applying the function <Tt claSS="monofont">float()</TT> to each element. This particularly powerful method of constructing a list is known as a <i>list comprehension</i>.</p>
+
+<p>After the input lines have been converted into a list of floating-point numbers, the built-in <tt class="monofont">min()</tt> and <tt class="monofont">max()</Tt> functions compute the minimum and maximum values.</p>
+
+<P>Closely related to lists is the tuple datatype. You create tuples by enclosing a group of values in parentheses or with a comma-separated list, like this:</p>
+
+<prE>
+
+a = (1,4,5,-9,10) 
+b = (7,)                                 # Singleton (note extra ,) 
+person = (first_name, last_name, phone) </pre>
+
+<p>Sometimes Python recognizes that a tuple is intended even if the parentheses are missing:</P>
+
+<pre>
+
+a = 1,4,5,-9,10 
+b = 7, 
+person = first_name, last_name, phone </PRE>
+
+<P>Tuples support most of the same operations as lists, such as indexing, slicing, and concatenation. The only difference is that you cannot modify the contents of a tuple after creation––that is, you cannot modify individual elements, or append new elements to a tuple.</p>
+</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="18.html" title="Strings"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=19" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="19.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="20.html" title="Loops"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

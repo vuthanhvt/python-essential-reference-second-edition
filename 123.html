@@ -1,0 +1,162 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Enabling Optional Modules</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="121.html" class="navtitle">B. Extending and Embedding Python</a> &gt; <span class="nonavtitle">Enabling Optional Modules</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="122.html" title="B. Extending and Embedding Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=123" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="123.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="124.html" title="Compilation of Extensions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A08%3A46+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105094192216208231183024</font><a href="read8.asp?bookname=0735710910&snode=123&now=5%2F28%2F2002+9%3A08%3A46+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Enabling Optional Modules</h3>
+<p>A number of modules in the standard library are disabled due to system differences and dependencies on third-party packages. To enable these modules, you must edit a configuration file and rebuild the interpreter (note that this is primarily an issue for UNIX systems).</p>
+
+<P>For versions of Python prior to 2.1, the file <TT Class="monofont">Modules/Setup</TT>  in the Python source distribution contains configuration data for modules built into the Python interpreter. It contains entries of this form:</P>
+
+<Pre>
+
+signal signalmodule.c          # signal(2) 
+... 
+#readline readline.c -lreadline -ltermcap </prE>
+
+<P>Each line indicates the name of a module, followed by source files, compiler options, and link libraries needed to compile that module. A line starting with <TT class="monofont">#</tt> is a comment and denotes modules that have been disabled. Long lines can be broken into multiple lines by placing a backslash (<tt class="monofont">\</tt>) at the end of lines to be continued. To enable an optional module, the <tt clAss="monofont">Setup</Tt>  file should be edited to reflect the installation locations of required third-party libraries. For example, to enable the <tt Class="monofont">readline</Tt>  module, the <tt CLASs="monofont">Setup</tt>  file might be modified as follows:</p>
+
+<PRE>
+
+... 
+readline readline.c -I/usr/local/include -L/usr/local/lib \ 
+         -lreadline -ltermcap </Pre>
+
+<p>The interpreter must be rebuilt and reinstalled by typing <tT CLAss="monofont">make</tt>  and <TT CLass="monofont">make install</tt> in the top-level directory of the source tree for the changes to <tt class="monofont">Setup</tt>  to take effect.</p>
+
+<p>Beginning with Python 2.1, much of the need to edit the <tt clAss="monofont">Setup</Tt>  file has been removed because the Python installation process has been modified to compile only a core of necessary modules into the Python executable. Most modules are now configured as dynamic modules and some effort is made to detect them automatically if it’s possible to build them. For instance, a build of Python 2.1 will automatically enable the <tt Class="monofont">readline</Tt>  module if it can detect that the necessary libraries are installed during its configuration process. If it’s necessary to manually modify the build process, changes should be made to the <tt CLASs="monofont">setup.py</tt>  file in the main Python 2.1 source directory.</p>
+
+
+<H4>Extension Module Example</H4>
+<P>Extension modules are used to extend the interpreter with functions in C. For example, suppose you wanted to access the following C functions in a Python module named <Tt claSS="monofont">spam</TT>:</p>
+
+<pre>
+
+/* Compute the greatest common divisor of positive 
+   integers x and y */ 
+int gcd(int x, int y) {
+    int g; 
+    g = y; 
+    while (x &gt; 0) {
+         g = x; 
+         x = y % x; 
+         y = g; 
+    } 
+    return g; 
+} 
+/* Print some data */ 
+void print_data(char *name, char *email, char *phone) {
+    printf("Name    : %s\n", name); 
+    printf("Email   : %s\n", email); 
+    printf("Phone   : %s\n", phone); 
+} </PRE>
+
+<P>To access these functions from an extension module, you must write code such as that in Listing B.1:</p>
+
+
+<h5>
+Listing B.1 Accessing Functions from an Extension Module</h5>
+<pre class="monofont">
+/* "spam" module **/ 
+/* Include the Python C API */ 
+#include "Python.h" 
+
+/* External declarations */ 
+extern int gcd(int,int); 
+extern void print_data(char *, char *, char *); 
+
+/* Wrapper for the gcd() function */ 
+PyObject *spam_gcd(PyObject *self, PyObject *args) {
+     int x, y, g; 
+     /* Get Python arguments */ 
+     if (!PyArg_ParseTuple(args,"ii",&amp;x,&amp;y)) {
+         return NULL; 
+     } 
+     /* Call the C function */ 
+     g = gcd(x,y); 
+     return Py_BuildValue("i",g); 
+} 
+/* Wrapper for the print_data() function */ 
+PyObject * 
+spam_print_data(PyObject *self, PyObject *args, PyObject *kwargs) 
+{
+     char *name = "None"; 
+     char *email = "None"; 
+     char *phone = "None"; 
+     static char *argnames[] = {"name","email","phone",NULL}; 
+
+     /* Get Python arguments */ 
+     if (!PyArg_ParseTupleAndKeywords(args,kwargs,"|sss",argnames, 
+           &amp;name,&amp;email,&amp;phone)) {
+         return NULL; 
+     } 
+     /* Call the C function */ 
+     print_data(name,email,phone); 
+     return Py_BuildValue("");        /* Return None */ 
+} 
+/* Method table mapping names to wrappers */ 
+static PyMethodDef spammethods[] = {
+     {"gcd", spam_gcd, METH_VARARGS}, 
+     {"print_data", spam_print_data, METH_VARARGS | METH_KEYWORDS }, 
+     {NULL, NULL} 
+}; 
+/* Module initialization function */ 
+initspam(void) {
+     Py_InitModule("spam", spammethods); 
+} </pre>
+<p>Extension modules always need to include <tt claSs="monofont">"Python.h"</tT>. For each C function to be accessed, a wrapper function is written. These wrapper functions either accept two arguments (<tt cLass="monofont">self</tT> and <tt cLASS="monofont">args</tt>, both of type <tt CLASs="monofont">PyObject *</tt>) or three arguments (<tT CLAss="monofont">self</tt>, <TT CLass="monofont">args</tt>, and <tt class="monofont">kwargs</tt>, all of type <tt clasS="monofont">PyObject *</tt>). The <Tt clAss="monofont">self</tt> parameter is used when the wrapper function is implementing a built-in method to be applied to an instance of some object. In this case, the instance is placed in the <Tt clASS="monofont">self</Tt>  parameter. Otherwise, <tt cLASS="monofont">self</tt>  is set to <tt CLASs="monofont">NULL</tt>. <tT CLAss="monofont">args</tt>  is a tuple containing the function arguments passed by the interpreter. <tt class="monofont">kwargs</tt>  is a dictionary containing keyword arguments.</p>
+
+<p>Arguments are converted from Python to C using the <tt claSs="monofont">PyArg_ParseTuple()</tT> or <tt cLass="monofont">PyArg_ParseTupleAndKeywords()</tT> function. Similarly, the <tt cLASS="monofont">Py_BuildValue()</tt> function is used to construct an acceptable return value. These functions are described in later sections.</p>
+
+<p>Functions signal an error by returning <TT CLass="monofont">NULL</tT>. If a function has no return value (that is, <TT Class="monofont">void</TT>), the <TT class="monofont">None</tt>  object must be returned. For example:</p>
+
+<pre>
+
+PyObject *wrap_foo(PyObject *self, PyObject *args) {
+    ... 
+    /* Return None */ 
+    return Py_BuildValue(""); 
+} </pre>
+
+<p><tt claSs="monofont">None</tT>  can also be returned as follows:</p>
+
+<prE>
+
+PyObject *wrap_foo(PyObject *self, PyObject *args) {
+    ... 
+    /* Return None */ 
+    Py_INCREF(Py_None); 
+    return Py_None; 
+} </pre>
+
+<p>The method table <Tt clASS="monofont">spammethods</Tt>  in Listing B.1 is used to associate Python names with the C wrapper functions. These are the names used to call the function from the interpreter. The <tt cLASS="monofont">METH_VARARGS</tt>  flag indicates the calling conventions for a wrapper.</p>
+
+<p>In this case, only positional arguments in the form of a tuple are accepted. It can also be set to <TT CLass="monofont">METH_VARARGS | METH_KEYWORDS</tT>  to indicate a wrapper function accepting keyword arguments.</P>
+
+<P>The module initialization function <Tt class="monofont">initspam</tt>  is used to initialize the contents of the module. In this case, the <tt class="monofont">Py_InitModule('spam",spammethods)</tt> function creates a module spam and populates it with built-in function objects corresponding to the functions listed in the method table.</p>
+</foNt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="122.html" title="B. Extending and Embedding Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=123" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="123.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="124.html" title="Compilation of Extensions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

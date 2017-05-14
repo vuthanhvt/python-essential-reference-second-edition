@@ -1,0 +1,87 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Python 2.1</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="137.html" class="navtitle">C. Summary of Changes</a> &gt; <span class="nonavtitle">Python 2.1</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="140.html" title="Python 2.0"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=141" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="141.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><font size="1">&nbsp;</font></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A11%3A44+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161104059122177194220160032</font><a href="read8.asp?bookname=0735710910&snode=141&now=5%2F28%2F2002+9%3A11%3A44+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Python 2.1</h3>
+<ul>
+<LI>
+<P>Functions now define nested scopes. Currently, this feature must be enabled by including <Tt claSS="monofont">from _ _future_ _ import nested_scopes</TT> in your program. In future releases, this feature will be enabled by default.</p>
+</li>
+<lI>
+<P>Rich comparisons and the associated <TT class="monofont">_ _le_ _()</tt>, <tt class="monofont">_ _lt_ _()</tt>, <tt clAss="monofont">_ _eq_ _()</Tt>, <tt Class="monofont">_ _ne_ _()</Tt>, <tt CLASs="monofont">_ _gt_ _()</tt>, and <tT CLAss="monofont">_ _ge_ _()</tt> methods.</P>
+</LI>
+<Li>
+<p><i><tT CLAss="monofont">d</tt></i>
+<tt class="monofont">.popitem()</tt> method added to dictionaries.</p>
+</li>
+<li>
+<p><I><tt ClasS="monofont">f</tt></i>
+<tT claSS="monofont">.xreadline()</TT> method added to files to support fast iteration over lines.</p>
+</li>
+<lI>
+<P>Functions and methods can now have attributes attached to them.</P>
+</Li>
+<li>
+<p>Support for weak references added. A new module, <TT CLass="monofont">weakref</tT>, provides an interface.</P>
+
+<P>?; <B>See Also</b> <a href="108#46.html">weakref</a> (124).</p>
+</li>
+<li>
+<p>Warning framework added. The <tt class="monofont">warnings</Tt>  module provides an interface.</p>
+
+<P>?; <b>See Also</b> <a Href="108#42.html">warnings</a> (121).</P>
+</li>
+<lI>
+<P>Case-sensitive import now supported on non–case-sensitive platforms.</P>
+</Li>
+<li>
+<p>Interactive display hook (<TT CLass="monofont">sys.displayfunc</tT>) added.</P>
+</LI>
+<li>
+<p>Uncaught exception hook (<tT CLAss="monofont">sys.exceptfunc</tt>) added.</p>
+</li>
+<li>
+<p><tt class="monofont">from _ _future_ _</tt> directive added to allow optional use of new features.</p>
+</Li>
+<lI>
+<p>Complex numbers can now only be compared for equality. Comparisons of <tt Class="monofont">&lt;</Tt>, <tt CLASs="monofont">&gt;</tt>, <tT CLAss="monofont">&lt;=</tt>, or <TT CLass="monofont">&gt;=</tT> raise a <TT Class="monofont">TypeError</tt> exception.</p>
+</li>
+<li>
+<p>The <tt class="monofont">continue</tT>  statement can now be used inside <tt ClasS="monofont">try</tt>  blocks. This was previously illegal.</p>
+</lI>
+<li>
+<p>New modules described in <A HREf="105.html">Appendix A</a>: <tt CLASs="monofont">warnings</tt>, <tT CLAss="monofont">weakref</tt>.</P>
+</LI>
+<Li>
+<p>Modules can now specify a list of symbols to export in the <tt class="monofont">from module import *</tt> statement by specifying a list <tt class="monofont">_ _all_ _</tt>.</P>
+</li>
+<Li>
+<p>Many minor changes to output formatting. The <tT clasS="monofont">%x</tt>, <tT CLAss="monofont">%X</tt>, and <TT CLass="monofont">%o</tT>  format codes now always produce a sign character for negative long integers. The <TT Class="monofont">repr()</TT> function uses standard character escape codes such as <TT class="monofont">"\n"</tt> instead of <tt class="monofont">"\012"</tt>.</p>
+</li>
+</uL></foNt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="140.html" title="Python 2.0"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=141" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="141.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><font size="1">&nbsp;</font></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

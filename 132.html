@@ -1,0 +1,449 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Defining New Types</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="121.html" class="navtitle">B. Extending and Embedding Python</a> &gt; <span class="nonavtitle">Defining New Types</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="131.html" title="Low-Level Functions on Built-in Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=132" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="132.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="133.html" title="Special Methods for Types"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A10%3A26+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161104058145056204253196054</font><a href="read4.asp?bookname=0735710910&snode=132&now=5%2F28%2F2002+9%3A10%3A26+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Defining New Types</h3>
+<p>New types of objects can also be defined in extension modules. However, this process is considerably more advanced than simply accessing a few C functions. Because of this complexity, you should consider implementing a new type only in the following situations:</p>
+
+<UL>
+<LI>
+<p>The type is not easily constructed from existing Python types.</p>
+</li>
+<LI>
+<P>The type requires interaction with the operating system or another special feature not provided by the interpreter or the standard library.</P>
+</li>
+<li>
+<P>The type hasn’t already been implemented elsewhere. For example, efficient matrix types have already been implemented, so it would make little sense to reinvent them. It’s always a good idea to check the Python libraries and newsgroups before implementing a new type. The Vaults of Parnassas Python Resources (<A TArget="_blank" href="http://www.vex.net/parnassus">http://www.vex.net/parnassus</a>) is also an excellent resource for finding previously implemented extension modules.</p>
+</li>
+</ul>
+<p>The process of creating a new Python type involves the following steps:</p>
+
+<a namE="app02pro01"></a>
+<p>
+<P>
+<p>
+<p>
+<p>
+<P>
+<p>
+<p>
+<p><oL>
+<li vALUE="1">
+
+<p>Define a data structure that contains the actual data stored in the type—for example, the <tt cLASS="monofont">List</tt>  type has an array of elements containing the list items.</p>
+</lI><LI Value="2">
+
+<P>Define the functions that are going to serve as methods of the type—for example, the <TT Class="monofont">append()</tt>  method of a <tt class="monofont">List</tt> object.</p>
+</li><li ValUe="3">
+
+<p>Define a pair of functions for creating and destroying the type.</p>
+</Li><li vAlue="4">
+
+<P>Define a set of functions that implement the special methods such as <TT Class="monofont">_ _add_ _()</TT> and <TT clasS="monofont">_ _getitem_ _()</TT> that are supported by the type, as described in <A href="33.html">Chapter 3</A>, “Types and Objects.”</P>
+</LI><li value="5">
+
+<p>Fill in a data structure containing pointers to the numeric operations of a type.</p>
+</li><li value="6">
+
+<p>Fill in a data structure containing pointers to the sequence operations of the type.</p>
+</Li><lI valUe="7">
+
+<p>Fill in a data structure containing pointers to the mapping operators of the type.</p>
+</lI><li vALUE="8">
+
+<p>Define a type object that contains all the properties of the object and its associated methods.</p>
+</li><LI VAlue="9">
+
+<p>Register methods and any additional functions with the interpreter in the module initialization function.</P>
+</LI></Ol>
+
+<p><a hREF="132#3.html">Listing B.3</A> illustrates the process of creating a new Python type by implementing a <tt class="monofont">SharedBuffer</tt>  object. A shared buffer is a special data structure that contains data shared by multiple Python interpreters running as different processes. Whenever a change is made by one interpreter, it’s automatically reflected in shared buffers of the other interpreters. This implementation of a shared buffer utilizes an operating system feature known as <i>memory-mapped files,</i> in which the contents of a “file” are mapped into the address space of a process and can be accessed as ordinary memory. Memory-mapped files are supported on both UNIX and Windows, although <a href="132#3.html">Listing B.3</a> shows only the UNIX implementation. Also, this example is only intended to illustrate the process of creating a new type—if you really want to use memory-mapped files, it might be easier to use the <tt cLasS="monofont">mmap</tt>  module in the standard library.</p>
+
+
+<H5>
+<a namE="3"></a>Listing B.3 Shared Buffer Type</h5>
+<pRE CLass="monofont">
+/************************************************************* 
+ * sbuffer.c 
+ * 
+ * A shared buffer object implemented using mmap(). 
+ *************************************************************/ 
+#include "Python.h" 
+#include &lt;unistd.h&gt; 
+#include &lt;fcntl.h&gt; 
+#include &lt;sys/mman.h&gt; 
+#include &lt;sys/stat.h&gt; 
+
+/************************************************************* 
+ * sbufferobject information 
+*************************************************************/ 
+typedef struct {
+    PyObject_HEAD 
+    char       *buffer;     /* Memory buffer */ 
+    int         size;       /* Size of the structure */ 
+    int         fd;         /* File descriptor */ 
+    int         prot;       /* Protection bits */ 
+    int         offset;     /* File offset */ 
+} sbufferobject; 
+
+/* Exception object used by this module */ 
+static PyObject *AccessError; 
+
+/* Forward declaration of type descriptor. 
+   staticforward is a macro defined in Python.h that 
+   provides a portable way of creating forward references 
+   to static functions */ 
+staticforward PyTypeObject SharedBufferType; 
+
+/************************************************************* 
+ * Instance methods 
+ *     sbuffer.lock()     - Lock the shared buffer 
+ *     sbuffer.unlock()   - Unlock the shared buffer 
+ *     sbuffer.get()      - Get data as a NULL-terminated string 
+ *     sbuffer.store()    - Store data as a NULL-terminated string 
+ *************************************************************/ 
+static PyObject * 
+sbuffer_lock(sbufferobject *self, PyObject *args) {
+  if (!PyArg_ParseTuple(args,"")) return NULL; 
+  lockf(self-&gt;fd,F_LOCK,0); 
+  return Py_BuildValue(""); 
+}   
+static PyObject * 
+sbuffer_unlock(sbufferobject *self, PyObject *args) {
+  if (!PyArg_ParseTuple(args,"")) return NULL; 
+  lockf(self-&gt;fd,F_ULOCK,0); 
+  return Py_BuildValue(""); 
+} 
+
+static PyObject * 
+sbuffer_get(sbufferobject *self, PyObject *args) {
+  int i; 
+  if (!PyArg_ParseTuple(args,"")) return NULL; 
+  if (self-&gt;prot &amp; PROT_READ) {
+    for (i = 0; i &lt; self-&gt;size; i++) {
+      if (!self-&gt;buffer[i]) break; 
+    } 
+    return PyString_FromStringAndSize(self-&gt;buffer,i); 
+  } else {
+    return PyString_FromString(""); 
+  } 
+} 
+
+static PyObject * 
+sbuffer_store(sbufferobject *self, PyObject *args) {
+  char *str; 
+  int len; 
+  if (!PyArg_ParseTuple(args,"s",&amp;str)) return NULL; 
+  if (self-&gt;prot &amp; PROT_WRITE) {
+    len = strlen(str)+1; 
+    if (len &gt; self-&gt;size) len = self-&gt;size; 
+    memcpy(self-&gt;buffer,str,len); 
+  } else {
+    PyErr_SetString(AccessError,"SharedBuffer is read-only"); 
+    return NULL; 
+  } 
+  return Py_BuildValue(""); 
+} 
+
+/* Instance methods table.  Used by sbuffer_getattr() */ 
+static struct PyMethodDef sbuffer_methods[] = {
+  {"lock",   sbuffer_lock,   METH_VARARGS}, 
+  {"unlock", sbuffer_unlock, METH_VARARGS}, 
+  {"get",    sbuffer_get,    METH_VARARGS}, 
+  {"store",  sbuffer_store,  METH_VARARGS}, 
+  { NULL,    NULL } 
+}; 
+
+/************************************************************* 
+ * Basic Operations 
+ *************************************************************/ 
+
+/* Create a new shared buffer object */ 
+static sbufferobject * 
+new_sbuffer(int fd, int size, int offset, int prot) 
+{
+  sbufferobject *self; 
+  void *buffer; 
+  buffer = mmap(0,size,prot,MAP_SHARED,fd,offset); 
+  if (buffer &lt;= 0) {
+    PyErr_SetFromErrno(PyExc_OSError); 
+    return NULL; 
+  } 
+  self = PyObject_NEW(sbufferobject, &amp;SharedBufferType); 
+  if (self == NULL) return NULL; 
+  self-&gt;buffer = (char *) buffer; 
+  self-&gt;size = size; 
+  self-&gt;offset = offset; 
+  self-&gt;prot = prot;  
+  self-&gt;fd = fd; 
+  return self; 
+} 
+
+/* Release a shared buffer */ 
+static void 
+sbuffer_dealloc(sbufferobject *self) {
+  munmap(self-&gt;buffer, self-&gt;size); 
+  close(self-&gt;fd); 
+  PyMem_DEL(self); 
+} 
+
+/* Get an attribute */ 
+static PyObject * 
+sbuffer_getattr(sbufferobject *self, char *name) {
+  if (strcmp(name,"prot") == 0) {
+    return Py_BuildValue("i", self-&gt;prot);    /* self.prot */ 
+  } else if (strcmp(name,"fd") == 0) {
+    return Py_BuildValue("i", self-&gt;fd);      /* self.fd */ 
+  } 
+  /* Look for a method instead */ 
+  return Py_FindMethod(sbuffer_methods, (PyObject *)self, name); 
+} 
+
+/* repr() function */ 
+static PyObject * 
+sbuffer_repr(sbufferobject *self) {
+  char rbuffer[256]; 
+  sprintf(rbuffer,"&lt;SharedBuffer, fd = %d, length = %d, prot = %d at %x&gt;", 
+        self-&gt;fd, self-&gt;size, self-&gt;prot, self); 
+  return PyString_FromString(rbuffer); 
+} 
+
+/************************************************************* 
+ * Sequence operations 
+ *************************************************************/ 
+
+/* len() */ 
+static int 
+sbuffer_length(sbufferobject *self) {
+  return self-&gt;size; 
+} 
+
+/* getitem - Get a single character */ 
+static PyObject * 
+sbuffer_getitem(sbufferobject *self, int index) {
+  if (index &lt; 0 || index &gt;= self-&gt;size) {
+    PyErr_SetString(PyExc_IndexError, "index out-of-bounds"); 
+    return NULL; 
+  } 
+  if (!(self-&gt;prot &amp; PROT_READ)) {
+    PyErr_SetString(AccessError,"SharedBuffer is not readable"); 
+    return NULL; 
+  } 
+  return Py_BuildValue("c",self-&gt;buffer[index]); 
+} 
+
+/* setitem - Store a single character */ 
+static int 
+sbuffer_setitem(sbufferobject *self, int index, PyObject *obj) 
+{
+  char *str; 
+  int   strsize; 
+  if (!PyString_Check(obj)) {
+    PyErr_SetString(PyExc_TypeError, "Expected a string.");   
+    return 1; 
+  } 
+  if (PyString_Size(obj) != 1) {
+    PyErr_SetString(PyExc_ValueError,"Expected a one character string."); 
+    return 1; 
+  } 
+  if (index &lt; 0 || index &gt;= self-&gt;size) {
+    PyErr_SetString(PyExc_IndexError, "index out-of-bounds"); 
+    return 1; 
+  } 
+  if (!(self-&gt;prot &amp; PROT_WRITE)) {
+    PyErr_SetString(AccessError,"SharedBuffer is read-only"); 
+    return 1; 
+  } 
+  self-&gt;buffer[index] = *(PyString_AsString(obj)); 
+  return 0; 
+} 
+
+/* getslice - Get a slice out of the buffer */ 
+static PyObject * 
+sbuffer_getslice(sbufferobject *self, int start, int end) {
+  if (start &lt; 0) start = 0; 
+  if (end &gt; self-&gt;size) end = self-&gt;size; 
+  if (end &lt; start) end = start; 
+  if (!(self-&gt;prot &amp; PROT_READ)) {
+    PyErr_SetString(AccessError,"SharedBuffer is not readable"); 
+    return NULL; 
+  } 
+  return PyString_FromStringAndSize(self-&gt;buffer+start, (end-start)); 
+} 
+
+/* setslice - Set a slice in the buffer */ 
+static int 
+sbuffer_setslice(sbufferobject *self, int start, int end, PyObject *obj) 
+{
+  int size; 
+  if (start &lt; 0) start = 0; 
+  if (end &gt; self-&gt;size) end = self-&gt;size; 
+  if (end &lt; start) end = start; 
+  if (!PyString_Check(obj)) {
+    PyErr_SetString(PyExc_TypeError, "Expected a string."); 
+    return 1; 
+  } 
+  if (!(self-&gt;prot &amp; PROT_WRITE)) {
+    PyErr_SetString(AccessError,"SharedBuffer is read-only"); 
+    return 1; 
+  } 
+  size = PyString_Size(obj); 
+  if (size &lt; (end-start)) end = start+size; 
+  memcpy(self-&gt;buffer+start,PyString_AsString(obj),(end-start)); 
+  return 0; 
+} 
+
+/* Sequence methods table */ 
+static PySequenceMethods sbuffer_as_sequence = {
+  (inquiry)          sbuffer_length,      /* sq_length    : len(x)     */ 
+  (binaryfunc)       0,                   /* sq_concat    : x + y      */ 
+  (intargfunc)       0,                   /* sq_repeat    : x * n      */ 
+  (intargfunc)       sbuffer_getitem,     /* sq_item      : x[i]       */ 
+  (intintargfunc)    sbuffer_getslice,    /* sq_slice     : x[i:j]     */ 
+  (intobjargproc)    sbuffer_setitem,     /* sq_ass_item  : x[i] = v   */ 
+  (intintobjargproc) sbuffer_setslice,    /* sq_ass_slice : x[i:j] = v */ 
+}; 
+
+/* Type object for shared buffer objects */ 
+static PyTypeObject SharedBufferType = {
+  PyObject_HEAD_INIT(&amp;PyType_Type) /* Required initialization */  
+  0,                               /* ob_size       : Usually 0   */ 
+  "SharedBuffer",                  /* tp_name       : Type name   */ 
+  sizeof(sbufferobject),           /* tp_basicsize  : Object size */ 
+  0,                               /* tp_itemsize   : Usually 0   */ 
+
+  /* Standard methods */ 
+  (destructor)  sbuffer_dealloc,   /* tp_dealloc,   : refcount = 0 */ 
+  (printfunc)   0,                 /* tp_print      : print x      */ 
+  (getattrfunc) sbuffer_getattr,   /* tp_getattr    : x.attr       */ 
+  (setattrfunc) 0,                 /* tp_setattr    : x.attr = v   */ 
+  (cmpfunc)     0,                 /* tp_compare    : x &gt; y        */ 
+  (reprfunc)    sbuffer_repr,      /* tp_repr       : repr(x)      */ 
+
+  /* Type categories */ 
+  0,                           /* tp_as_number  : Number methods   */ 
+  &amp;sbuffer_as_sequence,        /* tp_as_sequence: Sequence methods */ 
+  0,                           /* tp_as_mapping : Mapping methods  */ 
+  (hashfunc) 0,                /* tp_hash       : dict[x]          */ 
+  (ternaryfunc) 0,             /* tp_call       : x()              */ 
+  (reprfunc) 0,                /* tp_str        : str(x)           */ 
+}; 
+
+/************************************************************* 
+ * Module level functions 
+ *************************************************************/ 
+
+/* Create a new shared buffer object as 
+   SharedBuffer(filename,size,offset,prot) */ 
+static PyObject * 
+sbufferobject_new(PyObject *self, PyObject *args) {
+  char *filename; 
+  int size; 
+  int fd, flags; 
+  int prot = PROT_READ | PROT_WRITE; 
+  int offset = 0; 
+  struct stat finfo; 
+
+  if (!PyArg_ParseTuple(args,"si|ii",&amp;filename,&amp;size,&amp;offset,&amp;prot)) {
+    return NULL; 
+  } 
+  if (stat(filename,&amp;finfo) &lt; 0) {
+    PyErr_SetFromErrno(PyExc_OSError); 
+    return NULL; 
+  } 
+  if (size + offset &gt; finfo.st_size) {
+    PyErr_SetString(PyExc_IndexError, 
+                    "Requested size and offset is too large."); 
+    return NULL; 
+  } 
+  if ((fd = open(filename,O_RDWR, 0666)) &lt; 0) {
+    PyErr_SetFromErrno(PyExc_OSError); 
+    return NULL; 
+  } 
+  return (PyObject *) new_sbuffer(fd,size,offset,prot); 
+} 
+
+/* Module Methods Table */ 
+static struct PyMethodDef sbuffertype_methods[] = {
+  { "SharedBuffer", sbufferobject_new, METH_VARARGS }, 
+  { NULL, NULL } 
+}; 
+
+/* Module initialization function */ 
+void initsbuffer() {
+  PyObject *m, *d;   
+  m = Py_InitModule("sbuffer",sbuffertype_methods); 
+  d = PyModule_GetDict(m); 
+
+  /* Add a few useful constants for the prot parameter */ 
+  PyDict_SetItemString(d,"PROT_READ",PyInt_FromLong(PROT_READ)); 
+  PyDict_SetItemString(d,"PROT_WRITE",PyInt_FromLong(PROT_WRITE)); 
+
+  /* Define the exception */ 
+  AccessError = PyErr_NewException("sbuffer.AccessError",NULL,NULL); 
+  PyDict_SetItemString(d,"AccessError",AccessError); 
+} </pRE>
+<P>Finally, Listing B.4 uses the new <Tt claSS="monofont">SharedBuffer</TT>  type. In this case, a shared buffer is used to exchange data between a parent and a child process created with <tt clASS="monofont">os.fork()</Tt>. The example (motivated by a problem posted to the Python mailing list) performs a hostname-to-IP address translation with a timeout.</p>
+
+
+<h5>
+Listing B.4 Python Program Using a <tt class="monofont">SharedBuffer</tt></h5>
+<pre clasS="monofont">
+# Hostname lookup with a timeout. 
+# (with apologies to Andy D.) 
+
+import sbuffer, socket, os, sys, signal 
+
+# Create the memory mapped region 
+buffer = open("address","w") 
+buffer.write(" "*2048) 
+buffer.close() 
+
+# Open the file as a shared buffer object 
+buffer = sbuffer.SharedBuffer("address",2048) 
+
+# Return hostname or "" if it can't be resolved 
+# in less than 1 second. 
+def gethostbyname(hostname): 
+    buffer.store("")          # Clear the address buffer 
+    pid = os.fork()           # Create a subprocess 
+    if pid == 0: 
+          # Child process 
+          signal.alarm(1)     # Start the clock 
+          try: 
+              name = socket.gethostbyname(hostname) 
+          except: 
+              sys.exit() 
+          buffer.store(name)  # Save the name in the buffer 
+          sys.exit()          # Done 
+    else: 
+          os.wait()           # Wait for completion 
+          return buffer.get() # Get the address 
+# Try it out 
+ip = gethostbyname("www.python.org") </prE></fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="131.html" title="Low-Level Functions on Built-in Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=132" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="132.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="133.html" title="Special Methods for Types"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

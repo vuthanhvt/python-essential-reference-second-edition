@@ -1,0 +1,707 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Data Management and Object Persistence</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="105.html" class="navtitle">A. The Python Library</a> &gt; <span class="nonavtitle">Data Management and Object Persistence</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="110.html" title="String Handling"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=111" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="111.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="112.html" title="Operating System Services"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A06%3A00+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105080005016228139083140</font><a href="read0.asp?bookname=0735710910&snode=111&now=5%2F28%2F2002+9%3A06%3A00+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Data Management and Object Persistence</h3>
+<p>The modules in this section are used to store data in a variety of DBM-style database formats. These databases operate like a large disk-based hash table in which objects are stored and retrieved using unique keys represented by standard strings. Most of these modules are optional Python extensions that require third-party libraries and that must be enabled when Python is built. See <a HREF="121.html">Appendix B</a>, “Extending and Embedding Python,” for details on enabling optional modules.</p>
+
+<p>All the databases are opened using a variation of the <tT CLAss="monofont">open()</tt> function (defined in each database module):</P>
+
+<PRE>
+
+<b>open(</b><b><i>filename</i></b> <b>[,</b> <b><i>flag</i></b> <b>[,</b> <b><i>mode</i></b><b>]])</b> </Pre>
+
+<P>Opens the database file <i><tt Class="monofont">filename</Tt></i>
+ and returns a database object. <i><TT CLass="monofont">flag</tT></I>
+ is <TT clasS="monofont">'r'</TT> for read-only access, <Tt claSS="monofont">'w'</TT> for read-write access, <tt class="monofont">'c'</tt> to create the database if it doesn’t exist, or <tt class="monofont">'n'</tt>  to force the creation of a new database. <i><tT clAss="monofont">mode</tT></i>
+ is the file-access mode (the default is <tt cLass="monofont">0666</TT>  on UNIX).</P>
+
+<P>The object returned by the <tt clASS="monofont">open()</Tt> function supports the following dictionary-like operations:</p>
+
+<p><tABLE bordER="1" CEllspacing="0" cellpadding="1" WidTh="100%">
+<coLgrouP spaN="2">
+<TR>
+<Th valIGN="top">
+<Font sIZE="2">
+<P><b>Operation</b></p>
+</fONT></Th>
+<th valign="top">
+<font size="2">
+<p><b>Description</b></P>
+</foNt></th>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">d</tt></i>
+<tT CLAss="monofont">[</tt><i><tt class="monofont">key</tt></i>
+<tt claSs="monofont">] = </tT><i><tt Class="monofont">value</Tt></i>
+</p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Inserts <i><TT CLass="monofont">value</tt></i>
+ into the database</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><i><tT CLAss="monofont">value</tt></I>
+<TT Class="monofont"> = </TT><I><Tt claSS="monofont">d</TT></i>
+<tt class="monofont">[</tt><i><tt class="monofont">key</tt></I>
+<tt ClasS="monofont">]</tt></p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Gets data from the database</P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">del </tt><I><tt clAss="monofont">d</tT></I>
+<TT clasS="monofont">[</TT><I><tt clASS="monofont">key</Tt></i>
+<tt CLASs="monofont">]</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p>Removes a database entry</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt clASS="monofont">d</Tt></i>
+<tt class="monofont">.close()</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>Closes the database</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt class="monofont">d</tt></i>
+<tt class="monofont">.has_key(</tt><i><Tt cLass="monofont">key</Tt></i>
+<tt ClasS="monofont">)</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Tests for a key</P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><I><tt clAss="monofont">d</tT></I>
+<TT clasS="monofont">.keys()</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Returns a list of keys</p>
+</font></td>
+</tr>
+</colgRouP>
+</tabLe></p>
+
+<p>In all cases, <i><Tt clASS="monofont">key</Tt></i>
+ must be a standard string. In addition, <i><tT CLAss="monofont">value</tt></I>
+ must be a standard string for all the database modules except the <TT Class="monofont">shelve</TT>  module. Unicode strings cannot be used for keys in any of the modules and cannot be used for values in any module except <TT class="monofont">shelve</tt>.</p>
+
+
+<h4>Note</h4>
+<ul>
+<li>
+<p>Most of the database packages described rely on third-party libraries that must be installed in addition to Python.</p>
+</li>
+</ul>
+
+<A naMe="4"></a>
+<h4><Tt claSs="monofont">anydbm</tt></H4>
+<P>The <TT clasS="monofont">anydbm</TT>  module provides a generic interface that’s used to open a database without knowing which of the lower-level database packages are actually installed and available. When imported, it looks for one of the <Tt claSS="monofont">bsddb</TT>, <tt clASS="monofont">gdbm</Tt>, or <tt class="monofont">dbm</tt>  modules. If none are installed, the <tt class="monofont">dumbdbm</tt>  module is loaded.</p>
+
+<P>A database object is created using the <tt ClasS="monofont">open()</tt> function:</p>
+
+<pRe>
+
+<b>open(</b><B><I>filename</I></B> <b>[,</b> <b><i>flag</I></B><B>='r' [,</B> <b><i>mode</i></b><B>]])</B> </PRe>
+
+<p>Opens the database file <i><tT CLAss="monofont">filename</tt></i>
+ and returns a database object. If the database already exists, the <tt class="monofont">whichdb</tt>  module is used to determine its type and the corresponding database module to use. If the database doesn’t exist, an attempt is made to create it using the first installed module in the above list of database modules. <i><tt claSs="monofont">flags</tT></i>
+ and <i><tT clasS="monofont">mode</tt></i>
+ are as described in the introduction to this section,“<A HREf="111.html">Data Management and Object Persistence</a>” (p. 149).</p>
+
+<pRE>
+
+<B>error</B> </pre>
+
+<p>A tuple containing the exceptions that can be raised by each of the supported database modules.</P>
+
+<P>Programs wanting to catch errors should use this tuple as an argument to <TT clasS="monofont">except</TT>. For example:</P>
+
+<pre>
+
+try: 
+    d = anydbm.open('foo','r') 
+except anydbm.error: 
+    # Handle error </pre>
+
+
+<h5>Note</h5>
+<ul>
+<li>
+<p>If the <tt class="monofont">dumbdbm</Tt>  module is the only installed database module, attempts to reopen a previously created database with <tT claSs="monofont">anydbm</tt>  might fail in certain older versions of Python. Use <tT claSS="monofont">dumbdbm.open()</TT> instead.</p>
+</li>
+</uL>
+<P>? <B>See Also</B> <a hreF="111#24.html">dumbdbm</A> (152), <A Href="111#38.html">whichdb</a> (154).</P>
+
+
+
+<A NAme="8"></a>
+<h4><tt class="monofont">bsddb</tt></h4>
+<p>The <tt claSs="monofont">bsddb</tT>  module provides an interface to the Berkeley DB library. Hash, btree, or record-based files can be created using the appropriate <tt cLass="monofont">open()</tT> call:</p>
+
+<prE>
+
+<B>hashopen(filename [, flag='r' [, mode]])</B> </Pre>
+
+<p>Opens the hash format file named <i><TT CLass="monofont">filename</tT></I>
+.</P>
+
+<Pre>
+
+<b>btopen(filename [, flag='r' [, mode]])</b> </PRE>
+
+<P>Opens the btree format file named <i><tt class="monofont">filename</tt></i>
+.</p>
+
+<pre>
+
+<b>rnopen( filename [, flag='r' [, mode ]])</b> </pre>
+
+<P>Opens a DB record format file named <i><tT claSs="monofont">filename</tt></i>
+.</P>
+
+<p>Databases created by this module behave like dictionaries, as described in the introduction to this section (“<a hREF="111.html">Data Management and Object Persistence</A>,” p. 149), and additionally provide methods for moving a “cursor” through records:</p>
+
+<p><taBLE BordeR="1" CELlspaCING="0" cellpadding="1" width="100%">
+<colgRouP spaN="2">
+<tr>
+<th ValiGN="top">
+<FOnt siZE="2">
+<P><B>Method</b></p>
+</foNT></TH>
+<th vaLIGN="top">
+<font size="2">
+<p><b>Description</b></p>
+</font></th>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><I><tt clASS="monofont">d</Tt></i>
+<tt CLASs="monofont">.set_location(</tt><i><TT CLass="monofont">key</tt></i>
+<tt class="monofont">)</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>Sets the cursor to the item indicated by the key and returns it.</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><tt class="monofont">d</tt></i>
+<tt clasS="monofont">.first()</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Sets the cursor to the first item in the database and returns it.</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><i><tt class="monofont">d</tT></i>
+<tT claSs="monofont">.next()</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Sets the cursor to the next item in the database and returns it.</P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><i><Tt cLass="monofont">d</Tt></i>
+<tt ClasS="monofont">.previous()</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Sets the cursor to the previous item in the DB file and returns it. Not supported on hash table databases.</P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><I><tt clAss="monofont">d</tT></I>
+<TT clasS="monofont">.last()</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Sets the cursor to the last item in the DB file and returns it. Not supported on hash table databases.</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><i><TT CLass="monofont">d</tT></I>
+<TT clasS="monofont">.sync()</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>Synchronizes the database on disk.</p>
+</font></Td>
+</tR>
+</colGroup>
+</TablE></P>
+
+
+<H5>Exception</H5>
+<pre>
+
+<b>error</B> </PRE>
+
+<p>Exception raised on non–key-related database errors.</p>
+
+
+<h5>Notes</h5>
+<UL>
+<LI>
+<p>This module uses the version 1.85 API of the Berkeley DB package available at <a taRGET="_blank" href="http://www.sleepycat.com">http://www.sleepycat.com</a>.</p>
+</li>
+<li>
+<p>All the <tt class="monofont">open()</tt> functions accept additional optional arguments that are rarely used. Consult the online documentation for details.</P>
+</li>
+<Li>
+<p>Consult New Riders’ <i>Berkeley DB</I> (2001, ISBN 0-7357-1064-3).</p>
+</li>
+</uL>
+<p>? <b>See Also</b> <A HREf="111#14.html">dbhash</a> (151), <a tARGEt="_blank" hreF="http://www.python.org/doc/lib/module-bsddb.html">http://www.python.org/doc/lib/module-bsddb.html</A>.</P>
+
+<A name="14"></A>
+<H4><TT class="monofont">dbhash</tt></h4>
+<p>The <tt class="monofont">dbhash</tt>  module is used to open databases using the <tt ClaSs="monofont">bsddb</tt>  module, but with an interface that closely matches the interface of the other database modules.</P>
+
+<pre>
+
+<b>open(</B><b><i>filename</i></B> <B>[,</B> <B><i>flag</i></b><b>='r' [,</B> <B><I>mode</I></b><b>])</b> </pRE>
+
+<P>Opens a DB database and returns the database object.</P>
+
+<p>A database object <i><tt CLASs="monofont">d</tt></i>
+ returned by <tt class="monofont">open()</tt> behaves like a dictionary and also provides the following methods:</p>
+
+<p><table BorDer="1" cEllspAcinG="0" CELlpadDING="1" widtH="100%">
+<COLgrouP SPAn="2">
+<tr>
+<th valign="top">
+<font size="2">
+<p><B>Method</b></p>
+</Font></Th>
+<th vAligN="top">
+<FONt sizE="2">
+<P><B>Description</B></p>
+</fonT></TH>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><i><tt class="monofont">d</Tt></i>
+<Tt clAss="monofont">.first()</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Returns the first key in the database</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><I><tt ClasS="monofont">d</tt></i>
+<tT claSS="monofont">.last()</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Returns the last key in a database traversal</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><i><tt cLass="monofont">d</TT></I>
+<Tt claSS="monofont">.next(</TT><i><tt cLASS="monofont">key</tt></i>
+<tT CLAss="monofont">)</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Returns the next key following <i><tt cLass="monofont">key</TT></I>
+ in the database</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><tt class="monofont">d</tt></i>
+<tt clasS="monofont">.previous(</tt><I><tt cLass="monofont">key</tT></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Returns the item that comes before <i><tt class="monofont">key</tt></i>
+ in a forward traversal of the database</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><i><tT CLAss="monofont">d</tt></I>
+<TT Class="monofont">.sync()</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>Writes unsaved data to the disk</p>
+</Font></Td>
+</tr>
+</cOlgrOUP>
+</Table></P>
+
+
+<H5>Exception</H5>
+<Pre>
+
+<b>error</b> </PRE>
+
+<P>Exception raised on database errors other than <tt clASS="monofont">KeyError</Tt>. Same as <tt class="monofont">bsddb.error</tt>.</p>
+
+
+<h5>Note</h5>
+<ul>
+<li>
+<p>The <tt ClaSs="monofont">bsddb</tt>  module must be installed.</P>
+</li>
+</ul>
+<P>? <b>See Also</b> <a HREF="111#8.html">bsddb</a> (151).</p>
+
+
+<h4><tT CLAss="monofont">dbm</tt></H4>
+<P>The <TT clasS="monofont">dbm</TT>  module provides an interface to the UNIX dbm library.</P>
+
+<pre>
+
+<b>open(</b><b><i>filename</i></b> <b>[,</b> <b><i>flag</i></b><b>='r' [,</b> <b><i>mode</i></B><b>]])</b> </Pre>
+
+<p>Opens a dbm database and returns a dbm object. <I><tt clAss="monofont">filename</tT></I>
+ is the name of the database file (without the <TT clasS="monofont">.dir</TT>  or <Tt claSS="monofont">.pag</TT>  extension). The returned object behaves like a dictionary, as described in the section introduction (“<a hreF="111.html">Data Management and Object Persistence</A>,” p. 149).</P>
+
+
+<H5>Exception</h5>
+<pre>
+
+<b>error</b> </pre>
+
+<p>Exception raised for dbm-specific errors other than <tt class="monofont">KeyError</tt>.</p>
+
+<P>? <b>See Also</b> <A hreF="111#4.html">anydbm</a> (150), <a hrEf="111#28.html">gdbm</a> (153).</p>
+
+<A NAMe="24"></a>
+<h4><tT CLAss="monofont">dumbdbm</tt></H4>
+<P>The <TT clasS="monofont">dumbdbm</TT>  module is a simple DBM-style database implemented in Python. It should only be used when no other DBM database modules are available.</P>
+
+<pre>
+
+<b>open(</b><b><i>filename</i></b> <b>[,</b> <b><i>flag</i></b> <b>[,</b> <b><i>mode</i></B><b>]])</b> </Pre>
+
+<p>Opens the database file <I><tt clAss="monofont">filename</tT></I>
+. <I><Tt claSS="monofont">filename</TT></i>
+ should not include any suffixes such as <tt cLASS="monofont">.dat</tt>  or <tt CLASs="monofont">.dir</tt>. The returned database object behaves like a dictionary, as described in the section introduction (“<a href="111.html">Data Management and Object Persistence</a>,” p. 149).</p>
+
+
+<h5>Exception</h5>
+<pre>
+
+<b>error</b> </pre>
+
+<P>Exception raised for database-related errors other than <tt ClasS="monofont">KeyError</tt>.</p>
+
+<p>? <B>See Also</b> <a hREF="111#4.html">anydbm</A> (150), <a hreF="111#38.html">whichdb</A> (154).</P>
+
+<A name="28"></A>
+<H4><TT clasS="monofont">gdbm</TT></H4>
+<p>The <tt class="monofont">gdbm</tt>  module provides an interface to the GNU DBM library.</p>
+
+<pre>
+
+<b>open(</b><b><i>filename</i></b> <B>[,</b> <b><I>flag</i></b><b>='r' [,</B> <b><i>mode</i></b><B>]])</b> </prE>
+
+<P>Opens a <TT clasS="monofont">gdbm</TT>  database with filename <I><tt clASS="monofont">filename</Tt></i>
+. Appending <tt CLASs="monofont">'f'</tt> to the flag opens the database in fast mode. In this mode, altered data is not automatically written to disk after every change, resulting in better performance. If used, the <tt class="monofont">sync()</tt> method should be used to force unwritten data to be written to disk on program termination.</p>
+
+<p>A <tt clasS="monofont">gdbm</tt>  object <I><tt cLass="monofont">d</tT></i>
+ behaves like a dictionary as described in the section introduction (“<a hREF="111.html">Data Management and Object Persistence</A>,” p. 149), but also supports the following methods:</p>
+
+<p><taBLE BordeR="1" CELlspaCING="0" cellpadding="1" width="100%">
+<colgRouP spaN="2">
+<tr>
+<th ValiGN="top">
+<FOnt siZE="2">
+<P><B>Method</b></p>
+</foNT></TH>
+<th vaLIGN="top">
+<font size="2">
+<p><b>Description</b></p>
+</font></th>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><I><tt clASS="monofont">d</Tt></i>
+<tt CLASs="monofont">.firstkey()</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>Returns the starting key in the database.</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><I><tt clASS="monofont">d</Tt></i>
+<tt CLASs="monofont">.nextkey(</tt><i><tt class="monofont">key</tt></i>
+<tt clasS="monofont">)</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Returns the key that follows <I><tt clASS="monofont">key</Tt></i>
+ in a traversal of the database.</p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><i><Tt clAss="monofont">d</tt></I>
+<tt cLASS="monofont">.reorganize()</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Reorganizes the database and reclaims unused space. This can be used to shrink the size of the <tt class="monofont">gdbm</tt>  file after a lot of deletions have occurred.</p>
+</font></td>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><I><tt clASS="monofont">d</Tt></i>
+<tt CLASs="monofont">.sync()</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>Forces unwritten data to be written to disk.</p>
+</FonT></td>
+</tR>
+</colgRoup>
+</TABLe></p>
+
+
+<h5>Exception</h5>
+<PRE>
+
+<B>error</b> </pre>
+
+<P>Exception raised for <TT Class="monofont">gdbm</TT> -specific errors.</P>
+
+
+<H5>Note</h5>
+<ul>
+<li>
+<p>The GNU DBM library is available at <a target="_blank" href="http://www.gnu.org/software/gdbm/gdbm.html">www.gnu.org/software/gdbm/gdbm.html</a>.</p>
+</lI>
+</ul>
+<P>? <b>See Also</b> <a Href="111#4.html">anydbm</a> (150), <A hreF="111#38.html">whichdb</A> (154).</P>
+
+<A name="34"></A>
+<H4><TT clasS="monofont">shelve</TT></H4>
+<p>The <tt cLASS="monofont">shelve</tt>  module provides support for persistent objects using a special “shelf” object. This object behaves like a dictionary except that all the objects it contains are stored on disk using a database such as <tt class="monofont">dbm</tt>  or <tt class="monofont">gdbm</tt>. A shelf is created using the <Tt cLass="monofont">shelve.open()</Tt> function.</p>
+
+<prE>
+
+<b>open(</b><b><I>filename</I></B> <B>[,</b> <b><i>flag</i></B><B>='c'])</B> </Pre>
+
+<p>Opens a shelf file. If the file doesn’t exist, it’s created. <i><TT CLass="monofont">filename</tT></I>
+ should be the database filename and should not include a suffix. <I><Tt class="monofont">flag</tt></i>
+ has the same meaning as in the <tt class="monofont">open()</tt> function and is one of <tt ClaSs="monofont">'r'</tt>, <Tt claSs="monofont">'w'</tt>, <TT CLass="monofont">'c'</tT>, or <TT Class="monofont">'n'</TT>. If the database file doesn’t exist, it is created. Returns a shelf object.</P>
+
+<P>Once opened, the following dictionary operations can be performed on a shelf:</p>
+
+<p><taBLE Border="1" cellspacing="0" cellPadDing="1" Width="100%">
+<ColgROUP span="2">
+<TR>
+<TH valiGN="top">
+<FOnt siZE="2">
+<P><B>Operation</b></p>
+</font></th>
+<th valign="top">
+<font SizE="2">
+<p><b>Description</b></P>
+</font></Th>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt clASS="monofont">d</Tt></i>
+<tt class="monofont">[</tt><i><tt class="monofont">key</tT></i>
+<tT claSs="monofont">] = </tt><i><Tt clASS="monofont">data</Tt></i>
+</p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Stores data at <i><tt class="monofont">key</tt></i>
+. Overwrites existing data.</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><i><tt CLASs="monofont">data</tt></i>
+<TT CLass="monofont"> = </tT><I><TT class="monofont">d</tt></i>
+<tt class="monofont">[</tt><i><tt ClaSs="monofont">key</tt></I>
+<tt clAss="monofont">]</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Retrieves data at <I><TT class="monofont">key</tt></i>
+.</p>
+</font></td>
+</tr>
+<tr>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">del </tT><I><TT clasS="monofont">d</TT></I>
+<tt clASS="monofont">[</Tt><i><tt class="monofont">key</tt></i>
+<tt class="monofont">]</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P>Deletes data at <I><TT clasS="monofont">key</TT></I>
+.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><I><tt ClasS="monofont">d</tt></i>
+<tT claSS="monofont">.has_key(</TT><i><tt cLASS="monofont">key</tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p>Tests for the existence of <I><tt ClasS="monofont">key</tt></i>
+.</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><TT CLass="monofont">d</tt></i>
+<tt class="monofont">.keys()</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>Returns all keys.</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><tt class="monofont">d</tt></i>
+<tt clasS="monofont">.close()</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Closes the shelf.</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><i><tt class="monofont">d</tT></i>
+<tT claSs="monofont">.sync()</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Write unsaved data to disk.</P>
+</font></TD>
+</TR>
+</colgroup>
+</table></p>
+
+<p>The key values for a shelf must be strings. The objects stored in a shelf must be serializable using the <tt claSs="monofont">pickle</tT>  module.</p>
+
+<p>? <b>See Also</B> <tt clAss="monofont">open</tT> (103).</P>
+
+<PRe>
+
+<b>Shelf (</b><b><I>dict</I></B><B>)</b> </pre>
+
+<P>A class that implements the functionality of a shelf. <I><TT clasS="monofont">dict</TT></I>
+ is an existing dictionary object. This function can be used to create a shelf object that utilizes a preferred database engine. For example, <tt class="monofont">s = Shelf(dbm.open("foo","c"))</tt>.</p>
+
+
+<h5>Note</h5>
+<ul>
+<li>
+<p>The <tt cLasS="monofont">shelve</tt>  module differs from other database modules in that it allows almost any Python object to be stored.</p>
+</Li>
+</ul>
+<p>? <B>See Also</b> <a hREF="108#28.html">pickle</A> (113), <a hreF="89.html">Chapter 9</A>.</P>
+
+<A name="38"></A>
+<H4><TT clasS="monofont">whichdb</TT></H4>
+<p>The <tt class="monofont">whichdb</tt>  module provides a function that attempts to guess which of the several simple database modules (<tt class="monofont">dbm</tt>, <tT clAss="monofont">gdbm</tT>, or <tt clAss="monofont">dbhash</tT>) should be used to open a database file.</P>
+
+<PRe>
+
+<b>whichdb(</b><b><I>filename</I></B><B>)</b> </pre>
+
+<P><I><TT clasS="monofont">filename</TT></I>
+ is a filename without any suffixes. Returns <tt class="monofont">None</tt>  if the file cannot be opened because it’s unreadable or doesn’t exist. Returns the empty string if the file format cannot be guessed. Otherwise, a string containing the required module name is returned, such as <tt class="monofont">'dbm'</tt> or <tt ClaSs="monofont">'gdbm'</tt>.</P>
+
+<p>? <b>See Also</b> <a Href="111#4.html">anydbm</A> (150).</P>
+</FOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="110.html" title="String Handling"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=111" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="111.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="112.html" title="Operating System Services"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

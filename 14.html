@@ -1,0 +1,90 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Running Python</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="12.html" class="navtitle">1. A Tutorial Introduction</a> &gt; <span class="nonavtitle">Running Python</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="13.html" title="1. A Tutorial Introduction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=14" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="14.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="15.html" title="Variables and Arithmetic Expressions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A32%3A17+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137110163131200150148053063</font><a href="read9.asp?bookname=0735710910&snode=14&now=5%2F28%2F2002+8%3A32%3A17+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Running Python</h3>
+<p>Python programs are executed by an interpreter. On UNIX machines, the interpreter is started by typing <tT CLAss="monofont">python</tt>. On Windows and the Macintosh, the interpreter is launched as an application (either from the Start menu or by double-clicking the interpreter’s icon). When the interpreter starts, a prompt appears at which you can start typing programs into a simple read-evaluation loop. For example, in the following output, the interpreter displays its copyright message and presents the user with the <TT CLass="monofont">&gt;&gt;&gt;</tT> prompt, at which the user types the familiar “Hello World” command:</P>
+
+<PRe>
+
+Python 2.1 (#1, Apr 20 2001, 14:34:45) 
+[GCC 2.95.2 19991024 (release)] on sunos5 
+Type "copyright", "credits" or "license" for more information. 
+&gt;&gt;&gt; print "Hello World" 
+Hello World 
+&gt;&gt;&gt; </pre>
+
+<p>Programs can also be placed in a file such as the following:</p>
+
+<pre>
+
+# helloworld.py 
+print "Hello World" </pre>
+
+<p>Python source files have a <tt class="monofont">.py</Tt>  suffix. The <tT claSs="monofont">#</tt> character denotes a comment that extends to the end of the line.</p>
+
+<P>To execute the <tt cLASS="monofont">helloworld.py</tt>  file, you provide the filename to the interpreter as follows:</p>
+
+<pRE>
+
+% python helloworld.py 
+Hello World 
+% </PRe>
+
+<p>On Windows, Python programs can be started by double-clicking a .py file. This launches the interpreter and runs the program in a console window. In this case, the console window disappears immediately after the program completes its execution (often before you can read its output). To prevent this problem, you should use an integrated development environment such as Idle or Pythonwin. An alternative approach is to launch the program using a <tt CLASs="monofont">.bat</tt>  file containing a statement such as <tT CLAss="monofont">python -i helloworld.py</tt> that instructs the interpreter to enter interactive mode after program execution.</p>
+
+<p>On the Macintosh, programs can be executed from the included integrated development environment. In addition, the <tt class="monofont">BuildApplet</tt>  utility (included in the distribution) turns a Python program into a document that automatically launches the interpreter when opened.</p>
+
+<p>Within the interpreter, the <tt cLasS="monofont">execfile()</tt> function runs a program, as in the following example:</p>
+
+<Pre>
+
+&gt;&gt;&gt; execfile("helloworld.py") 
+Hello World </prE>
+
+<p>On UNIX, you can also invoke Python using <tt CLASs="monofont">#!</tt> in a shell script:</p>
+
+<PRE>
+
+#!/usr/local/bin/python 
+print "Hello World" </Pre>
+
+<p>The interpreter runs until it reaches the end of the input file. If running interactively, you can exit by typing the EOF (end of file) character or by selecting Exit from a pull-down menu. On UNIX, EOF is Ctrl+D; on Windows, Ctrl+Z. A program can also exit by calling the <tT CLAss="monofont">sys.exit()</tt> function or raising the <TT CLass="monofont">SystemExit</tt> exception. For example:</p>
+
+<pre>
+
+&gt;&gt;&gt; import sys 
+&gt;&gt;&gt; sys.exit() </pre>
+
+<p>or</p>
+
+<pre>
+
+&gt;&gt;&gt; raise SystemExit </pre>
+</FonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="13.html" title="1. A Tutorial Introduction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=14" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="14.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="15.html" title="Variables and Arithmetic Expressions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

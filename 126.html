@@ -1,0 +1,472 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Converting Data from C to Python</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="121.html" class="navtitle">B. Extending and Embedding Python</a> &gt; <span class="nonavtitle">Converting Data from C to Python</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="125.html" title="Converting Data from Python to C"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=126" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="126.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="127.html" title="Error Handling"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A09%3A14+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105095080113234039226186</font><a href="read6.asp?bookname=0735710910&snode=126&now=5%2F28%2F2002+9%3A09%3A14+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Converting Data from C to Python</h3>
+<p>The following function is used to convert the values contained in C variables to a Python object:</p>
+
+<PRE>
+
+PyObject *Py_BuildValue(char *<I>format</i>, ...) </pre>
+
+<P>This constructs a Python object from a series of C variables. <I><TT clasS="monofont">format</TT></I>
+  is a string describing the desired conversion. The remaining arguments are the values of C variables to be converted.</p>
+
+<p>The <i><tt class="monofont">format</tt></i>
+  specifier (see <a href="126#2.html">Table B.3</a>) is similar to that used with the <tT clAss="monofont">PyArg_Parse*</tT> functions.</p>
+
+<a naMe="2"></a><p><TABLe borDER="1" CellsPACIng="0" ceLLPAdding="1" width="100%">
+<caption><h5>Table B.3.  Format Specifiers for <tt ClaSs="monofont">Py_BuildValue()</tt></H5></captIon><cOLGRoup sPAN="4">
+<Tr>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Format</b></p>
+</font></th>
+<th valign="top">
+<fOnt Size="2">
+<P><b>PyType</b></p>
+</fOnt></tH>
+<TH ValigN="top">
+<FONt sizE="2">
+<P><B>C Type</B></p>
+</fonT></TH>
+<Th valign="top">
+<font size="2">
+<p><b>Description</b></p>
+</fOnt></Th>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">"s"</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>String</p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><Tt claSS="monofont">char *</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p>Null-terminated string. If the C string pointer is <tt class="monofont">NULL</tt>, <tt cLasS="monofont">None</tt>  is returned.</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">"s#"</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>String</P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">char *, int</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p>String and length. May contain null bytes. If the C string pointer is <tt clAss="monofont">NULL</Tt>, <tt Class="monofont">None</Tt>  is returned.</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">"z"</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>String or None</p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">char *</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P>Same as <tt cLass="monofont">"s"</tT>.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">"z#"</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>String or None</p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">char *, int</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>Same as <Tt clAss="monofont">"s#"</tt>.</P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">"u"</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>Unicode</p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">Py_UNICODE *</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>Null-terminated Unicode string. If the C string pointer is <tT claSs="monofont">NULL</tt>, <tT claSS="monofont">None</TT>  is returned.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">"u#"</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Unicode</P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">Py_UNICODE *, int</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>Unicode string and length.</p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">"b"</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p>Integer</P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">char</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p>8-bit integer.</P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">"h"</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>Integer</p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">short</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Short 16-bit integer.</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">"i"</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Integer</p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">int</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Integer.</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">"l"</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Integer</P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">long</tt></p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Long integer.</P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">"c"</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>String</p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">char</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Single character. Creates a Python string of length 1.</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">"f"</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Float</p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">float</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Single-precision floating point.</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">"d"</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>Float</p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">double</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P>Double-precision floating point.</p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">"O"</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P>Any</p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">PyObject *</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p>Any Python object. The object is unchanged except for its reference count, which is incremented by <tt clasS="monofont">1</tt>. If a <Tt clAss="monofont">NULL</tt> pointer is given, a <Tt clASS="monofont">NULL</Tt>  pointer is returned.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">"O&amp;"</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>Any</P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><I><Tt class="monofont">converter</tt></i>
+<tt class="monofont">, </tt><i><tT clAss="monofont">any</tT></i>
+</p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>C data processed through a converter function.</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">"S"</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>String</p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">PyObject *</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p>Same as <tT CLAss="monofont">"O"</tt>.</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">"U"</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Unicode</p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">PyObject *</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>Same as <tt CLASs="monofont">"O"</tt>.</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">"N"</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P>Any</p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">PyObject *</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Same as <tt cLASS="monofont">"O"</tt> except that the reference count is not incremented.</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">"(</tt><I><tt cLass="monofont">items</tT></i>
+<tt CLASs="monofont">)"</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Tuple</p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p><I><tt clAss="monofont">vars</tT></I>
+</P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Creates a tuple of items. <I><Tt class="monofont">items</tt></i>
+ is a string of format specifiers from this table. <i><tt class="monofont">vars</tt></i>
+  is a list of C variables corresponding to the items in <I><tt ClasS="monofont">items</tt></i>
+.</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">"[</tt><i><tt class="monofont">items</tt></i>
+<tt claSs="monofont">]"</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P>List</p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p><i><tt class="monofont">vars</tt></i>
+</p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p>Creates a list of items. <i><TT CLass="monofont">items</tT></I>
+ is a string of format specifiers. <I><Tt claSS="monofont">vars</TT></i>
+  is a list of C variables corresponding to the items in <i><tt class="monofont">items</tt></i>
+.</p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">"{</Tt><i><tt CLASs="monofont">items</tt></i>
+<TT CLass="monofont">}"</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>Dictionary</p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT clasS="monofont">vars</TT></I>
+</p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P>Creates a dictionary of items.</p>
+</foNt></td>
+</tR>
+</colGROUp>
+</tabLE></P>
+
+<P>Examples:</p>
+
+<pre>
+
+Py_BuildValue("")                          None 
+Py_BuildValue("i",37)                      37 
+Py_BuildValue("ids",37,3.4,"hello")        (37, 3.5, "hello") 
+Py_BuildValue("s#","hello",4)              "hell" 
+Py_BuildValue("()")                        () 
+Py_BuildValue("(i)",37)                    (37,) 
+Py_BuildValue("[ii]",1,2)                  [1,2] 
+Py_BuildValue("[i,i]",1,2)                 [1,2] 
+Py_BuildValue("{s:i,s:i}","x",1,"y",2)     {'x':1, 'y':2} </PRE>
+</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="125.html" title="Converting Data from Python to C"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=126" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="126.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="127.html" title="Error Handling"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

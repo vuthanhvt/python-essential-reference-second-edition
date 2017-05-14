@@ -1,0 +1,133 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Modules</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="82.html" class="navtitle">8. Modules and Packages</a> &gt; <span class="nonavtitle">Modules</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="83.html" title="8. Modules and Packages"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=84" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="84.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="85.html" title="The Module Search Path"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A01%3A43+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105087128011106194131013</font><a href="read9.asp?bookname=0735710910&snode=84&now=5%2F28%2F2002+9%3A01%3A43+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Modules</h3>
+<p>You can turn any valid source file into a module by loading it with the <tT CLAss="monofont">import</tt> statement. For example, consider the following code:</P>
+
+<PRE>
+
+# file : spam.py 
+a = 37                    # A variable 
+def foo:                  # A function 
+    print "I'm foo" 
+class bar:                # A class 
+    def grok(self): 
+        print "I'm bar.grok" 
+b = bar()                 # Create an instance </pre>
+
+<p>To load this code as a module, you use the statement <TT CLass="monofont">import spam</tt>. The first time <tt class="monofont">import</tt>  is used to load a module, it does three things:</p>
+
+<ol typE="1">
+<li>
+
+<P> It creates a new namespace that serves as a namespace to all the objects defined in the corresponding source file. This is the namespace accessed when functions and methods defined within the module use the <tt cLass="monofont">global</tT>  statement.</p>
+</li>
+<LI>
+
+<P> It executes the code contained in the module within the newly created namespace.</P>
+</li>
+<li>
+
+<P> It creates a name within the caller that refers to the module namespace. This name matches the name of the module and is used as follows:</P>
+
+<PRe>
+
+import spam           # Loads and executes the module 'spam' 
+print spam.a          # Accesses a member of module 'spam' 
+spam.foo() 
+c = spam.bar() 
+... </pre>
+</LI>
+</OL>
+
+<p>To import multiple modules, supply <tt cLASS="monofont">import</tt>  with a comma-separated list of module names, like this:</p>
+
+<pre>
+
+import socket, os, regex </pre>
+
+<p>Modules can be imported using alternative names by using the <tt class="monofont">as</tt>  qualifier. For example:</p>
+
+<Pre>
+
+import os as system 
+import socket as net, thread as threads 
+system.chdir("..") 
+net.gethostname() </Pre>
+
+<p>Use the <Tt claSs="monofont">from</tt>  statement to load specific definitions within a module into the current namespace. The <TT CLass="monofont">from</tT>  statement is identical to <TT Class="monofont">import</TT>  except that instead of creating a name referring to the newly created module namespace, references to one or more of the objects defined in the module are placed into the current namespace:</P>
+
+<Pre>
+
+from socket import gethostname 
+                               # Put gethostname in current namespace 
+
+print gethostname()            # Use without module name 
+socket.gethostname()           # NameError: socket </prE>
+
+<P>The <TT class="monofont">from</tt>  statement also accepts a comma-separated list of object names. The asterisk (<tt class="monofont">*</tt>) wildcard character can also be used to load all the definitions in a module except those that start with an underscore. For example:</p>
+
+<pre>
+
+from socket import gethostname, socket 
+from socket import *   # Load all definitions into current namespace </Pre>
+
+<P>Modules can more precisely control the set of names that are imported by <tt cLass="monofont">from </tT><i><tt CLASs="monofont">module</tt></i>
+<TT CLass="monofont"> import *</tT> by defining a list <TT Class="monofont">_ _all_ _</TT>. For example:</P>
+
+<Pre>
+
+# module: foo.py 
+_ _all_ _ = [ 'bar', 'spam' ]     # Names to be imported by * </pre>
+
+<p>In addition, the <tt class="monofont">as</tt>  qualifier can be used to rename specific objects imported with <tt claSs="monofont">from</tT>. For example:</p>
+
+<prE>
+
+from socket import gethostname as hostname 
+h = hostname() </pre>
+
+<p>The <Tt clASS="monofont">import</Tt>  statement can appear at any point in a program. However, the code in each module is loaded and executed only once, regardless of how often you use the <tt cLASS="monofont">import</tt>  statement. Subsequent <tt CLASs="monofont">import</tt>  statements simply create a reference to the module namespace created on a previous import. You can find a dictionary containing all currently loaded modules in the variable <tT CLAss="monofont">sys.modules</tt>, which is a dictionary that maps module names to module objects. The contents of this dictionary are used to determine whether <tt class="monofont">import</tt>  loads a fresh copy of a module.</p>
+
+<p>The <tt claSs="monofont">from </tT><i><tt Class="monofont">module</Tt></i>
+<tT CLAss="monofont"> import *</tt> statement can only be used at the top level of a module. In particular, it’s illegal to use this form of <TT CLass="monofont">import</tT>  inside function bodies, due to the way in which it interacts with function scoping rules.</P>
+
+<P>Each module defines a variable <Tt claSS="monofont">_ _name_ _</TT> that contains the module name. Programs can examine this variable to determine the module in which they’re executing. The top-level module of the interpreter is named <tt class="monofont">_ _main_ _</tt>. Programs specified on the command line or entered interactively run inside the <tt class="monofont">_ _main_ _</tt> module. Sometimes, a program may alter its behavior, depending on whether it has been imported as a module or is running in <tt ClaSs="monofont">_ _main_ _</tt>. This can be done as follows:</P>
+
+<pre>
+
+# Check if running as a program 
+if _ _name_ _ == '_ _main_ _': 
+      # Yes 
+      <i>statements</I> 
+else: 
+      # No, I must have been imported as a module 
+      <i>statements</i> </pRE>
+</FOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="83.html" title="8. Modules and Packages"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=84" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="84.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="85.html" title="The Module Search Path"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

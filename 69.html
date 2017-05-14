@@ -1,0 +1,144 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; map() , zip() , reduce() , and filter() </TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="61.html" class="navtitle">6. Functions and Functional Programming</a> &gt; <span class="nonavtitle">map() , zip() , reduce() , and filter() </span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="68.html" title="The lambda Operator"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=69" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="69.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="70.html" title="List Comprehensions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A59%3A25+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104017178093174198134036</font><a href="read7.asp?bookname=0735710910&snode=69&now=5%2F28%2F2002+8%3A59%3A25+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3><tt cLASS="monofont">map()</tt>, <tt CLASs="monofont">zip()</tt>, <tT CLAss="monofont">reduce()</tt>, and <tt class="monofont">filter()</tt></h3>
+<p>The <i><tt clAss="monofont">t</Tt></i>
+<tT clasS="monofont"> = map(</tt><i><TT CLass="monofont">func</tT></I>
+<TT clasS="monofont">, </TT><I><tt clASS="monofont">s</Tt></i>
+<tt class="monofont">)</tt> function applies the function <i><tt class="monofont">func</tT></i>
+ to each of the elements in <tT claSs="monofont">s</tt> and returns a new list <i><Tt clASS="monofont">t</Tt></i>
+. Each element of <i><tT CLAss="monofont">t</tt></I>
+ is <I><TT clasS="monofont">t</TT></I>
+<tt class="monofont">[</tt><i><tt class="monofont">i</tt></i>
+<Tt cLass="monofont">] = func(</Tt><i><tt ClasS="monofont">s</TT></I>
+<tt clASS="monofont">[</Tt><i><tt CLASs="monofont">i</tt></i>
+<TT CLass="monofont">])</tt>. The function given to <tt class="monofont">map()</tt> should require only one argument. For example:</p>
+
+<pre>
+
+a = [1, 2, 3, 4, 5, 6] 
+def foo(x): 
+    return 3*x 
+
+b = map(foo,a)   # b = [3, 6, 9, 12, 15, 18] </prE>
+
+<p>Alternatively, this could be calculated using an anonymous function as follows:</p>
+
+<Pre>
+
+b = map(lambda x: 3*x, a)   # b = [3, 6, 9, 12, 15, 18] </pRe>
+
+<p>The <tt ClasS="monofont">map()</TT> function can also be applied to multiple lists such as <I><tt clASS="monofont">t</Tt></i>
+<tt CLASs="monofont"> = map(</tt><i><TT CLass="monofont">func</tt></i>
+<tt class="monofont">, </tt><i><tt clAss="monofont">s1</Tt></i>
+<tT clasS="monofont">, </tt><i><TT CLass="monofont">s2</tT></I>
+<TT clasS="monofont">, ..., </TT><I><tt clASS="monofont">sn</Tt></i>
+<tt class="monofont">)</tt>. In this case, each element of <i><tt class="monofont">t</tT></i>
+ is <i><Tt clAss="monofont">t</tt></I>
+<tt cLASS="monofont">[</tt><i><tT CLAss="monofont">i</tt></I>
+<TT Class="monofont">] = </TT><I><Tt class="monofont">func s1</tt></i>
+<tt class="monofont">[</tt><i><tT clAss="monofont">i</tT></i>
+<tt cLass="monofont">], </TT><I><Tt claSS="monofont">s2</TT></i>
+<tt cLASS="monofont">[</tt><i><tT CLAss="monofont">i</tt></i>
+<tt class="monofont">], ..., </tt><i><tt claSs="monofont">sn</tT></i>
+<tt Class="monofont">[</Tt><i><tT CLAss="monofont">i</tt></I>
+<TT Class="monofont">])</TT>, and the function given to <TT clasS="monofont">map()</TT> must accept the same number of arguments as the number of lists given. The result has the same number of elements as the longest list in <I><tt class="monofont">s1</tt></i>
+<tt class="monofont">, </tt><i><Tt cLass="monofont">s2</Tt></i>
+<tt ClasS="monofont">, ... </TT><I><tt clASS="monofont">sn</Tt></i>
+. During the calculation, short lists are extended with values of <tt CLASs="monofont">None</tt>  to match the length of the longest list, if necessary.</p>
+
+<P>If the function is set to <TT Class="monofont">None</tt>, the identity function is assumed. If multiple lists are passed to <tt class="monofont">map(None, </tt><i><tt clAss="monofont">s1</Tt></i>
+<tT clasS="monofont">, </tt><i><TT CLass="monofont">s2</tT></I>
+<TT clasS="monofont">, ... </TT><I><tt clASS="monofont">sn</Tt></i>
+<tt class="monofont">)</tt>, the function returns a list of tuples in which each tuple contains an element from each list. For example:</p>
+
+<pre>
+
+a = [1,2,3,4] 
+b = [100,101,102,103] 
+c = map(None, a, b)   # c = [(1,100), (2,101), (3,102), (4,103)] </pre>
+
+<p>As an alternative to <tT clAss="monofont">map()</tT>, a list of tuples can also be created using the <tt clAss="monofont">zip(</tT><I><TT clasS="monofont">s1</TT></I>
+<tt clASS="monofont">, </Tt><i><tt CLASs="monofont">s2</tt></i>
+<tt class="monofont">, ..., </tt><i><tt clasS="monofont">sn</tt></I>
+<tt cLass="monofont">)</tT> function. <tt cLASS="monofont">zip()</tt> takes a collection of sequences and returns a new list <i><tT CLAss="monofont">t</tt></I>
+ in which each element of <I><TT clasS="monofont">t</TT></I>
+ is <i><tt class="monofont">t</tt></i>
+<tt class="monofont">[</tt><I><tt ClasS="monofont">i</tt></i>
+<tT claSS="monofont">] = (</TT><i><tt cLASS="monofont">s1</tt></i>
+<tT CLAss="monofont">[</tt><I><TT Class="monofont">i</tt></i>
+<tt class="monofont">], </tt><i><tt cLasS="monofont">s2</tt></i>
+<Tt claSs="monofont">[</tt><I><TT Class="monofont">i</TT></I>
+<Tt claSS="monofont">], ..., </TT><i><tt cLASS="monofont">sn</tt></i>
+<tt class="monofont">[</tt><i><tt class="monofont">i</Tt></i>
+<Tt clAss="monofont">])</tt>. Unlike <Tt clASS="monofont">map()</Tt>, <tt cLASS="monofont">zip()</tt> truncates the length of <i><tT CLAss="monofont">t</tt></I>
+ to the shortest sequence in <I><TT class="monofont">s1</tt></i>
+<tt class="monofont">, </tt><i><tt ClaSs="monofont">s2</tt></I>
+<tt clAss="monofont">, ... </tT><I><TT clasS="monofont">sn</TT></I>
+. For example:</p>
+
+<pre>
+
+d = [1,2,3,4,5,6,7] 
+e = [10,11,12] 
+f = zip(d,e)   # f = [(1,10), (2,11), (3,12)] </PRE>
+
+<P>The <tt clASS="monofont">reduce(</Tt><i><tt class="monofont">func</tt></i>
+<tt class="monofont">, </tT><i><tT claSs="monofont">s</tt></i>
+<Tt clASS="monofont">)</Tt> function collects information from a sequence and returns a single value (for example, a sum, maximum value, and so on). <tt cLASS="monofont">reduce()</tt> works by applying the function <i><tT CLAss="monofont">func</tt></I>
+ to the first two elements of <I><TT class="monofont">s</tt></i>
+. This value is then combined with the third element to yield a new value. This result is then combined with the fourth element, and so forth until the end of the sequence. The function <i><tt class="monofont">func</tt></i>
+ must accept two arguments and return a single value. For example:</p>
+
+<Pre>
+
+def sum(x,y): 
+    return x+y 
+
+b = reduce(sum, a)   # b = (((1+2)+3)+4) = 10 </Pre>
+
+<p>The <Tt claSs="monofont">filter(</tt><I><TT Class="monofont">func</TT></I>
+<Tt claSS="monofont">,</TT><i><tt cLASS="monofont">s</tt></i>
+<tt class="monofont">)</tt> function filters the elements of <i><tt class="monofont">s</Tt></i>
+ using a filter function <I><tt cLass="monofont">func</tT></i>
+<tt CLASs="monofont">()</tt> that returns true or false.A new sequence is returned consisting of all elements <i><TT CLass="monofont">x</tT></I>
+ of <I><Tt claSS="monofont">s</TT></i>
+ for which <i><tt class="monofont">func</tt></i>
+<tt class="monofont"> (</tT><i><tT claSs="monofont">x</tt></i>
+<Tt clASS="monofont">)</Tt> is true. For example:</p>
+
+<prE>
+
+c = filter(lambda x: x &lt; 4, a)   # c = [1, 2, 3] </PRE>
+
+<p>If <i><tt CLASs="monofont">func</tt></i>
+ is set to <TT CLass="monofont">None</tt>, the identity function is assumed and <tt class="monofont">filter()</tt> returns all elements of <i><tt claSs="monofont">s</tT></i>
+ that evaluate to true.</p>
+</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="68.html" title="The lambda Operator"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=69" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="69.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="70.html" title="List Comprehensions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

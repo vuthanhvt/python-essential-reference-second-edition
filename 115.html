@@ -1,0 +1,2240 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Internet Data Handling and Encoding</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="105.html" class="navtitle">A. The Python Library</a> &gt; <span class="nonavtitle">Internet Data Handling and Encoding</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="114.html" title="Network Programming"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=115" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="115.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="116.html" title="Restricted Execution"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A07%3A30+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105081080061094143037034</font><a href="read5.asp?bookname=0735710910&snode=115&now=5%2F28%2F2002+9%3A07%3A30+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Internet Data Handling and Encoding</h3>
+<p>The modules in this section are used to encode and decode data formats that are widely used in Internet applications.</p>
+
+<A NAMe="2"></a>
+<h4><tT CLAss="monofont">base64</tt></H4>
+<P>The <TT class="monofont">base64</tt>  module is used to encode and decode data using base64 encoding. base64 is commonly used to encode binary data in mail attachments.</p>
+
+<pre>
+
+<b>decode(</b><b><i>input</i></b><b>,</b> <b><I>output</i></b><B>)</b> </prE>
+
+<p>Decodes base64-encoded data. <i><tt ClasS="monofont">input</TT></I>
+ is a filename or a file object open for reading. <i><tt cLASS="monofont">output</tt></i>
+ is a filename or a file object open for writing.</p>
+
+<PRE>
+
+<B>decodestring(</b><b><i>s</i></B><B>)</B> </Pre>
+
+<p>Decodes a base64-encoded string <i><tt class="monofont">s</tt></i>
+. Returns a string containing the decoded binary data.</p>
+
+<pre>
+
+<b>encode(</b><B><i>input</i></B><b>,</b> <b><I>output</i></b><b>)</b> </Pre>
+
+<p>Encodes data using base64. <I><TT Class="monofont">input</TT></I>
+ is a filename or a file object open for reading. <I><tt clASS="monofont">output</Tt></i>
+ is a filename or a file object open for writing.</p>
+
+<pRE>
+
+<B>encodestring(</B><b><i>s</i></b><b>)</b> </pre>
+
+<p>Encodes a string <i><tt class="monofont">s</tt></I>
+ using base64.</p>
+
+<p>? <B>See Also</b> <a hRef="115#4.html">binascii</a> (264), Internet RFC 1421.</p>
+
+<A namE="4"></A>
+<H4><Tt claSS="monofont">binascii</TT></h4>
+<p>The <tt CLASs="monofont">binascii</tt>  module is used to convert data between binary and a variety of ASCII encodings such as base64, binhex, and uuencode.</p>
+
+<PRE>
+
+<B>a2b_uu(</b><b><i>string</i></b><b>)</b> </pre>
+
+<p>Converts a line of uuencoded data to binary. Lines normally contain 45 (binary) bytes, except for the last line. Line data may be followed by whitespace.</p>
+
+<pre>
+
+<b>b2a_uu(</b><b><i>data</i></B><b>)</b> </Pre>
+
+<p>Converts a string of binary data to a line of uuencoded ASCII characters. The length of <Tt claSs="monofont">data</tt>  should not be more than 45 bytes.</P>
+
+<PRE>
+
+<b>a2b_base64(</b><b><i>string</I></B><B>)</B> </pre>
+
+<p>Converts a string of base64-encoded data to binary.</P>
+
+<PRE>
+
+<b>b2a_base64(</b><b><i>data</I></B><B>)</B> </pre>
+
+<p>Converts a string of binary data to a line of base64-encoded ASCII characters. The length of <tt class="monofont">data</tt>  should not be more than 57 bytes.</p>
+
+<pre>
+
+<b>a2b_hex(</b><b><I>string</i></b><B>)</b> </prE>
+
+<p>Converts a string of hex digits to a string of binary data. <i><tt ClasS="monofont">string</TT></I>
+ must contain an even number of digits.</p>
+
+<pre>
+
+<B>b2a_hex(</B><B><I>data</i></b><b>)</b> </PRE>
+
+<P>Converts a string of binary data to a string of hex digits.</p>
+
+<pre>
+
+<B>a2b_hqx(</B><B><I>string</i></b><b>)</b> </pre>
+
+<p>Converts a string of binhex4-encoded data to binary without performing RLE decompression.</p>
+
+<pre>
+
+<b>rledecode_hqx(</b><b><i>data</i></b><b>)</b> </Pre>
+
+<P>Performs an RLE (Run-Length Encoding) decompression of the binary data in <tt cLass="monofont">data</tT>. Returns the decompressed data unless the data input is incomplete, in which case the <tt cLASS="monofont">Incomplete</tt>  exception is raised.</p>
+
+<pRE>
+
+<B>rlecode_hqx(</B><b><i>data</i></b><B>)</B> </PRe>
+
+<p>Performs a binhex4 RLE compression of <i><tT CLAss="monofont">data</tt></i>
+.</p>
+
+<pre>
+
+<b>b2a_hqx(</b><b><i>data</i></b><b>)</b> </pre>
+
+<P>Converts the binary data to a string of binhex4-encoded ASCII characters. <i><tT claSs="monofont">data</tt></i>
+ should already be RLE coded and have a length divisible by three.</P>
+
+<pre>
+
+<B>crc_hqx(</B><B><I>data</i></b><b>,</b> <B><I>crc</I></B><b>)</b> </prE>
+
+<P>Computes the binhex4 CRC checksum of the data. <I><Tt claSS="monofont">crc</TT></i>
+ is a starting value of the checksum.</p>
+
+<pre>
+
+<b>crc32(</b><b><i>data</i></b> <b>[,</b> <b><i>oldcrc</i></b><b>])</b> </pRe>
+
+<p>Computes the CRC-32 checksum of <I><tt cLass="monofont">data</tT></i>
+. If supplied, the <i><tT CLAss="monofont">oldcrc</tt></I>
+ parameter allows for incremental calculation of the checksum.</P>
+
+
+<H5>Exceptions</H5>
+<pre>
+
+<b>Error</B> </PRE>
+
+<p>Exception raised on errors.</p>
+
+<prE>
+
+<B>Incomplete</B> </Pre>
+
+<p>Exception raised on incomplete data. This exception occurs when multiple bytes of data are expected, but the input data has been truncated.</p>
+
+<p>? <b>See Also</b> <a href="115#2.html">base64</a> (263), <a href="115#8.html">binhex</a> (265), <a HreF="115#38.html">uu</a> (277).</p>
+
+<a Name="8"></a>
+<H4><tt cLASS="monofont">binhex</tt></h4>
+<p>The <TT CLass="monofont">binhex</tT>  module is used to encode and decode files in binhex4, a format commonly used to represent files on the Macintosh.</P>
+
+<PRe>
+
+<b>binhex(</b><b><I>input</I></B><B>,</b> <b><i>output</i></b><b>)</b> </pre>
+
+<p>Converts a binary file with name <i><tt class="monofont">input</tT></i>
+ to a binhex file. <i><Tt clAss="monofont">output</tt></I>
+ is a filename or an open file-like object supporting <tt cLASS="monofont">write()</tt> and <tt CLASs="monofont">close()</tt> methods.</p>
+
+<PRE>
+
+<B>hexbin(</b><b><i>input</i></B> <B>[,</B> <B><i>output</i></b><b>])</b> </pre>
+
+<p>Decodes a binhex file. <i><tt class="monofont">input</tt></i>
+ is either a filename or a file-like object with <Tt cLass="monofont">read()</Tt> and <tt cLass="monofont">close()</TT>  methods. <I><Tt claSS="monofont">output</TT></i>
+ is the name of the output file. If omitted, the output name is taken from the binhex file.</p>
+
+
+<h5>Notes</h5>
+<UL>
+<LI>
+<p>Both the data and resource forks are handled on the Macintosh.</p>
+</li>
+<LI>
+<P>Only the data fork is handled on other platforms.</P>
+</li>
+</ul>
+<p>? <b>See Also</b> <a href="115#4.html">binascii</a> (264), <a href="112#78.html">macostools</a> (176).</p>
+
+<A naMe="12"></a>
+<h4><Tt claSs="monofont">mailcap</tt></H4>
+<P>The <TT clasS="monofont">mailcap</TT>  module is used to read UNIX mailcap files. Mailcap files are used to tell mail readers and Web browsers how to process files with different MIME types. The contents of a mailcap file typically look something like this:</P>
+
+<pre>
+
+video/mpeg; xmpeg %s 
+application/pdf; acroread %s </pRE>
+
+<P>When data of a given MIME type is encountered, the mailcap file is consulted to find an application for handling that data.</P>
+
+<pre>
+
+<b>getcaps()</B> </PRE>
+
+<p>Reads all available mailcap files and returns a dictionary mapping MIME types to a mailcap entry. Mailcap files are read from <tt class="monofont">$HOME/.mailcap</tt>, <tt class="monofont">/etc/mailcap</tt>, <tT clAss="monofont">/usr/etc/mailcap</tT>, and <tt clAss="monofont">/usr/local/etc/mailcap</tT>.</P>
+
+<PRe>
+
+<b>findmatch(</b><b><I>caps</I></B><B>,</b> <b><i>mimetype</i></B> <B>[,</B> <B><i>key</i></b> <b>[,</B> <B><I>filename</I></b> <b>[,</b> <b><i>plist</i></b><b>]]])</b> </pre>
+
+<p>Searches the dictionary <i><tt clasS="monofont">caps</tt></I>
+ for a mailcap entry matching <i><tt Class="monofont">mimetype</Tt></i>
+. <i><TT CLass="monofont">key</tT></I>
+ is a string indicating an action and is typically <TT clasS="monofont">'view'</TT>, <Tt claSS="monofont">'compose'</TT>, or <tt class="monofont">'edit'</tt>. <i><tt class="monofont">filename</tt></i>
+ is the name of the file that’s substituted for the <Tt cLass="monofont">%s</Tt>  keyword in the mailcap entry. <i><tt ClasS="monofont">plist</TT></I>
+ is a list of named parameters and is described further in the online documentation at <a tarGET="_blank" Href="http://www.python.org/doc/lib/module-mailcap.html">http://www.python.org/doc/lib/module-mailcap.html</a>. Returns a tuple (<I><TT Class="monofont">cmd</TT></I>
+<Tt class="monofont">, </tt><i><tt class="monofont">mailcap</tt></i>
+) containing the command from the mailcap file and the raw mailcap entry.</p>
+
+
+<H5>Example</h5>
+<pRe>
+
+import mailcap 
+import urllib 
+import os 
+# Go fetch a document 
+urllib.urlretrieve("http://www.swig.org/Doc1.1/PDF/Python.pdf", "/tmp/tmp1234") 
+
+caps = mailcap.getgaps() 
+cmd, mc = mailcap.findmatch(caps,'application/pdf',filename='/tmp/tmp1234') 
+if cmd: 
+    os.system(cmd + " &amp;") 
+else: 
+    print "No application for type application/pdf" </prE>
+
+<p>? <b>See Also</b> <a TargET="_blank" HRef="http://www.python.org/doc/lib/module-mailcap.html">http://www.python.org/doc/lib/module-mailcap.html</a>, <a HREF="115#18.html">mimetypes</a> (268), Internet RFC 1524.</p>
+
+<a nAME="16"></A>
+<h4><tt cLASS="monofont">mimetools</tt></h4>
+<p>The <tt class="monofont">mimetools</tt>  module provides a number of functions for manipulating MIME-encoded messages. MIME (Multipurpose Internet Mail Extensions) is a standard for sending multipart multimedia data through Internet mail. Parts of the standard are also used in other settings, such as the HTTP protocol. A MIME-encoded message looks similar to this:</p>
+
+<pre>
+
+Content-Type: multipart/mixed; boundary="====_931526447==" 
+Date: Fri, 06 Jul 2001 03:20:47 -0500 
+From: John Doe &lt;johndoe@foo.com&gt; 
+To: Jane Doe (janedoe@foo.com&gt; 
+Subject: Important Message From John Doe 
+
+--====_931526447== 
+Content-Type: text/plain; charset="us-ascii" 
+
+Here is that document you asked for ... don't show anyone else ;-) 
+
+--====_931526447== 
+Content-Type: application/msword; name="list.doc" 
+Content-Transfer-Encoding: base64 
+Content-Disposition: attachment; filename="list.doc" 
+
+SXQgd2FzIGEgbG9uZyBob3QgZGF5IGluIHRoZSBtb250aCBvZiBKdWx5LCB3aGVuIExhcnJ5IHN0 
+YXJ0ZWQgdGFsa2luZwphYm91dCBzb2Npby1wb2xpdGljYWwgc2NhbGFibGUgaW1tZXJzaXZlIHZp 
+cnR1YWwgdGVtcG9yYWwKY29sbGFib3JhdGl2ZSBwYXJhbGxlbCBoaWdoIHBlcmZvcm1hbmNlIHdl 
+Yi1iYXNlZCBtb2JpbGUKb2JqZWN0LW9yaWVudGVkIHNjaWVudGlmaWMgY29tcHV0aW5nIGVudmly 
+b25tZW50cy4gIEZvcnR1bmF0ZWx5LCBQZXRlCmhhZCByZW1lbWJlcmVkIHRvIGJyaW5nIGhpcyAu 
+NDUuLi4KCg== 
+
+--====_931526447==--</pre>
+
+<P>MIME messages are broken into parts delimited by a line separator such as <tt ClasS="monofont">--====_931526447==</tt> above. This separator always starts with a double hyphen as shown. The final separator has a trailing double hyphen (<tt ClasS="monofont">-</TT>) appended to indicate the end of the message. Immediately following each separator is a set of RFC 822 headers describing the content-type and encoding. Data is separated from the headers by a single blank line.</P>
+
+<p>The <tt cLASS="monofont">mimetools</tt>  module defines the following functions to parse headers and decode data:</p>
+
+<pRE>
+
+<B>Message(</B><b><i>file</i></b> <B>[,</B> <B><I>seekable</i></b><b>])</b> </pre>
+
+<p>Parses MIME headers and returns a <tt class="monofont">Message</tt>  object derived from the <tt cLasS="monofont">rfc822.Message</tt>  class. <i><Tt claSs="monofont">file</tt></I>
+ and <I><TT clasS="monofont">seekable</TT></I>
+ have the same meaning as for <tt clASS="monofont">rfc822.Message</Tt>.</p>
+
+<prE>
+
+<B>choose_boundary()</B> </Pre>
+
+<p>Creates a unique string of the form <tt class="monofont">'</tt><i><tt class="monofont">hostipaddr.uid.pid.timestamp.random</Tt></i>
+<Tt clAss="monofont">'</tt> that can be used as a part boundary when generating a message.</P>
+
+<pre>
+
+<B>decode(</B><B><I>input</i></b><b>,</b> <B><I>output</I></B><b>,</b> <b><i>encoding</I></B><B>)</B> </pre>
+
+<p>Reads encoded data from the open file object <I><TT Class="monofont">input</tt></i>
+ and writes the decoded data to the open file object <i><tt class="monofont">output</tt></i>
+. <i><tT clAss="monofont">encoding</tT></i>
+ specifies the encoding method: <tt cLass="monofont">'base64'</TT>, <TT clasS="monofont">'quoted-printable'</TT>, or <Tt claSS="monofont">'uuencode'</TT>.</p>
+
+<pre>
+
+<B>encode(</B><B><I>input</i></b><b>,</b> <b><i>output</i></b><b>,</b> <b><i>encoding</i></b><b>)</b> </pre>
+
+<p>Reads data from the open file object <I><tt ClasS="monofont">input</tt></i>
+, encodes it, and writes it to the open file object <i><Tt clASS="monofont">output</Tt></i>
+. Encoding types are the same as for <tt CLASs="monofont">decode()</tt>.</p>
+
+<PRE>
+
+<B>copyliteral(</b><b><i>input</i></B><B>,</B> <B><i>output</i></b><b>)</b> </pre>
+
+<p>Read lines of text from the open file <i><tt class="monofont">input</tt></i>
+ until EOF and writes them to the open file <I><tt ClasS="monofont">output</tt></i>
+.</p>
+
+<Pre>
+
+<b>copybinary(</B><B><I>input</I></b><b>,</b> <b><I>output</I></B><B>)</b> </pre>
+
+<P>Read blocks of binary data from the open file <I><TT clasS="monofont">input</TT></I>
+ until EOF and writes them to the open file <i><tt class="monofont">output</tt></i>
+.</p>
+
+<p>Instances of the <tt class="monofont">Message</Tt>  class support all the methods described in the <tT claSs="monofont">rfc822</tt>  module. In addition, the following methods are available:</p>
+
+<Pre>
+
+<b><I>m</I></B><B>.getplist()</b> </pre>
+
+<P>Returns the parameters for the content-type header as a list of strings. If the message contains the header <TT Class="monofont">'Content-type: text/html; charset=US-ASCII'</TT>, for example, this function returns <TT clasS="monofont">['charset=US-ASCII']</TT>. For parameters of the form <Tt class="monofont">'</tt><i><tt class="monofont">key=value</tt></i>
+<tT clAss="monofont">'</tT>, <tt clAss="monofont">key</tT>  is converted to lowercase, while <I><TT clasS="monofont">value</TT></I>
+ is unchanged.</p>
+
+<pre>
+
+<B><I>m</I></B><b>.getparam(</b><b><i>name</I></B><B>)</B> </pre>
+
+<p>Returns the value of the first parameter of the form <tt class="monofont">'</tt><i><tt clasS="monofont">name=value</tt></I>
+<tt cLass="monofont">'</tT> from the <tt cLASS="monofont">'content-type'</tt>  header. If <i><tT CLAss="monofont">value</tt></I>
+ is surrounded by quotes of the form <TT Class="monofont">'&lt;...&gt;'</TT> or <TT class="monofont">"..."</tt>, they’re removed.</p>
+
+<pre>
+
+<b><i>m</i></b><b>.getencoding()</b> </pre>
+
+<P>Returns the encoding specified in the <tt ClasS="monofont">'content-transfer-encoding'</tt> message header. If no such header exists, returns <tt ClasS="monofont">'7bit'</TT>.</P>
+
+<pre>
+
+<b><I>m</I></B><B>.gettype()</b> </pre>
+
+<P>Returns the message type from the <TT Class="monofont">'content-type'</TT> header. Types are returned as a string of the form <TT class="monofont">'</tt><i><tt class="monofont">type/subtype</tt></i>
+<tt ClaSs="monofont">'</tt>. If no content-type header is available, <Tt claSs="monofont">'text/plain'</tt> is returned.</P>
+
+<PRE>
+
+<b><i>m</i></b><B>.getmaintype()</B> </PRe>
+
+<p>Returns the primary type from the <tt CLASs="monofont">'content-type'</tt> header. If no such header exists, returns <tT CLAss="monofont">'text'</tt>.</p>
+
+<pre>
+
+<b><i>m</i></b><b>.getsubtype()</b> </pre>
+
+<p>Returns the subtype from the <tt ClaSs="monofont">'content-type'</tt> header. If no such header exists, returns <Tt claSs="monofont">'plain'</tt>.</P>
+
+<P>? <B>See Also</B> <a hreF="115#32.html">rfc822</A> (274), <A Href="115#18.html">mimetypes</a> (268), <A HREf="115#20.html">MimeWriter</a> (271), <a hREF="115#24.html">multifile</A> (272), <a href="115#12.html">mailcap</a> (265), Internet RFC 1521.</p>
+
+<a name="18"></a>
+<h4><tt clasS="monofont">mimetypes</tt></H4>
+<p>The <tt Class="monofont">mimetypes</Tt>  module is used to guess the MIME type associated with a file, based on its filename extension. It also converts MIME types to their standard filename extensions. MIME types consist of a type/subtype pair. The following table shows the MIME types currently recognized by this module:</p>
+
+<p><TABLe borDER="1" CellsPACIng="0" ceLLPAdding="1" width="100%">
+<colgroup spAn="2">
+<tR>
+<th vAlign="top">
+<Font SIZE="2">
+<p><b>File Suffix</b></p>
+</FONT></th>
+<th VALIgn="top">
+<foNT SIze="2">
+<p><b>MIME Type</b></p>
+</font></th>
+</tr>
+<tr>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">.a</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>application/octet-stream</p>
+</font></td>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">.ai</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>application/postscript</P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">.aif</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>audio/x-aiff</P>
+</FONt></td>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">.aifc</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>audio/x-aiff</p>
+</foNT></TD>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">.aiff</tt></p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>audio/x-aiff</P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">.au</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>audio/basic</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">.avi</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P>video/x-msvideo</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">.bcpio</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P>application/x-bcpio</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">.bin</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>application/octet-stream</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">.cdf</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>application/x-netcdf</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">.cpio</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p>application/x-cpio</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">.csh</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>application/x-csh</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">.dll</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>application/octet-stream</p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">.dvi</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p>application/x-dvi</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">.exe</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P>application/octet-stream</p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">.eps</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P>application/postscript</p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">.etx</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>text/x-setext</p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">.gif</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>image/gif</p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">.gtar</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p>application/x-gtar</p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">.hdf</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>application/x-hdf</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">.htm</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p>text/html</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">.html</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>text/html</p>
+</font></td>
+</tr>
+<tr>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">.ief</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>image/ief</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">.jpe</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>image/jpeg</P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">.jpeg</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>image/jpeg</p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">.jpg</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>image/jpeg</P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">.latex</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>application/x-latex</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">.man</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>application/x-troff-man</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">.me</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>application/x-troff-me</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">.mif</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p>application/x-mif</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">.mov</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>video/quicktime</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">.movie</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>video/x-sgi-movie</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">.mpe</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>video/mpeg</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">.mpeg</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>video/mpeg</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">.mpg</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>video/mpeg</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">.ms</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>application/x-troff-ms</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">.nc</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>application/x-netcdf</p>
+</Font></Td>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">.o</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>application/octet-stream</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">.obj</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p>application/octet-stream</p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">.oda</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>application/oda</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">.pbm</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>image/x-portable-bitmap</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">.pdf</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>application/pdf</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">.pgm</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>image/x-portable-graymap</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">.pnm</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>image/x-portable-anymap</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">.png</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>image/png</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">.ppm</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>image/x-portable-pixmap</p>
+</FONT></td>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">.py</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>text/x-python</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">.pyc</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>application/x-python-code</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">.ps</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>application/postscript</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">.qt</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>video/quicktime</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">.ras</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>image/x-cmu-raster</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">.rgb</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>image/x-rgb</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">.rdf</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>application/xml</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">.roff</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>application/x-troff</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">.rtf</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p>application/rtf</P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">.rtx</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>text/richtext</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">.sgm</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>text/x-sgml</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">.sgml</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>text/x-sgml</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">.sh</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p>application/x-sh</P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">.shar</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>application/x-shar</p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">.snd</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p>audio/basic</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">.so</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p>application/octet-stream</p>
+</font></td>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><Tt claSS="monofont">.src</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p>application/x-wais-source</p>
+</font></td>
+</tr>
+<tr>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">.sv4cpio</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p>application/x-sv4cpio</p>
+</font></td>
+</tr>
+<tr>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">.sv4crc</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>application/x-sv4crc</p>
+</font></td>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">.t</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>application/x-troff</P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">.tar</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>application/x-tar</P>
+</FONt></td>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">.tcl</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>application/x-tcl</p>
+</foNT></TD>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">.tex</tt></p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>application/x-tex</P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">.texi</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>application/x-texinfo</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">.texinfo</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P>application/x-texinfo</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">.tif</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P>image/tiff</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">.tiff</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>image/tiff</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">.tr</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>application/x-troff</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">.tsv</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p>text/tab-separated-values</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">.txt</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>text/plain</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">.ustar</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>application/x-ustar</p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">.wav</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p>audio/x-wav</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">.xbm</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P>image/x-xbitmap</p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">.xml</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P>text/xml</p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">.xsl</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>application/xml</p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">.xpm</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>image/x-xpixmap</p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">.xwd</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p>image/x-xwindowdump</p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">.zip</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>application/zip</p>
+</font></td>
+</tr>
+</coLgrOup>
+</tAble></p>
+
+<Pre>
+
+<b>guess_type(</B><B><I>filename</I></b><b>)</b> </pRE>
+
+<P>Guesses the MIME type of a file based on its filename or URL. Returns a tuple (<I><tt clASS="monofont">type</Tt></i>
+<tt CLASs="monofont">, </tt><i><tt class="monofont">encoding</tt></i>
+) in which <i><tt claSs="monofont">type</tT></i>
+ is a string of the form type/subtype and <i><tT clasS="monofont">encoding</tt></i>
+ is the program used to encode the data (for example, <TT CLass="monofont">compress</tT> or <TT Class="monofont">gzip</TT>). Returns (<I><Tt claSS="monofont">None</TT></i>
+<tt class="monofont">, </tt><i><tt class="monofont">None</tt></I>
+) if the type cannot be guessed.</p>
+
+<pRe>
+
+<b>guess_extension(</b><B><i>type</i></b><b>)</B> </pre>
+
+<P>Guesses the standard file extension for a file based on its MIME type. Returns a string with the filename extension including the leading dot (<TT Class="monofont">.</TT>). Returns <TT clasS="monofont">None</TT>  for unknown types.</P>
+
+<pre>
+
+<b>init([</B><B><I>files</I></b><b>])</b> </pre>
+
+<p>Initializes the module. <i><tt class="monofont">files</tt></i>
+ is a sequence of filenames that are read to extract type information. These files contain lines that map a MIME type to a list of acceptable file suffixes such as the following:</p>
+
+<pRe>
+
+image/jpeg:   jpe jpeg jpg 
+text/html:    htm html 
+... </pRe>
+
+<prE>
+
+<b>read_mime_types(</b><b><i>filename</I></b><b>)</b> </PRE>
+
+<P>Loads type mapping from a given filename. Returns a dictionary mapping filename extensions to MIME type strings. Returns <tt clASS="monofont">None</Tt>  if <i><tt CLASs="monofont">filename</tt></i>
+ doesn’t exist or cannot be read.</P>
+
+<PRE>
+
+<b>knownfiles</b> </pre>
+
+<p>List of common names for <tt class="monofont">mime.types</tt>  files.</p>
+
+<pre>
+
+<b>suffix_map</B> </prE>
+
+<p>Dictionary mapping suffixes to suffixes. This is used to allow recognition of encoded files for which the encoding and the type are indicated by the same extension. For example, the <tt Class="monofont">.tgz</Tt>  extension is mapped to <tt CLASs="monofont">.tar.gz</tt>  to allow the encoding and type to be recognized separately.</p>
+
+<PRE>
+
+<B>encodings_map</b> </pre>
+
+<P>Dictionary mapping filename extensions to encoding types.</P>
+
+<PRe>
+
+<b>types_map</b> </pRE>
+
+<P>Dictionary mapping filename extensions to MIME types.</P>
+
+<p>? <b>See Also</b> <a href="115#16.html">mimetools</a> (266).</p>
+
+<a name="20"></a>
+<h4><tt cLasS="monofont">MimeWriter</tt></h4>
+<P>The <tt clAss="monofont">MimeWriter</tT>  module defines the class <TT Class="monofont">MimeWriter</TT>  that’s used to generate MIME-encoded multipart files.</P>
+
+<Pre>
+
+<b>MimeWriter(</b><B><I>fp</I></B><b>)</b> </prE>
+
+<P>Creates a new instance of the <TT class="monofont">MimeWriter</tt>  class. <i><tt class="monofont">fp</tt></i>
+ is an open file object to be used for writing. A <tt ClaSs="monofont">StringIO</tt>  object can also be used.</P>
+
+<p>An instance <i><tt ClasS="monofont">m</TT></I>
+ of the <tt clASS="monofont">MimeWriter</Tt> class has the following methods:</p>
+
+<prE>
+
+<B><I>m</I></b><b>.addheader(</b><b><I>key</I></B><B>,</b> <b><i>value</i></b> <b>[,</b> <b><i>prefix</i></b><b>])</b> </pre>
+
+<p>Adds a header line of the form <tt cLasS="monofont">"</tt><i><Tt claSs="monofont">key: value</tt></I>
+<TT Class="monofont">"</TT>  to the MIME message. <I><Tt claSS="monofont">prefix</TT></i>
+ determines where the header is inserted; <tt cLASS="monofont">0</tt>  appends to the end (the default) and <tt class="monofont">1</tt> inserts at the start.</p>
+
+<pre>
+
+<b><i>m</i></b><b>.flushheaders()</B> </prE>
+
+<p>Writes all the headers accumulated so far.</p>
+
+<pRe>
+
+<b><i>m</i></B><b>.startbody(</b><b><I>ctype</I></B> <B>[,</b> <b><i>plist</i></B> <B>[,</B> <B><i>prefix</i></b><b>]])</B> </PRE>
+
+<p>Returns a file-like object that’s used to write to the body of the message. <i><tt CLASs="monofont">ctype</tt></i>
+ specifies the content type and <i><tt class="monofont">plist</tt></i>
+ is a list of tuples of the form (<i><tt clAss="monofont">name</Tt></i>
+<tT clasS="monofont">, </tt><i><TT CLass="monofont">value</tT></I>
+) containing additional parameters for the content-type declaration. <I><Tt claSS="monofont">prefix</TT></i>
+ has the same meaning as for the <tt cLASS="monofont">addheader()</tt> method except that its default value is set to insert at the start.</p>
+
+<pre>
+
+<b><i>m</i></b><b>.startmultipartbody(</b><b><i>subtype</i></b> <b>[,</b> <b><i>boundary</I></b> <b>[,</B> <b><i>plist</i></B> <b>[,</b> <b><i>prefix</I></b><b>]]])</b> </PRE>
+
+<P>Returns a file-like object that’s used to write the body of a multipart message. <i><tt cLASS="monofont">subtype</tt></i>
+ specifies the multipart subtype such as <tT CLAss="monofont">'mixed'</tt>  and <I><TT Class="monofont">boundary</tt></i>
+ can be used to provide a user-defined boundary specifier. <i><tt class="monofont">plist</tt></i>
+ is a list containing optional parameters for the subtype, and <i><tT clAss="monofont">prefix</tT></i>
+ is the same as in the <tt cLass="monofont">startbody()</TT> method. Subparts are created using <TT clasS="monofont">nextpart()</TT>.</P>
+
+<pre>
+
+<b><I>m</I></B><B>.nextpart()</b> </pre>
+
+<P>Returns a new instance of <TT Class="monofont">MimeWriter</tt>  that represents an individual part in a multipart message. <tt class="monofont">startmultipartbody()</tt> must be called prior to calling this method.</p>
+
+<pre>
+
+<b><I>m</i></b><B>.lastpart()</b> </prE>
+
+<p>Used to indicate the last part of a multipart message. Should always be called to terminate a multipart message.</p>
+
+
+<h5>Example</h5>
+<P>The following example takes a list of files passed on the command line and produces a multipart MIME document in which each file is encoded using base64 encoding:</p>
+
+<prE>
+
+import sys 
+import mimetools, mimetypes, MimeWriter 
+# Open the output file and create a MimeWriter 
+out = open("output.txt","w") 
+writer = MimeWriter.MimeWriter(out) 
+# Start a multipart message 
+writer.startmultipartbody("mixed") 
+writer.flushheaders() 
+# Iterate over files passed on the command line 
+for file in sys.argv[1:]: 
+    subpart = writer.nextpart() # Create a new subpart 
+    # Attempt to guess the file's MIME type and encoding 
+    type,encoding = mimetypes.guess_type(file) 
+    if encoding: 
+            subpart.addheader("Content-encoding",encoding) 
+            subpart.addheader("Content-transfer-encoding", "base64") 
+    if type: 
+         pout = subpart.startbody(type, [("name",file)]) 
+    else: 
+         pout = subpart.startbody("text/plain",[("name",file)]) 
+    infile = open(file,"rb") 
+    # Encode the raw data using base64 
+    mimetools.encode(infile,pout,'base64') 
+    infile.close() 
+
+# Clean up 
+writer.lastpart() 
+out.close() </PRE>
+
+<p>? <b>See Also</b> <a HREF="115#18.html">mimetypes</a> (268), <a hrEF="115#16.html">mimetools</A> (266), <A href="115#32.html">rfc822</A> (274), <A HRef="115#24.html">multifile</a> (272).</p>
+
+<a name="24"></a>
+<h4><tt class="monofont">multifile</tt></H4>
+<p>The <tT claSs="monofont">multifile</tt>  module defines an object that can be used to read multipart text files as found in MIME-encoded messages. The <tT claSS="monofont">multifile</TT>  object works by splitting a file into a series of logical file-like objects that are delimited by a unique boundary string such as the following:</p>
+
+<pre>
+
+--216.150.6.70.100.4397.932677969.082.3036 
+Part 1 
+... 
+--216.150.6.70.100.4397.932677969.082.3036 
+Part 2 
+... 
+--216.150.6.70.100.4397.932677969.082.3036--</PRE>
+
+<P>In this case, the boundary string is of the form returned by the <tt clASS="monofont">mimetools.choose_boundary()</Tt> function. The last boundary string (with a trailing <tt cLASS="monofont">-</tt>) marks the end of the multipart data.</p>
+
+<pre>
+
+<b>MultiFile(</b><b><i>fp</i></b> <b>[,</b> <b><i>seekable</i></b><b>])</b> </Pre>
+
+<P>Creates a multifile object. <i><tt Class="monofont">fp</Tt></i>
+ is a file-like object containing input data. The input object’s <tT CLAss="monofont">readline()</tt>  method is used to read data. If the <I><TT Class="monofont">seekable</TT></I>
+ option is set, the multifile object allows random access using the <Tt claSS="monofont">seek()</TT> and <tt class="monofont">tell()</tt> methods.</p>
+
+<p>A <tt class="monofont">MultiFile</tt>  object <I><tt ClasS="monofont">m</tt></i>
+ supports the following methods:</p>
+
+<Pre>
+
+<b><I>m</I></B><B>.push(</b><b><i>str</i></B><B>)</B> </Pre>
+
+<p>Pushes a boundary string into the reader. When this string is encountered in the input, it signals an end of section or end of message. More than one boundary marker can be pushed to handle nested multipart data. However, encountering any other boundary than the most recently pushed value raises an error.</p>
+
+<PRE>
+
+<B><i>m</i></b><b>.readline()</B> </PRE>
+
+<p>Reads a line of text. If the line matches the most recently pushed boundary, <tt class="monofont">''</tt> is returned to indicate the end of the part. Furthermore, if the boundary corresponds to an end marker, the <tt class="monofont">m.last</tt>  attribute is set to <tT clAss="monofont">1</tT>. Raises <tt clAss="monofont">Error</tT> if an EOF is encountered before all boundary strings have been popped.</P>
+
+<PRe>
+
+<b><i>m</i></B><B>.readlines()</B> </Pre>
+
+<p>Returns all lines remaining in the current part as a list of strings.</p>
+
+<PRE>
+
+<B><i>m</i></b><b>.read()</B> </PRE>
+
+<p>Reads all lines remaining in the current part and returns as a single string.</p>
+
+<pre>
+
+<b><i>m</i></b><b>.next()</b> </pre>
+
+<p>Skips to the next section. Returns true if a next section exists, false if an end marker is encountered.</p>
+
+<pre>
+
+<b><I>m</i></b><B>.pop()</b> </prE>
+
+<p>Pops a section boundary. This boundary will no longer be interpreted as EOF.</p>
+
+<prE>
+
+<b><i>m</i></B><B>.seek(</B><B><i>pos</i></b> <b>[,</B> <B><I>whence</I></b><b>])</b> </pRE>
+
+<P>Seeks to a new position within the current section. The <I><tt clASS="monofont">pos</Tt></i>
+ and <i><tt class="monofont">whence</tt></i>
+ arguments are interpreted as for a file seek.</p>
+
+<pre>
+
+<b><i>m</i></B><b>.tell()</b> </Pre>
+
+<p>Returns the file position relative to the start of the current section.</P>
+
+<p>Finally, <tt cLass="monofont">MultiFile</TT>  instances have two public-instance variables:</P>
+
+<Pre>
+
+<b><i>m</I></B><B>.level</B> </pre>
+
+<p>Nesting depth of the current part.</P>
+
+<PRE>
+
+<b><i>m</i></b><B>.last</B> </PRe>
+
+<p>True if the last end-of-file was an end-of-message marker.</p>
+
+
+<h5>Example</h5>
+<pre>
+
+# Unpack a MIME encoded mail message into parts 
+import mimetools, multifile, sys 
+def unpack_part(file,partno=0): 
+    headers = mimetools.Message(file)    # Get headers 
+    type = headers.getmaintype()         # Get main content type 
+    if type == 'multipart':              # Multipart? 
+          boundary = headers.getparam("boundary") 
+          file.push(boundary) 
+          file.readlines() 
+          while not file.last: 
+                 file.next() 
+                 partno = partno + 1 
+                 unpack_part(file,partno) 
+          file.pop() 
+          return 
+    name = headers.getparam("name")      # Get filename 
+    if not name: name = "part%d" % (partno,)   
+    encoding = headers.getencoding() 
+    print "Unpacking '%s'. Encoding = %s" % (name, encoding) 
+    if encoding == '7bit': 
+        outfile = open(name,"w") 
+        mimetools.copyliteral(file,outfile) 
+    else: 
+        outfile = open(name,"wb") 
+        mimetools.decode(file,outfile,encoding) 
+    outfile.close() 
+# Read a filename from options and unpack it 
+f = open(sys.argv[1]) 
+mf = multifile.MultiFile(f,0) 
+unpack_part(mf) </pre>
+
+
+<h5>Note</h5>
+<ul>
+<li>
+<p>The <tt ClaSs="monofont">MultiFile</tt>  class defines a number of methods that can be specialized in a subclass. Please refer to the online library reference at <A targEt="_blank" hrEF="http://www.python.org/doc/lib/module-multifile.html">http://www.python.org/doc/lib/module-multifile.html</A>.</P>
+</li>
+</ul>
+<P>? <B>See Also</B> <A href="115#16.html">mimetools</A> (266), <A HRef="115#20.html">MimeWriter</a> (271), <a TARGet="_blank" href="http://www.python.org/doc/lib/module-multifile.html">http://www.python.org/doc/lib/module-multifile.html</a>.</p>
+
+
+<h4><tt class="monofont">quopri</tt></h4>
+<p>The <Tt cLass="monofont">quopri</Tt>  module performs quoted-printable transport encoding and decoding. This format is used primarily to encode text files.</p>
+
+<prE>
+
+<b>decode(</b><b><I>input</I></B><B>,</b> <b><i>output</i></B><B>)</B> </Pre>
+
+<p>Decodes. <i><TT CLass="monofont">input</tT></I>
+ and <I><Tt class="monofont">output</tt></i>
+ are file objects.</p>
+
+<pre>
+
+<b>encode(</b><b><i>input</i></b><b>,</B> <b><i>output</I></b><b>,</b> <B><i>quotetabs</i></b><b>)</B> </pre>
+
+<P>Encodes. <I><TT clasS="monofont">input</TT></I>
+ and <i><tt cLASS="monofont">output</tt></i>
+ are file objects. <i><TT CLass="monofont">quotetabs</tt></i>
+, if set to true, forces tab characters to be quoted in addition to the normal quoting rules.</p>
+
+<p>? <b>See Also</b> <a href="115#4.html">binascii</a> (264), Internet RFC 1521.</p>
+
+<a naMe="32"></a>
+<H4><tt cLass="monofont">rfc822</tT></h4>
+<p>The <tT CLAss="monofont">rfc822</tt>  module is used to parse email headers presented in a format defined by the Internet standard RFC 822. Headers of this form are used in a number of contexts, including mail handling and in the HTTP protocol. A collection of RFC 822 headers looks like this:</P>
+
+<PRE>
+
+Return-Path: &lt;beazley@cs.uchicago.edu&gt; 
+Date: Sun, 15 Apr 03:18:21 -0500 (CDT) 
+Message-Id: &lt;199907171518.KAA24322@gargoyle.cs.uchicago.edu&gt; 
+Reply-To: beazley@cs.uchicago.edu 
+References: &lt;15065.6056.897223.775915@empire-builder.cs.uchicago.edu&gt; 
+        &lt;20010415041130.008D1D1D8@smack.cs.uchicago.edu&gt; 
+Mime-Version: 1.0 (generated by tm-edit 7.78) 
+Content-Type: text/plain; charset=US-ASCII 
+From: David Beazley &lt;beazley@cs.uchicago.edu&gt; 
+To: techstaff@cs 
+Subject: Modem problem 
+
+I'm having some trouble running MPI over the ultra-scalable modem array on our 
+Beowulf cluster. Can someone take a look at it? </pre>
+
+<p>Each header line is of the form <TT CLass="monofont">'</tT><I><TT class="monofont">headername</tt></i>
+<tt class="monofont">: </tt><i><tt ClaSs="monofont">values</tt></I>
+<tt clAss="monofont">'</tT> and may span multiple lines provided that additional lines are indented with whitespace. Header names are not case sensitive, so a field name of <TT Class="monofont">'Content-Type'</TT> is the same as <TT clasS="monofont">'content-type'</TT>. A list of headers is terminated by a single blank line.</P>
+
+<p>RFC 822 headers are parsed by creating an instance of the <tt cLASS="monofont">Message</tt>  class.</p>
+
+<pre>
+
+<b>Message(</b><b><i>file</i></b> <b>[,</b> <b><i>seekable</i></b><b>])</b> </Pre>
+
+<P>Reads RFC 822 headers from the file-like object <i><tt Class="monofont">file</Tt></i>
+ and returns a <tT CLAss="monofont">Message</tt>  object. Headers are read using <I><TT Class="monofont">file</TT></I>
+<Tt claSS="monofont">.readline()</TT>  until a blank line is encountered. <i><tt class="monofont">seekable</tt></i>
+ is a flag that’s set to zero if <i><tt class="monofont">file</tT></i>
+ is unseekable (such as a file created from a socket).</p>
+
+<P>A <tt cLass="monofont">Message</tT>  object <i><tt CLASs="monofont">m</tt></i>
+ behaves like a dictionary except that its key values are not case sensitive and it doesn’t support certain dictionary operations, including <TT CLass="monofont">update()</tT> and <TT Class="monofont">clear()</TT>.</P>
+
+<P><table border="1" cellspaciNg="0" cEllpAddinG="1" widTH="100%">
+<COlgroUP SPan="2">
+<tr>
+<TH VAlign="top">
+<FONT size="2">
+<p><b>Method</b></p>
+</font></th>
+<th valiGn="top">
+<fOnt sIze="2">
+<p><b>Description</B></p>
+</foNT></TH>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT class="monofont">m</tt></i>
+<tt class="monofont">[</tt><i><tt ClaSs="monofont">name</tt></I>
+<tt clAss="monofont">]</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Returns the value for header name.</P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><i><tT clasS="monofont">m</tt></i>
+<TT CLass="monofont">[</tT><I><TT clasS="monofont">name</TT></I>
+<tt clASS="monofont">]=</Tt><i><tt class="monofont">value</tt></i>
+</p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p>Adds a header.</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt class="monofont">m</tt></i>
+<tt class="monofont">.keys()</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Returns a list of header names.</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><i><tt class="monofont">m</tt></i>
+<tT clAss="monofont">.values()</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Returns a list of header values.</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><i><tt cLasS="monofont">m</tt></i>
+<Tt claSs="monofont">.items()</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Returns a list of header (<I><TT Class="monofont">name</tt></i>
+<tt class="monofont">, </tt><i><tt cLasS="monofont">value</tt></i>
+) pairs.</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt clASS="monofont">m</Tt></i>
+<tt class="monofont">.has_key(</tt><i><tt class="monofont">name</tT></i>
+<tT claSs="monofont">)</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Tests for the existence of a header name.</P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><i><Tt cLass="monofont">m</Tt></i>
+<tt ClasS="monofont">.get(</TT><I><tt clASS="monofont">name</Tt></i>
+<tt CLASs="monofont"> [, </tt><i><TT CLass="monofont">default</tt></i>
+<tt class="monofont">])</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>Gets a header value. Returns <I><tt clASS="monofont">default</Tt></i>
+ if not found.</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">len(</tt><I><tt cLass="monofont">m</tT></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Returns the number of headers.</p>
+</font></td>
+</tr>
+<tr>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">str(</TT><i><tt cLASS="monofont">m</tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p>Converts headers to an RFC 822–formatted string.</P>
+</foNt></td>
+</Tr>
+</colGrouP>
+</TABle></p>
+
+<p>In addition, the following methods are available:</P>
+
+<PRE>
+
+<b><i>m</i></b><B>.getallmatchingheaders(</B><B><I>name</i></b><b>)</b> </PRE>
+
+<P>Returns a list of all lines with headers that match <i><tt class="monofont">name</tt></i>
+, including continuation lines (if any).</p>
+
+<pre>
+
+<b><i>m</i></b><b>.getfirstmatchingheader(</B><b><i>name</I></b><b>)</b> </Pre>
+
+<p>Returns the list of lines for the first header matching <i><Tt clASS="monofont">name</Tt></i>
+, including any continuation lines. Returns <tt CLASs="monofont">None</tt>  if <i><TT CLass="monofont">name</tT></I>
+ doesn’t match any headers.</P>
+
+<Pre>
+
+<b><i>m</i></b><b>.getrawheader(</b><b><i>name</i></b><b>)</b> </pre>
+
+<p>Returns a string containing the raw text after the colon for the first header matching <i><tT clAss="monofont">name</tT></i>
+. Returns <tt cLass="monofont">None</TT>  if no match is found.</P>
+
+<Pre>
+
+<b><i>m</I></B><B>.getheader(</B><b><i>name</i></b> <B>[,</B> <B><I>default</i></b><b>])</b> </PRE>
+
+<P>Like <tt class="monofont">getrawheader(</tt><i><tt class="monofont">name</tt></i>
+<Tt cLass="monofont">)</Tt>, but strips all leading and trailing whitespace. <i><tt ClasS="monofont">default</TT></I>
+ specifies a default value to return if no matching header is found.</p>
+
+<pre>
+
+<B><I>m</I></B><b>.getaddr(</b><b><i>name</I></B><B>)</B> </pre>
+
+<p>Returns a pair (<I><TT Class="monofont">full_name</tt></i>
+<tt class="monofont">, </tt><i><tt cLasS="monofont">email_address</tt></i>
+) for a header containing an email address. If no header matches <I><tt clAss="monofont">name</tT></I>
+, (<TT clasS="monofont">None, None</TT>) is returned.</P>
+
+<pre>
+
+<b><I>m</I></B><B>.getaddrlist(</b><b><i>name</i></B><B>)</B> </Pre>
+
+<p>Parses a header containing a list of email addresses and returns a list of tuples as returned by the <tt class="monofont">getaddr()</tt> method. If multiple headers match the named header, all are parsed for addresses (for example, multiple <tt class="monofont">'cc'</tT> headers).</p>
+
+<pRe>
+
+<b><i>m</I></b><b>.getdate(</b><b><I>name</i></b><b>)</B> </PRE>
+
+<p>Parses a header containing a date and returns a 9-tuple compatible with <tt cLASS="monofont">time.mktime()</tt>. Returns <tt CLASs="monofont">None</tt>  if no match is found or the date cannot be parsed.</p>
+
+<PRE>
+
+<B><i>m</i></b><b>.getdate_tz(</b><b><i>name</i></b><b>)</b> </pre>
+
+<p>Parses a header containing a date and returns a 10-tuple in which the first nine elements are the same as returned by <tt claSs="monofont">getdate()</tT> and the tenth is a number with the offset of the date’s timezone from UTC (Greenwich Mean Time). Returns <tt cLass="monofont">None</tT>  if no match is found or the date is unparsable.</p>
+
+<p>Finally, messages have two instance attributes:</p>
+
+<PRE>
+
+<B><i>m</i></b><b>.headers</B> </PRE>
+
+<p>A list containing the entire set of header lines.</p>
+
+<prE>
+
+<B><I>m</I></b><b>.fp</b> </pRE>
+
+<P>The file-like object passed when the <Tt class="monofont">Message</tt>  was created.</p>
+
+<p>In addition to <tt class="monofont">Message</tt>, the <tT clAss="monofont">rfc822</tT> module defines the following utility functions:</p>
+
+<pre>
+
+<B>parsedate(</b><b><i>date</I></B><B>)</B> </pre>
+
+<p>Parses an RFC 822–formatted date such as <TT CLass="monofont">'Mon, 16 Apr 2001 17:30:08 -0600'</tT> and returns a 9-tuple that’s compatible with the <TT Class="monofont">time.mktime()</TT>  function. Returns <TT class="monofont">None</tt> if <i><tt class="monofont">date</tt></i>
+ cannot be parsed.</p>
+
+<pRe>
+
+<b>parsedate_tz(</B><b><i>date</i></B><b>)</b> </prE>
+
+<p>Parses a date, but returns a 10-tuple where the first nine elements are the same as returned by <tt CLASs="monofont">parsedate()</tt> and the tenth item is the offset of the date’s timezone from UTC. Returns <tT CLAss="monofont">None</tt>  if <I><TT Class="monofont">date</TT></I>
+ cannot be parsed.</P>
+
+<pre>
+
+<b>mktime_tz(</b><b><i>tuple</i></b><b>)</b> </pre>
+
+<p>Turns a 10-tuple as returned by <tt claSs="monofont">parsedate_tz()</tT> into a UTC timestamp. If the timezone item is <tt cLass="monofont">None</tT>, assumes local time.</p>
+
+<prE>
+
+<B>AddressList(</B><B><i>addrlist</i></b><b>)</B> </PRE>
+
+<p>Converts a string containing a list of email addresses into an <tt cLASS="monofont">AddressList</tt>  object. The following operations can be performed on <tt CLASs="monofont">AddressList</tt>  objects:</p>
+
+<p><table border="1" cellSpaCing="0" CellpAddiNG="1" WIdth="100%">
+<cOLGRoup sPAN="2">
+<Tr>
+<th vALIGn="top">
+<font size="2">
+<p><b>Operation</b></p>
+</font></th>
+<tH vaLign="top">
+<Font sIze="2">
+<p><B>Description</B></P>
+</Font></tH>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">len(</tt><i><tt class="monofont">a</tT></i>
+<tT claSs="monofont">)</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Number of addresses in a list</P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">str(</tT><i><tt cLass="monofont">a</TT></I>
+<Tt claSS="monofont">)</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p>Converts <i><tt class="monofont">a</tt></i>
+ back into a string of email addresses</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><I><tt clASS="monofont">a</Tt></i>
+<tt CLASs="monofont"> + </tt><i><tt class="monofont">b</tt></i>
+</p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>Combines two lists of addresses, removing duplicates</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><i><tt class="monofont">a</tt></i>
+<tt class="monofont"> - </Tt><i><Tt clAss="monofont">b</tt></I>
+</p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Removes all addresses in list <i><tt CLASs="monofont">b</tt></i>
+ from list <i><tt class="monofont">a</tt></i>
+</p>
+</font></Td>
+</tR>
+</colGroup>
+</TablE></P>
+
+
+<H5>Example</H5>
+<pre>
+
+import rfc822 
+# Open a mail message 
+f = open("mailmessage") 
+# Read the headers 
+m = rfc822.Message(f) 
+# Extract a few fields 
+m_from = m["From"] 
+m_to = m.getaddr("To") 
+m_subject = m["Subject"] </pRE>
+
+
+<H5>Note</H5>
+<ul>
+<li>
+<P>The <TT Class="monofont">Message</TT>  class defines a few additional methods that can be specialized in a subclass. For details, please refer to the online documentation at <A Target="_blank" href="http://www.python.org/doc/lib/module-rfc822.html">http://www.python.org/doc/lib/module-rfc822.html</a>.</p>
+</li>
+</ul>
+<p>? <b>See Also</b> <a hRef="115#16.html">mimetools</A> (266), <a hrEf="115#20.html">MimeWriter</a> (271), <a hRef="115#18.html">mimetypes</a> (268), <A HREf="115#12.html">mailcap</a> (265), Internet RFC 822, <a tARGEt="_blank" hreF="http://www.python.org/doc/lib/module-rfc822.html">http://www.python.org/doc/lib/module-rfc822.html</A>.</P>
+
+<A name="38"></A>
+<H4><TT class="monofont">uu</tt></h4>
+<p>The <tt class="monofont">uu</tt>  module is used to encode and decode files in uuencode format, commonly used for transferring binary data over an ASCII-only connection.</p>
+
+<pRe>
+
+<b>encode(</B><b><i>input</i></B><b>,</b> <b><i>output</I></b> <b>[,</b> <B><I>name</I></B> <b>[,</b> <b><i>mode</I></B><B>]])</B> </pre>
+
+<p>Uuencodes a file. <I><TT Class="monofont">input</TT></I>
+ is a file object opened for reading or a filename. <I><tt class="monofont">output</tt></i>
+ is a file object opened for writing or a filename. <i><tt class="monofont">name</tt></I>
+ specifies the name of the file that’s encoded in the uuencoded file. <i><tT claSs="monofont">mode</tt></i>
+ specifies the mode of the file. By default, <I><tt cLASS="monofont">name</tt></i>
+ and <i><TT CLass="monofont">mode</tT></I>
+ are taken from the input file.</P>
+
+<Pre>
+
+<b>decode(</b><B><I>input</I></B> <b>[,</b> <b><i>output</i></b> <b>[,</b> <b><i>mode</i></b><b>]])</b> </pre>
+
+<p>Decodes a uuencoded file. <i><tT clAss="monofont">input</tT></i>
+ is a file object opened for reading or a filename. <i><tt ClasS="monofont">output</TT></I>
+ is a file object opened for writing or a filename. <i><tt cLASS="monofont">mode</tt></i>
+ is used to set permission bits and overrides the setting encoded in the input file.</p>
+
+<P>? <B>See Also</B> <A href="115#4.html">binascii</A> (264).</P>
+
+<A Name="40"></a>
+<h4><tt class="monofont">xdrlib</tt></h4>
+<p><tt clAss="monofont">xdrlib</Tt>  is used to encode and decode data in the Sun XDR (External Data Representation) format. XDR is often used as a portable way to encode binary data for use in networked applications. It’s used extensively in applications involving remote procedure calls (RPC).</p>
+
+<p>Encoding and decoding is controlled through the use of two classes:</P>
+
+<pre>
+
+<b>Packer()</B> </pre>
+
+<P>Creates an object for packing data into an XDR representation.</P>
+
+<PRe>
+
+<b>Unpacker(</b><b><I>data</I></B><B>)</b> </pre>
+
+<P>Creates an object for unpacking XDR-encoded data. <I><TT clasS="monofont">data</TT></I>
+ is a string containing XDR-encoded data values.</p>
+
+<p>An instance <i><tt class="monofont">p</tt></i>
+ of the <tt class="monofont">Packer</Tt> class supports the following methods:</p>
+
+<Pre>
+
+<b><I>p</i></b><b>.get_buffer()</b> </Pre>
+
+<p>Returns the current pack buffer as a string.</P>
+
+<PRE>
+
+<b><i>p</i></b><B>.reset()</B> </PRe>
+
+<p>Resets the pack buffer to the empty string.</p>
+
+<pRE>
+
+<B><I>p</i></b><b>.pack_uint(</b><B><I>x</I></B><b>)</b> </pre>
+
+<p>Packs a 32-bit unsigned integer <i><tt class="monofont">x</tt></i>
+.</p>
+
+<prE>
+
+<b><i>p</I></b><b>.pack_int(</b><B><i>x</i></b><b>)</B> </pre>
+
+<P>Packs a 32-bit signed integer <I><TT clasS="monofont">x</TT></I>
+.</p>
+
+<pre>
+
+<B><I>p</I></B><b>.pack_enum(</b><b><i>x</I></B><B>)</B> </pre>
+
+<p>Packs an enumeration <i><tt class="monofont">x</tt></i>
+ (an integer).</p>
+
+<pre>
+
+<b><I>p</i></b><B>.pack_bool(</b><b><i>x</I></b><b>)</b> </pRe>
+
+<p>Packs a Boolean value <i><TT CLass="monofont">x</tT></I>
+.</P>
+
+<Pre>
+
+<b><i>p</I></B><B>.pack_uhyper(</B><b><i>x</i></b><B>)</B> </PRe>
+
+<p>Packs a 64-bit unsigned integer <i><tt class="monofont">x</tt></i>
+.</p>
+
+<pre>
+
+<b><i>p</i></B><b>.pack_hyper(</b><B><i>x</i></b><B>)</b> </pre>
+
+<P>Packs a 64-bit signed integer <i><tt CLASs="monofont">x</tt></i>
+.</P>
+
+<PRE>
+
+<b><i>p</i></b><B>.pack_float(</B><B><I>x</i></b><b>)</b> </PRE>
+
+<P>Packs a single-precision floating-point number.</p>
+
+<pre>
+
+<b><i>p</i></b><b>.pack_double(</b><b><i>x</i></b><b>)</b> </pre>
+
+<p>Packs a double-precision floating-point number.</P>
+
+<prE>
+
+<b><i>p</i></B><b>.pack_fstring(</b><b><i>n</I></b><b>,</b> <B><I>s</I></B><b>)</b> </prE>
+
+<P>Packs a fixed-length string of length <I><Tt claSS="monofont">n</TT></i>
+.</p>
+
+<prE>
+
+<B><I>p</I></b><b>.pack_fopaque(</b><b><i>n</i></b><b>,</b> <b><i>data</i></b><b>)</b> </pre>
+
+<p>Packs a fixed-length opaque data stream. Similar to <tT clAss="monofont">pack_fstring()</tT>.</p>
+
+<pre>
+
+<B><i>p</i></b><B>.pack_string(</B><B><I>s</i></b><b>)</b> </PRE>
+
+<P>Packs a variable-length string <i><tt cLASS="monofont">s</tt></i>
+.</p>
+
+<PRE>
+
+<B><i>p</i></b><b>.pack_opaque(</b><b><i>data</i></b><b>)</b> </pre>
+
+<p>Packs a variable-length opaque data string <i><tt clAss="monofont">data</Tt></i>
+. Similar to <tT clasS="monofont">pack_string()</tt>.</p>
+
+<PRE>
+
+<B><i>p</i></b><b>.pack_bytes(</B><B><I>bytes</I></b><b>)</b> </pRE>
+
+<P>Packs a variable-length byte stream <I><tt clASS="monofont">bytes</Tt></i>
+. Similar to <tt class="monofont">pack_string()</tt>.</p>
+
+<pre>
+
+<b><i>p</i></b><b>.pack_list(</B><b><i>list</I></b><b>,</b> <B><i>pack_func</i></b><b>)</B> </pre>
+
+<P>Packs a list of homogeneous items. <I><TT clasS="monofont">pack_func</TT></I>
+ is the function called to pack each data item (for example, <i><tt cLASS="monofont">p</tt></i>
+<tT CLAss="monofont">.pack_int</tt>). For each item in the list, an unsigned integer <tt class="monofont">1</tt> is packed first, followed by the data item. An unsigned integer <tt class="monofont">0</Tt> is packed at the end of the list.</p>
+
+<Pre>
+
+<b><I>p</i></b><b>.pack_farray(</b><B><i>n</i></b><B>,</B> <B><I>array</i></b><b>,</b> <B><I>pack_func</I></B><b>)</b> </prE>
+
+<P>Packs a fixed-length list of homogeneous items. <I><Tt claSS="monofont">n</TT></i>
+ is the list length, <i><tt class="monofont">array</tt></i>
+ is a list containing the data, and <i><tt class="monofont">pack_func</Tt></i>
+ is the function called to pack each data item.</P>
+
+<pre>
+
+<B><i>p</i></b><b>.pack_array(</B><b><i>list</i></B><B>,</B> <B><i>pack_func</i></b><b>)</B> </PRE>
+
+<p>Packs a variable-length list of homogeneous items by first packing its length and then calling the <tt cLASS="monofont">pack_farray()</tt> method.</p>
+
+<p>An instance <I><TT Class="monofont">u</tt></i>
+ of the <tt class="monofont">Unpacker</tt> class supports the following methods:</p>
+
+<pre>
+
+<B><i>u</i></B><b>.reset(</b><b><I>data</i></b><b>)</b> </Pre>
+
+<p>Resets the string buffer with the given data.</P>
+
+<PRE>
+
+<b><i>u</i></b><B>.get_position()</B> </PRe>
+
+<p>Returns the current unpack position in the data buffer.</p>
+
+<pRE>
+
+<B><I>u</i></b><b>.set_position(</b><B><I>position</I></B><b>)</b> </pre>
+
+<p>Sets the data buffer unpack position to <i><tt class="monofont">position</tt></i>
+.</p>
+
+<prE>
+
+<b><i>u</I></b><b>.get_buffer()</b> </Pre>
+
+<p>Returns the current unpack data buffer as a string.</p>
+
+<Pre>
+
+<b><I>u</I></B><B>.done()</b> </pre>
+
+<P>Indicates unpack completion. Raises an <TT Class="monofont">Error</TT>  exception if all the data has not been unpacked.</P>
+
+<P>In addition, every data type that can be packed with a <tt clASS="monofont">Packer</Tt>  can be unpacked with an <tt class="monofont">Unpacker</tt>. Unpacking methods are of the form <tt class="monofont">unpack_type()</tt>, and take no arguments. They return the unpacked object.</p>
+
+<Pre>
+
+<B><i>u</i></b><B>.unpack_int()</b> </pre>
+
+<P>Unpacks and returns a 32-bit signed integer.</p>
+
+<prE>
+
+<B><I>u</I></b><b>.unpack_uint()</b> </pRE>
+
+<P>Unpacks and returns a 32-bit unsigned integer. If the unsigned value is larger than <Tt claSS="monofont">sys.maxint</TT>, it’s returned as an unsigned long integer.</p>
+
+<pre>
+
+<B><I>u</I></B><b>.unpack_enum()</b> </pre>
+
+<p>Unpacks and returns an enumeration (an integer).</p>
+
+<pre>
+
+<b><i>u</i></b><b>.unpack_bool()</b> </pre>
+
+<p>Unpacks a Boolean value and returns it as an integer.</P>
+
+<prE>
+
+<b><i>u</i></B><b>.unpack_hyper()</b> </prE>
+
+<p>Unpacks and returns a 64-bit signed integer as a Python long integer.</p>
+
+<pRE>
+
+<B><I>u</i></b><b>.unpack_uhyper()</b> </PRE>
+
+<P>Unpacks and returns a 64-bit unsigned integer as a Python long integer.</p>
+
+<pre>
+
+<B><I>u</I></B><b>.unpack_float()</b> </prE>
+
+<P>Unpacks and returns a single-precision floating-point number. The value will be converted to double precision when it is returned as a Python floating-point number.</P>
+
+<Pre>
+
+<b><i>u</i></b><b>.unpack_double()</b> </pre>
+
+<p>Unpacks and returns a double-precision floating-point number.</p>
+
+<pre>
+
+<b><i>u</i></b><B>.unpack_fstring(</b><b><I>n</i></b><b>)</B> </pre>
+
+<p>Unpacks and returns a fixed-length string. <I><tt cLASS="monofont">n</tt></i>
+ is the number of characters expected.</p>
+
+<PRE>
+
+<B><i>u</i></b><b>.unpack_fopaque(</B><B><I>n</I></b><b>)</b> </pRE>
+
+<P>Unpacks and returns a fixed-length opaque data stream, similarly to <Tt class="monofont">unpack_fstring()</tt>.</p>
+
+<pre>
+
+<b><i>u</i></b><b>.unpack_string()</b> </prE>
+
+<p>Unpacks and returns a variable-length string.</p>
+
+<Pre>
+
+<b><I>u</i></b><b>.unpack_opaque()</b> </Pre>
+
+<p>Unpacks and returns a variable-length opaque data string.</P>
+
+<PRE>
+
+<b><i>u</i></b><B>.unpack_bytes()</B> </PRe>
+
+<p>Unpacks and returns a variable-length byte stream.</p>
+
+<pRE>
+
+<B><I>u</i></b><b>.unpack_list(</b><B><I>unpack_func</I></B><b>)</b> </pre>
+
+<p>Unpacks and returns a list of homogeneous items as packed by <tt class="monofont">pack_list()</tt>. <i><tt clAss="monofont">unpack_func</Tt></i>
+ is the function called to perform the unpacking for each item (for example, <i><Tt claSs="monofont">u</tt></I>
+<TT Class="monofont">.unpack_int</TT>).</P>
+
+<Pre>
+
+<b><i>u</I></B><B>.unpack_farray(</B><b><i>n</i></b><B>,</B> <B><I>unpack_func</i></b><b>)</b> </pre>
+
+<p>Unpacks and returns (as a list) a fixed-length array of homogeneous items. <i><tt class="monofont">n</tt></i>
+ is the number of list elements to expect and <i><Tt cLass="monofont">unpack_func</Tt></i>
+ is the function used to unpack each item.</p>
+
+<pRe>
+
+<b><i>u</I></B><B>.unpack_array(</B><b><i>unpack_func</i></b><B>)</B> </PRe>
+
+<p>Unpacks and returns a variable-length list of homogeneous items. <i><tT CLAss="monofont">unpack_func</tt></I>
+ is the function used to unpack each item.</P>
+
+
+<H5>Exceptions</H5>
+<pre>
+
+<b>Error</b> </pre>
+
+<p>The base exception class. <tt class="monofont">Error</tt>  has a single public data member <i><tT clAss="monofont">msg</tT></i>
+ containing the description of the error.</p>
+
+<prE>
+
+<b>ConversionError</b> </pRE>
+
+<P>Class derived from <Tt claSS="monofont">Error</TT>. Contains no additional instance variables.</p>
+
+
+<h5>Note</h5>
+<uL>
+<LI>
+<P>Objects created with <tt clASS="monofont">xdrlib</Tt>  can be pickled using the <tt class="monofont">pickle</tt>  module.</p>
+</li>
+</ul>
+<p>? <b>See Also</b> <a hRef="110#22.html">struct</A> (144), <a hrEf="109#2.html">array</a> (127), Internet RFC 1014.</p>
+</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="114.html" title="Network Programming"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=115" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="115.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="116.html" title="Restricted Execution"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

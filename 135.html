@@ -1,0 +1,185 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Embedding</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="121.html" class="navtitle">B. Extending and Embedding Python</a> &gt; <span class="nonavtitle">Embedding</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="134.html" title="Threads"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=135" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="135.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="136.html" title="Extension Building Tools"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A10%3A57+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161104058145063173173115236</font><a href="read9.asp?bookname=0735710910&snode=135&now=5%2F28%2F2002+9%3A10%3A57+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Embedding</h3>
+<p>The Python interpreter can also be embedded into other applications. When embedding the interpreter on UNIX, you must include the file <tT CLAss="monofont">config.c</tt> (usually found in a place such as <TT CLass="monofont">&lt;</tT><I><TT class="monofont">python</tt></i>
+<tt class="monofont">&gt;/lib/python2.1/config/config.c</tt>, where <tt cLasS="monofont">&lt;</tt><i><Tt claSs="monofont">python</tt></I>
+<TT Class="monofont">&gt;</TT> is the directory where Python was installed) and link against the library <TT clasS="monofont">libpython2.1.a</TT>. (A comparable but more complex process is required on Windows and the Macintosh. Consult the online documentation for details.) The following functions are used to call the interpreter to execute code and control its operation:</P>
+
+<pre>
+
+<b>int PyRun_AnyFile(FILE *</B><B><I>fp</I></b><b>, char *</b><b><i>filename</i></b><b>)</b> </pre>
+
+<p>If <i><tt clasS="monofont">fp</tt></I>
+  is an interactive device such as TTY in UNIX, this function calls <tt cLass="monofont">PyRun_InteractiveLoop()</tT>. Otherwise, <tt cLASS="monofont">PyRun_SimpleFile()</tt>  is called. If <i><tT CLAss="monofont">filename</tt></I>
+ is <TT Class="monofont">NULL</TT>, a default string of <TT class="monofont">"???"</tt> is used as the filename.</p>
+
+<pre>
+
+<b>int PyRun_SimpleString(char *</b><b><i>command</i></b><b>)</b> </pRe>
+
+<p>Executes <I><tt cLass="monofont">command</tT></i>
+  in the <tt CLASs="monofont">_ _main_ _</tt> module of the interpreter. Returns <tT CLAss="monofont">0</tt> on success, <TT CLass="monofont">-1</tT>  if an exception occurred.</P>
+
+<PRe>
+
+<b>int PyRun_SimpleFile(FILE *</b><b><i>fp</i></b><b>, char *</b><b><i>filename</i></b><b>)</b> </pre>
+
+<p>Similar to <tT clAss="monofont">PyRun_SimpleString()</tT>, except that the program is read from a file <i><tt cLass="monofont">fp</TT></I>
+.</P>
+
+<pre>
+
+<b>int PyRun_InteractiveOne(FILE *</B><B><I>fp</I></b><b>, char *</b><b><I>filename</I></B><B>)</b> </pre>
+
+<P>Executes a single interactive command.</P>
+
+<PRe>
+
+<b>int PyRun_InterativeLoop(FILE *</b><b><i>fp</i></b><b>, char *</b><b><i>filename</i></b><b>)</b> </pre>
+
+<p>Runs the interpreter in interactive mode.</p>
+
+<Pre>
+
+<B>int PyRun_String(char *</b><b><i>str</I></b><b>, int</b> <b><I>start</i></b><b>, PyObject *</B><B><I>globals</I></b><b>, PyObject *</b><b><I>locals</I></B><B>)</b> </pre>
+
+<P>Executes the code in <I><TT clasS="monofont">str</TT></I>
+  in the global and local namespaces defined by globals and locals. <i><tt class="monofont">start</tt></i>
+  is a start token to use when parsing the source code. Returns the result of execution or <tt class="monofont">NULL</tt>  if an error occurred.</P>
+
+<prE>
+
+<b>int PyRun_File(FILE *</b><b><I>fp</i></b><b>, char *</b><B><i>filename</i></b><B>, int</B> <B><I>start</i></b><b>, PyObject *</b><B><I>globals</I></B><b>,</b> 
+              <b><i>Py</I></B><B>Object *</B><b><i>locals</i></b><B>)</B> </PRe>
+
+<p>Like <tt class="monofont">PyRun_String()</tt> except that code is read from the file <i><tt class="monofont">fp</tT></i>
+.</p>
+
+<Pre>
+
+<b>PyObject *Py_CompileString(char *</B><b><i>str</i></b><B>, char *</b><b><i>filename</I></B><B>, int</B> <b><i>start</i></b><B>)</B> </PRe>
+
+<p>Compiles code in <i><tT CLAss="monofont">str</tt></I>
+  into a code object. <I><TT class="monofont">start</tt></i>
+  is the starting token and <i><tt class="monofont">filename</tt></i>
+ is the filename that will be set in the code object and used in tracebacks. Returns a code object on success, <tT clAss="monofont">NULL</tT>  on error.</p>
+
+<pre>
+
+<B>Py_Initialize(void)</b> </prE>
+
+<P>Initializes the Python interpreter. This function should be called before using any other functions in the C API, with the exception of <TT clasS="monofont">Py_SetProgramName()</TT>, <Tt claSS="monofont">PyEval_InitThreads()</TT>, <tt clASS="monofont">PyEval_ReleaseLock()</Tt>, and <tt class="monofont">PyEval_AcquireLock()</tt>.</p>
+
+<pre>
+
+<b>int Py_IsInitialized(void)</b> </pre>
+
+<p>Returns <Tt cLass="monofont">1</Tt>  if the interpreter has been initialized, <tt cLass="monofont">0</TT> if not.</P>
+
+<Pre>
+
+<b>Py_Finalize(void)</b> </PRE>
+
+<P>Cleans up the interpreter by destroying all of the sub-interpreters and objects that were created since calling <tt clASS="monofont">Py_Initialize()</Tt>. Normally, this function frees all the memory allocated by the interpreter. However, circular references and extension modules may introduce memory leaks that cannot be recovered by this function.</p>
+
+<prE>
+
+<B>void Py_SetProgramName(char *</B><B><i>name</i></b><b>)</b> </pre>
+
+<p>Sets the program name that’s normally found in the <tt class="monofont">argv[0]</tt> argument of the <tt ClaSs="monofont">sys</tt> module. This function should only be called before <Tt claSs="monofont">Py_Initialize()</tt>.</P>
+
+<PRE>
+
+<b>char *Py_GetProgramName(void)</b> </prE>
+
+<P>Returns the program name as set by <TT clasS="monofont">Py_SetProgramName(</TT><B><tt clASS="monofont">void</Tt></b>
+<tt class="monofont">)</tt>.</p>
+
+<pre>
+
+<b>char *Py_GetPrefix(void)</b> </pre>
+
+<P>Returns the prefix for installed platform-independent files.</p>
+
+<pRe>
+
+<b>char *Py_GetExecPrefix(void)</b> </Pre>
+
+<p>Returns the <tT claSS="monofont">exec-prefix</TT>  for installed platform-dependent files.</p>
+
+<pre>
+
+<B>char *Py_GetProgramFullPath(void)</B> </PRe>
+
+<p>Returns the full pathname of the Python executable.</p>
+
+<pRE>
+
+<B>char *Py_GetPath(void)</B> </pre>
+
+<p>Returns the default module search path. The path is returned as a string consisting of directory names separated by a platform-dependent delimiters (<TT CLass="monofont">:</tt> on UNIX, <tt class="monofont">;</tt> on DOS/Windows, and <tt clasS="monofont">'\n'</tt> on Macintosh).</P>
+
+<pre>
+
+<B>const char *Py_GetVersion(void)</b> </pre>
+
+<P>Returns the version of the interpreter as a string.</p>
+
+<prE>
+
+<B>const char *Py_GetPlatform(void)</B> </Pre>
+
+<p>Returns the platform identifier string for the current platform.</p>
+
+<PRE>
+
+<B>const char *Py_GetCopyright(void)</b> </pre>
+
+<P>Returns the official copyright string.</P>
+
+<PRe>
+
+<b>const char *Py_GetCompiler(void)</b> </pRE>
+
+<P>Returns the compiler string.</P>
+
+<pre>
+
+<b>const char *Py_GetBuildInfo(void)</b> </pre>
+
+<p>Returns build information about the interpreter.</p>
+
+<pre>
+
+<b>int PySys_SetArgv(int</b> <b><i>argc</i></b><b>, char **</B><b><i>argv</I></b><b>)</b> </Pre>
+
+<p>Sets command-line options used to populate the value of <tT claSS="monofont">sys.argv</TT>. This should only be called by <tt clASS="monofont">Py_Initialize()</Tt>.</p>
+</foNT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="134.html" title="Threads"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=135" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="135.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="136.html" title="Extension Building Tools"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,147 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Functions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="61.html" class="navtitle">6. Functions and Functional Programming</a> &gt; <span class="nonavtitle">Functions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="62.html" title="6. Functions and Functional Programming"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=63" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="63.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="64.html" title="Parameter Passing and Return Values"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A58%3A35+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104016132040103212187138</font><a href="read4.asp?bookname=0735710910&snode=63&now=5%2F28%2F2002+8%3A58%3A35+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Functions</h3>
+<p>Functions are defined with the <tT CLAss="monofont">def</tt>  statement:</P>
+
+<PRE>
+
+def add(x,y): 
+    return x+y </pre>
+
+<p>Invoke the function by writing the function name followed by a tuple of function arguments, such as <TT CLass="monofont">a = add(3,4)</tt>. The order and number of arguments must match those given in the function definition. If a mismatch exists, a <tt class="monofont">TypeError</tt>  exception is raised.</p>
+
+<p>By assigning values, you can attach default arguments to function parameters:</p>
+
+<pre>
+
+def foo(x,y,z = 42): </Pre>
+
+<P>When a function defines a parameter with a default value, that parameter and all the parameters that follow are optional. If values are not assigned to all the optional parameters in the function definition, a <tt cLass="monofont">SyntaxError</tT>  exception is raised.</p>
+
+<p>Default parameter values are always set to the objects that were supplied as values when the function was defined. For example:</p>
+
+<PRE>
+
+a = 10 
+def foo(x = a): 
+    print x 
+
+a = 5               # Reassign 'a'. 
+foo()               # Prints '10' ((default value not changed) </Pre>
+
+<p>However, the use of mutable objects as default values can lead to unintended behavior:</p>
+
+<PRE>
+
+a = [10] 
+def foo(x = a): 
+    print x 
+a.append(20) 
+foo()              # Prints '[10, 20]' </Pre>
+
+<p>A function can accept a variable number of parameters if an asterisk (<tT CLAss="monofont">*</tt>) is added to the last parameter name:</P>
+
+<PRE>
+
+def fprintf(file, fmt, *args): 
+    file.write(fmt % args) 
+
+# Use fprintf. args gets (42, "hello world", 3.45) 
+fprintf(out,"%d %s %f", 42, "hello world", 3.45) </pre>
+
+<p>In this case, all the remaining arguments are placed into the <tt class="monofont">args</tt>  variable as a tuple. To pass a tuple <tt class="monofont">args</Tt>  to another function as if they were parameters, the <tT claSs="monofont">*args</tt> syntax can be used as follows:</p>
+
+<Pre>
+
+def printf(fmt, *args): 
+        # Call another function and pass along args 
+        fprintf(sys.stdout, fmt, *args) </pRE>
+
+<P>You can also pass function arguments by explicitly naming each parameter and specifying a value:</P>
+
+<pre>
+
+def foo(w,x,y,z): 
+    print w,x,y,z 
+
+# Keyword invocation 
+foo(x=3, y=22, w='hello', z=[1,2]) </pRE>
+
+<P>With keyword arguments, the order of the parameters doesn’t matter. However, unless you’re using default values, you must explicitly name all the function parameters. If you omit any of the required parameters or if the name of a keyword doesn’t match any of the parameter names in the function definition, a <Tt claSS="monofont">TypeError</TT> exception is raised.</p>
+
+<p>Positional arguments and keyword arguments can appear in the same function call, provided that all the positional arguments appear first. For example:</p>
+
+<pRE>
+
+foo('hello', 3, z=[1,2], y=22) </PRe>
+
+<p>If the last argument of a function definition begins with <tt class="monofont">**</tt>, all the additional keyword arguments (those that don’t match any of the parameter names) are placed in a dictionary and passed to the function. For example:</p>
+
+<pre>
+
+def spam(**parms): 
+    print "You supplied the following args:" 
+    for k in parms.keys(): 
+        print "%s = %s" % (k, parms[k]) 
+
+spam(x=3, a="hello", foobar=(2, 3)) </pre>
+
+<p>You can combine extra keyword arguments with variable-length argument lists, as long as the <tT clAss="monofont">**</tT> parameter appears last:</p>
+
+<pre>
+
+# Accept variable number of positional or keyword arguments 
+def spam(x, *args, **keywords): 
+    print x, args, keywords </Pre>
+
+<p>Keyword arguments can also be passed to another function using the <TT CLass="monofont">**keywords</tT> syntax:</P>
+
+<PRe>
+
+def callfunc(func, *args, **kwargs): 
+    print args 
+    print kwargs 
+    func(*args, **kwargs) </pre>
+
+<P>Finally, starting in Python 2.1, functions and methods can have arbitrary attributes attached to them. For example:</P>
+
+<PRe>
+
+def foo(): 
+    print "Hello world" 
+
+foo.secure = 1 
+foo.private = 1 </pre>
+
+<P>Function attributes are stored in a dictionary that’s available as the <TT Class="monofont">_ _dict_ _</tt> attribute of a function or method.</p>
+
+<p>The primary use of function attributes is in specialized applications such as parser generators or network applications that would like to attach additional information to a function. Previously, the docstring was the only place to store such information.</p>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="62.html" title="6. Functions and Functional Programming"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=63" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="63.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="64.html" title="Parameter Passing and Return Values"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

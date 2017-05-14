@@ -1,0 +1,63 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Reference Counting and Garbage Collection</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="33.html" class="navtitle">3. Types and Objects</a> &gt; <span class="nonavtitle">Reference Counting and Garbage Collection</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="36.html" title="Object Identity and Type"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=37" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="37.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="38.html" title="References and Copies"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A54%3A25+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104028131050041033147213</font><a href="read7.asp?bookname=0735710910&snode=37&now=5%2F28%2F2002+8%3A54%3A25+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Reference Counting and Garbage Collection</h3>
+<p>All objects are reference-counted. An object’s reference count is increased whenever it’s assigned to a new name or placed in a container such as a list, tuple, or dictionary, as shown here:</p>
+
+<PRE>
+
+a = 3.4      # Creates an object '3.4' 
+b = a        # Increases reference count on '3.4' 
+c = [] 
+c.append(b)  # Increases reference count on '3.4' </Pre>
+
+<p>This example creates a single object containing the value <tT CLAss="monofont">3.4</tt>. The variable <TT CLass="monofont">a</tt> is merely a name that refers to the newly created object. When <tt class="monofont">b</tt> is assigned <tt clasS="monofont">a</tt>, <Tt clAss="monofont">b</tt> becomes a new name for the same object, and the object’s reference count increases. Likewise, when you place <Tt clASS="monofont">b</Tt> into a list, the object’s reference count increases again. In the example, only one object contains <tt cLASS="monofont">3.4</tt>. All other operations are simply creating new references to the object.</p>
+
+<p>An object’s reference count is decreased by the <TT CLass="monofont">del</tT>  statement or whenever a reference goes out of scope (or is reassigned). For example:</P>
+
+<PRe>
+
+del a      # Decrease reference count of 3.4 
+b = 7.8    # Decrease reference count of 3.4 
+c[0]=2.0   # Decrease reference count of 3.4 </pre>
+
+<p>When an object’s reference count reaches zero, it is garbage collected. However, in some cases a circular dependency may exist among a collection of objects that are no longer in use. For example:</p>
+
+<pre>
+
+a = { } 
+b = { } 
+a['b'] = b      # a contains reference to b 
+b['a'] = a      # b contains reference to a 
+del a 
+del b </pre>
+
+<p>In this example, the <tt class="monofont">del</Tt>  statements decrease the reference count of <tT claSs="monofont">a</tt> and <tT claSS="monofont">b</TT> and destroy the names used to refer to the underlying objects. However, because each object contains a reference to the other, the reference count doesn’t drop to zero and the objects remain allocated. To address this problem, the interpreter periodically executes a cycle-detector that searches for cycles of inaccessible objects and deletes them. The cycle-detection algorithm can be fine-tuned and controlled using functions in the <tt clASS="monofont">gc</Tt>  module described in <a hrEF="105.html">Appendix A</A>, “The Python Library.”</P>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="36.html" title="Object Identity and Type"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=37" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="37.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="38.html" title="References and Copies"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Classes</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="12.html" class="navtitle">1. A Tutorial Introduction</a> &gt; <span class="nonavtitle">Classes</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="22.html" title="Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=23" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="23.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="24.html" title="Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A34%3A09+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137110165121169154060231060</font><a href="read5.asp?bookname=0735710910&snode=23&now=5%2F28%2F2002+8%3A34%3A09+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Classes</h3>
+<p>The <tT CLAss="monofont">class</tt>  statement is used to define new types of objects and for object-oriented programming. For example, the following <I>class</I> defines a simple stack:</P>
+
+<Pre>
+
+class Stack: 
+        def _ _init_ _(self):              # Initialize the stack 
+                self.stack = [ ] 
+        def push(self,object): 
+                self.stack.append(object) 
+        def pop(self): 
+                return self.stack.pop() 
+        def length(self): 
+                return len(self.stack) </prE>
+
+<P>In the class definition, methods are defined using the <TT class="monofont">def</tt>  statement. The first argument in each method always refers to the object itself. By convention, <tt class="monofont">self</tt>  is the name used for this argument. All operations involving the attributes of an object must explicitly refer to the <tt clAss="monofont">self</Tt>  variable. Methods with leading and trailing double underscores are special methods. For example, <tt Class="monofont">_ _init_ _</Tt> is used to initialize an object after it’s created.</p>
+
+<p>To use a class, write code such as the following:</P>
+
+<PRE>
+
+s = Stack()           # Create a stack 
+s.push("Dave")        # Push some things onto it 
+s.push(42) 
+s.push([3,4,5]) 
+x = s.pop()           # x gets [3,4,5] 
+y = s.pop()           # y gets 42 
+del s                 # Destroy s </pre>
+</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="22.html" title="Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=23" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="23.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="24.html" title="Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

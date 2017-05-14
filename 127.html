@@ -1,0 +1,405 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Error Handling</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="121.html" class="navtitle">B. Extending and Embedding Python</a> &gt; <span class="nonavtitle">Error Handling</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="126.html" title="Converting Data from C to Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=127" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="127.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="128.html" title="Reference Counting"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A09%3A25+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105095080114204070017095</font><a href="read0.asp?bookname=0735710910&snode=127&now=5%2F28%2F2002+9%3A09%3A25+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Error Handling</h3>
+<p>Errors are indicated by returning <tT CLAss="monofont">NULL</tt>  to the interpreter. Prior to returning <TT CLass="monofont">NULL</tT>, an exception should be set or cleared using one of the following functions:</P>
+
+<PRe>
+
+<b>void PyErr_Clear()</b> </pre>
+
+<p>Clears any previously raised exceptions.</p>
+
+<pre>
+
+<b>PyObject *PyErr_Occurred()</b> </pre>
+
+<p>Checks to see whether an error has been generated. If so, returns the current exception object. Otherwise, returns <tt cLasS="monofont">NULL</tt>.</p>
+
+<Pre>
+
+<b>void PyErr_NoMemory()</b> </Pre>
+
+<p>Raises a <TT CLass="monofont">MemoryError</tT>  exception.</P>
+
+<PRe>
+
+<b>void PyErr_SetFromErrno(PyObject *</b><b><I>exc</I></B><B>)</b> </pre>
+
+<P>Raises an exception. <I><TT class="monofont">exc</tt></i>
+ is an exception object. The value of the exception is taken from the <tt class="monofont">errno</tt>  variable in the C library.</p>
+
+<prE>
+
+<b>void PyErr_SetFromErrnoWithFilename(PyObject *</b><B><i>exc</i></b><B>, char *</b><b><i>filename</i></B><b>)</b> </pRE>
+
+<P>Like <Tt claSS="monofont">PyErr_SetFromErrno()</TT> but includes the filename in the exception value as well.</p>
+
+<pre>
+
+<B>void PyErr_SetObject(PyObject *</B><B><I>exc</i></b><b>, PyObject *</b><B><I>val</I></B><b>)</b> </pre>
+
+<p>Raises an exception. <i><tt class="monofont">exc</tt></i>
+  is an exception object and <i><tt ClaSs="monofont">val</tt></I>
+  is an object containing the value of the exception.</p>
+
+<pre>
+
+<B>void PyErr_SetString(PyObject *</b><b><i>exc</I></B><B>, char *</B><b><i>msg</i></b><B>)</B> </PRe>
+
+<p>Raises an exception. <i><tT CLAss="monofont">exc</tt></I>
+  is an exception object and <I><TT class="monofont">msg</tt></i>
+  is a message describing what went wrong.</p>
+
+<p>The <i><tt class="monofont">exc</tt></I>
+  argument in these functions can be set to one of the following:</p>
+
+<p><TablE bordEr="1" ceLLSPacinG="0" CELlpadDING="1" widtH="100%">
+<COLgroup span="2">
+<tr>
+<th valign="top">
+<fOnt Size="2">
+<P><b>C Name</b></p>
+</fOnt></tH>
+<TH ValigN="top">
+<FONt sizE="2">
+<P><B>Python Exception</B></p>
+</fonT></TH>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">PyExc_ArithmeticError</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">ArithmeticError</TT></P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">PyExc_AssertionError</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">AssertionError</tt></p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">PyExc_AttributeError</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">AttributeError</tt></p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">PyExc_EnvironmentError</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">EnvironmentError</tt></p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">PyExc_EOFError</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">EOFError</Tt></p>
+</Font></Td>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">PyExc_Exception</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">Exception</tT></p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">PyExc_FloatingPointError</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">FloatingPointError</Tt></p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">PyExc_ImportError</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">ImportError</TT></p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">PyExc_IndexError</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">IndexError</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">PyExc_IOError</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">IOError</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">PyExc_KeyError</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">KeyError</tt></p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">PyExc_KeyboardInterrupt</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">KeyboardInterrupt</TT></p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">PyExc_LookupError</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">LookupError</tt></p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">PyExc_MemoryError</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">MemoryError</tt></p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">PyExc_NameError</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">NameError</tt></p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">PyExc_NotImplementedError</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">NotImplementedError</tT></p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">PyExc_OSError</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">OSError</tt></p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">PyExc_OverflowError</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">OverflowError</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">PyExc_RuntimeError</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">RuntimeError</tt></p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">PyExc_StandardError</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><Tt claSS="monofont">StandardError</TT></p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">PyExc_SyntaxError</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">SyntaxError</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">PyExc_SystemError</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">SystemError</tt></P>
+</FONt></td>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">PyExc_SystemExit</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">SystemExit</tt></p>
+</font></td>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">PyExc_TypeError</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">TypeError</tt></p>
+</font></td>
+</tr>
+<tr>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">PyExc_UnicodeError</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">UnicodeError</tt></p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">PyExc_ValueError</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">ValueError</tt></P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">PyExc_ZeroDivisionError</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">ZeroDivisionError</tt></p>
+</Font></tD>
+</tr>
+</cOLGRoup>
+</tABLE></p>
+
+<p>The following example shows how an exception is typically set and an error returned in extension code:</p>
+
+<pRE>
+
+PyErr_SetString(PyExc_ValueError,"Expected a positive value!"); 
+return NULL; </PRe>
+
+<p>An extension module can define a new exception type by using the following function:</p>
+
+<pRE>
+
+<B>PyObject *PyErr_NewException(char *</B><b><i>excname</i></b><b>, PyObject *</b><b><i>base</i></b><b>, PyObject *</b><b><i>dict</i></b><b>)</b> </prE>
+
+<p>Creates a new exception object. <i><Tt clAss="monofont">excname</tt></I>
+  is the name of the exception in the form <tt cLASS="monofont">"</tt><i><tT CLAss="monofont">modulename</tt></I>
+<TT Class="monofont">.</TT><I><Tt class="monofont">excname</tt></i>
+<tt class="monofont">"</tt>, <i><tT clAss="monofont">base</tT></i>
+ is an optional base class for the exception, and <i><tt ClasS="monofont">dict</TT></I>
+ is an optional dictionary used as the <tt clASS="monofont">_ _dict_ _</Tt> attribute of the resulting exception class. Both of these arguments are normally set to <tt cLASS="monofont">NULL</tt>. The returned object is a class object.</p>
+
+<p>The following example shows how a new exception is created in an extension module:</P>
+
+<PRE>
+
+static PyObject *SpamError; 
+... 
+
+/* Module initialization function */ 
+initspam(void) {
+     PyObject *m, *d; 
+     m = Py_InitModule("spam",SpamMethods); 
+     d = PyModule_GetDict(m); 
+     SpamError = PyErr_NewException("spam.error", NULL, NULL); 
+     PyDict_SetItemString(d,"error",SpamError); 
+     ... 
+} </pre>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="126.html" title="Converting Data from C to Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=127" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="127.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="128.html" title="Reference Counting"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

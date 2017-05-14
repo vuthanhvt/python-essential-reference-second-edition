@@ -1,0 +1,2081 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Python Services</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="105.html" class="navtitle">A. The Python Library</a> &gt; <span class="nonavtitle">Python Services</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="107.html" title="Built-in Functions and Exceptions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=108" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="108.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="109.html" title="Mathematics"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A05%3A07+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105083198027148244229119</font><a href="read1.asp?bookname=0735710910&snode=108&now=5%2F28%2F2002+9%3A05%3A07+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Python Services</h3>
+<p>The modules in this section are primarily used to interact with the Python interpreter and its environment.</p>
+
+<A NAMe="2"></a>
+<h4><tT CLAss="monofont">atexit</tt></H4>
+<P>The <TT class="monofont">atexit</tt>  module is used to register functions to execute when the Python interpreter exits. A single function is provided:</p>
+
+<pre>
+
+<b>register(</b><b><i>func</i></b> <b>[,</b> <b><I>args</i></b> <B>[,</b> <b><i>kwargs</I></b><b>]])</b> </pRe>
+
+<p>Adds function <i><TT CLass="monofont">func</tT></I>
+ to a list of functions that will execute when the interpreter exits. <I><Tt claSS="monofont">args</TT></i>
+ is a tuple of arguments to pass to the function. <i><tt CLASs="monofont">kwargs</tt></i>
+ is a dictionary of keyword arguments. The function is invoked as <i><tt class="monofont">func</tt></i>
+<tt claSs="monofont">(*</tT><i><tt Class="monofont">args</Tt></i>
+<tT CLAss="monofont">,**</tt><I><TT Class="monofont">kwargs</TT></I>
+<Tt claSS="monofont">)</TT>.</p>
+
+
+<h5>Note</h5>
+<ul>
+<li>
+<p>The <tt class="monofont">atexit</tt>  module should be used instead of setting the <tt cLasS="monofont">sys.exitfunc</tt>  variable.</p>
+</Li>
+</ul>
+<p>? <B>See Also</b> <a hREF="108#34.html">sys</A> (116).</p>
+
+
+<h4><tt CLASs="monofont">copy</tt></h4>
+<P>The <TT Class="monofont">copy</TT>  module provides functions for making shallow and deep copies of compound objects, including lists, tuples, dictionaries, and class instances.</P>
+
+<Pre>
+
+<b>copy(x)</b> </pre>
+
+<p>Makes a shallow copy of <i><tt class="monofont">x</tt></i>
+ by creating a new compound object and duplicating the members of <i><Tt cLass="monofont">x</Tt></i>
+ by reference.</p>
+
+<pRe>
+
+<b>deepcopy(</b><B><I>x</I></B> <b>[,</b> <b><i>visit</I></B><B>])</B> </pre>
+
+<p>Makes a deep copy of <I><TT Class="monofont">x</TT></I>
+ by creating a new compound object and recursively duplicating all the members of <I><tt class="monofont">x</tt></i>
+. <i><tt class="monofont">visit</tt></I>
+ is an optional dictionary that’s used internally to detect and avoid cycles in recursively defined data structures.</p>
+
+<p>A class can implement its own copy methods by implementing the methods <Tt clAss="monofont">_ _copy_ _(</tt><I><tt cLASS="monofont">self</tt></i>
+<tT CLAss="monofont">)</tt> and <TT CLass="monofont">_ _deepcopy_ _(</tT><I><TT class="monofont">self</tt></i>
+<tt class="monofont">, </tt><i><tt ClaSs="monofont">visit</tt></I>
+<tt clAss="monofont">)</tT>. Both methods should return a copy of the object. In addition, the <TT Class="monofont">_ _deepcopy_ _()</TT> method must accept a dictionary <I><Tt claSS="monofont">visit</TT></i>
+ as described for the <tt cLASS="monofont">deepcopy()</tt> function. When writing <tt class="monofont">_ _deepcopy_ _()</tt>, it’s not  necessary to modify <i><tt class="monofont">visit</tT></i>
+. However, <i><Tt clAss="monofont">visit</tt></I>
+ should be passed to subsequent calls to <tt cLASS="monofont">deepcopy()</tt> (if any) performed inside the <tt CLASs="monofont">_ _deepcopy_ _()</tt> method.</p>
+
+
+<H5>Notes</H5>
+<UL>
+<li>
+<p>This module can be used with simple types such as integers and strings, but there’s little need to do so.</p>
+</LI>
+<LI>
+<p>The copy functions don’t work with modules, class objects, functions, methods, tracebacks, stack frames, files, sockets, or other similar types. When an object can’t be copied, the <tt class="monofont">copy.error</tt> exception is raised.</p>
+</li>
+<li>
+<p>The <tt clAss="monofont">copy_reg</Tt> module is not used by this module.</p>
+</lI>
+</ul>
+<p>? <b>See Also</B> <a hrEF="108#28.html">pickle</A> (113).</P>
+
+<a namE="10"></A>
+<H4><Tt claSS="monofont">copy_reg</TT></h4>
+<p>The <tt CLASs="monofont">copy_reg</tt>  module extends the capabilities of the <tt class="monofont">pickle</tt>  and <tt class="monofont">cPickle</tT>  modules to handle the serialization of objects described by extension types (as defined in C extension modules). To do this, extension writers use this module to register reduction and construction functions that are used to serialize and unserialize an object, respectively.</p>
+
+<pRe>
+
+<b>constructor(</b><B><i>cfunc</i></b><b>)</B> </pre>
+
+<P>Declares <I><TT clasS="monofont">cfunc</TT></I>
+ to be a valid constructor function. <i><tt cLASS="monofont">cfunc</tt></i>
+ must be a callable object that accepts the tuple of values returned by the reduction function given to the <tT CLAss="monofont">pickle()</tt> function.</p>
+
+<pre>
+
+<b>pickle(</b><b><i>type</i></b><b>,</b> <b><i>rfunc</i></b> <B>[,</b> <b><I>cfunc</i></b><b>])</B> </pre>
+
+<p>Registers <I><tt cLASS="monofont">rfunc</tt></i>
+ as a reduction function for objects of type <i><TT CLass="monofont">type</tT></I>
+. <I><Tt claSS="monofont">rfunc</TT></i>
+ is a function that takes an object of the specified type and returns a tuple containing the constructor function and a tuple of arguments to pass to that function in order to reassemble the object. If supplied, <i><tt class="monofont">cfunc</tt></i>
+ is the constructor function that’s registered using the <tt class="monofont">constructor()</tT> function.</p>
+
+
+<h5>Example</H5>
+<p>The following example shows how this module would be used to pickle complex numbers. (<i>Note:</i> Because complex numbers are already pickleable, this example is only intended to illustrate the use of this module.)</P>
+
+<pre>
+
+# Register a method for pickling complex numbers 
+import copy_reg 
+
+# Create a complex number from two reals 
+def construct_complex(real,imag): 
+    return complex(real,imag)        # Built-in function 
+
+# Take a complex number 'c' and turn it into a tuple of floats 
+def reduce_complex(c): 
+    return construct_complex, (c.real, c.imag) 
+
+# Register our handler 
+copy_reg.pickle(type(1j),reduce_complex, construct_complex) </pRe>
+
+<p>When complex numbers are pickled, the <tT CLAss="monofont">reduce_complex()</tt> function is called. When the object is later unpickled, the function <TT CLass="monofont">construct_complex()</tT> is called, using the tuple of values originally returned by <TT Class="monofont">reduce_complex()</TT>.</P>
+
+
+<H5>Notes</h5>
+<ul>
+<li>
+<p><tt class="monofont">copy_reg</tt>  is a misnomer—this module isn’t used by the <tt claSs="monofont">copy</tT>  module.</p>
+</li>
+<Li>
+<p>It’s not necessary to use this module when pickling instances of user-defined classes.</p>
+</lI>
+</ul>
+<p>? <B>See Also</B> <A Href="108#28.html">pickle</a> (113).</P>
+
+<A NAme="16"></a>
+<h4><TT CLass="monofont">gc</tT></H4>
+<P>The <Tt class="monofont">gc</tt>  module provides an interface for controlling the garbage collector used to collect cycles in objects such as lists, tuples, dictionaries, and instances. As various types of container objects are created, they’re placed on a list that’s internal to the interpreter. Whenever container objects are deallocated, they’re removed from this list. If the number of allocations exceeds the number of deallocations by a userdefinable threshold value, the garbage collector is invoked. The garbage collector works by scanning this list and identifying collections of objects that are no longer being used, but that haven’t been deallocated due to circular dependencies. In addition, the garbage collector uses a three-level generational scheme in which objects that survive the initial garbage-collection step are placed onto lists of objects that are checked less frequently. This provides better performance for programs that have a large number of long-lived objects.</p>
+
+<pre>
+
+<b>collect()</b> </pre>
+
+<p>Runs a full garbage collection. This function checks all generations and returns the number of unreachable objects found.</p>
+
+<pRe>
+
+<b>disable()</B> </pre>
+
+<P>Disables garbage collection.</p>
+
+<pre>
+
+<B>enable()</b> </prE>
+
+<P>Enables garbage collection.</P>
+
+<Pre>
+
+<b>garbage</b> </PRE>
+
+<P>A variable containing a read-only list of the uncollectable objects that the garbage collector could not release for some reason. See notes.</p>
+
+<pre>
+
+<B>isenabled()</B> </PRe>
+
+<p>Returns true if garbage collection is enabled.</p>
+
+<pRE>
+
+<B>set_debug(</B><b><i>flags</i></b><b>)</b> </pre>
+
+<p>Set the garbage-collection debugging flags, which can be used to debug the behavior of the garbage collector. <i><tt class="monofont">flags</tt></I>
+ is the bitwise-or of the constants <tt ClasS="monofont">DEBUG_STATS</tt>, <tt ClasS="monofont">DEBUG_COLLECTABLE</TT>, <Tt claSS="monofont">DEBUG_UNCOLLECTABLE</TT>, <tt clASS="monofont">DEBUG_INSTANCES</Tt>, <tt cLASS="monofont">DEBUG_OBJECTS</tt>, <tt class="monofont">DEBUG_SAVEALL</tt>, and <tt class="monofont">DEBUG_LEAK</tt>.</P>
+
+<prE>
+
+<b>get_debug()</b> </pRe>
+
+<p>Returns the debugging flags currently set.</p>
+
+<pRe>
+
+<b>get_threshold()</b> </PRE>
+
+<P>Returns the current collection threshold as a tuple.</p>
+
+<pre>
+
+<B>set_threshold(</B><B><I>threshold0</i></b> <b>[,</b> <B><I>threshold1</I></B><b>[,</b> <b><i>threshold2</I></B><B>]])</B> </pre>
+
+<p>Sets the collection frequency of garbage collection. Objects are classified into three generations, where generation 0 contains the youngest objects and generation 2 contains the oldest objects. Objects that survive a garbage-collection step are moved to the next-oldest generation. Once an object reaches generation 2, it stays in that generation. <i><tt class="monofont">threshold0</tt></i>
+ is the difference between the number of allocations and deallocations that must be reached before garbage collection occurs in generation 0. <i><tt clAss="monofont">threshold1</Tt></i>
+ is the number of collections of generation 0 that must occur before generation 1 is scanned. <i><Tt claSs="monofont">threshold2</tt></I>
+ is the number of collections that must occur in generation 1 before generation 2 is collected. The default threshold is currently set to <TT Class="monofont">(700,10,10)</TT>. Setting <I><Tt claSS="monofont">threshold0</TT></i>
+ to zero disables garbage collection.</p>
+
+
+<h5>Notes</h5>
+<UL>
+<LI>
+<p>Circular references involving objects with a <tt class="monofont">_ _del_ _()</tt> method are not garbage-collected and are placed on the list <tt class="monofont">gc.garbage</tt> (uncollectable objects). These objects are not collected due to difficulties related to object finalization and the order in which <tT clAss="monofont">_ _del_ _()</tT> methods should be invoked.</p>
+</li>
+<lI>
+<p>To debug a leaky program, use <tt CLASs="monofont">gc.set_debug(gc.DEBUG_LEAK)</tt>.</p>
+</LI>
+<LI>
+<p>The <tt cLASS="monofont">gc</tt>  module first appeared in Python 2.0.</p>
+</lI>
+</UL>
+<A name="20"></a>
+<h4><tt class="monofont">marshal</tt></h4>
+<p>The <tt cLasS="monofont">marshal</tt>  module is used to serialize Python objects. <tT clasS="monofont">marshal</tt>  is similar to the <tT CLAss="monofont">pickle</tt> and <TT CLass="monofont">shelve</tT>  modules, but is less powerful and intended for use only with simple objects. It shouldn’t be used to implement persistent objects in general (use <TT Class="monofont">pickle</TT>  instead).</P>
+
+<Pre>
+
+<b>dump(</b><b><i>value</i></b><b>,</b> <b><i>file</i></b><b>)</b> </pre>
+
+<p>Writes the object <I><tt ClasS="monofont">value</tt></i>
+ to the open file object <i><Tt clASS="monofont">file</Tt></i>
+. If <i><tT CLAss="monofont">value</tt></I>
+ is an unsupported type, a <TT Class="monofont">ValueError</TT>  exception is raised.</P>
+
+<Pre>
+
+<b>dumps(</b><b><i>value</i></b><b>)</b> </pre>
+
+<p>Returns the string written by the <tt clasS="monofont">dump()</tt>  function. If <I><tt cLass="monofont">value</tT></i>
+ is an unsupported type, a <tt CLASs="monofont">ValueError</tt>  exception is raised.</p>
+
+<PRE>
+
+<B>load(</b><b><i>file</i></B><B>)</B> </Pre>
+
+<p>Reads and returns the next value from the open file object <i><TT CLass="monofont">file</tt></i>
+. If no valid value is read, an <tt class="monofont">EOFError</tt>, <tt claSs="monofont">ValueError</tT>, or <tt cLass="monofont">TypeError</tT> exception will be raised.</p>
+
+<prE>
+
+<B>loads(</B><B><i>string</i></b><b>)</B> </PRE>
+
+<p>Reads and returns the next value from the string <i><tt CLASs="monofont">string</tt></i>
+.</P>
+
+
+<H5>Notes</H5>
+<Ul>
+<li>
+<p>Data is stored in a binary architecture-independent format.</p>
+</li>
+<li>
+<p>Only <tt class="monofont">None</tt>, integers, long integers, floats, complex numbers, strings, Unicode strings, tuples, lists, dictionaries, and code objects are supported. Lists, tuples, and dictionaries can only contain supported objects. Class instances and recursive references in lists, tuples, and dictionaries are not supported.</p>
+</Li>
+<lI>
+<p><tt Class="monofont">marshal</Tt>  is significantly faster than <tt CLASs="monofont">pickle</tt>, but isn’t as flexible.</p>
+</LI>
+</UL>
+<p>? <b>See Also</b> <a HREF="108#28.html">pickle</a> (113), <a hrEF="111#34.html">shelve</A> (153).</P>
+
+
+<h4><tt class="monofont">new</tt></h4>
+<p>The <tt class="monofont">new</tT>  module is used to create various types of objects used by the interpreter. The primary use of this module is by applications that need to create objects in a nonstandard manner (such as when unmarshalling data).</p>
+
+<pRe>
+
+<b>instance(</b><B><i>class</i></b><b>,</B> <b><i>dict</i></B><B>)</B> </Pre>
+
+<p>Creates a class instance of <i><TT CLass="monofont">class</tT></I>
+ with dictionary <I><Tt claSS="monofont">dict</TT></i>
+ without calling the <tt class="monofont">_ _init_ _()</tt> method.</p>
+
+<pre>
+
+<b>instancemethod(</b><b><i>function</i></b><B>,</b> <b><I>instance</i></b><b>,</B> <b><i>class</i></b><B>)</b> </prE>
+
+<P>Creates a method object, bound to <I><Tt claSS="monofont">instance</TT></i>
+. <i><tt CLASs="monofont">function</tt></i>
+ must be a callable object. If <I><TT Class="monofont">instance</tt></i>
+ is <tt class="monofont">None</tt>, an unbound instance method is created.</p>
+
+<pre>
+
+<B>function(</b><b><I>code</i></b><b>,</B> <b><i>globals</i></b> <B>[,</b> <b><i>name</I></B> <B>[,</B> <b><i>argdefs</i></b><B>]])</B> </PRe>
+
+<p>Creates a function object with the given <i><tT CLAss="monofont">code</tt></I>
+ object and global namespace. <I><TT class="monofont">name</tt></i>
+ is the name of the function or <tt class="monofont">None</tt> (in which case the function name is taken from <i><tt ClaSs="monofont">code</tt></I>
+<tt clAss="monofont">.co_name</tT>). <I><TT clasS="monofont">argdefs</TT></I>
+ is a tuple containing default parameter values.</p>
+
+<pre>
+
+<B>code(</B><B><I>argcount</i></b><b>,</b> <B><I>nlocals</I></B><b>,</b> <b><i>stacksize</i></b><b>,</b> <b><i>flags</i></b><b>,</b> <b><i>codestring</i></b><b>,</b> <B><i>constants</i></B><b>,</b> <b><I>names</i></b><b>,</b> <B><i>varnames</i></b><B>,</B> 
+<B><I>filename</i></b><b>,</b> <B><I>name</I></B><b>,</b> <b><i>firstlineno</I></B><B>,</B> <b><i>lnotab</i></b><B>)</B> </PRe>
+
+<p>Creates a new <tt class="monofont">code</tt>  object. See the section “<a href="39#36.html">Code Objects</a>” in <a hrEf="33.html">Chapter 3</a> for a description of the arguments.</P>
+
+<pre>
+
+<B>module(</b><b><i>name</i></B><b>)</b> </pRE>
+
+<P>Creates a new module object. <I><tt clASS="monofont">name</Tt></i>
+ is the module name.</p>
+
+<pRE>
+
+<B>classobj(</B><b><i>name</i></b><B>,</B> <B><I>baseclasses</i></b><b>,</b> <b><i>dict</i></b><b>)</b> </pre>
+
+<p>Creates a new class object. <i><tt claSs="monofont">name</tT></i>
+ is the class name, <i><tT clasS="monofont">baseclasses</tt></i>
+ is a tuple of base classes, and <I><TT Class="monofont">dict</TT></I>
+ is a dictionary defining the class namespace.</P>
+
+<p>? <b>See Also</b> <a HREF="33.html">Chapter 3</a>.</p>
+
+
+<h4><tT CLAss="monofont">operator</tt></h4>
+<p>The <tt class="monofont">operator</tt>  module provides functions that access the built-in operators and special methods of the interpreter described in <a href="33.html">Chapter 3</A>. For example, <tt ClasS="monofont">add(3, 4)</tt> is the same as <tt ClasS="monofont">3 + 4</TT>. When the name of a function matches the name of a special method, it can also be invoked using its name with double underscores—for example, <Tt claSS="monofont">_ _add_ _(3, 4)</TT>.</p>
+
+<p><taBLE BordeR="1" CELlspacing="0" cellpadding="1" wIdtH="100%">
+<colGroup Span="2">
+<TR>
+<TH valiGN="top">
+<FOnt siZE="2">
+<P><B>Function</b></p>
+</foNT></TH>
+<th valign="top">
+<font size="2">
+<p><b>Description</b></p>
+</FonT></th>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">add(</TT><i><tt cLASS="monofont">a</tt></i>
+<tt class="monofont">, </tt><i><tt class="monofont">b</Tt></i>
+<Tt clAss="monofont">)</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Returns <i><tt cLASS="monofont">a</tt></i>
+<tt class="monofont"> + </tt><i><tt class="monofont">b</Tt></i>
+ for numbers</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">sub(</tt><I><TT Class="monofont">a</tt></i>
+<tt class="monofont">, </tt><i><tt cLasS="monofont">b</tt></i>
+<Tt claSs="monofont">)</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Returns <I><TT Class="monofont">a</tt></i>
+<tt class="monofont"> - </tt><i><tt cLasS="monofont">b</tt></i>
+</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">mul(</TT><i><tt class="monofont">a</tt></i>
+<tt class="monofont">, </tt><I><tt ClasS="monofont">b</tt></i>
+<tT claSS="monofont">)</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Returns <i><tt class="monofont">a</tt></i>
+<tt class="monofont"> * </tt><I><tt ClasS="monofont">b</tt></i>
+ for numbers</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">div(</tt><i><tt class="monofont">a</tt></i>
+<tt claSs="monofont">, </tT><i><tt Class="monofont">b</Tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Returns <i><tt class="monofont">a</tt></i>
+<tt claSs="monofont"> / </tT><i><tt Class="monofont">b</Tt></i>
+</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">mod(</tt><i><tt class="monofont">a</tt></i>
+<tT clAss="monofont">, </tT><i><tt cLass="monofont">b</TT></I>
+<Tt claSS="monofont">)</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p>Returns <i><tt class="monofont">a</tt></i>
+<tT clAss="monofont"> % </tT><i><tt cLass="monofont">b</TT></I>
+</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">neg(</tt><i><tt class="monofont">a</Tt></i>
+<Tt clAss="monofont">)</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Returns <tt clASS="monofont">-</Tt><i><tt class="monofont">a</tt></i>
+</p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">pos(</Tt><i><tt CLASs="monofont">a</tt></i>
+<TT CLass="monofont">)</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>Returns <tt cLass="monofont">+</TT><I><Tt claSS="monofont">a</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">abs(</Tt><i><Tt clAss="monofont">a</tt></I>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Returns the absolute value of <i><tt class="monofont">a</tt></i>
+</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">inv(</tt><i><tT CLAss="monofont">a</tt></I>
+<TT Class="monofont">)</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>Returns the inverse of <i><tT claSS="monofont">a</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">lshift(</tt><i><tt claSs="monofont">a</tT></i>
+<tt Class="monofont">, </Tt><i><tT CLAss="monofont">b</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p>Returns <i><tt claSs="monofont">a</tT></i>
+<tt Class="monofont"> &lt;&lt; </Tt><i><tT CLAss="monofont">b</tt></I>
+</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">rshift(</tt><i><tT clAss="monofont">a</tT></i>
+<tt cLass="monofont">, </TT><I><Tt claSS="monofont">b</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Returns <i><tT clAss="monofont">a</tT></i>
+<tt cLass="monofont"> &gt;&gt; </TT><I><Tt claSS="monofont">b</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">and_(</Tt><i><Tt clAss="monofont">a</tt></I>
+<tt cLASS="monofont">, </tt><i><tT CLAss="monofont">b</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>Returns <i><Tt clAss="monofont">a</tt></I>
+<tt cLASS="monofont"> &amp; </tt><i><tT CLAss="monofont">b</tt></I>
+ (bitwise and)</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">or_(</tt><i><Tt claSs="monofont">a</tt></I>
+<TT Class="monofont">, </TT><I><Tt claSS="monofont">b</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>Returns <i><Tt claSs="monofont">a</tt></I>
+<TT Class="monofont"> | </TT><I><Tt claSS="monofont">b</TT></i>
+ (bitwise or)</p>
+</foNT></TD>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">xor(</tt><i><tT claSS="monofont">a</TT></i>
+<tt cLASS="monofont">, </tt><i><tT CLAss="monofont">b</tt></I>
+<TT Class="monofont">)</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>Returns <i><tT claSS="monofont">a</TT></i>
+<tt cLASS="monofont"> ^ </tt><i><tT CLAss="monofont">b</tt></I>
+ (bitwise xor)</P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">not_(</Tt><i><tT CLAss="monofont">a</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p>Returns not <i><tt claSs="monofont">a</tT></i>
+</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">truth(</TT><I><Tt class="monofont">a</tt></i>
+<tt class="monofont">)</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>Returns <tt CLASs="monofont">1</tt> if <i><TT CLass="monofont">a</tT></I>
+ is true, <TT class="monofont">0</tt> otherwise</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">concat(</tt><I><TT Class="monofont">a</TT></I>
+<Tt claSS="monofont">, </TT><i><tt class="monofont">b</tt></i>
+<tt class="monofont">)</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Returns <I><TT Class="monofont">a</TT></I>
+<Tt claSS="monofont"> + </TT><i><tt class="monofont">b</tt></i>
+ for sequences</p>
+</font></td>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><Tt claSS="monofont">repeat(</TT><i><tt cLASS="monofont">a</tt></i>
+<tT CLAss="monofont">, </tt><i><tt class="monofont">b</tt></i>
+<tt claSs="monofont">)</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P>Returns <i><tt cLASS="monofont">a</tt></i>
+<tT CLAss="monofont"> * </tt><i><tt class="monofont">b</tt></i>
+ for a sequence <i><tt clAss="monofont">a</Tt></i>
+ and integer <i><Tt claSs="monofont">b</tt></I>
+</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">contains(</tt><i><tt class="monofont">a</tt></I>
+<tt ClasS="monofont">, </tt><i><tT claSS="monofont">b</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Returns the result of <i><tt class="monofont">b</tt></I>
+ in <i><tT claSs="monofont">a</tt></i>
+</P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">sequenceIncludes(</tt><i><tt class="monofont">a</tt></i>
+<tt clAss="monofont">, </Tt><i><tT clasS="monofont">b</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p>Returns the result of <i><tt class="monofont">b</tt></i>
+ in <i><tt cLasS="monofont">a</tt></i>
+ (deprecated)</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">countOf(</TT><i><tt class="monofont">a</tt></i>
+<tt class="monofont">, </tt><I><tt ClasS="monofont">b</tt></i>
+<tT claSS="monofont">)</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Returns the number of occurrences of <i><tt class="monofont">b</tt></i>
+ in <i><tt class="monofont">a</tT></i>
+</p>
+</Font></Td>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">indexOf(</tt><i><TT CLass="monofont">a</tt></i>
+<tt class="monofont">, </tt><i><tt clAss="monofont">b</Tt></i>
+<tT clasS="monofont">)</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Returns the index of the first occurrence of <i><TT CLass="monofont">b</tt></i>
+ in <i><tt class="monofont">a</tt></i>
+</p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">getitem(</TT><I><Tt claSS="monofont">a</TT></i>
+<tt class="monofont">, </tt><i><tt class="monofont">b</tt></I>
+<tt ClasS="monofont">)</tt></p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Returns <I><Tt claSS="monofont">a</TT></i>
+<tt class="monofont">[</tt><i><tt class="monofont">b</tt></I>
+<tt ClasS="monofont">]</tt></p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">setitem(</tt><i><tt class="monofont">a</tt></i>
+<tt clasS="monofont">, </tt><I><tt cLass="monofont">b</tT></i>
+<tt CLASs="monofont">, </tt><i><TT CLass="monofont">c</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p><I><tt cLass="monofont">a</tT></i>
+<tt CLASs="monofont">[</tt><i><TT CLass="monofont">b</tT></I>
+<TT clasS="monofont">] = </TT><I><tt class="monofont">c</tt></i>
+</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">delitem(</TT><I><tt clASS="monofont">a</Tt></i>
+<tt CLASs="monofont">, </tt><i><tt class="monofont">b</tt></i>
+<tt clasS="monofont">)</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">del </TT><i><tt cLASS="monofont">a</tt></i>
+<tt class="monofont">[</tt><i><tt class="monofont">b</Tt></i>
+<Tt clAss="monofont">]</tt></P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">getslice(</tt><i><tt class="monofont">a</tt></i>
+<tt clAss="monofont">, </Tt><i><tT clasS="monofont">b</tt></i>
+<TT CLass="monofont">, </tT><I><TT clasS="monofont">c</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>Returns <i><tT clasS="monofont">a</tt></i>
+<TT CLass="monofont">[</tT><I><TT clasS="monofont">b</TT></I>
+<tt clASS="monofont">:</Tt><i><tt class="monofont">c</tt></i>
+<tt class="monofont">]</tT></p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">setslice(</tt><i><tT CLAss="monofont">a</tt></i>
+<tt class="monofont">, </tt><i><tt claSs="monofont">b</tT></i>
+<tt Class="monofont">, </Tt><i><tT CLAss="monofont">c</tt></I>
+<TT Class="monofont">, </TT><I><Tt claSS="monofont">v</TT></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Sets <i><tT CLAss="monofont">a</tt></I>
+<TT Class="monofont">[</TT><I><Tt claSS="monofont">b</TT></i>
+<tt class="monofont">:</tt><i><tt class="monofont">c</tt></I>
+<tt ClasS="monofont">] = </tt><i><tT claSS="monofont">v</TT></i>
+</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">delslice(</tt><i><tt claSs="monofont">a</tT></i>
+<tt Class="monofont">, </Tt><i><tT CLAss="monofont">b</tt></I>
+<TT Class="monofont">, </TT><I><Tt claSS="monofont">c</TT></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">del </tt><i><TT CLass="monofont">a</tT></I>
+<TT clasS="monofont">[</TT><I><tt class="monofont">b</tt></i>
+<tt class="monofont">:</tt><i><Tt cLass="monofont">c</Tt></i>
+<tt ClasS="monofont">]</TT></P>
+</font></TD>
+</TR>
+</colgROUP>
+</tablE></P>
+
+<P>In addition, the <Tt class="monofont">operator</tt>  module defines the following functions for testing object properties. <i>Note:</i> These functions are not entirely reliable for user-defined instances, since they don’t perform an exhaustive test of the interface to see whether all functions are implemented.</p>
+
+<p><table borDer="1" CellSpaciNg="0" ceLLPAddinG="1" WIDth="100%">
+<coLGROup spAN="2">
+<TR>
+<th valign="top">
+<font size="2">
+<p><b>Function</b></p>
+</FonT></th>
+<tH valiGn="top">
+<foNT SIze="2">
+<p><b>Description</B></P>
+</FOnt></th>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">isMappingType(</tt><i><tT clAss="monofont">o</tT></i>
+<tt cLass="monofont">)</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Tests whether <I><Tt class="monofont">o</tt></i>
+ supports the mapping interface</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">isNumberType(</TT><I><Tt claSS="monofont">o</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>Tests whether <i><Tt claSs="monofont">o</tt></I>
+ supports the number interface</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">isSequenceType(</tt><i><tt class="monofont">o</tt></I>
+<tt ClasS="monofont">)</tt></p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Tests whether <I><Tt claSS="monofont">o</TT></i>
+ supports the sequence interface</p>
+</font></td>
+</tr>
+</colgroup>
+</taBle></P>
+
+<p>? <b>See Also</b> “<A href="40.html">Special Methods</A>” in <a hrEF="33.html">Chapter 3</A>.</P>
+
+<a namE="28"></A>
+<H4><Tt claSS="monofont">pickle</TT> and <tt clASS="monofont">cPickle</Tt></h4>
+<p>The <tt class="monofont">pickle</tt>  and <tt class="monofont">cPickle</tT>  modules are used to serialize Python objects into a stream of bytes suitable for storing in a file, transferring across a network, or placing in a database. This process is variously called <i>pickling, serializing, marshalling</i>, or <I>flattening</i>. The resulting byte stream can also be converted back into a series of Python objects using an unpickling process.</p>
+
+<p>The pickling and unpickling process is controlled by using <Tt claSs="monofont">Pickler</tt>  and <TT CLass="monofont">Unpickler</tT> objects as created by the following two functions:</P>
+
+<PRe>
+
+<b>Pickler(</b><b><I>file</I></B> <B>[,</b> <b><i>bin</i></B><B>])</B> </Pre>
+
+<p>Creates a pickling object that writes data to the file object <i><tt class="monofont">file</tt></i>
+. <i><tt claSs="monofont">bin</tT></i>
+ specifies that data should be written in binary format. By default, a less efficient—but readable—text format is used.</p>
+
+<pRe>
+
+<b>Unpickler(</b><b><I>file</i></b><b>)</B> </PRE>
+
+<p>Creates an unpickling object that reads data from the file object <i><tt CLASs="monofont">file</tt></i>
+. The unpickler automatically detects whether the incoming data is in binary or text format.</P>
+
+<P>To serialize an object <I><Tt claSS="monofont">x</TT></i>
+ onto a file <i><tt class="monofont">f</tt></i>
+, the <tt class="monofont">dump()</tT> method of the <tt ClasS="monofont">pickler</tt> object is used. For example:</p>
+
+<pRe>
+
+f = open('myfile', 'w') 
+p = pickle.Pickler(f)     # Send pickled data to file f 
+p.dump(x)                  # Dump x </prE>
+
+<P>To later unpickle the object from the file, do the following:</P>
+
+<Pre>
+
+f = open('myfile') 
+u = pickle.Unpickler(f) 
+x = u.load()               # Restore x from file f </prE>
+
+<P>Multiple calls to the <TT clasS="monofont">dump()</TT> and <Tt claSS="monofont">load()</TT> methods are allowed, provided that the sequence of <tt class="monofont">load()</tt> calls used to restore a collection of previously stored objects matches the sequence of <tt class="monofont">dump()</tt> calls used during the pickling process.</p>
+
+<p>The following functions are available as shortcuts to common pickling operations:</P>
+
+<prE>
+
+<b>dump(</b><b><I>object</i></b><b>,</b> <B><i>file</i></b> <B>[,</B> <B><I>bin</i></b><b>])</b> </PRE>
+
+<P>Dumps a pickled representation of <i><tt cLASS="monofont">object</tt></i>
+ to the file object <i><TT CLass="monofont">file</tt></i>
+. Same as <tt class="monofont">Pickler(</tt><i><tt clAss="monofont">file</Tt></i>
+<tT clasS="monofont">, </tt><i><TT CLass="monofont">bin</tT></I>
+<TT clasS="monofont">).dump(</TT><I><tt clASS="monofont">object</Tt></i>
+<tt class="monofont">)</tt>.</p>
+
+<pre>
+
+<b>dumps(</b><b><i>object</i></B> <b>[,</b> <B><i>bin</i></b><B>])</b> </pre>
+
+<P>Same as <tt cLASS="monofont">dump()</tt>, but returns a string containing the pickled data.</p>
+
+<pRE>
+
+<B>load(</B><b><i>file</i></b><B>)</B> </PRe>
+
+<p>Loads a pickled representation of an object from the file object <i><tT CLAss="monofont">file</tt></i>
+. Same as <tt class="monofont">Unpickler(</tt><i><tt claSs="monofont">file</tT></i>
+<tt Class="monofont">).load()</Tt>.</p>
+
+<pRE>
+
+<B>loads(</B><b><i>string</i></b><B>)</B> </PRe>
+
+<p>Same as <tt CLASs="monofont">load()</tt>, but reads the pickled representation of an object from a string.</p>
+
+<P>The following objects can be pickled:</P>
+
+<UL>
+<li>
+<p><tt class="monofont">None</tt></p>
+</li>
+<li>
+<p>Integers, long integers, floating-point numbers, and complex numbers</p>
+</lI>
+<li>
+<P>Tuples, lists, and dictionaries containing only pickleable objects</p>
+</li>
+<Li>
+<p>Normal and Unicode strings</p>
+</lI>
+<li>
+<p>Classes defined at the top level of a module</P>
+</LI>
+<Li>
+<p>Instances of classes defined at the top level of a module</p>
+</lI>
+</UL>
+<P>When class instances are pickled, their corresponding class definition must appear at the top level of a module (that is, no nested classes). When instances are unpickled, the module in which their class definition appeared is automatically imported. In addition, when instances are re-created, their <tt clASS="monofont">_ _init_ _()</Tt> method is not invoked. If it’s necessary to call <tt cLASS="monofont">_ _init_ _()</tt> when unpickling, the class must define a special  method <tt class="monofont">_ _getinitargs_ _()</tt> that returns a tuple of arguments to be supplied to <tt class="monofont">_ _init_ _()</tt>. If present, <Tt cLass="monofont">pickle</Tt>  will call this function and encode the constructor arguments in the byte stream for use when unpickling.</p>
+
+<p>It’s also worth noting that when pickling class instances in which the corresponding class definition appears in <tT claSS="monofont">_ _main_ _</TT>, that class definition must be manually reloaded prior to unpickling a saved object (because there’s no way for the interpreter to know how to automatically load the necessary class definitions back into <tt clASS="monofont">_ _main_ _</Tt> when unpickling).</p>
+
+<p>A class can define customized methods for saving and restoring its state by implementing the special methods <tT CLAss="monofont">_ _getstate_ _()</tt> and <TT CLass="monofont">_ _setstate_ _()</tt>. The <tt class="monofont">_ _getstate_ _()</tt> method must return a pickleable object (such as a string) representing the state of the object. The <tt clasS="monofont">_ _setstate_ _()</tt> method accepts the pickled object and restores its state. If no <Tt clAss="monofont">_ _getstate_ _()</tt> method is found, <Tt clASS="monofont">pickle</Tt> simply pickles an object’s <tt cLASS="monofont">_ _dict_ _</tt> attribute.</p>
+
+<p>When an attempt is made to pickle an unsupported object type, the <TT CLass="monofont">pickle.PicklingError</tT>  exception is raised. If an error occurs while unpickling, the <TT Class="monofont">pickle.UnpicklingError</tt>  exception is raised.</p>
+
+
+<h5>Notes</h5>
+<ul>
+<li>
+<p>Recursive objects (objects containing references to themselves) and object sharing are handled correctly. However, if the same object is dumped to a <tt clasS="monofont">Pickler</tt>  object more than once, only the first instance is saved (even if the object has changed between dumps).</P>
+</li>
+<lI>
+<p>When class instances are pickled, their class definitions and associated code for methods are not saved. This allows classes to be modified or upgraded while still being able to read data saved from older versions.</p>
+</li>
+<Li>
+<p><tT CLAss="monofont">pickle</tt>  defines <TT CLass="monofont">Pickler</tT>  and <TT Class="monofont">Unpickler</TT>  as classes that can be subclassed if necessary.</P>
+</Li>
+<li>
+<p>The <tt class="monofont">cPickle</tt>  module is significantly faster than <tt class="monofont">pickle</Tt>, but doesn’t allow subclassing of the <tT claSs="monofont">Pickler</tt>  and <tT claSS="monofont">Unpickler</TT>  objects.</p>
+</li>
+<lI>
+<P>The data format used by <TT clasS="monofont">pickle</TT>  is Python-specific and shouldn’t be assumed to be compatible with any external standards such as XDR.</P>
+</li>
+<li>
+<P>Any object that provides <TT Class="monofont">write()</tt>, <tt class="monofont">read()</tt>, and <tt claSs="monofont">readline()</tT> methods can be used in place of a file.</p>
+</li>
+<Li>
+<p>The <tt ClasS="monofont">copy_reg</TT>  module is used to register new types with the <Tt claSS="monofont">pickle</TT>  module.</p>
+</li>
+</uL>
+<P>? <B>See Also</B> <a hreF="111#34.html">shelve</A> (153), <A Href="108#20.html">marshal</a> (111), <a href="108#10.html">copy_reg</a> (109).</p>
+
+<a name="32"></a>
+<h4><tt ClaSs="monofont">site</tt></H4>
+<p>The <tt cLass="monofont">site</TT>  module is automatically imported when the interpreter starts and is used to perform site-wide initialization of packages and to set the default Unicode encoding. The module works by first creating a list of up to four directory names created from the values of <TT clasS="monofont">sys.prefix</TT>  and <Tt claSS="monofont">sys.exec_prefix</TT>. On Windows or Macintosh platforms, the list of directories is as follows:</p>
+
+<pre>
+
+[ sys.prefix, 
+   sys.exec_prefix ] </PRE>
+
+<P>On UNIX, the directories are as follows:</p>
+
+<pre>
+
+[ sys.prefix + '/lib/pythonvers/site-packages', 
+  sys.prefix + '/lib/site-python', 
+  sys.exec_prefix + '/lib/pythonvers/site-packages', 
+  sys.exec_prefix + '/lib/site-python' ] </pre>
+
+<p>For each directory in the list, a check is made to see whether the directory exists. If so, it’s added to the <tt class="monofont">sys.path</tt>  variable. Next, a check is made to see whether it contains any path configuration files (files with a <tt cLasS="monofont">.pth</tt>  suffix). A path configuration file contains a list of directories relative to the location of the path file that should be added to <tT clasS="monofont">sys.path</tt>. For example:</p>
+
+<PRE>
+
+# foo package configuration file 'foo.pth' 
+foo 
+bar </Pre>
+
+<p>Each directory in the path configuration file must be listed on a separate line. Comments and blank lines are ignored. When the <tT CLAss="monofont">site</tt>  module loads the file, it checks to see whether each directory exists. If so, the directory is added to <TT CLass="monofont">sys.path</tT>. Duplicated items are added to the path only once.</P>
+
+<P>After all paths have been added to <Tt class="monofont">sys.path</tt>, an attempt is made to import a module named <tt class="monofont">sitecustomize</tt>. The purpose of this module is to perform any additional (and arbitrary) site customization. If the import of <tt cLasS="monofont">sitecustomize</tt>  fails with an <tT clasS="monofont">ImportError</tt>, the error is silently ignored.</p>
+
+<P>The <TT Class="monofont">site</TT>  module is also responsible for setting the default Unicode encoding. By default, the encoding is set to <TT clasS="monofont">'ascii'</TT>. However, the encoding can be changed by placing code in <Tt claSS="monofont">sitecustomize.py</TT>  that calls <tt class="monofont">sys.setdefaultencoding()</tt> with a new encoding such as <tt class="monofont">'utf-8'</tt>. If you’re willing to experiment, the source code of <tt ClaSs="monofont">site</tt> can also be modified to automatically set the encoding based on the machine’s locale settings.</P>
+
+<p>? <b>See Also</b> <a Href="108#34.html">sys</A> (116), <A HRef="82.html">Chapter 8</a>, <a HREF="97.html">Chapter 10</a>.</p>
+
+<a nAME="34"></A>
+<h4><tt cLASS="monofont">sys</tt></h4>
+<p>The <tt class="monofont">sys</tt>  module contains variables and functions that pertain to the operation of the interpreter and its environment. The following variables are defined:</p>
+
+<pre>
+
+<b>argv</b> </pRe>
+
+<p>List of command-line options passed to a program. <Tt clAss="monofont">argv[0]</tt> is the name of the program.</P>
+
+<pre>
+
+<B>builtin_module_names</B> </PRe>
+
+<p>Tuple containing names of modules built into the Python executable.</p>
+
+<pRE>
+
+<B>byteorder</B> </pre>
+
+<p>Native byte-ordering of the machine— <TT CLass="monofont">'little'</tT> for little-endian or <TT Class="monofont">'big'</tt> for big-endian.</p>
+
+<pre>
+
+<b>copyright</b> </pre>
+
+<p>String containing copyright message.</p>
+
+<pre>
+
+<B>_ _displayhook_ _</b> </pRe>
+
+<p>Original value of the <tT clasS="monofont">displayhook()</tt> function.</p>
+
+<PRE>
+
+<B>_ _excepthook_ _</b> </pre>
+
+<P>Original value of the <TT Class="monofont">excepthook()</TT> function.</P>
+
+<Pre>
+
+<b>dllhandle</b> </PRE>
+
+<P>Integer handle for the Python DLL (Windows).</p>
+
+<pre>
+
+<b>exec_prefix</b> </pre>
+
+<p>Directory where platform-dependent Python files are installed.</p>
+
+<pre>
+
+<b>executable</b> </pre>
+
+<p>String containing the name of the interpreter executable.</P>
+
+<prE>
+
+<b>exitfunc</b> </pRe>
+
+<p>Function object that’s called when the interpreter exits. It can be set to a function taking no parameters. By default, <tt ClasS="monofont">exitfunc</TT>  is not defined. Direct use of this variable is discouraged—use the <Tt claSS="monofont">atexit</TT>  module instead.</p>
+
+<p>? <b>See Also</b> <A HREf="108#2.html">atexit</a> (108).</p>
+
+<pRE>
+
+<B>hexversion</B> </pre>
+
+<p>Integer whose hexadecimal representation encodes the version information contained in <tt class="monofont">sys.version_info</tt>. The value of this integer is always guaranteed to increase with newer versions of the interpreter.</p>
+
+<pre>
+
+<b>last_type, last_value, last_traceback</b> </pRe>
+
+<p>These variables are set when an unhandled exception is encountered and the interpreter prints an error message. <Tt clAss="monofont">last_type</tt>  is the last exception type, <Tt clASS="monofont">last_value</Tt>  is the last exception value, and <tt cLASS="monofont">last_traceback</tt>  is a stack trace. <i>Note:</i> The use of these variables is not thread-safe. <TT CLass="monofont">sys.exc_info()</tT> should be used instead.</P>
+
+<PRe>
+
+<b>maxint</b> </pre>
+
+<p>Largest integer supported by the integer type.</p>
+
+<pre>
+
+<b>modules</b> </pre>
+
+<p>Dictionary mapping module names to module objects.</p>
+
+<prE>
+
+<b>path</b> </Pre>
+
+<p>List of strings specifying the search path for modules. See <A href="82.html">Chapter 8</A>, “Modules and Packages.”</p>
+
+<prE>
+
+<B>platform</B> </Pre>
+
+<p>Platform identifier string, such as <tT CLAss="monofont">'linux-i386'</tt>.</P>
+
+<PRE>
+
+<b>prefix</b> </prE>
+
+<P>Directory where platform-independent Python files are installed.</P>
+
+<Pre>
+
+<b>ps1, ps2</b> </pre>
+
+<p>Strings containing the text for the primary and secondary prompts of the interpreter. Initially, <tt class="monofont">ps1</tt>  is set to <tt cLasS="monofont">'&gt;&gt;&gt; '</tt>  and <tT clasS="monofont">ps2</tt> is set to <tT CLAss="monofont">'... '</tt>. The <TT CLass="monofont">str()</tT> method of whatever object is assigned to these values is evaluated to generate the prompt text.</P>
+
+<PRe>
+
+<b>stdin, stdout, stderr</b> </pRE>
+
+<P>File objects corresponding to standard input, standard output, and standard error. <Tt class="monofont">stdin</tt>  is used for the <tt class="monofont">raw_input()</tt>  and <tt cLasS="monofont">input()</tt> functions. <tT clasS="monofont">stdout</tt> is used for <tT CLAss="monofont">print</tt> and the prompts of <TT CLass="monofont">raw_input()</tT>  and <TT Class="monofont">input()</TT>. <TT class="monofont">stderr</tt> is used for the interpreter’s prompts and error messages. These variables can be assigned to any object that supports a <tt class="monofont">write()</tt> method operating on a single string argument.</p>
+
+<pre>
+
+<B>_ _stdin_ _, _ _stdout_ _, _ _stderr_ _</b> </pRe>
+
+<p>File objects containing the values of <tT clasS="monofont">stdin</tt>, <tT CLAss="monofont">stdout</tt>, and <TT CLass="monofont">stderr</tT> at the start of the interpreter.</P>
+
+<PRe>
+
+<b>tracebacklimit</b> </pRE>
+
+<P>Maximum number of levels of traceback information printed when an unhandled exception occurs. The default value is <Tt class="monofont">1000</tt>. A value of <tt class="monofont">0</tt> suppresses all traceback information and causes only the exception type and value to be printed.</p>
+
+<prE>
+
+<b>version</b> </Pre>
+
+<p>Version string.</P>
+
+<pre>
+
+<b>version_info</B> </pre>
+
+<P>Version information represented as a tuple <TT Class="monofont">(major, minor, micro, releaselevel, serial)</TT>. All values are integers except <TT clasS="monofont">releaselevel</TT>, which is a string <Tt claSS="monofont">'alpha'</TT>, <tt class="monofont">'beta'</tt>, <tt class="monofont">'candidate'</tt>, or <tt ClaSs="monofont">'final'</tt>.</P>
+
+<pre>
+
+<b>warnoptions</B> </pre>
+
+<P>List of warning options supplied to the interpreter with the <TT Class="monofont">-W</TT>  command-line option.</P>
+
+<Pre>
+
+<b>winver</b> </PRE>
+
+<P>The version number used to form registry keys on Windows.</p>
+
+<p>The following functions are available:</p>
+
+<pRE>
+
+<B>displayhook([</B><b><i>value</i></b><b>])</b> </pre>
+
+<p>This function is called to print the result of an expression when the interpreter is running in interactive mode. By default, the value of <tt class="monofont">repr(</tt><i><Tt cLass="monofont">value</Tt></i>
+<tt ClasS="monofont">)</TT> is printed to standard output and <I><tt clASS="monofont">value</Tt></i>
+ is saved in the variable _ _ <tt CLASs="monofont">builtin_ _._</tt>. <tT CLAss="monofont">displayhook</tt> can be redefined to provide different behavior if desired.</p>
+
+<pre>
+
+<b>excepthook(type, value, traceback)</b> </pre>
+
+<p>This function is called when an uncaught exception occurs. <i><tt claSs="monofont">type</tT></i>
+ is the exception class, <i><tT clasS="monofont">value</tt></i>
+ is the value supplied by the <TT CLass="monofont">raise</tT>  statement, and <I><TT clasS="monofont">traceback</TT></I>
+ is a traceback object. The default behavior is to print the exception and traceback to standard error. However, this function can be redefined to provide alternative handling of uncaught exceptions (which may be useful in specialized applications such as debuggers or CGI scripts).</p>
+
+<pre>
+
+<B>exc_info()</B> </PRe>
+
+<p>Returns a tuple (<i><tt class="monofont">type</tt></i>
+<i>,</i> <i><tt clAss="monofont">value</Tt></i>
+, <i><Tt claSs="monofont">traceback</tt></I>
+) containing information about the exception that’s currently being handled. <I><TT clasS="monofont">type</TT></I>
+ is the exception type, <i><tt cLASS="monofont">value</tt></i>
+ is the exception parameter passed to raise, and <i><TT CLass="monofont">traceback</tt></i>
+ is a traceback object containing the call stack at the point where the exception occurred. Returns <tt class="monofont">None</tt>  if no exception is currently being handled.</p>
+
+<pre>
+
+<b>exit([</B><b><i>n</I></b><b>])</b> </Pre>
+
+<p>Exits from Python by raising the <tT claSS="monofont">SystemExit</TT>  exception. <i><tt cLASS="monofont">n</tt></i>
+ is an integer exit code indicating a status code. A value of <tT CLAss="monofont">0</tt> is considered normal (the default); nonzero values are considered abnormal. If a noninteger value is given to <TT CLass="monofont">n</tt>, it’s printed to  <tt class="monofont">sys.stderr</tt>  and an exit code of <tt clasS="monofont">1</tt> is used.</P>
+
+<pre>
+
+<B>getdefaultencoding()</b> </pre>
+
+<P>Gets the default string encoding in Unicode conversions. Returns a value such as <tt cLASS="monofont">'ascii'</tt>  or <tt CLASs="monofont">'utf-8'</tt>. The default encoding is set by the <tT CLAss="monofont">site</tt> module.</P>
+
+<PRE>
+
+<b>_getframe([</b><b><i>depth</i></b><b>])</b> </pre>
+
+<p>Returns a frame object from the call stack. If <i><tt class="monofont">depth</Tt></i>
+ is omitted or is zero, the topmost frame is returned. Otherwise, the frame for that many calls below the current frame is returned. For example, <Tt clAss="monofont">_getframe(1)</tt> returns the caller’s frame. Raises <Tt clASS="monofont">ValueError</Tt>  if <i><tt CLASs="monofont">depth</tt></i>
+ is invalid.</P>
+
+<PRE>
+
+<b>getrecursionlimit()</b> </prE>
+
+<P>Returns the recursion limit for functions.</P>
+
+<Pre>
+
+<b>getrefcount(</b><b><i>object</i></b><b>)</b> </pre>
+
+<p>Returns the reference count of <i><tt claSs="monofont">object</tT></i>
+.</p>
+
+<pRe>
+
+<b>setcheckinterval(</b><b><I>n</i></b><b>)</B> </PRE>
+
+<p>Sets the number of Python virtual machine instructions that must be executed by the interpreter before it checks for periodic events such as signals and thread context switches. The default value is <tt cLASS="monofont">10</tt>.</p>
+
+<pRE>
+
+<B>setdefaultencoding(</B><b><i>enc</i></b><B>)</B> </PRe>
+
+<p>Sets the default encoding. <i><tt class="monofont">enc</tt></i>
+ is a string such as <tt class="monofont">'ascii'</Tt> or <tT claSs="monofont">'utf-8'</tt>. This function is only defined inside the <tT claSS="monofont">site</TT>  module. It can be called from user-definable <tt clASS="monofont">sitecustomize</Tt>  modules.</p>
+
+<p>? <b>See Also</B> <A HRef="108#32.html">site</a> (115).</p>
+
+<PRE>
+
+<B>setprofile(</b><b><i>pfunc</i></b><b>)</b> </pre>
+
+<p>Sets the system profile function that can be used to implement a source code profiler. See the later section “<a href="119.html">The Python Profiler</a>” for information about the Python profiler.</p>
+
+<prE>
+
+<b>setrecursionlimit(</b><B><i>n</i></b><B>)</b> </pre>
+
+<P>Changes the recursion limit for functions. The default value is <tt cLASS="monofont">1000</tt>.</p>
+
+<pRE>
+
+<B>settrace(</B><b><i>tfunc</i></b><B>)</B> </PRe>
+
+<p>Sets the system trace function, which can be used to implement a debugger. See the later section “<a hREF="118.html">The Python Debugger</A>” for information about the Python debugger.</p>
+
+
+<h4><tt class="monofont">traceback</tt></h4>
+<p>The <tt class="monofont">traceback</Tt>  module is used to gather and print stack traces of a program after an exception has occurred. The functions in this module operate on traceback objects such as the third item returned by the <tT claSs="monofont">sys.exc_info()</tt> function.</p>
+
+<Pre>
+
+<b>print_tb(</B><B><I>traceback</I></b> <b>[,</b> <b><I>limit</I></B> <B>[,</b> <b><i>file</i></B><B>]])</B> </Pre>
+
+<p>Prints up to <i><TT CLass="monofont">limit</tt></i>
+ stack trace entries from <i><tt class="monofont">traceback</tt></i>
+ to the file <i><tt ClaSs="monofont">file</tt></I>
+. If <i><tt cLass="monofont">limit</TT></I>
+ is omitted, all the entries are printed. If <I><tt clASS="monofont">file</Tt></i>
+ is omitted, the output is sent to <tt CLASs="monofont">sys.stderr</tt>.</p>
+
+<PRE>
+
+<B>print_exception(</b><b><i>type</i></b><b>,</b> <b><i>value</i></b><b>,</b> <b><i>traceback</i></b> <b>[,</b> <b><I>limit</i></b> <B>[,</b> <b><i>file</I></b><b>]])</b> </pRe>
+
+<p>Prints exception information and a stack trace to <i><TT CLass="monofont">file</tT></I>
+. <I><Tt claSS="monofont">type</TT></i>
+ is the exception type and <i><tt CLASs="monofont">value</tt></i>
+ is the exception value. <i><tt class="monofont">limit</tt></i>
+ and <i><tt clAss="monofont">file</Tt></i>
+ are the same as in <tT clasS="monofont">print_tb()</tt>.</p>
+
+<PRE>
+
+<B>print_exc([</b><b><i>limit</i></B> <B>[,</B> <B><i>file</i></b><b>]])</B> </PRE>
+
+<p>Same as <tt cLASS="monofont">print_exception()</tt> applied to the information returned by the <tt class="monofont">sys.exc_info()</tt> function.</p>
+
+<pre>
+
+<b>print_last([</b><b><i>limit</i></B> <b>[,</b> <B><i>file</i></b><B>]])</b> </pre>
+
+<P>Same as <tt cLASS="monofont">print_exception(sys.last_type, sys.last_value, sys.last_traceback, </tt><i><tT CLAss="monofont">limit</tt></I>
+<TT Class="monofont">, </TT><I><Tt class="monofont">file</tt></i>
+<tt class="monofont">)</tt>.</p>
+
+<pRe>
+
+<b>print_stack([</B><b><i>frame</i></B> <b>[,</b> <b><i>limit</I></b> <b>[,</b> <B><I>file</I></B><b>]]])</b> </prE>
+
+<P>Prints a stack trace from the point at which it’s invoked. <I><Tt claSS="monofont">frame</TT></i>
+ specifies an optional stack frame from which to start. <i><tt CLASs="monofont">limit</tt></i>
+ and <i><tt class="monofont">file</tt></i>
+ have the same meaning as for <tt claSs="monofont">print_tb()</tT>.</p>
+
+<prE>
+
+<b>extract_tb(</b><b><i>traceback</I></b> <b>[,</b> <B><I>limit</I></B><b>])</b> </prE>
+
+<P>Extracts the stack trace information used by <TT clasS="monofont">print_tb()</TT>.</P>
+
+<pre>
+
+<b>extract_stack([</B><B><I>frame</I></b> <b>[,</b> <b><i>limit</i></b><b>]])</b> </pre>
+
+<p>Extracts the stack trace information used by <tt class="monofont">print_stack()</Tt>.</p>
+
+<Pre>
+
+<b>format_list(</B><b><i>list</i></b><B>)</b> </prE>
+
+<P>Formats stack trace information for printing.</P>
+
+<Pre>
+
+<b>format_exception_only(</b><B><I>type</I></B><b>,</b> <b><i>value</I></B><B>)</B> </pre>
+
+<p>Formats exception information for printing.</P>
+
+<PRE>
+
+<b>format_exception(</b><b><i>type</i></b><b>,</b> <b><i>value</i></b><b>,</b> <b><i>traceback</i></b> <b>[,</b> <B><i>limit</i></B><b>])</b> </pRe>
+
+<p>Formats an exception and stack trace for printing.</p>
+
+<pRe>
+
+<b>format_tb(</b><B><I>traceback</I></B> <b>[,</b> <b><i>limit</I></B><B>])</B> </pre>
+
+<p>Same as <TT CLass="monofont">format_list(extract_tb(</tT><I><TT class="monofont">traceback</tt></i>
+<tt class="monofont">, </tt><i><tt ClaSs="monofont">limit</tt></I>
+<tt clAss="monofont">))</tT>.</P>
+
+<PRe>
+
+<b>format_stack([</b><b><I>frame</I></B> <B>[,</b> <b><i>limit</i></B><B>]])</B> </Pre>
+
+<p>Same as <tT CLAss="monofont">format_list(extract_stack(</tt><i><tt class="monofont">frame</tt></i>
+<tt claSs="monofont">, </tT><i><tt Class="monofont">limit</Tt></i>
+<tT CLAss="monofont">))</tt>.</P>
+
+<PRE>
+
+<b>tb_lineno(</b><b><i>traceback</I></B><B>)</B> </pre>
+
+<p>Returns the line number set in a traceback object.</P>
+
+<P>Additional details are available in the online documentation.</P>
+
+<P>? <b>See Also</b> <a href="108#34.html">sys</a> (116),“<a href="118.html">The Python Debugger</a>” (289), <a href="33.html">Chapter 3</a>, and <A taRget="_blank" Href="http://www.python.org/doc/lib/module-traceback.html">http://www.python.org/doc/lib/module-traceback.html</a>.</P>
+
+
+<h4><tt CLASs="monofont">types</tt></h4>
+<P>The <TT Class="monofont">types</TT>  module defines names for all the built-in object types. The contents of this module are often used in conjunction with the built-in <TT clasS="monofont">isinstance()</TT> function and other type-related operations. The module defines the following variables:</P>
+
+<p><table border="1" cellspacIng="0" CellPaddiNg="1" wiDTH="100%">
+<ColgrOUP Span="2">
+<tR>
+<TH ValigN="top">
+<FONt size="2">
+<p><b>Variable</b></p>
+</font></th>
+<th valIgn="top">
+<Font Size="2">
+<p><B>Description</b></p>
+</fONT></Th>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">BufferType</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>Buffer object.</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">BuiltinFunctionType</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Built-in functions.</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">CodeType</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>Code object.</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">ComplexType</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>Complex numbers.</p>
+</Font></Td>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">ClassType</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>User-defined class.</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">DictType</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p>Dictionaries.</p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">DictionaryType</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>Alternative name for dictionaries.</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">EllipsisType</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Type of Ellipsis.</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">FileType</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>File object.</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">FloatType</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Floating-point numbers.</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">FrameType</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Execution frame object.</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">FunctionType</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>User-defined functions and lambdas.</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">InstanceType</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Instance of a user-defined class.</p>
+</FONT></td>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">IntType</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Integers.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">LambdaType</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Alternative name for <TT Class="monofont">FunctionType</TT>.</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">ListType</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Lists.</p>
+</FONT></td>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">LongType</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Long integers.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">MethodType</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>User-defined class method.</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">ModuleType</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Modules.</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">NoneType</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Type of <Tt claSS="monofont">None</TT>.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">SliceType</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Extended slice object. Returned by <TT Class="monofont">slice()</TT>.</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">StringType</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Strings.</p>
+</FONT></td>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">TracebackType</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Traceback objects.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">TupleType</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Tuples.</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">TypeType</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Type of type objects.</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">UnboundMethodType</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Alternative name for <Tt claSS="monofont">MethodType</TT>.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">UnicodeType</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Unicode string.</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">XRangeType</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Object created by using <tt CLASs="monofont">xrange()</tt>.</p>
+</FONT></td>
+</tr>
+</colgroup>
+</table></p>
+
+
+<h5>Example</h5>
+<Pre>
+
+import types 
+if isinstance(s, types.ListType): 
+     print 'Is a list' 
+else: 
+     print 'Is not a list' </Pre>
+
+<p>? <B>See Also</b> <a hrEf="33.html">Chapter 3</a>.</p>
+
+<A NAMe="42"></a>
+<h4><tT CLAss="monofont">warnings</tt></H4>
+<P>The <TT clasS="monofont">warnings</TT>  module provides functions to issue and filter warning messages. Unlike exceptions, warnings are intended to alert the user to potential problems, but without generating an exception or causing execution to stop. One of the primary uses of the <Tt class="monofont">warnings</tt>  module is to inform users about deprecated language features that may not be supported in future versions of Python. For example:</p>
+
+<pre>
+
+&gt;&gt;&gt; import regex 
+_ _main_ _:1: DeprecationWarning: the regex module is deprecated; please use the re 
+<img bordeR="0" alIgn="left" wIdth="14" hEighT="9" SRC="graphics/ccc.gif" alt="graphics/ccc.gif">module 
+&gt;&gt;&gt; </pRE>
+
+<P>Like exceptions, warnings are organized into a class hierarchy that describe general categories of warnings. The following table lists the currently supported categories:</P>
+
+<p><tabLE BOrder="1" CELLspacing="0" cellpadding="1" wiDth="100%">
+<ColgRoup sPan="2">
+<tR>
+<TH ValigN="top">
+<FONt sizE="2">
+<P><B>Category</B></p>
+</fonT></TH>
+<Th valign="top">
+<font size="2">
+<p><b>Description</b></p>
+</fOnt></Th>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">Warning</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>Base class of all warning types</p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">UserWarning</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p>User-defined warning</p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">DeprecationWarning</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>Deprecated feature</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">SyntaxWarning</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p>Potential syntax problem</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">RuntimeWarning</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Potential runtime problem</p>
+</font></td>
+</tr>
+</colgroup>
+</TabLe></p>
+
+<p>Each of these classes is available in the <Tt claSs="monofont">_ _builtin_ _</tt> module as well as the <TT CLass="monofont">exceptions</tT> module. In addition, they’re instances of <TT Class="monofont">Exception</TT>. This makes it possible to easily convert warnings into errors.</P>
+
+<P>Warnings are issued using the <tt clASS="monofont">warn()</Tt> function. For example:</p>
+
+<pre>
+
+warnings.warn("feature X is deprecated.") 
+warnings.warn("feature Y might be broken.", RuntimeWarning) </pre>
+
+<p>If desired, warnings can be filtered. The filtering process can be used to alter the output behavior of warning messages, ignore warnings, or turn warnings into exceptions. The <tt class="monofont">filterwarnings()</tt> function is used to add a filter for a specific type of warning. For example:</p>
+
+<pRe>
+
+warnings.filterwarnings(action="ignore", 
+                        message=".*regex.*", 
+                        category=DeprecationWarning) 
+import regex       # Warning message disappears </pRe>
+
+<p>Limited forms of filtering can also be specified using the <tT clasS="monofont">-W</tt>  option to the interpreter. For example:</p>
+
+<PRE>
+
+% python -Wignore:the\ regex::DeprecationWarning </Pre>
+
+<p>The following functions are defined in the <tT CLAss="monofont">warnings</tt>  module:</P>
+
+<PRE>
+
+<b>warn(</b><b><i>message</I></B><B>[,</B> <b><i>category</i></b><b>[,</b> <b><i>stacklevel</i></b><b>]])</b> </pre>
+
+<p>Issues a warning. <i><tt cLasS="monofont">message</tt></i>
+ is a string containing the warning message. <I><tt clAss="monofont">category</tT></I>
+ is the warning class, such as <TT clasS="monofont">DeprecationWarning</TT>. <I><tt clASS="monofont">stacklevel</Tt></i>
+ is an integer that specifies the stack frame from which the warning message should originate. By default, <i><tT CLAss="monofont">category</tt></i>
+ is <tt class="monofont">UserWarning</tt>  and <i><tt claSs="monofont">stacklevel</tT></i>
+ is <tt Class="monofont">1</Tt>.</p>
+
+<pRE>
+
+<B>warn_explicit(</B><b><i>message</i></b><B>,</B> <B><I>category</i></b><b>,</b> <B><I>filename</I></B><b>,</b> <b><i>lineno</I></B><B>[,</B> <b><i>module</i></b><b>[,</b> <b><i>registry</i></b><b>]])</b> </pre>
+
+<p>This is a low-level version of the <tt clAss="monofont">warn()</Tt>  function. <i><tT clasS="monofont">message</tt></i>
+ and <I><TT Class="monofont">category</TT></I>
+ have the same meaning as for <Tt claSS="monofont">warn()</TT>. <i><tt cLASS="monofont">filename</tt></i>
+, <i><tt class="monofont">lineno</tt></i>
+, and <i><tt claSs="monofont">module</tT></i>
+ explicitly specify the location of the warning. <i><tT clasS="monofont">registry</tt></i>
+ is an object representing all the currently active filters. If <I><TT Class="monofont">registry</TT></I>
+ is omitted, the warning message is not suppressed.</P>
+
+<pre>
+
+<b>showwarning(</B><B><I>message</I></b><b>,</b> <b><I>category</I></B><B>,</b> <b><i>filename</i></b><b>,</b> <b><i>lineno</i></b><b>[,</b> <b><i>file</i></b><b>])</b> </pRe>
+
+<p>Writes a warning to a file. If <I><tt cLass="monofont">file</tT></i>
+ is omitted, the warning is printed to <tt CLASs="monofont">sys.stderr</tt>.</p>
+
+<PRE>
+
+<B>formatwarning(</b><b><i>message</i></B><B>,</B> <B><i>category</i></b><b>,</B> <B><I>filename</I></b><b>,</b> <b><i>lineno</i></b><b>)</b> </pre>
+
+<p>Creates the formatted string that’s printed when a warning is issued.</p>
+
+<pre>
+
+<b>filterwarnings(</b><b><I>action</i></b><B>[,</b> <b><i>message</I></b><b>[,</b> <b><I>category</i></b><b>[,</B> <B><I>module</I></b><b>[,</b> <b><I>lineno</I></B><B>[,</b> <b><i>append</i></B><B>]]]]])</B> </Pre>
+
+<p>Adds an entry to the list of warning filters. <i><TT CLass="monofont">action</tt></i>
+ is one of <tt class="monofont">'error'</tt>, <tt claSs="monofont">'</tT><i><tt Class="monofont">ignore</Tt></i>
+<tT CLAss="monofont">'</tt>, <TT CLass="monofont">'always'</tT>, <TT Class="monofont">'default'</TT>, <TT class="monofont">'once'</tt>, or <tt class="monofont">'module'</tt>, as described in the following table. <i><tt cLasS="monofont">message</tt></i>
+ is a regular expression string used to match against the warning message. <Tt claSs="monofont">category</tt>  is a warning class such as <TT CLass="monofont">DeprecationError</tT>. <I><TT clasS="monofont">module</TT></I>
+ is a regular expression string that’s matched against the module name. <i><tt cLASS="monofont">lineno</tt></i>
+ is a specific line number or <tt class="monofont">0</tt> to match against all lines. <i><tt class="monofont">append</Tt></i>
+ specifies that the filter should be appended to the list of all filters (checked last). By default, new filters are added to the beginning of the filter list. If any argument is omitted, it defaults to a value that matches all warnings.</P>
+
+<p><taBle boRder="1" CELLspacING="0" CellpADDIng="1" wiDTH="100%">
+<Colgroup span="2">
+<tr>
+<th valigN="top">
+<foNt siZe="2">
+<p><b>Action</b></P>
+</fonT></TH>
+<Th valIGN="top">
+<Font sIZE="2">
+<P><b>Description</b></p>
+</fONT></Th>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">'error'</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Convert the warning into an exception.</P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">'ignore'</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Ignore the warning.</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">'always'</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Always print a warning message.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">'default'</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>Print the warning once for each location where the warning occurs.</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">'module'</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p>Print the warning once for each module in which the warning occurs.</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">'once'</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>Print the warning once regardless of where it occurs.</p>
+</fonT></TD>
+</Tr>
+</colGROUp>
+</tabLE></P>
+
+<Pre>
+
+<b>resetwarnings()</b> </pre>
+
+<p>Resets all the warning filters. This discards all previous calls to <tt class="monofont">filterwarnings()</tt> as well as options specified with <tt cLasS="monofont">-W</tt>.</p>
+
+
+<H5>Notes</h5>
+<ul>
+<lI>
+<p>The list of currently active filters is found in the <tt CLASs="monofont">warnings.filters</tt>  variable.</p>
+</LI>
+<LI>
+<p>The <tt cLASS="monofont">warnings</tt>  module was first added to Python 2.1.</p>
+</lI>
+<LI>
+<P>When warnings are converted to exceptions, the warning category becomes the exception type. For instance, an error on <tt class="monofont">DeprecationWarning</tt>  raises a <tt class="monofont">DeprecationWarning</tt>  exception.</p>
+</lI>
+<li>
+<P>The <tt cLass="monofont">-W</tT>  option can be used to specify a warning filter on the command line. The general format of this option is as follows:</p>
+
+<prE>
+
+-Waction:message:category:module:lineno </PRE>
+
+<p>Each part has the same meaning as in the <tt cLASS="monofont">filterwarning()</tt> function. However, in this case the <i><tT CLAss="monofont">message</tt></I>
+ and <I><TT class="monofont">module</tt></i>
+ fields specify substrings (instead of regular expressions) for the first part of the warning message and module name to be filtered.</p>
+</li>
+</ul>
+<a name="46"></a>
+<h4><Tt cLass="monofont">weakref</Tt></h4>
+<p>The <tT claSS="monofont">weakref</TT>  module provides support for weak references. Normally, a reference to an object causes its reference count to increase—effectively keeping the object alive until the reference goes away. A <i>weak reference</i>, on the other hand, provides a way of referring to an object without increasing its reference count. A weak reference is created using the <tt CLASs="monofont">weakref.ref()</tt> function as follows:</p>
+
+<PRE>
+
+&gt;&gt;&gt; class A: pass 
+&gt;&gt;&gt; a = A() 
+&gt;&gt;&gt; ar = weakref.ref(a)        # Create a weak reference to a 
+&gt;&gt;&gt; print ar 
+&lt;weakref at 0x135a24; to 'instance' at 0x12ce0c&gt; </Pre>
+
+<p>Once created, the original object can be obtained from a weak reference by simply calling it as a function with no arguments. If the underlying object still exists, it will be returned. Otherwise, <tT CLAss="monofont">None</tt>  is returned to indicate that the original object no longer exists. For example:</p>
+
+<pre>
+
+&gt;&gt;&gt; print ar()                    # Print original object 
+&lt;_ _main_ _.A instance at 12ce0c&gt; 
+&gt;&gt;&gt; del a                         # Delete the original object 
+&gt;&gt;&gt; print ar()                    # a is gone, so this now returns None 
+None 
+&gt;&gt;&gt; </pre>
+
+<p>The following functions are defined by the <tt class="monofont">weakref</tT>  module:</p>
+
+<pRe>
+
+<b>ref(</b><B><i>object</i></b><b>[,</B> <b><i>callback</i></B><B>])</B> </Pre>
+
+<p>Creates a weak reference to <i><TT CLass="monofont">object</tT></I>
+. <I><Tt claSS="monofont">callback</TT></i>
+ is an optional function that will be called when <i><tt class="monofont">object</tt></i>
+ is about to be destroyed. If supplied, this function should accept a single argument that’s the corresponding weak reference object. More than one weak reference may refer to the same object. In this case, the <i><tt class="monofont">callback</Tt></i>
+ functions will be called in order from the most recently applied reference to the oldest reference. <I><tt cLass="monofont">object</tT></i>
+ can be obtained from a weak reference by calling the returned weak reference object as a function with no arguments. If the original object no longer exists, <tt CLASs="monofont">None</tt>  will be returned.</p>
+
+<PRE>
+
+<B>proxy(</b><b><i>object</i></B><B>[,</B> <B><i>callback</i></b><b>])</B> </PRE>
+
+<p>Creates a proxy using a weak reference to <i><tt class="monofont">object</tt></i>
+. The returned proxy object is really a wrapper around the original object that provides access to its attributes and methods. As long as the original object exists, manipulation of the proxy object will transparently mimic the behavior of the underlying object. On the other hand, if the original object has been destroyed, operations on the proxy will raise a <tt class="monofont">weakref.ReferenceError</tT> to indicate that the object no longer exists. <i><tT claSs="monofont">callback</tt></i>
+ is a callback function with the same meaning as for the <Tt clASS="monofont">ref()</Tt> function. The type of a proxy object is either <tt cLASS="monofont">ProxyType</tt> or <tt CLASs="monofont">CallableProxyType</tt>, depending on whether the original object is callable.</p>
+
+<PRE>
+
+<B>getweakrefcount(</b><b><i>object</i></b><b>)</b> </pre>
+
+<p>Returns the number of weak references and proxies that refer to <i><tt class="monofont">object</tT></i>
+.</p>
+
+<Pre>
+
+<b>getweakrefs(</B><b><i>object</i></b><B>)</b> </prE>
+
+<P>Returns a list of all weak reference and proxy objects that refer to <I><Tt claSS="monofont">object</TT></i>
+.</p>
+
+<prE>
+
+<B>WeakKeyDictionary([</B><B><i>dict</i></b><b>])</B> </PRE>
+
+<p>Creates a dictionary in which the keys are referenced weakly. When there are  no more strong references to a key, the corresponding entry in the dictionary is automatically removed. If supplied, the items in <i><tt class="monofont">dict</tt></i>
+ are initially added to the returned <tt class="monofont">WeakKeyDictionary</tT>  object. Because only certain types of objects can be weakly referenced, there are many restrictions on acceptable key values. In particular, built-in strings cannot be used as weak keys. However, instances of user-defined classes that define a <tt ClasS="monofont">_ _hash_ _()</tt> method can be used as keys.</p>
+
+<pRe>
+
+<b>WeakValueDictionary([</b><B><I>dict</I></B><b>])</b> </prE>
+
+<P>Creates a dictionary in which the values are referenced weakly. When there are no more strong references to a value, corresponding entries in the dictionary will be discarded. If supplied, the entries in <I><Tt claSS="monofont">dict</TT></i>
+ are added to the returned <tt cLASS="monofont">WeakValueDictionary</tt>.</p>
+
+
+<h5>Example</h5>
+<p>One application of weak references is to create caches of recently computed results. For instance, if a function takes a long time to compute a result, it might make sense to cache these results and reuse them as long as they’re still in use someplace in the application. For example:</p>
+
+<pre>
+
+_resultcache = { } 
+def foocache(x): 
+     if _resultcache.has_key(x): 
+         r = _resultcache[x]()       # Get weak ref and dereference it 
+         if r is not None: return r 
+     r = foo(x) 
+     _resultcache[x] = weakref.ref(r) 
+     return r </pre>
+
+
+<h5>Notes</h5>
+<ul>
+<li>
+<p>Only class instances, functions, and methods currently support weak references. Built-in functions and most built-in types such as lists, dictionaries, strings, and numbers cannot be used.</P>
+</li>
+<Li>
+<p>The dictionaries returned by <tT clasS="monofont">WeakKeyDictionary</tt>  and <tT CLAss="monofont">WeakValueDictionary</tt> are subclasses of <TT CLass="monofont">UserDict</tT>  in the <TT Class="monofont">UserDict</TT>  module. <TT class="monofont">WeakKeyDictionary</tt>  and <tt class="monofont">WeakValueDictionary</tt>  can also be subclassed.</p>
+</li>
+<lI>
+<p>If an exception occurs during the execution of a callback registered with <tT claSs="monofont">ref()</tt> or <tT claSS="monofont">proxy()</TT>, the exception is printed to standard error and ignored.</p>
+</li>
+<lI>
+<P>Weak references are hashable as long as the original object is hashable. Moreover, the weak reference will maintain its hash value after the original object has been deleted, provided that the original hash value is computed while the object still exists.</P>
+</Li>
+<li>
+<p>Weak references can be tested for equality, but not for ordering. If the objects are still alive, references are equal if the underlying objects have the same value. Otherwise, references are equal if they are the same reference.</P>
+</LI>
+<Li>
+<p>Weak references were first added to Python 2.1.</p>
+</lI>
+</UL>
+
+<H4><tt class="monofont">UserDict</tt>, <tt class="monofont">UserList</tt>, and <tt ClaSs="monofont">UserString</tt></H4>
+<p>The <tt cLass="monofont">UserDict</TT>, <TT clasS="monofont">UserList</TT>, and <Tt claSS="monofont">UserString</TT> modules provide class wrappers around the built-in dictionary, list, and string types. These wrappers can be used as a base class for classes that want to override or add new methods to these types. Each module defines a single class <tt clASS="monofont">UserDict</Tt>, <tt class="monofont">UserList</tt>, and <tt class="monofont">UserString</tt>, respectively:</p>
+
+<Pre>
+
+<B>UserDict([</b><b><i>initialdata</I></b><b>])</b> </pRe>
+
+<p>Returns a class instance that simulates a dictionary.</p>
+
+<PRE>
+
+<B>UserList([</b><b><i>list</i></B><B>])</B> </Pre>
+
+<p>Returns a class instance that simulates a list. <i><TT CLass="monofont">list</tT></I>
+ is an optional list that will be used to set the initial value. If omitted, the list will be set to <TT class="monofont">[ ]</tt>.</p>
+
+<pre>
+
+<b>UserString([</b><b><i>sequence</i></b><b>])</b> </pRe>
+
+<p>Returns a class instance that simulates a string. The initial value of the string is</P>
+
+<p>set to the value of <tt Class="monofont">str(</Tt><i><tT CLAss="monofont">sequence</tt></I>
+<TT Class="monofont">)</TT>.</P>
+
+<P>In all cases, the real dictionary, list, or string object can be accessed in the <tt clASS="monofont">data</Tt> attribute of the instance.</p>
+
+
+<h5>Example</h5>
+<pre>
+
+# A dictionary with case-insensitive keys 
+from UserDict import UserDict 
+import string 
+
+class MyDict(UserDict): 
+      # Perform a case-insensitive lookup 
+      def _ _getitem_ _(self,key): 
+            return self.data[key.lower()] 
+      def _ _setitem_ _(self,key,value): 
+            self.data[key.lower()] = value 
+      def _ _delitem_ _(self,key): 
+            del self.data[key.lower()] 
+      def has_key(self,key): 
+            return self.data.has_key(key.lower()) 
+
+# Use new dictionary-like class 
+d = MyDict() 
+d['Content-Type'] = 'text/html' 
+print d['content-type']        # Returns 'text/html' </pre>
+
+<p>The <tt class="monofont">UserString</tt>  module also defines a class <Tt cLass="monofont">MutableString</Tt>  that provides an implementation of mutable strings. For example:</p>
+
+<prE>
+
+a = UserString.MutableString("Hello World!") 
+a[1] = 'a'         # a = "Hallo World!" 
+a[6:] = 'Welt!'    # a = "Hallo Welt!" </pre>
+
+<P>Although mutable strings are a frequently requested Python feature, the implementation provided by <TT Class="monofont">MutableString</TT>  has a number of drawbacks. First, the standard string methods such as <I><Tt claSS="monofont">s</TT></i>
+<tt cLASS="monofont">.replace()</tt> and <i><tt class="monofont">s</tt></i>
+<tt class="monofont">.upper()</Tt> return new strings as opposed to modifying the string in place. Second, mutable strings cannot be used as dictionary keys. Finally, the mutable string implementation doesn’t provide extra memory efficiency or runtime performance, as you might expect. For instance, all changes to a <tT claSs="monofont">MutableString</tt>  object involve a full memory copy of the underlying string, as opposed to simply modifying the contents in place.</p>
+
+
+<H5>Notes</h5>
+<ul>
+<LI>
+<P>Use of the <Tt claSS="monofont">MutableString</TT>  class should generally be discouraged, since it provides no significant benefit over the use of standard strings. In fact, it will probably make your application run more slowly.</p>
+</li>
+<lI>
+<P>Subclasses of <TT clasS="monofont">UserList</TT>  should provide a constructor that takes one or no arguments.</P>
+</li>
+</ul></font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="107.html" title="Built-in Functions and Exceptions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=108" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="108.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="109.html" title="Mathematics"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

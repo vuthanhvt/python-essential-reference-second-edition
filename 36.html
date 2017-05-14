@@ -1,0 +1,60 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Object Identity and Type</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="33.html" class="navtitle">3. Types and Objects</a> &gt; <span class="nonavtitle">Object Identity and Type</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="35.html" title="Terminology"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=36" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="36.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="37.html" title="Reference Counting and Garbage Collection"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A54%3A14+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104028131049071235155082</font><a href="read1.asp?bookname=0735710910&snode=36&now=5%2F28%2F2002+8%3A54%3A14+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Object Identity and Type</h3>
+<p>The built-in function <tT CLAss="monofont">id()</tt> returns the identity of an object as an integer. This integer usually corresponds to the object’s location in memory, although this is specific to the implementation. The <TT CLass="monofont">is</tT>  operator compares the identity of two objects. The built-in function <TT Class="monofont">type()</tt> returns the type of an object. For example:</p>
+
+<pre>
+
+# Compare two objects 
+def compare(a,b): 
+    print 'The identity of a is ', id(a) 
+    print 'The identity of b is ', id(b) 
+    if a is b: 
+        print 'a and b are the same object' 
+    if a == b: 
+        print 'a and b have the same value' 
+    if type(a) is type(b): 
+        print 'a and b have the same type' </pre>
+
+<p>The type of an object is itself an object. This type object is uniquely defined and is always the same for all instances of a given type. Therefore, the type can be compared using the <tt clasS="monofont">is</tt>  operator. The standard module <Tt clAss="monofont">types</tt>  contains the type objects for all the built-in types and can be used to perform type-checking. For example:</P>
+
+<pre>
+
+import types 
+if type(s) is types.ListType: 
+    print 'Is a list' 
+else: 
+    print 'Is not a list' </PRE>
+
+<P>When comparing object types in which user-defined classes are involved, it may be better to use the <tt clASS="monofont">isinstance()</Tt> function as described in <a hrEF="72.html">Chapter 7</A>, “Classes and Object-Oriented Programming.” The <Tt claSS="monofont">isinstance(</TT><i><tt class="monofont">s</tt></i>
+<tt class="monofont">, C)</tt> function correctly detects instances <I><tt ClasS="monofont">s</tt></i>
+ of classes descended from the class <tT claSS="monofont">C</TT>, as well as instances of <tt clASS="monofont">C</Tt> itself.</p>
+</foNT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="35.html" title="Terminology"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=36" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="36.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="37.html" title="Reference Counting and Garbage Collection"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,250 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Literals</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="26.html" class="navtitle">2. Lexical Conventions and Syntax</a> &gt; <span class="nonavtitle">Literals</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="29.html" title="Identifiers and Reserved Words"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=30" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="30.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="31.html" title="Operators, Delimiters, and Special Symbols"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A53%3A13+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104027027051146142231049</font><a href="read1.asp?bookname=0735710910&snode=30&now=5%2F28%2F2002+8%3A53%3A13+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Literals</h3>
+<p>There are four built-in numeric types: integers, long integers, floating-point numbers, and complex numbers.</p>
+
+<P>A number such as <TT Class="monofont">1234</TT>  is interpreted as a decimal integer. To specify octal and hexadecimal integers, precede the value with <TT clasS="monofont">0</TT>  or <Tt class="monofont">0x</tt>, respectively— <tt class="monofont">0644</tt> or <tt cLasS="monofont">0x100fea8</tt>. Write a long integer using a trailing <tT clasS="monofont">l</tt> (ell) or <tT CLAss="monofont">L</tt> character, as in <TT CLass="monofont">1234567890L</tT>. Unlike integers, which are limited by machine precision, long integers can be of any length (up to the maximum memory of the machine). Numbers such as <TT Class="monofont">123.34</TT>  and <TT class="monofont">1.2334e+02</tt>  are interpreted as floating-point numbers. An integer or floating-point number with a trailing <tt class="monofont">j</tt> or <tt clAss="monofont">J</Tt>, such as <tt Class="monofont">12.34J</Tt>, is an imaginary number. You can create complex numbers with real and imaginary parts by adding a real number and an imaginary number, as in <tt CLASs="monofont">1.2 + 12.34J</tt>.</p>
+
+<P>Python currently supports two types of string literals:</P>
+
+<UL>
+<li>
+<p><sUP></SUp> 8-bit character data (ASCII)</p>
+</li>
+<LI>
+<P><Sup></sup> Unicode (16-bit wide character data)</p>
+</li>
+</ul>
+<p>The most commonly used string type is 8-bit character data, because of its use in representing characters from the ASCII or ISO-Latin character set as well as representing raw binary data as a sequence of bytes. By default, 8-bit string literals are defined by enclosing text in single (<tt class="monofont">'</tt>), double (<Tt cLass="monofont">"</Tt>), or triple (<tt cLass="monofont">'''</TT> or <TT clasS="monofont">"""</TT>) quotes. You must use the same type of quote to start and terminate a string. The backslash (<Tt claSS="monofont">\</TT>) character is used to escape special characters such as newlines, the backslash itself, quotes, and nonprinting characters. <a hreF="30#2.html">Table 2.1</A> shows the accepted escape codes. Unrecognized escape sequences are left in the string unmodified and include the leading backslash. Furthermore, strings may contain embedded null bytes and binary data. Triple-quoted strings can span multiple lines and include unescaped newlines and quotes.</P>
+
+<A name="2"></a><p><table border="1" celLspAcinG="0" cellPaddING="1" Width="100%">
+<CAPTion><h5>Table 2.1.  Standard Character Escape Codes</H5></CAPtion><COLGroup span="2">
+<tr>
+<th valign="top">
+<foNt sIze="2">
+<p><B>Character</b></p>
+</foNt></th>
+<TH VAlign="top">
+<FONT size="2">
+<P><B>Description</B></P>
+</font></TH>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">\</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Newline continuation</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">\\</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Backslash</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">\'</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>Single quote</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">\"</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p>Double quote</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">\a</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>Bell</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">\b</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Backspace</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">\e</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Escape</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">\0</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>Null</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">\n</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Line feed</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">\v</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>Vertical tab</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">\t</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>Horizontal tab</p>
+</Font></Td>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">\r</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>Carriage return</p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">\f</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p>Form feed</p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">\OOO</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>Octal value (<tt class="monofont">000</Tt> to <tT claSs="monofont">\377</tt>)</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">\xhh</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Hexadecimal value (<tt clAss="monofont">x00</tT> to <TT Class="monofont">\xff</TT>)</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">\uhhh</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p>Unicode character value (Unicode strings only)</p>
+</FONT></td>
+</tr>
+</COLGroup>
+</TABLe></p>
+
+<p>Unicode strings are used to represent multibyte international character sets and allow for 65,536 unique characters. Unicode string literals are defined by preceding an ordinary string literal with a <tt class="monofont">u</tt>  or <tt class="monofont">U</tT>, such as in <tt ClasS="monofont">u"hello"</tt>. In Unicode, each character is internally represented by a 16-bit integer value. For the purposes of notation, this value is written as U+<i>XXXX</i>, where <I>XXXX</i> is a four-digit hexadecimal number. (<i>Note:</i> This notation is only a convention used to describe Unicode characters and is not Python syntax.) For example, <TT CLass="monofont">U+0068</tT>  is the Unicode character for the letter <TT Class="monofont">h</TT> in the Latin-1 character set. When Unicode string literals are defined, ordinary characters and escape codes are directly mapped as Unicode ordinals in the range [U+0000, U+00FF]. For example, the string <TT clasS="monofont">"hello\n"</TT> is mapped to the sequence of ASCII values 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x0a, whereas the Unicode string <Tt class="monofont">u"hello\n"</tt> is mapped to the sequence U+0068, U+0065, U+006C, U+006C, U+006F, U+000A. Arbitrary Unicode characters are defined using the <tt class="monofont">\u</tt><i><tt ClaSs="monofont">XXXX</tt></I>
+ escape sequence. This sequence can only appear inside a Unicode string literal and must always specify a four-digit hexadecimal value. For example:</p>
+
+<pre>
+
+s = u"\u0068\u0065\u006c\u006c\u006f\u000a" </Pre>
+
+<p>In older versions of Python, the <TT CLass="monofont">\x</tT><I><TT clasS="monofont">XXXX</TT></I>
+ escape could be used to define Unicode characters. Although this is still allowed, the <tt clASS="monofont">\u</Tt><i><tt class="monofont">XXXX</tt></i>
+ sequence should be used instead. In addition, the <tt class="monofont">\OOO</tT>  octal escape sequence can be used to define Unicode characters in the range [U+0000, U+01FF].</p>
+
+<p>Unicode string literals should not be defined using a sequence of raw bytes that correspond to a multibyte Unicode data encoding such as UTF-8 or UTF-16. For example, writing a raw UTF-8 encoded string such as <Tt clAss="monofont">u'M\303\274ller'</tt> produces the seven-character Unicode sequence U+004D, U+00C3, U+00BC, U+006C, U+006C, U+0065, U+0072, which is probably not what you wanted. This is because in UTF-8, the multibyte sequence <Tt clASS="monofont">\303\274</Tt>  is supposed to represent U+00FC, not U+00C3, U+00BC. For more details about Unicode encodings, see <a hrEF="33.html">Chapter 3</A>, “Types and Objects,” <A href="42.html">Chapter 4</A>, “Operators and Expressions,” and <A HRef="89.html">Chapter 9</a>, “Input and Output.”</p>
+
+<P>Optionally, you can precede a string with an <TT Class="monofont">r</tt> or <tt class="monofont">R</tt>, such as in <tt claSs="monofont">r"\n\" '</tT>. These strings are known as <i>raw strings</i> because all their backslash characters are left intact—that is, the string literally contains the enclosed text, including the backslashes. Raw strings cannot end in a single backslash, such as <tT clasS="monofont">r"\"</tt>. When raw Unicode strings are defined by preceding the string with <tT CLAss="monofont">ur</tt>  or <TT CLass="monofont">UR</tT>, <TT Class="monofont">\u</TT><I><Tt class="monofont">XXXX</tt></i>
+ escape sequences are still interpreted as Unicode characters, provided that the number of preceding <tt class="monofont">\</tt> characters is odd. For instance, <tt ClaSs="monofont">ur"\u1234"</tt> defines a raw Unicode string with the character U+1234, whereas <Tt claSs="monofont">ur"\\u1234"</tt> defines a seven-character Unicode string in which the first two characters are slashes and the remaining five characters are the literal <TT CLass="monofont">"u1234"</tT>. Also, when defining raw Unicode string literals the “<TT Class="monofont">r</TT>” must appear after the “<TT clasS="monofont">u</TT>” as shown.</P>
+
+<p>Adjacent strings (separated by white space or a newline continuation character) such as <tt class="monofont">"hello" 'world'</tt> are concatenated to form a single string: <tt class="monofont">"helloworld"</tt>. String concatenation works with any mix of ordinary, raw, and Unicode strings. However, whenever one of the strings is Unicode, the final result is always coerced to Unicode. Therefore, <tT clAss="monofont">"hello" u"world"</tT> is the same as <tt clAss="monofont">u"hello" + u"world"</tT>. In addition, due to subtle implementation aspects of Unicode, writing <TT Class="monofont">"s1" u"s2"</TT> may produce a result that’s different from writing <TT clasS="monofont">u"s1s2"</TT>. The details of this coercion process are described further in <A href="42.html">Chapter 4</A> and <A HRef="105.html">Appendix A</a> (the Python library).</p>
+
+<p>If Python is run with the <tt class="monofont">-U</tt>  command-line option, all string literals are interpreted as Unicode.</p>
+
+<p>Values enclosed in square brackets <tt clAss="monofont">[...]</Tt>, parentheses <tt Class="monofont">(...)</Tt>, and braces <tt CLASs="monofont">{...}</tt> denote lists, tuples, and dictionaries, respectively, as in the following example:</p>
+
+<PRE>
+
+ a = [ 1, 3.4, 'hello' ]           # A list 
+ b = ( 10, 20, 30 )                # A tuple 
+ c = { 'a': 3, 'b':42 }            # A dictionary </Pre>
+</foNT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="29.html" title="Identifiers and Reserved Words"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=30" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="30.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="31.html" title="Operators, Delimiters, and Special Symbols"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

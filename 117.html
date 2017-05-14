@@ -1,0 +1,531 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Miscellaneous Modules</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="105.html" class="navtitle">A. The Python Library</a> &gt; <span class="nonavtitle">Miscellaneous Modules</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="116.html" title="Restricted Execution"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=117" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="117.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="118.html" title="The Python Debugger"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A07%3A51+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105081080059255003146110</font><a href="read7.asp?bookname=0735710910&snode=117&now=5%2F28%2F2002+9%3A07%3A51+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Miscellaneous Modules</h3>
+<p>The modules in this category are used for miscellaneous tasks that don’t fit into any of the other categories.</p>
+
+
+<H4><TT Class="monofont">bisect</TT></H4>
+<P>The <tt clASS="monofont">bisect</Tt>  module provides support for keeping lists in sorted order. It uses a bisection algorithm to do most of its work.</p>
+
+<pre>
+
+<b>bisect(</b><b><i>list</i></b><b>,</b> <b><i>item</i></b> <b>[,</b> <b><I>low</i></b> <B>[,</b> <b><i>high</I></b><b>]])</b> </pRe>
+
+<p>Returns the index of the proper insertion point for <i><TT CLass="monofont">item</tT></I>
+ to be placed in <I><Tt claSS="monofont">list</TT></i>
+ in order to maintain <i><tt CLASs="monofont">list</tt></i>
+ in sorted order. <i><tt class="monofont">low</tt></i>
+ and <i><tt clAss="monofont">high</Tt></i>
+ are indices specifying a subset of the list to be considered.</p>
+
+<Pre>
+
+<b>insort(</b><B><i>list</i></b><B>,</B> <B><I>item</i></b> <b>[,</b> <B><I>low</I></B> <b>[,</b> <b><i>high</I></B><B>]])</B> </pre>
+
+<p>Inserts <I><TT Class="monofont">item</tt></i>
+ into <i><tt class="monofont">list</tt></i>
+ in sorted order.</p>
+
+<a NamE="4"></a>
+<h4><tT clasS="monofont">cmd</tt></h4>
+<P>The <TT Class="monofont">cmd</TT>  module provides a class <TT clasS="monofont">Cmd</TT>  that’s used as a framework for building a line-oriented command interpreter. The <Tt claSS="monofont">Cmd</TT>  class is never instantiated directly, but is used as a base class for a class that actually implements the interpreter. An instance <i><tt class="monofont">c</tt></i>
+ of the <tt class="monofont">Cmd</tt>  class provides the following methods:</P>
+
+<prE>
+
+<b><i>c</i></B><b>.cmdloop([</b><b><i>intro</I></b><b>])</b> </PRE>
+
+<P>Prints a banner message contained in <i><tt cLASS="monofont">intro</tt></i>
+ and repeatedly issues a prompt, reads a line of input, and dispatches an appropriate action. For each line of text, the first word is stripped off and used as a command name. For a command name of <tT CLAss="monofont">'foo'</tt>, an attempt is made to invoke a method <TT CLass="monofont">do_foo()</tt> with the remainder of the input line as a string argument. If a line contains only the character <tt class="monofont">'?'</tt>, a predefined method <tt clasS="monofont">do_help()</tt> is dispatched. If the command name is <Tt clAss="monofont">'!'</tt>, a method <Tt clASS="monofont">do_shell()</Tt> is invoked (if defined). An end-of-file is converted into a string <tt cLASS="monofont">'EOF'</tt> and dispatched to a command <tt CLASs="monofont">do_EOF</tt>.</p>
+
+<P>Subclasses of <TT Class="monofont">Cmd</tt>  inherit a predefined method <tt class="monofont">do_help()</tt>. When this method is invoked with an argument <tt claSs="monofont">'bar'</tT>, it tries to invoke the method <tt cLass="monofont">help_bar()</tT>. With no arguments, <tt cLASS="monofont">do_help()</tt> lists all the available help topics by listing all commands with corresponding <tt CLASs="monofont">help_*</tt> methods, undocumented commands (commands without corresponding <tT CLAss="monofont">help_*</tt> methods), and miscellaneous topics (help methods without a corresponding command). Each of the command methods should return an integer code indicating success or failure. A negative value indicates an error and causes the interpreter to return. Otherwise, the interpreter continues to read input after each command. If the <TT CLass="monofont">readline</tt>  module has been loaded, the command interpreter will have line editing and history capabilities.</p>
+
+<pre>
+
+<b><i>c</i></b><b>.onecmd(</b><b><i>str</i></b><b>)</B> </prE>
+
+<p>Interprets <i><tT clasS="monofont">str</tt></i>
+ as a single line of input.</P>
+
+<PRE>
+
+<b><i>c</i></b><B>.emptyline()</B> </PRe>
+
+<p>This method is called when an empty line of input is typed. It should be defined by the user. If not overridden, it repeats the last nonempty command entered.</p>
+
+<pRE>
+
+<B><I>c</i></b><b>.default(</b><B><I>line</I></B><b>)</b> </pre>
+
+<p>Called when an unrecognized command is typed. By default, it prints an error message and exits.</p>
+
+<pre>
+
+<b><i>c</i></b><b>.precmd()</b> </pre>
+
+<p>Method executed just before the input prompt is issued. It should be overridden by derived classes.</P>
+
+<prE>
+
+<b><i>c</i></B><b>.postcmd()</b> </prE>
+
+<p>Method executed immediately after a command dispatch has finished.</p>
+
+<pRE>
+
+<B><I>c</i></b><b>.preloop()</b> </PRE>
+
+<P>Method executed once when <tt clASS="monofont">cmdloop()</Tt> is executed.</p>
+
+<prE>
+
+<B><I>c</I></b><b>.postloop()</b> </pre>
+
+<p>Method executed when <tt class="monofont">cmdloop()</tt> is about to return.</p>
+
+<p>The following instance variables should also be defined by a subclass of <tt ClaSs="monofont">Cmd</tt>.</P>
+
+<p><tabLe boRDER="1" cellSPACing="0" cELLPaddiNG="1" WIdth="100%">
+<colgroup span="2">
+<tr>
+<th vAliGn="top">
+<foNt sizE="2">
+<p><b>Variable</b></P>
+</FONt></th>
+<tH VALign="top">
+<fONT Size="2">
+<p><B>Description</B></P>
+</Font></th>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><i><Tt claSs="monofont">c</tt></I>
+<TT Class="monofont">.prompt</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p>Prompt printed to solicit input.</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><i><tT CLAss="monofont">c</tt></I>
+<TT Class="monofont">.identchars</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p>String of characters accepted for the command prefix.</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><i><tT CLAss="monofont">c</tt></I>
+<TT Class="monofont">.lastcmd</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>Last nonempty command seen.</p>
+</Font></Td>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><i><tT CLAss="monofont">c</tt></I>
+<TT Class="monofont">.intro</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>Intro text banner; overridden using the argument to <tt ClasS="monofont">cmdloop()</TT>.</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><tt class="monofont">c</tt></i>
+<tt clasS="monofont">.doc_header</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Header to issue if the help section has a section for documented commands.</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><i><tt class="monofont">c</tT></i>
+<tT claSs="monofont">.misc_header</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Header to issue for miscellaneous help topics.</P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><i><Tt cLass="monofont">c</Tt></i>
+<tt ClasS="monofont">.undoc_header</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Header for undocumented commands.</P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><I><tt clAss="monofont">c</tT></I>
+<TT clasS="monofont">.ruler</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Character used to draw separator lines under help message headers. If empty, no ruler line is drawn. The default is <tt class="monofont">'='</tt>.</p>
+</fonT></td>
+</Tr>
+</coLgrouP>
+</tabLE></P>
+
+
+<H5>Example</h5>
+<p>The following example shows how this module can be used to implement an interpreter wrapper around the callable objects of a module. It also shows the interesting feature of code being executed in a class definition.</p>
+
+<pRE>
+
+# cmdhelp.py 
+# Builds a command interpreter that allows arbitrary Python 
+# commands to be typed, but reads their doc strings to create 
+# a collection of help commands. Just do an execfile(cmdhelp.py) 
+# in a module to utilize this. 
+
+import cmd, sys, traceback 
+
+# Define the interpreter class 
+class Interpreter(cmd.Cmd): 
+      symbols = globals() 
+      prompt = "?&gt;&gt; " 
+      intro = "Interpreter for " + _ _name_ _ 
+
+      # Find all of the callable objects and look for 
+      # their doc strings   
+       for n in symbols.keys(): 
+             c = symbols[n] 
+             if callable(c): 
+                 if c._ _doc_ _: 
+                      exec """ 
+def help_%s(self):print %s._ _doc_ _ 
+""" % (n,n) 
+
+     # Execute an arbitrary statement 
+     def default(self,l): 
+         try: 
+             exec self.lastcmd in globals() 
+         except: 
+             traceback.print_exc() 
+
+     # Do nothing on empty line 
+     def emptyline(self): 
+         pass 
+
+     def do_EOF(self,arg): 
+         return -1 
+
+# Create an instance 
+interp = Interpreter() </PRe>
+
+<p>The following code shows how this code might be used:</p>
+
+<pRE>
+
+Python 2.0 (#1, Feb 25 2001, 07:54:16) 
+[GCC 2.95.2 19991024 (release)] on sunos5 
+Type "copyright", "credits" or "license" for more information. 
+&gt;&gt;&gt; from socket import * 
+&gt;&gt;&gt; execfile("cmdhelp.py") 
+&gt;&gt;&gt; interp.cmdloop() 
+Interpreter for _ _main_ _ 
+?&gt;&gt; help 
+Miscellaneous help topics: 
+========================== 
+getservbyname     gethostbyaddr   htons           socket 
+ntohs             gethostbyname   fromfd          getprotobyname 
+gethostname       htonl 
+Undocumented commands: 
+====================== 
+EOF              help 
+?&gt;&gt; help socket 
+socket(family, type[, proto]) -&gt; socket object 
+Open a socket of the given type.  The family argument 
+specifies the address family; it is normally AF_INET, 
+sometimes AF_Unix.  The type argument specifies whether this 
+is a stream (SOCK_STREAM) or datagram (SOCK_DGRAM) socket. 
+The protocol argument defaults to 0, specifying the default 
+protocol. 
+?&gt;&gt; s = socket(AF_INET, SOCK_STREAM) 
+?&gt;&gt; s.connect("www.python.org",80) 
+... </PRe>
+
+<p>? <b>See Also</b> <A HREf="117#16.html">shlex</a> (288).</p>
+
+<a name="8"></a>
+<h4><tt class="monofont">md5</tt></h4>
+<P>The <tt ClasS="monofont">md5</tt>  module implements RSA’s MD5 message-digest algorithm. MD5 takes a sequence of input text and produces a 128-bit hash value. To compute the hash value, create an <tt ClasS="monofont">md5</TT>  object using the <Tt claSS="monofont">new()</TT> function, feed data to it using the <tt clASS="monofont">update()</Tt> method, and then call the <tt cLASS="monofont">digest()</tt> method to get the hash value.</p>
+
+<pre>
+
+<b>new([</b><b><i>arg</i></b><b>])</b> </pre>
+
+<p>Returns a new <tt ClaSs="monofont">md5</tt>  object. If <I><tt clAss="monofont">arg</tT></I>
+ is present, the method call <TT clasS="monofont">update(</TT><I><tt clASS="monofont">arg</Tt></i>
+<tt CLASs="monofont">)</tt> is also made.</p>
+
+<p>An <tt class="monofont">md5</tt>  object <i><tt claSs="monofont">m</tT></i>
+ has the following methods:</p>
+
+<pRe>
+
+<b><i>m</i></B><b>.update(</b><b><I>arg</I></B><B>)</b> </pre>
+
+<P>Updates the <TT Class="monofont">md5</TT>  object <I><Tt claSS="monofont">m</TT></i>
+ with the string <i><tt class="monofont">arg</tt></i>
+. Repeated calls are equivalent to a single call with the concatenation of all the arguments.</p>
+
+<pre>
+
+<b><i>m</i></b><B>.digest()</b> </pRe>
+
+<p>Returns the digest of all data passed to the object using the <tT clasS="monofont">update()</tt> method so far. Returns a 16-byte string that may contain nonprintable characters, including null bytes.</p>
+
+<PRE>
+
+<B><i>m</i></b><b>.copy()</B> </PRE>
+
+<p>Returns a copy of the <tt cLASS="monofont">md5</tt>  object.</p>
+
+
+<h5>Example</H5>
+<PRE>
+
+import md5 
+m = md5.new()            # Create a new MD5 object 
+m.update("Hello") 
+m.update("World") 
+d = m.digest()           # Get the digest </pre>
+
+<p>The following shortcut can also be used:</p>
+
+<pre>
+
+d = md5.new("Hello World").digest() </pre>
+
+<p>? <b>See Also</b> <a href="117#12.html">sha</a> (287), Internet RFC 1321.</P>
+
+<a nAme="12"></a>
+<H4><tt clAss="monofont">sha</tT></H4>
+<P>The <Tt claSS="monofont">sha</TT>  module implements the secure hash algorithm (SHA). SHA takes a sequence of input text and produces a 160-bit hash value. To compute the hash value, create an <tt clASS="monofont">sha</Tt>  object using the <tt cLASS="monofont">new()</tt> function and feed data to it.</p>
+
+<pre>
+
+<b>new([</b><b><i>string</i></b><b>])</b> </pre>
+
+<p>Returns a new <tt ClaSs="monofont">sha</tt>  object. If <I><tt clAss="monofont">string</tT></I>
+ is present, the method call <TT clasS="monofont">update(</TT><I><tt clASS="monofont">string</Tt></i>
+<tt CLASs="monofont">)</tt> is made.</p>
+
+<pre>
+
+<b>blocksize</b> </pre>
+
+<p>Size of the blocks fed into the hash function. This is always <tt class="monofont">1</Tt>.</p>
+
+<Pre>
+
+<b>digestsize</B> </pre>
+
+<p>The size of the resulting digest in bytes. This is always <Tt clASS="monofont">20</Tt>.</p>
+
+<p>An instance <i><TT CLass="monofont">s</tT></I>
+ of an <TT clasS="monofont">sha</TT> object has the following methods:</P>
+
+<pre>
+
+<b><i>s</i></b><b>.update(</b><b><i>arg</i></b><b>)</b> </pre>
+
+<p>Updates the <tT clAss="monofont">sha</tT>  object with the string <i><tt cLass="monofont">arg</TT></I>
+. Repeated calls are equivalent to a single call with the concatenation of all the arguments.</P>
+
+<pre>
+
+<b><I>s</I></B><B>.digest()</b> </pre>
+
+<P>Returns the digest of all data passed to the object using the <TT Class="monofont">update()</TT> method so far. Returns a 20-byte string that may contain nonprintable characters, including null bytes.</P>
+
+<Pre>
+
+<b><i>s</i></b><b>.copy()</b> </pre>
+
+<p>Returns a copy of the <tt class="monofont">sha</tT>  object.</p>
+
+<pRe>
+
+<b><i>s</I></b><b>.hexdigest()</b> </pRe>
+
+<p>Returns the digest value as a string of hexadecimal digits.</p>
+
+
+<H5>Note</H5>
+<UL>
+<li>
+<p>The SHA algorithm is defined by NIST document FIPS PUB 180-1: Secure Hash Standard. It’s available online at <a TARGet="_blank" hrEF="http://csrc.nist.gov/fips/fip180-1.ps">http://csrc.nist.gov/fips/fip180-1.ps</A>.</P>
+</li>
+</ul>
+<P>? <B>See Also</B> <A href="117#8.html">md5</a> (286).</p>
+
+<a name="16"></a>
+<h4><tt class="monofont">shlex</Tt></h4>
+<P>The <tt cLass="monofont">shlex</tT>  module provides a class <tt cLASS="monofont">shlex</tt>  that can be used to build lexical analyzers for simple syntaxes such as shells.</p>
+
+<pRE>
+
+<B>shlex([</B><b><i>stream</i></b><B>])</B> </PRe>
+
+<p>Creates an instance of the <tt CLASs="monofont">shlex</tt>  class. <i><tt class="monofont">stream</tt></i>
+ specifies a file or stream-like object where characters will be read. This object must provide <tt clasS="monofont">read()</tt> and <Tt clAss="monofont">readline()</tt> methods. If omitted, input is taken from <Tt clASS="monofont">sys.stdin</Tt>.</p>
+
+<p>An instance <i><TT CLass="monofont">s</tT></I>
+ of the <TT clasS="monofont">shlex</TT> class supports the following methods:</P>
+
+<pre>
+
+<b><i>s</i></b><b>.get_token()</b> </pre>
+
+<p>Returns a token (as a string). If tokens have been saved with <tt class="monofont">push_token()</Tt>, a token is popped off the stack. Otherwise, the token is read from the input stream. An end-of-file returns an empty string.</p>
+
+<Pre>
+
+<b><I>s</i></b><b>.push_token(</b><B><i>str</i></b><B>)</B> </PRe>
+
+<p>Pushes a token onto the token stack.</p>
+
+<p>In addition, the following instance variables can be set:</P>
+
+<P><TAble bORDEr="1" celLSPAcing="0" cellpadding="1" width="100%">
+<ColGrouP span="2">
+<Tr>
+<th VALIgn="top">
+<foNT SIze="2">
+<p><b>Variable</B></P>
+</FOnt></th>
+<TH VAlign="top">
+<font size="2">
+<p><b>Description</b></p>
+</font></Th>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><i><TT CLass="monofont">s</tT></I>
+<TT clasS="monofont">.commenters</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>String of characters recognized as starting a comment. Comments continue to the end of the line. Includes <Tt clAss="monofont">'#'</tt> by default.</P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><I><TT Class="monofont">s</tt></i>
+<tt class="monofont">.wordchars</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>String of characters that form multi-character tokens. Includes all ASCII alphanumeric characters and the underscore by default.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><i><tt class="monofont">s</tt></i>
+<tt claSs="monofont">.whitespace</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P>String of whitespace characters that will be skipped.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><i><tt class="monofont">s</Tt></i>
+<Tt clAss="monofont">.quotes</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Characters that will be considered to be string quotes. Includes single and double quotes by default.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><I><tt ClasS="monofont">s</tt></i>
+<tT claSS="monofont">.lineno</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Source line number.</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><i><tt cLass="monofont">s</TT></I>
+<Tt claSS="monofont">.token</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p>The token buffer.</p>
+</font></td>
+</tr>
+</colGroUp>
+</taBle></p>
+
+
+<h5>Note</H5>
+<ul>
+<lI>
+<P>Any character not declared to be a word character, whitespace, or a quote is returned as a single-character token. Also, words must be delimited by whitespace. Special symbols such as quotes and comments are not recognized within words. Thus, a word such as <TT clasS="monofont">isn't</TT>  is returned as a single token.</P>
+</li>
+</ul>
+<P>? <B>See Also</B> <A href="117#4.html">cmd</A> (284).</P>
+</FOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="116.html" title="Restricted Execution"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=117" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="117.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="118.html" title="The Python Debugger"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

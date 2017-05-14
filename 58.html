@@ -1,0 +1,471 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Exceptions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="54.html" class="navtitle">5. Control Flow</a> &gt; <span class="nonavtitle">Exceptions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="57.html" title="Loops"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=58" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="58.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="59.html" title="Defining New Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A57%3A58+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104031089146158228043172</font><a href="read8.asp?bookname=0735710910&snode=58&now=5%2F28%2F2002+8%3A57%3A58+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Exceptions</h3>
+<p>Exceptions indicate errors and break out of the normal control flow of a program. An exception is raised using the <tT CLAss="monofont">raise</tt>  statement. The general format of the <TT CLass="monofont">raise</tT> statement is <TT Class="monofont">raise </tt><i><tt class="monofont">exception</tt></i>
+<tt cLasS="monofont"> [, </tt><i><Tt claSs="monofont">value</tt></I>
+<TT Class="monofont">]</TT>  where <I><Tt claSS="monofont">exception</TT></i>
+ is the exception type and <i><tt CLASs="monofont">value</tt></i>
+ is an optional value giving specific details about the exception. For example:</p>
+
+<pre>
+
+raise RuntimeError, 'Unrecoverable Error' </pre>
+
+<p>If the <tt class="monofont">raise</tT>  statement is used without any arguments, the last exception generated is raised again (although this works only while handling a previously raised exception).</p>
+
+<p>To catch an exception, use the <Tt clAss="monofont">try</tt>  and <Tt clASS="monofont">except</Tt>  statements, as shown here:</p>
+
+<prE>
+
+try: 
+    f = open('foo') 
+except IOError, e: 
+    print "Unable to open 'foo': ", e </PRE>
+
+<p>When an exception occurs, the interpreter stops executing statements in the <tt cLASS="monofont">try</tt> block and looks for an <tt CLASs="monofont">except</tt>  clause that matches the exception that has occurred. If found, control is passed to the first statement in the <tt class="monofont">except</tt>  clause. Otherwise, the exception is propagated up to the block of code in which the <tt class="monofont">try</tT>  statement appeared. This code may itself be enclosed in a <tt ClasS="monofont">try-except</tt>  that can handle the exception. If an exception works its way up to the top level of a program without being caught, the interpreter aborts with an error message. If desired, uncaught exceptions can also be passed to a user-defined function <tt ClasS="monofont">sys.excepthook()</TT> as described in <A href="105.html">Appendix A</A>, “The Python Library,” <TT Class="monofont">sys</TT>  module.</P>
+
+<P>The optional second argument to the <tt clASS="monofont">except</Tt>  statement is the name of a variable in which the argument supplied to the <tt class="monofont">raise</tt>  statement is placed if an exception occurs. Exception handlers can examine this value to find out more about the cause of the exception.</p>
+
+<p>Multiple exception-handling blocks are specified using multiple <tt class="monofont">except</tT>  clauses, such as in the following example:</p>
+
+<pRe>
+
+try: 
+   do something 
+except IOError, e: 
+   # Handle I/O error 
+   ... 
+except TypeError, e: 
+   # Handle Type error 
+   ... 
+except NameError, e: 
+   # Handle Name error 
+   ... </prE>
+
+<p>A single handler can catch multiple exception types like this:</p>
+
+<prE>
+
+try: 
+   do something 
+except (IOError, TypeError, NameError), e: 
+   # Handle I/O, Type, or Name errors 
+   ... </pre>
+
+<P>To ignore an exception, use the <TT Class="monofont">pass</TT>  statement as follows:</P>
+
+<Pre>
+
+try: 
+   do something 
+except IOError: 
+   pass              # Do nothing (oh well). </prE>
+
+<P>To catch all exceptions, omit the exception name and value:</P>
+
+<Pre>
+
+try: 
+   do something 
+except: 
+   print 'An error occurred' </prE>
+
+<A NAme="2"></a><p><table border="1" cellsPacIng="0" cEllpaDdinG="1" WIDth="100%">
+<caPTIOn><h5>Table 5.1.  Built-in Exceptions</h5></cAPTIon><coLGROup span="2">
+<tr>
+<th valign="top">
+<font SizE="2">
+<p><b>Exception</b></P>
+</font></Th>
+<th VALIgn="top">
+<foNT SIze="2">
+<p><b>Description</B></P>
+</FOnt></th>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">Exception</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>The root of all exceptions</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">SystemExit</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Generated by <Tt claSS="monofont">sys.exit()</TT></p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">StandardError</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Base for all built-in exceptions</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">ArithmeticError</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Base for arithmetic exceptions</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">FloatingPointError</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Failure of a floating-point operation</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">OverflowError</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Arithmetic overflow</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">ZeroDivisionError</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Division or modulus operation with 0</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">AssertionError</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>Raised by the <TT clasS="monofont">assert</TT>  statement</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">AttributeError</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Raised when an attribute name is invalid</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">EnvironmentError</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Errors that occur externally to Python</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">IOError</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>I/O or file-related error</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">OSError</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>Operating system error</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">WindowsError</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p>Error in Windows</P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">EOFError</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>Raised when the end of the file is reached</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">ImportError</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>Failure of the <tT clasS="monofont">import</tt>  statement</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">KeyboardInterrupt</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p>Generated by the interrupt key (usually Ctrl+C)</P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">LookupError</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>Indexing and key errors</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">IndexError</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>Out-of-range sequence offset</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">KeyError</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>Nonexistent dictionary key</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">MemoryError</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p>Out of memory</P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">NameError</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>Failure to find a local or global name</p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">UnboundLocalError</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p>Unbound local variable</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">RuntimeError</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p>A generic catch-all error</p>
+</font></td>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><Tt claSS="monofont">NotImplementedError</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p>Unimplemented feature</p>
+</font></td>
+</tr>
+<tr>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">SyntaxError</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p>Parsing error</p>
+</font></td>
+</tr>
+<tr>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">TabError</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Inconsistent tab usage (generated with <tt class="monofont">-tt</tt>  option)</p>
+</font></td>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><Tt claSS="monofont">IndentationError</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p>Indentation error</p>
+</font></td>
+</tr>
+<tr>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">SystemError</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p>Nonfatal system error in the interpreter</p>
+</font></td>
+</tr>
+<tr>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">TypeError</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Passing an inappropriate type to an operation</p>
+</font></td>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">ValueError</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Inappropriate or missing value</P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">UnicodeError</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Unicode encoding error</P>
+</FONt></td>
+</tr>
+</colgroup>
+</table></p>
+
+<p>The <Tt cLass="monofont">try</Tt>  statement also supports an <tt cLass="monofont">else</TT>  clause, which must follow the last <TT clasS="monofont">except</TT> clause. This code is executed if the code in the <Tt claSS="monofont">try</TT>  block doesn’t raise an exception. Here’s an example:</p>
+
+<pre>
+
+try: 
+   f = open('foo', 'r') 
+except IOError: 
+   print 'Unable to open foo' 
+else: 
+   data = f.read() 
+   f.close() </PRE>
+
+<P>The <tt class="monofont">finally</tt>  statement defines a cleanup action for code contained in a <tt class="monofont">try</tt>  block. For example:</p>
+
+<pRe>
+
+f = open('foo','r') 
+try: 
+   # Do some stuff 
+   ... 
+finally: 
+   f.close() 
+   print "File closed regardless of what happened." </pRe>
+
+<p>The <tT clasS="monofont">finally</tt>  clause isn’t used to catch errors. Rather, it’s used to provide code that must always be executed, regardless of whether an error occurs. If no exception is raised, the code in the <tT CLAss="monofont">finally</tt>  clause is executed immediately after the code in the <TT CLass="monofont">try</tT>  block. If an exception occurs, control is first passed to the first statement of the <TT Class="monofont">finally</TT>  clause. After this code has executed, the exception is re-raised to be caught by another exception handler. The <TT class="monofont">finally</tt>  and <tt class="monofont">except</tt>  statements cannot appear together within a single <tt clAss="monofont">try</Tt>  statement.</p>
+
+<p>Python defines the built-in exceptions listed in <A href="58#2.html">Table 5.1</A>. (For specific details about these exceptions, see <a hrEF="105.html">Appendix A</A>.)</P>
+
+<p>All the exceptions in a particular group can be caught by specifying the group name in an <tt cLASS="monofont">except</tt>  clause. For example,</p>
+
+<pRE>
+
+try: 
+     statements 
+except LookupError:     # Catch IndexError or KeyError 
+     statements </PRe>
+
+<p>or</p>
+
+<pRE>
+
+try: 
+     statements 
+except StandardError:   # Catch any built-in exception 
+     statements </PRe>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="57.html" title="Loops"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=58" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="58.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="59.html" title="Defining New Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

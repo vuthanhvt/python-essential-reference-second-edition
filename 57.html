@@ -1,0 +1,96 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Loops</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="54.html" class="navtitle">5. Control Flow</a> &gt; <span class="nonavtitle">Loops</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="56.html" title="Conditionals"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=57" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="57.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="58.html" title="Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A57%3A50+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104031089146150053204098</font><a href="read7.asp?bookname=0735710910&snode=57&now=5%2F28%2F2002+8%3A57%3A50+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Loops</h3>
+<p>You implement loops using the <tT CLAss="monofont">for</tt>  and <TT CLass="monofont">while</tT>  statements. For example:</P>
+
+<PRe>
+
+while <i>expression</i>: 
+    <i>statements</i> 
+
+for i in s: 
+    <i>statements</i> </pre>
+
+<p>The <tt class="monofont">while</tt>  statement executes statements until the associated expression evaluates to false. The <Tt cLass="monofont">for</Tt>  statement iterates over all the elements in a sequence until no more elements are available. If the elements of the sequence are tuples of identical size, you can use the following variation of the <tt cLass="monofont">for</TT>  statement:</P>
+
+<Pre>
+
+for <i>x</i>,<I>y</I>,<I>z</I> in <i>s</i>: 
+    <i>statements</i> </PRE>
+
+<P>In this case, <i><tt cLASS="monofont">s</tt></i>
+ must be a sequence of tuples, each with three elements. On each iteration, the contents of the variables <i><tt class="monofont">x</tt></i>
+, <i><tt claSs="monofont">y</tT></i>
+, and <i><tT clasS="monofont">z</tt></i>
+ are assigned the contents of the corresponding tuple.</P>
+
+<P>To break out of a loop, use the <TT clasS="monofont">break</TT>  statement. For example, the following function reads lines of text from the user until an empty line of text is entered:</P>
+
+<pre>
+
+while 1: 
+   cmd = raw_input('Enter command &gt; ') 
+   if not cmd: 
+      break            # No input, stop loop 
+   # process the command 
+    ... </pRE>
+
+<P>To jump to the next iteration of a loop (skipping the remainder of the loop body), use the <Tt claSS="monofont">continue</TT>  statement. This statement tends to be used less often, but is sometimes useful when the process of reversing a test and indenting another level would make the program too deeply nested or unnecessarily complicated.As an example, the following loop prints only the non-negative elements of a list:</p>
+
+<pre>
+
+for a in s: 
+    if a &lt; 0: 
+       continue       # Skip negative elements 
+    print a </pre>
+
+<p>The <tt class="monofont">break</tt>  and <tt cLasS="monofont">continue</tt>  statements apply only to the innermost loop being executed. If it’s necessary to break out of a deeply nested loop structure, you can use an exception. Python doesn’t provide a goto statement.</p>
+
+<P>You can also attach the <tt clAss="monofont">else</tT>  statement to loop constructs, as in the following example:</P>
+
+<PRe>
+
+# while-else 
+while i &lt; 10: 
+     do something 
+     i = i + 1 
+else: 
+     print 'Done' 
+
+# for-else 
+for a in s: 
+     if a == 'Foo': 
+          break 
+else: 
+     print 'Not found!' </pre>
+
+<P>The <TT Class="monofont">else</TT>  clause of a loop executes only if the loop runs to completion. This either occurs immediately (if the loop wouldn’t execute at all) or after the last iteration. On the other hand, if the loop is terminated early using the <TT clasS="monofont">break</TT>  statement, the <Tt class="monofont">else</tt>  clause is skipped.</p>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="56.html" title="Conditionals"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=57" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="57.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="58.html" title="Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

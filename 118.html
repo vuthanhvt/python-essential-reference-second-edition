@@ -1,0 +1,319 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; The Python Debugger</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="105.html" class="navtitle">A. The Python Library</a> &gt; <span class="nonavtitle">The Python Debugger</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="117.html" title="Miscellaneous Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=118" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="118.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="119.html" title="The Python Profiler"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A08%3A03+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105094192220113220094088</font><a href="read4.asp?bookname=0735710910&snode=118&now=5%2F28%2F2002+9%3A08%3A03+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>The Python Debugger</h3>
+<p>The Python debugger is loaded by importing the <tT CLAss="monofont">pdb</tt>  module. The <TT CLass="monofont">pdb</tT>  module provides an interactive source code debugger that allows post-mortem debugging, inspection of stack frames, breakpoints, single stepping of source lines, and code evaluation.</P>
+
+<P>The debugger is started by loading the <Tt class="monofont">pdb</tt>  module and issuing one of the following functions:</p>
+
+<pre>
+
+<b>run(</b><b><i>statement</i></b> <b>[,</b> <B><i>globals</i></B> <b>[,</b> <b><I>locals</i></b><b>]])</b> </Pre>
+
+<p>Executes the string <I><TT Class="monofont">statement</TT></I>
+ under debugger control. The debugger prompt will appear immediately before any code executes. Typing <Tt claSS="monofont">'continue'</TT> will force it to run. <i><tt cLASS="monofont">globals</tt></i>
+ and <i><tt class="monofont">locals</tt></i>
+ define the global and local namespaces in which the code runs.</p>
+
+<pre>
+
+<b>runeval(</b><B><i>expression</i></B> <b>[,</b> <b><I>globals</i></b> <b>[,</b> <B><i>locals</i></b><B>]])</B> </PRe>
+
+<p>Evaluates the <i><tT CLAss="monofont">expression</tt></I>
+ string under debugger control. The debugger prompt will appear before any code executes, as with <TT Class="monofont">run()</TT>. On success, the value of the expression is returned.</P>
+
+<Pre>
+
+<b>runcall(</b><b><i>function</i></b> <b>[,</b> <b><i>argument</i></b><b>, ...])</b> </pre>
+
+<p>Calls a function within the debugger. <I><tt ClasS="monofont">function</tt></i>
+ is a callable object. The debugger prompt will appear before any code executes. The return value of the function is returned upon completion.</p>
+
+<Pre>
+
+<b>set_trace()</B> </PRE>
+
+<p>Starts the debugger at the point at which this function is called. This can be used to hard-code a debugger breakpoint into a specific code location.</p>
+
+<prE>
+
+<B>post_mortem(</B><B><i>traceback</i></b><b>)</B> </PRE>
+
+<p>Starts post-mortem debugging of a traceback object.</p>
+
+<prE>
+
+<B>pm()</B> </Pre>
+
+<p>Enters post-mortem debugging using the traceback in <tt class="monofont">sys.last_traceback</tt>.</p>
+
+<p>When the debugger starts, it will present a prompt such as the following:</p>
+
+<pre>
+
+&gt;&gt;&gt; import pdb 
+&gt;&gt;&gt; import buggymodule 
+&gt;&gt;&gt; pdb.run('buggymodule.start()') 
+&gt; &lt;string&gt;(0)?() 
+(Pdb) </prE>
+
+<p><tT claSs="monofont">(Pdb)</tt> is the debugger prompt at which the following commands are recognized. <i>Note:</I> Some commands have a short and a long form. In this case, parentheses are used to indicate both forms. For example, <tt cLASS="monofont">h(elp)</tt>  means that either <tt CLASs="monofont">h</tt> or <tT CLAss="monofont">help</tt> is acceptable.</P>
+
+<PRE>
+
+<b>h(elp) [</b><b><i>command</i></b><b>]</b> </pre>
+
+<p>Shows the list of available commands. Specifying a command returns help for that command.</p>
+
+<pre>
+
+<b>w(here)</b> </prE>
+
+<p>Prints a stack trace.</p>
+
+<Pre>
+
+<b>d(own)</B> </pre>
+
+<p>Moves the current frame one level down in the stack trace.</P>
+
+<pre>
+
+<B>u(p)</B> </PRe>
+
+<p>Moves the current frame one level up in the stack trace.</p>
+
+<pRE>
+
+<B>b(reak) [</B><b><i>loc</i></b> <B>[,</B> <B><I>condition</i></b><b>]]</b> </PRE>
+
+<P>Sets a breakpoint at location <i><tt class="monofont">loc</tt></i>
+. <i><tt class="monofont">loc</tT></i>
+ is one of the following:</p>
+
+<P><tabLe borDer="1" cELLSpaciNG="0" CEllpaDDINg="1" widTH="100%">
+<COlgroup span="2">
+<tr>
+<th valign="top">
+<FonT sizE="2">
+<p><b>Setting</b></p>
+</Font></TH>
+<TH valiGN="top">
+<FOnt siZE="2">
+<P><B>Description</b></p>
+</foNT></TH>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><i><tT claSs="monofont">n</tt></i>
+</P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>A line number in the current file</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><I><tt ClasS="monofont">filename</tt></i>
+<tT claSS="monofont">:</TT><i><tt cLASS="monofont">n</tt></i>
+</p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p>A line number in another file</p>
+</font></td>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><I><tt clASS="monofont">function</Tt></i>
+</p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>A function name in the current file</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><I><Tt claSS="monofont">filename</TT></i>
+<tt cLASS="monofont">:</tt><i><tT CLAss="monofont">function</tt></i>
+</p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>A function name in another file</p>
+</foNt></td>
+</TR>
+</COlgroUP>
+</TAble></p>
+
+<P>If <I><TT clasS="monofont">loc</TT></I>
+ is omitted, all the current breakpoints are printed. <i><tt class="monofont">condition</tt></i>
+ is an expression that must evaluate to true before the breakpoint is honored.</p>
+
+<pre>
+
+<b>tbreak [</b><b><i>loc</i></B> <b>[,</b> <B><i>condition</i></b><B>]]</b> </pre>
+
+<P>Sets a temporary breakpoint that’s removed after its first hit.</p>
+
+<prE>
+
+<B>cl(ear) [</B><B><i>bpnumber</i></b> <b>[</B><B><I>bpnumber</I></b><b>...]]</b> </pRE>
+
+<P>Clears a list of breakpoint numbers. If breakpoints are not specified, all breaks are cleared.</P>
+
+<pre>
+
+<b>disable [</B><B><I>bpnumber</I></b> <b>[</b><b><i>bpnumber</i></b><b>...]]</b> </pre>
+
+<p>Disables the set of specified breakpoints. Unlike with <tt class="monofont">clear</Tt>, they can be reenabled later.</p>
+
+<Pre>
+
+<b>enable [</B><b><i>bpnumber</i></b> <B>[</b><b><i>bpnumber</I></B><B>...]]</B> </pre>
+
+<p>Enables a specified set of breakpoints.</P>
+
+<PRE>
+
+<b>ignore</b> <b><i>bpnumber</I></B> <B>[</B><b><i>count</i></b><B>]</B> </PRe>
+
+<p>Ignores a breakpoint for <i><tt class="monofont">count</tt></i>
+ executions.</p>
+
+<pre>
+
+<b>condition</b> <b><I>bpnumber</i></b> <B>[</b><b><i>condition</I></b><b>]</b> </pRe>
+
+<p>Places a condition on a breakpoint. <i><TT CLass="monofont">condition</tT></I>
+ is an expression that must evaluate to true before the breakpoint is recognized. Omitting the condition clears any previous condition.</P>
+
+<Pre>
+
+<b>s(tep)</b> </PRE>
+
+<P>Executes a single source line and stops inside called functions.</p>
+
+<pre>
+
+<B>n(ext)</B> </PRe>
+
+<p>Executes until the next line of the current function. Skips the code contained in function calls.</p>
+
+<pre>
+
+<b>r(eturn)</b> </pre>
+
+<p>Runs until the current function returns.</p>
+
+<pre>
+
+<b>c(ont(inue))</b> </prE>
+
+<p>Continues execution until the next breakpoint is encountered.</p>
+
+<Pre>
+
+<b>l(ist) [</B><b><i>first</i></b> <B>[,</b> <b><i>last</I></B><B>]]</B> </pre>
+
+<p>Lists source code. Without arguments, lists 11 lines around the current line. With one argument, lists 11 lines around that line. With two arguments, lists lines in a given range. If <I><TT Class="monofont">last</TT></I>
+ is less than <I><tt clASS="monofont">first</Tt></i>
+, it’s interpreted as a count.</p>
+
+<pre>
+
+<b>a(rgs)</b> </pre>
+
+<p>Prints the argument list of the current function.</p>
+
+<pre>
+
+<b>p expression</b> </prE>
+
+<p>Evaluates the expression in the current context and prints its value.</p>
+
+<Pre>
+
+<b>alias [</B><b><i>name</i></b> <B>[</b><b><i>command</I></B><B>]]</B> </pre>
+
+<p>Creates an alias called <I><TT Class="monofont">name</TT></I>
+ that executes <I><tt clASS="monofont">command</Tt></i>
+. The substrings <tt class="monofont">'%1'</tt>, <tt class="monofont">'%2'</tt>, and so forth are replaced by parameters when the alias is typed. <Tt cLass="monofont">'%*'</Tt> is replaced by all parameters. If no command is given, the current alias list is shown. Aliases can be nested and can contain anything that can be legally typed at the <tt cLass="monofont">Pdb</TT>  prompt. For example:</P>
+
+<Pre>
+
+#Print instance variables (usage "pi classInst") 
+alias pi for k in %1._ _dict_ _.keys(): print "%1.",k,"=",%1._ _dict_ _[k] 
+#Print instance variables in self 
+alias ps pi self </prE>
+
+<PRE>
+
+<b>unalias</b> <b><i>name</I></B> </PRe>
+
+<p>Deletes the specified alias.</p>
+
+<pRE>
+
+<B>[!]</B> <b><i>statement</i></b> </pre>
+
+<p>Executes the (one-line) <i><tt class="monofont">statement</tt></i>
+ in the context of the current stack frame. The exclamation point can be omitted unless the first word of the statement resembles a debugger command. To set a global variable, you can prefix the assignment command with a <tT clAss="monofont">"global"</tT> command on the same line:</p>
+
+<pre>
+
+(Pdb) global list_options; list_options = ['-l'] 
+(Pdb) </Pre>
+
+<pRE>
+
+<B>q(uit)</B> </pre>
+
+<p>Quits from the debugger.</P>
+
+
+<H4>Notes</H4>
+<Ul>
+<li>
+<p>Entering a blank line repeats the last command entered.</P>
+</LI>
+<Li>
+<p>Commands that the debugger doesn’t recognize are assumed to be Python statements and are executed in the context of the program being debugged.</p>
+</lI>
+<LI>
+<P>If a file <tt class="monofont">.pdbrc</tt>  exists in the user’s home directory or in the current directory, it’s read in and executed as if it had been typed at the debugger prompt.</p>
+</li>
+</ul></font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="117.html" title="Miscellaneous Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=118" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="118.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="119.html" title="The Python Profiler"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

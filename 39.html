@@ -1,0 +1,2342 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Built-in Types</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="33.html" class="navtitle">3. Types and Objects</a> &gt; <span class="nonavtitle">Built-in Types</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="38.html" title="References and Copies"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=39" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="39.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="40.html" title="Special Methods"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A54%3A47+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104028131052206173015093</font><a href="read5.asp?bookname=0735710910&snode=39&now=5%2F28%2F2002+8%3A54%3A47+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Built-in Types</h3>
+<p>Approximately two dozen types are built into the Python interpreter and grouped into a few major categories, as shown in <a HREF="39#2.html">Table 3.1</a>. Some categories include familiar objects such as numbers and sequences. Others are used during program execution and are of little practical use to most programmers. The next few sections describe the most commonly used built-in types.</p>
+
+<a nAME="2"></A><p><tabLE BOrder="1" cellspacing="0" cellpAddIng="1" wIdth="100%">
+<cAptiON><H5>Table 3.1.  Built-in Python Types</H5></captION><ColgrOUP Span="3">
+<tR>
+<TH Valign="top">
+<font size="2">
+<p><b>Type Category</b></p>
+</fonT></th>
+<Th vaLign="top">
+<fOnt sIZE="2">
+<P><b>Type Name</b></p>
+</fONT></Th>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Description</b></p>
+</font></th>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p>None</P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">NoneType</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>The null object</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P>Numbers</P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">IntType</Tt></p>
+
+<P><tt cLass="monofont">LongType</tT></p>
+
+<p><tT CLAss="monofont">FloatType</tt></P>
+
+<P><TT clasS="monofont">ComplexType</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>Integer</p>
+
+<p>Arbitrary-precision integer</p>
+
+<p>Floating-point number</p>
+
+<P>Complex number</p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Sequences</p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">StringType</tt></p>
+
+<p><Tt cLass="monofont">UnicodeType</Tt></p>
+
+<p><tT claSS="monofont">ListType</TT></p>
+
+<p><tt CLASs="monofont">TupleType</tt></p>
+
+<P><TT Class="monofont">XRangeType</TT></P>
+
+<P><tt class="monofont">BufferType</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>Character string</p>
+
+<p>Unicode character string</p>
+
+<P>List</P>
+
+<P>Tuple</P>
+
+<p>Returned by <tt cLASS="monofont">xrange()</tt></p>
+
+<p>Buffer; returned by <TT CLass="monofont">buffer()</tT></P>
+
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p>Mapping</p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">DictType</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Dictionary</p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P>Callable</P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">BuiltinFunctionType</tt></p>
+
+<p><tt cLasS="monofont">BuiltinMethodType</tt></p>
+
+<P><tt clAss="monofont">ClassType</tT></P>
+
+<P><Tt claSS="monofont">FunctionType</TT></p>
+
+<p><tt CLASs="monofont">InstanceType</tt></p>
+
+<P><TT Class="monofont">MethodType</tt></p>
+
+<p><tt class="monofont">UnboundMethodType</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Built-in functions</p>
+
+<p>Built-in methods</p>
+
+<P>Class object</P>
+
+<P>User-defined function</P>
+
+<p>Class object instance</p>
+
+<p>Bound class method</p>
+
+<P>Unbound class method</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p>Modules</p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">ModuleType</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Module</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>Classes</P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">ClassType</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>Class definition</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Class Instance</p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">InstanceType</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Class instance</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p>Files</p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">FileType</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>File</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P>Internal</P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">CodeType</tt></p>
+
+<p><tt class="monofont">FrameType</tt></p>
+
+<p><tT clAss="monofont">TracebackType</tT></p>
+
+<p><tt ClasS="monofont">SliceType</TT></P>
+
+<p><tt cLASS="monofont">EllipsisType</tt></p>
+
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Byte-compiled code</p>
+
+<p>Execution frame</p>
+
+<p>Stack traceback of an exception</p>
+
+<p>Generated by extended slices</p>
+
+<p>Used in extended slices</p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top" COLspan="3">
+<FONT size="1"><P><I>Note:</I> <Tt claSS="monofont">ClassType</TT>  and <tt class="monofont">InstanceType</tt>  appear twice in <a href="39#2.html">Table 3.1</a> because classes and instances are both callable under special circumstances.</p>
+</font></Td>
+</tR>
+</colGroup>
+</TablE></P>
+
+<P><I>Note:</i> <tt cLASS="monofont">ClassType</tt>  and <tt CLASs="monofont">InstanceType</tt>  appear twice in <a HREF="39#2.html">Table 3.1</a> because classes and instances are both callable under special circumstances.</p>
+
+
+<h4>The <tt class="monofont">None</tt> Type</h4>
+<p>The <tt clasS="monofont">None</tt>  type denotes a null object. Python provides exactly one null object, which is written as <Tt clAss="monofont">None</tt>  in a program. This object is returned by functions that don’t explicitly return a value. <Tt clASS="monofont">None</Tt>  is frequently used as the default value of optional arguments, so that the function can detect whether the caller has actually passed a value for that argument. <tt cLASS="monofont">None</tt>  has no attributes and evaluates to false in Boolean expressions.</p>
+
+
+<h4>Numeric Types</H4>
+<P>Python uses four numeric types: integers, long integers, floating-point numbers, and complex numbers. All numeric objects are signed and immutable.</P>
+
+<P>Integers represent whole numbers in the range of –2147483648 to 2147483647 (the range may be larger on some machines). Internally, integers are stored as 2’s complement binary values, in 32 or more bits. If the result of an operation exceeds the allowed range of values, an <tt clASS="monofont">OverflowError</Tt>  exception is raised. Long integers represent whole numbers of unlimited range (limited only by available memory).</p>
+
+<p>Floating-point numbers are represented using the native double-precision (64-bit) representation of floating-point numbers on the machine. Normally this is IEEE 754, which provides approximately 17 digits of precision and an exponent in the range of –308 to 308. This is the same as the <tt class="monofont">double</tt>  type in C. Python doesn’t support 32-bit single-precision floating-point numbers. If space and precision are an issue in your program, consider using Numerical Python (<a target="_blank" hRef="http://numpy.sourceforge.net">http://numpy.sourceforge.net</A>).</p>
+
+<p>Complex numbers are represented as a pair of floating-point numbers. The real and imaginary parts of a complex number <i><Tt claSs="monofont">z</tt></I>
+ are available in <I><TT clasS="monofont">z</TT></I>
+<tt clASS="monofont">.real</Tt> and <i><tt CLASs="monofont">z</tt></i>
+<tt class="monofont">.imag</tt>.</p>
+
+
+<h4>Sequence Types</h4>
+<p><i>Sequences</i> represent ordered sets of objects indexed by non-negative integers and include strings, Unicode strings, lists, tuples, xrange objects, and buffer objects. Strings and buffers are sequences of characters, xrange objects are sequences of integers, and lists and tuples are sequences of arbitrary Python objects. Strings, Unicode strings, and tuples are immutable; lists allow insertion, deletion, and substitution of elements. Buffers are described later in this section.</p>
+
+<P><a hRef="39#10.html">Table 3.2</a> shows the operators and methods that you can apply to all sequence types. Element <I><tt clAss="monofont">i</tT></I>
+ of a sequence <I><Tt claSS="monofont">s</TT></i>
+ is selected using the indexing operator <i><tt CLASs="monofont">s</tt></i>
+<TT CLass="monofont">[</tt><i><tt class="monofont">i</tt></i>
+<tt clAss="monofont">]</Tt>, and a subsequence is selected using the slicing operator <i><tT clasS="monofont">s</tt></i>
+<TT CLass="monofont">[</tT><I><TT clasS="monofont">i</TT></I>
+<tt clASS="monofont">:</Tt><i><tt class="monofont">j</tt></i>
+<tt class="monofont">]</tT>. (These operations are described in <a hRef="42.html">Chapter 4</a>.) The length of any sequence is returned using the built-in <Tt claSs="monofont">len(</tt><I><TT Class="monofont">s</TT></I>
+<Tt claSS="monofont">)</TT> function. You can find the minimum and maximum values of a sequence by using the built-in <tt clASS="monofont">min(</Tt><i><tt class="monofont">s</tt></i>
+<tt class="monofont">)</tT> and <tt ClasS="monofont">max(</tt><i><tT claSS="monofont">s</TT></i>
+<tt cLASS="monofont">)</tt> functions. However, these functions only work for sequences in which the elements can be ordered (typically numbers and strings).</p>
+
+<p><A HREf="39#12.html">Table 3.3</a> shows the additional operators that can be applied to mutable sequences such as lists.</p>
+
+<a NAME="10"></a><p><table border="1" cellspaCinG="0" celLpaddIng="1" wIDTH="100%">
+<captION><H5>Table 3.2.  Operations and Methods Applicable to All Sequences</h5></capTION><colgROUP span="2">
+<tr>
+<th valign="top">
+<font siZe="2">
+<p><B>Item</b></p>
+</fOnt></th>
+<Th vaLIGN="top">
+<font SIZE="2">
+<p><b>Description</b></p>
+</FONT></th>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><i><tt clAss="monofont">s</Tt></i>
+<tT clasS="monofont">[</tt><i><TT CLass="monofont">i</tT></I>
+<TT clasS="monofont">]</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>Returns element <i><tt clAss="monofont">i</Tt></i>
+ of a sequence</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><I><Tt claSS="monofont">s</TT></i>
+<tt class="monofont">[</tt><i><tt class="monofont">i</tt></I>
+<tt ClasS="monofont">:</tt><i><tT claSS="monofont">j</TT></i>
+<tt cLASS="monofont">]</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Returns a slice</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">len(</TT><I><tt clASS="monofont">s</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p>Number of elements in <I><tt clAss="monofont">s</tT></I>
+</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">min(</tt><i><tt class="monofont">s</tT></i>
+<tT claSs="monofont">)</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Minimum value in <I><tt clASS="monofont">s</Tt></i>
+</p>
+</font></td>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><tt ClasS="monofont">max(</TT><I><tt clASS="monofont">s</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>Maximum value in <i><Tt cLass="monofont">s</Tt></i>
+</p>
+</fOnt></tD>
+</TR>
+</ColgrOUP>
+</Table></P>
+
+<A NAme="12"></a><p><TABLe border="1" cellspacing="0" ceLlpAddiNg="1" widTh="100%">
+<caPTIOn><h5>Table 3.3.  Operations Applicable to Mutable Sequences</h5></cAPTIon><coLGROup spAN="2">
+<TR>
+<th valign="top">
+<font size="2">
+<p><b>Item</b></p>
+</FonT></th>
+<tH valiGn="top">
+<foNT SIze="2">
+<p><b>Description</B></P>
+</FOnt></th>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><i><tt class="monofont">s</tt></i>
+<Tt cLass="monofont">[</Tt><i><tt ClasS="monofont">i</TT></I>
+<tt clASS="monofont">] = </Tt><i><tt CLASs="monofont">v</tt></i>
+</P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p>Item assignment</P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">s</tt></i>
+<tT CLAss="monofont">[</tt><i><tt class="monofont">i</tt></i>
+<tt claSs="monofont">:</tT><i><tt Class="monofont">j</Tt></i>
+<tT CLAss="monofont">] = </tt><I><TT Class="monofont">t</TT></I>
+</P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>Slice assignment</p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">del </tt><I><TT Class="monofont">s</TT></I>
+<Tt class="monofont">[</tt><i><tt class="monofont">i</tt></i>
+<tT clAss="monofont">]</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Item deletion</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">del </Tt><i><tT clasS="monofont">s</tt></i>
+<TT CLass="monofont">[</tT><I><TT clasS="monofont">i</TT></I>
+<tt clASS="monofont">:</Tt><i><tt class="monofont">j</tt></i>
+<tt class="monofont">]</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P>Slice deletion</P>
+</FOnt></td>
+</TR>
+</COlgroUP>
+</TAble></p>
+
+<p>Additionally, lists support the methods shown in <a href="39#14.html">Table 3.4</a>. The built-in function <tt class="monofont">list(</tt><I><tt ClasS="monofont">s</tt></i>
+<tT claSS="monofont">)</TT> converts any sequence type to a list. If <i><tt cLASS="monofont">s</tt></i>
+ is already a list, this function constructs a new list that’s a shallow copy of <i><TT CLass="monofont">s</tT></I>
+. The <I><Tt class="monofont">s</tt></i>
+<tt class="monofont">.append(</tt><i><tT clAss="monofont">x</tT></i>
+<tt cLass="monofont">)</TT> method appends a new element <I><Tt claSS="monofont">x</TT></i>
+ to the end of the list. The <i><tt CLASs="monofont">s</tt></i>
+<TT CLass="monofont">.index(</tt><i><tt class="monofont">x</tt></i>
+<tt clAss="monofont">)</Tt> method searches the list for the first occurrence of <i><tT clasS="monofont">x</tt></i>
+. If no such element is found, a <TT CLass="monofont">ValueError</tT> exception is raised. Similarly, the <I><TT clasS="monofont">s</TT></I>
+<tt clASS="monofont">.remove(</Tt><i><tt class="monofont">x</tt></i>
+<tt class="monofont">)</tT> method removes the first occurrence of <i><tT claSs="monofont">x</tt></i>
+ from the list. The <I><tt cLASS="monofont">s</tt></i>
+<tT CLAss="monofont">.extend(</tt><I><TT Class="monofont">t</TT></I>
+<Tt class="monofont">)</tt> method extends list <i><tt class="monofont">s</tt></i>
+ by appending the elements in sequence <i><Tt cLass="monofont">t</Tt></i>
+.The <i><tT claSS="monofont">s</TT></i>
+<tt cLASS="monofont">.sort()</tt> method sorts the elements of a list and optionally accepts a comparison function. This function should take two arguments and return negative, zero, or positive, depending on whether the first argument is smaller, equal to, or larger than the second argument, respectively. The <i><tT CLAss="monofont">s</tt></I>
+<TT Class="monofont">.reverse()</tt> method reverses the order of the items in the list. Both the <tt class="monofont">sort()</tt> and <tt claSs="monofont">reverse()</tT> methods operate on the list elements in place and return <tt cLass="monofont">None</tT>.</p>
+
+<a nAME="14"></A><p><tabLE BOrder="1" CELLspacING="0" Cellpadding="1" width="100%">
+<captiOn><h5>Table 3.4.  List Methods</H5></capTion><cOlgrOUP Span="2">
+<tR>
+<TH ValigN="top">
+<FONt sizE="2">
+<P><B>Method</B></p>
+</font></th>
+<th valign="top">
+<font sIze="2">
+<P><b>Description</b></p>
+</Font></tH>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">list(</TT><I><tt class="monofont">s</tt></i>
+<tt class="monofont">)</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p>Converts sequence <i><TT CLass="monofont">s</tT></I>
+ to a list.</P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><i><tT clAss="monofont">s</tT></i>
+<tt cLass="monofont">.append(</TT><I><Tt claSS="monofont">x</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Appends a new element <i><tT clAss="monofont">x</tT></i>
+ to the end of <i><tt ClasS="monofont">s</TT></I>
+.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><i><tt class="monofont">s</tt></i>
+<tt claSs="monofont">.extend(</tT><i><tt Class="monofont">t</Tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Appends a new list <i><tt class="monofont">t</tt></i>
+ to the end of <i><tt clAss="monofont">s</Tt></i>
+.</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><I><Tt claSS="monofont">s</TT></i>
+<tt class="monofont">.count(</tt><i><tt class="monofont">x</tt></I>
+<tt ClasS="monofont">)</tt></p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Counts occurrences of <I><Tt claSS="monofont">x</TT></i>
+ in <i><tt class="monofont">s</tt></i>
+.</p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><i><tt cLASS="monofont">s</tt></i>
+<tT CLAss="monofont">.index(</tt><I><TT Class="monofont">x</tt></i>
+<tt class="monofont">)</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>Returns the smallest <i><tt cLASS="monofont">i</tt></i>
+ where <i><TT CLass="monofont">s[i] == x</tT></I>
+.</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><i><Tt claSs="monofont">s</tt></I>
+<TT Class="monofont">.insert(</TT><I><Tt claSS="monofont">i,x</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>Inserts <i><Tt claSs="monofont">x</tt></I>
+ at index <I><TT clasS="monofont">i</TT></I>
+.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><i><tt class="monofont">s</Tt></i>
+<Tt clAss="monofont">.pop([</tt><I><tt cLASS="monofont">i</tt></i>
+<tT CLAss="monofont">])</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p>Returns the element <i><tt class="monofont">i</Tt></i>
+ and removes it from the list. If <I><tt cLass="monofont">i</tT></i>
+ is omitted, the last element is returned.</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><I><Tt class="monofont">s</tt></i>
+<tt class="monofont">.remove(</tt><i><tT clAss="monofont">x</tT></i>
+<tt cLass="monofont">)</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Searches for <I><Tt class="monofont">x</tt></i>
+ and removes it from <i><tt class="monofont">s</tt></i>
+.</P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">s</tt></i>
+<tT CLAss="monofont">.reverse()</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Reverses items of <i><tt cLass="monofont">s</TT></I>
+ in place.</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><tt class="monofont">s</tt></i>
+<tt clasS="monofont">.sort([</tt><I><tt cLass="monofont">cmpfunc</tT></i>
+<tt CLASs="monofont">])</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Sorts items of <i><tt class="monofont">s</tt></i>
+ in place. <i><tt claSs="monofont">cmpfunc</tT></i>
+ is a comparison function.</p>
+</fOnt></td>
+</Tr>
+</coLGROup>
+</taBLE></P>
+
+<p>Python provides two string object types. Standard strings are sequences of bytes containing 8-bit data. They may contain binary data and embedded null bytes. Unicode strings are sequences of 16-bit characters encoded in a format known as <i>UCS-2</i>. This allows for 65,536 unique character values. Although the latest Unicode standard supports up to 1 million unique character values, these extra characters are not currently supported by Python. Instead, they must be encoded as a special two-character (4-byte) sequence known as a <i>surrogate pair</I>—the interpretation of which is up to the application. Python does not check data for Unicode compliance or the proper use of surrogates.</P>
+
+<P>Both standard and Unicode strings support the methods shown in <A href="39#16.html">Table 3.5</A>. Although these methods operate on string instances, none of these methods actually modifies the underlying string data. Thus, methods such as <I><TT class="monofont">s</tt></i>
+<tt class="monofont">.capitalize()</tt>, <i><tt ClaSs="monofont">s</tt></I>
+<tt clAss="monofont">.center()</tT>, and <I><TT clasS="monofont">s</TT></I>
+<tt clASS="monofont">.expandtabs()</Tt> always return a new string as opposed to modifying the string <i><tt CLASs="monofont">s</tt></i>
+. Character tests such as <i><tt class="monofont">s</tt></i>
+<tt claSs="monofont">.isalnum()</tT> and <i><tt Class="monofont">s</Tt></i>
+<tT CLAss="monofont">.isupper()</tt> return true or false if all the characters in the string <I><TT Class="monofont">s</TT></I>
+ satisfy the test. Furthermore, these tests always return false if the length of the string is zero. The <I><tt clASS="monofont">s</Tt></i>
+<tt class="monofont">.find()</tt>, <i><tt class="monofont">s</tT></i>
+<tT claSs="monofont">.index()</tt>, <i><Tt clASS="monofont">s</Tt></i>
+<tt CLASs="monofont">.rfind()</tt>, and <i><TT CLass="monofont">s</tT></I>
+<TT class="monofont">.rindex()</tt> methods are used to search <i><tt class="monofont">s</tt></i>
+ for a substring. All these functions return an integer index to the substring in <i><tT clAss="monofont">s</tT></i>
+. In addition, the <tt cLass="monofont">find()</TT> method returns <TT clasS="monofont">-1</TT> if the substring isn’t found, whereas the <Tt claSS="monofont">index()</TT>  method raises a <tt clASS="monofont">ValueError</Tt> exception. Many of the string methods accept optional <i><tt class="monofont">start</tt></i>
+ and <i><tt class="monofont">end</Tt></i>
+ parameters, which are integer values specifying the starting and ending indices in <I><tt cLass="monofont">s</tT></i>
+. The <i><tT CLAss="monofont">s</tt></I>
+<TT Class="monofont">.translate()</TT> method is used to perform character substitutions, and is described in the <TT clasS="monofont">string</TT> module in <A href="105.html">Appendix A</a>. The <i><tt class="monofont">s</tt></i>
+<tt clAss="monofont">.encode()</Tt> method is used to transform the string data into a specified character encoding. As input it accepts an encoding name such as <tt Class="monofont">'ascii'</Tt>, <tt CLASs="monofont">'utf-8'</tt>, or <tT CLAss="monofont">'utf-16'</tt>. This method is most commonly used to convert Unicode strings into a data encoding suitable for I/O operations and is described further in <A HREf="89.html">Chapter 9</a>, “Input and Output.” More details about string methods can be found in the documentation for the <tt CLASs="monofont">string</tt>  module (see <a href="105.html">Appendix A</a>).</p>
+
+<a name="16"></a><p><tabLe bOrdeR="1" cellSpacING="0" CellpADDIng="1" wiDTH="100%">
+<CaptiON><H5>Table 3.5.  String Methods</H5></caption><colgroup span="2">
+<tR>
+<th ValiGn="top">
+<fonT sizE="2">
+<P><B>Method</B></p>
+</fonT></TH>
+<Th valIGN="top">
+<Font sIZE="2">
+<P><b>Description</b></p>
+</font></th>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><i><tT claSS="monofont">s</TT></i>
+<tt cLASS="monofont">.capitalize()</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Capitalizes the first character of <i><tt class="monofont">s</tt></I>
+.</p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt CLASs="monofont">s</tt></i>
+<TT CLass="monofont">.center(</tt><i><tt class="monofont">width</tt></i>
+<tt clAss="monofont">)</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Centers the string in a field of length <i><tt CLASs="monofont">width</tt></i>
+.</P>
+</FONt></td>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><i><tt Class="monofont">s</Tt></i>
+<tT CLAss="monofont">.count(</tt><I><TT Class="monofont">sub</TT></I>
+<Tt claSS="monofont"> [,</TT><i><tt class="monofont">start</tt></i>
+<tt class="monofont"> [,</tt><I><tt ClasS="monofont">end</tt></i>
+<tT claSS="monofont">]])</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Counts occurrences of the specified substring <i><tt class="monofont">sub</tt></i>
+.</p>
+</font></td>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><I><tt clASS="monofont">s</Tt></i>
+<tt CLASs="monofont">.encode([</tt><i><TT CLass="monofont">encoding</tt></i>
+<tt class="monofont"> [,</tt><i><tt clAss="monofont">errors</Tt></i>
+<tT clasS="monofont">]])</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Returns an encoded version of the string.</p>
+</FONT></td>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><I><tt cLass="monofont">s</tT></i>
+<tt CLASs="monofont">.endswith(</tt><i><TT CLass="monofont">suffix</tT></I>
+<TT clasS="monofont"> [,</TT><I><tt class="monofont">start</tt></i>
+<tt class="monofont"> [,</tt><i><Tt cLass="monofont">end</Tt></i>
+<tt ClasS="monofont">]])</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Checks the end of the string for a suffix.</P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><I><tt clAss="monofont">s</tT></I>
+<TT clasS="monofont">.expandtabs([</TT><I><tt clASS="monofont">tabsize</Tt></i>
+<tt CLASs="monofont">])</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p>Expands tabs.</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt clASS="monofont">s</Tt></i>
+<tt class="monofont">.find(</tt><i><tt class="monofont">sub</tT></i>
+<tT claSs="monofont"> [,</tt><i><Tt clASS="monofont">start</Tt></i>
+<tt CLASs="monofont"> [,</tt><i><TT CLass="monofont">end</tT></I>
+<TT class="monofont">]])</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>Finds the first occurrence of the specified substring <i><Tt clASS="monofont">sub</Tt></i>
+.</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p><i><tt class="monofont">s</tt></i>
+<tt cLasS="monofont">.index(</tt><i><Tt claSs="monofont">sub</tt></I>
+<TT Class="monofont"> [,</TT><I><Tt claSS="monofont">start</TT></i>
+<tt cLASS="monofont"> [,</tt><i><tt class="monofont">end</tt></i>
+<tt class="monofont">]])</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>Finds the first occurrence of <I><Tt claSS="monofont">sub</TT></i>
+ or raises an exception.</p>
+</foNT></TD>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><i><tT claSs="monofont">s</tt></i>
+<Tt clASS="monofont">.isalnum()</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Checks whether all characters are alphanumeric.</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><i><tt ClasS="monofont">s</TT></I>
+<tt clASS="monofont">.isalpha()</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>Checks whether all characters are alphabetic.</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><I><TT clasS="monofont">s</TT></I>
+<tt clASS="monofont">.isdigit()</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>Checks whether all characters are digits.</p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><I><TT clasS="monofont">s</TT></I>
+<tt clASS="monofont">.islower()</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>Checks whether all characters are lowercase.</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT clasS="monofont">s</TT></I>
+<tt class="monofont">.isspace()</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>Checks whether all characters are whitespace.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT class="monofont">s</tt></i>
+<tt class="monofont">.istitle()</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Checks whether the string is title-cased (first letter of each word capitalized).</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><i><tt class="monofont">s</tt></i>
+<tt clAss="monofont">.isupper()</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Checks whether all characters are uppercase.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><i><tt clasS="monofont">s</tt></I>
+<tt cLass="monofont">.join(</tT><i><tt CLASs="monofont">t</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<font size="2">
+<p>Joins the strings in list <i><tt clasS="monofont">t</tt></I>
+ using <i><tt Class="monofont">s</Tt></i>
+ as a delimiter.</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt class="monofont">s</tt></i>
+<tt class="monofont">.ljust(</tt><i><Tt cLass="monofont">width</Tt></i>
+<tt ClasS="monofont">)</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Left-aligns <I><tt class="monofont">s</tt></i>
+ in a string of size <i><tt class="monofont">width</tt></I>
+.</p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt CLASs="monofont">s</tt></i>
+<TT CLass="monofont">.lower()</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>Returns <i><tt ClasS="monofont">s</TT></I>
+ converted to lowercase.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><i><tt class="monofont">s</tt></i>
+<tt claSs="monofont">.lstrip()</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P>Removes leading whitespace.</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><i><tt class="monofont">s</Tt></i>
+<Tt clAss="monofont">.replace(</tt><I><tt cLASS="monofont">old</tt></i>
+<tT CLAss="monofont">, </tt><I><TT Class="monofont">new</TT></I>
+<Tt class="monofont"> [,</tt><i><tt class="monofont">maxreplace</tt></i>
+<tT clAss="monofont">])</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Replaces the substring <I><TT Class="monofont">old</TT></I>
+ with <I><tt class="monofont">new</tt></i>
+.</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><I><Tt claSS="monofont">s</TT></i>
+<tt cLASS="monofont">.rfind(</tt><i><tT CLAss="monofont">sub</tt></i>
+<tt class="monofont"> [,</tt><i><tt claSs="monofont">start</tT></i>
+<tt Class="monofont"> [,</Tt><i><tT CLAss="monofont">end</tt></I>
+<TT Class="monofont">]])</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p>Finds the last occurrence of a substring.</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><i><tT CLAss="monofont">s</tt></I>
+<TT Class="monofont">.rindex(</TT><I><Tt class="monofont">sub</tt></i>
+<tt class="monofont"> [,</tt><i><tT clAss="monofont">start</tT></i>
+<tt cLass="monofont"> [,</TT><I><Tt claSS="monofont">end</TT></i>
+<tt cLASS="monofont">]])</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Finds the last occurrence of <i><tT clAss="monofont">sub</tT></i>
+ or raises an exception.</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt CLASs="monofont">s</tt></i>
+<tt class="monofont">.rjust(</tt><i><tt clasS="monofont">width</tt></I>
+<tt cLass="monofont">)</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Right-aligns <i><tt CLASs="monofont">s</tt></i>
+ in a string of length <i><tt class="monofont">width</tt></i>
+.</p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><i><TT CLass="monofont">s</tT></I>
+<TT clasS="monofont">.rstrip()</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>Removes trailing whitespace.</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><TT CLass="monofont">s</tT></I>
+<TT class="monofont">.split([</tt><i><tt class="monofont">sep</tt></i>
+<tt ClaSs="monofont"> [,</tt><I><tt clAss="monofont">maxsplit</tT></I>
+<TT clasS="monofont">]])</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Splits a string using <i><tt class="monofont">sep</tt></i>
+ as a delimiter. <i><tT clAss="monofont">maxsplit</tT></i>
+ is the maximum number of splits to perform.</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt CLASs="monofont">s</tt></i>
+<tt class="monofont">.splitlines([</tt><i><tt clasS="monofont">keepends</tt></I>
+<tt cLass="monofont">])</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Splits a string into a list of lines. If <i><tt CLASs="monofont">keepends</tt></i>
+ is <tt class="monofont">1</tt>, trailing newlines are preserved.</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><i><tt CLASs="monofont">s</tt></i>
+<TT CLass="monofont">.startswith(</tT><I><TT class="monofont">prefix</tt></i>
+<tt class="monofont"> [,</tt><i><tt ClaSs="monofont">start</tt></I>
+<tt clAss="monofont"> [,</tT><I><TT clasS="monofont">end</TT></I>
+<tt clASS="monofont">]])</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>Checks whether a string starts with <i><tt ClaSs="monofont">prefix</tt></I>
+.</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">s</tt></i>
+<tt class="monofont">.strip()</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p>Removes leading and trailing whitespace.</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt class="monofont">s</tt></i>
+<tt class="monofont">.swapcase()</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Returns <I><TT Class="monofont">s</TT></I>
+ with uppercase converted to lowercase and vice versa.</P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><i><Tt cLass="monofont">s</Tt></i>
+<tt ClasS="monofont">.title()</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Returns a title-cased version of the string.</P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><I><tt clAss="monofont">s</tT></I>
+<TT clasS="monofont">.translate(</TT><I><tt clASS="monofont">table</Tt></i>
+<tt CLASs="monofont"> [,</tt><i><tt class="monofont">deletechars</tt></i>
+<tt clasS="monofont">])</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Translates a string using a character translation table.</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><i><tt class="monofont">s</tT></i>
+<tT claSs="monofont">.upper()</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Returns <I><tt clASS="monofont">s</Tt></i>
+ converted to uppercase.</p>
+</font></td>
+</tr>
+</colgroup>
+</tAblE></p>
+
+<p>The built-in function <tT clasS="monofont">range([</tt><i><TT CLass="monofont">i</tT></I>
+<TT clasS="monofont">,]</TT><I><tt clASS="monofont">j</Tt></i>
+<tt class="monofont"> [,</tt><i><tt class="monofont">stride</tT></i>
+<tT claSs="monofont">])</tt> constructs a list and populates it with integers <i><Tt clASS="monofont">k</Tt></i>
+ such that <i><tT CLAss="monofont">i &lt;</tt></I>
+<TT Class="monofont">= </TT><I><Tt class="monofont">k</tt></i>
+<tt class="monofont"> &lt; </tt><i><tT clAss="monofont">j</tT></i>
+. The first index <i><tt ClasS="monofont">i</TT></I>
+ and the <i><tt cLASS="monofont">stride</tt></i>
+ are optional and have default values of <tT CLAss="monofont">0</tt> and <TT CLass="monofont">1</tt>, respectively. The built-in function <tt class="monofont">xrange([</tt><i><tt claSs="monofont">i</tT></i>
+<tt Class="monofont">,]</Tt><i><tT CLAss="monofont">j</tt></I>
+<TT Class="monofont"> [,</TT><I><Tt claSS="monofont">stride</TT></i>
+<tt class="monofont">])</tt> performs a similar operation, but returns an immutable sequence of type <tt class="monofont">XRangeType</tt>. Rather than storing all the values in a list, this sequence calculates its values whenever it’s accessed. Consequently, it’s much more memory efficient when working with large sequences of integers. The <tT clAss="monofont">XRangeType</tT> provides a single method, <i><tt cLass="monofont">s</TT></I>
+<Tt claSS="monofont">.tolist()</TT>, that converts its values to a list.</p>
+
+<p>Buffer objects are typically used to provide a sequence interface to a region of memory in which each byte is treated as an 8-bit character.Although there is no special syntax for creating a buffer object, they can be created using the built-in function <tt CLASs="monofont">buffer(</tt><i><TT CLass="monofont">obj</tt></i>
+<tt class="monofont"> [, </tt><i><tt clAss="monofont">offset</Tt></i>
+<tT clasS="monofont"> [, </tt><i><TT CLass="monofont">size</tT></I>
+<TT clasS="monofont">]])</TT>. Buffer objects usually share the same memory as that of the underlying object <I><tt clASS="monofont">obj</Tt></i>
+. Because of this, they can sometimes be used as a more memory-efficient mechanism for taking slices of strings and other byte-oriented data. In addition, buffers can sometimes be used to access the raw data used to store the contents of other Python types such as arrays in the array module and Unicode strings. Buffers may or may not be mutable, depending on the mutability of <i><tt class="monofont">obj</tt></i>
+.</p>
+
+
+<h4>Mapping Types</h4>
+<p>A <i>mapping object</i> represents an arbitrary collection of objects that are indexed by another collection of nearly arbitrary key values. Unlike a sequence, a mapping object is unordered and can be indexed by numbers, strings, and other objects. Mappings are mutable.</p>
+
+<P><i>Dictionaries</i> are the only built-in mapping type and are Python’s version of a hash table or associative array. You can use any immutable object as a dictionary key value (strings, numbers, tuples, and so on). Lists, dictionaries, or tuples containing mutable objects cannot be used as keys. (The dictionary type requires key values to remain constant.)</P>
+
+<p>To select an item in a mapping object, use the key index operator <i><tT clasS="monofont">m</tt></i>
+<TT CLass="monofont">[</tT><I><TT clasS="monofont">k</TT></I>
+<tt clASS="monofont">]</Tt> where <i><tt class="monofont">k</tt></i>
+ is a key value. If the key is not found, a <tt class="monofont">KeyError</tT>  exception is raised. The <tt ClasS="monofont">len(</tt><i><tT claSS="monofont">m</TT></i>
+<tt cLASS="monofont">)</tt> function returns the number of items contained in a mapping object. <a hREF="39#20.html">Table 3.6</A> lists methods and operations.</p>
+
+<a naME="20"></A><P><table border="1" cellspaciNg="0" cEllpAddinG="1" widTH="100%">
+<CAptioN><H5>Table 3.6.  Methods and Operations for Mapping Types</H5></CaptiON><COlgroUP SPan="2">
+<tr>
+<th valign="top">
+<font size="2">
+<P><b>Item</b></P>
+</fonT></th>
+<th ValiGN="top">
+<FOnt siZE="2">
+<P><B>Description</b></p>
+</foNT></TH>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">len(</Tt><i><Tt clAss="monofont">m</tt></I>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Returns the number of items in <i><tt class="monofont">m</tt></i>
+.</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><i><tt CLASs="monofont">m</tt></i>
+<TT CLass="monofont">[</tT><I><TT class="monofont">k</tt></i>
+<tt class="monofont">]</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Returns the item of <i><tt CLASs="monofont">m</tt></i>
+ with key <I><TT Class="monofont">k</TT></I>
+.</P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><I><tt clAss="monofont">m</tT></I>
+<TT clasS="monofont">[</TT><I><tt clASS="monofont">k</Tt></i>
+<tt CLASs="monofont">] = </tt><i><tt class="monofont">x</tt></i>
+</p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>Sets <I><Tt claSS="monofont">m</TT></i>
+<tt cLASS="monofont">[</tt><i><tT CLAss="monofont">k</tt></i>
+<tt class="monofont">]</tt> to <i><tt claSs="monofont">x</tT></i>
+.</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">del </TT><I><Tt class="monofont">m</tt></i>
+<tt class="monofont">[</tt><i><tT clAss="monofont">k</tT></i>
+<tt cLass="monofont">]</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Removes <I><Tt class="monofont">m</tt></i>
+<tt class="monofont">[</tt><i><tT clAss="monofont">k</tT></i>
+<tt cLass="monofont">]</TT> from <I><Tt claSS="monofont">m</TT></i>
+.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><i><tt clasS="monofont">m</tt></I>
+<tt cLass="monofont">.clear()</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Removes all items from <i><tt CLASs="monofont">m</tt></i>
+.</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><I><tt cLASS="monofont">m</tt></i>
+<tT CLAss="monofont">.copy()</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p>Returns a copy of <i><tt class="monofont">m</Tt></i>
+.</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><TT CLass="monofont">m</tT></I>
+<TT class="monofont">.has_key(</tt><i><tt class="monofont">k</tt></i>
+<tt ClaSs="monofont">)</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Returns <tT CLAss="monofont">1</tt> if <I><TT Class="monofont">m</tt></i>
+ has key <i><tt class="monofont">k</tt></i>
+, <tt ClaSs="monofont">0</tt> otherwise.</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt clASS="monofont">m</Tt></i>
+<tt class="monofont">.items()</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>Returns a list of <tT CLAss="monofont">(</tt><I><TT Class="monofont">key</TT></I>
+<Tt claSS="monofont">,</TT><i><tt class="monofont">value</tt></i>
+<tt class="monofont">)</tt> pairs.</P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">m</tt></i>
+<tT CLAss="monofont">.keys()</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Returns a list of key values.</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">m</tt></i>
+<tt class="monofont">.update(</tt><i><tt class="monofont">b</Tt></i>
+<Tt clAss="monofont">)</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Adds all objects from dictionary <i><tt cLASS="monofont">b</tt></i>
+ to <i><tt class="monofont">m</tt></i>
+.</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><i><tT CLAss="monofont">m</tt></I>
+<TT Class="monofont">.values()</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>Returns a list of all values in <i><Tt clAss="monofont">m</tt></I>
+.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT class="monofont">m</tt></i>
+<tt class="monofont">.get(</tt><i><tt ClaSs="monofont">k</tt></I>
+<tt clAss="monofont"> [,</tT><I><TT clasS="monofont">v</TT></I>
+<tt clASS="monofont">])</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>Returns <i><tt ClaSs="monofont">m</tt></I>
+<tt clAss="monofont">[</tT><I><TT clasS="monofont">k</TT></I>
+<tt clASS="monofont">]</Tt> if found; otherwise, returns <i><tt CLASs="monofont">v</tt></i>
+.</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><I><tt cLASS="monofont">m</tt></i>
+<tT CLAss="monofont">.setdefault(</tt><I><TT Class="monofont">k</TT></I>
+<Tt class="monofont"> [, </tt><i><tt class="monofont">v</tt></i>
+<tT clAss="monofont">])</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Returns <I><TT Class="monofont">m</TT></I>
+<Tt class="monofont">[</tt><i><tt class="monofont">k</tt></i>
+<tT clAss="monofont">]</tT> if found; otherwise, returns <i><tt cLass="monofont">v</TT></I>
+ and sets <I><tt clASS="monofont">m</Tt></i>
+<tt CLASs="monofont">[</tt><i><TT CLass="monofont">k</tt></i>
+<tt class="monofont">] = </tt><i><tt clAss="monofont">v</Tt></i>
+.</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><I><Tt claSS="monofont">m</TT></i>
+<tt class="monofont">.popitem()</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Removes a random <tt CLASs="monofont">(</tt><i><TT CLass="monofont">key</tT></I>
+<TT clasS="monofont">,</TT><I><tt class="monofont">value</tt></i>
+<tt class="monofont">)</tt> pair from <i><Tt cLass="monofont">m</Tt></i>
+ and returns it as a tuple.</p>
+</fOnt></tD>
+</TR>
+</ColgrOUP>
+</Table></P>
+
+<P>The <I><Tt claSS="monofont">m</TT></i>
+<tt class="monofont">.clear()</tt> method removes all items. The <i><tt class="monofont">m</tt></I>
+<tt ClasS="monofont">.copy()</tt> method makes a shallow copy of the items contained in a mapping object and places them in a new mapping object. The <i><tT claSS="monofont">m</TT></i>
+<tt cLASS="monofont">.items()</tt> method returns a list containing (<i>key</i>,<I>value</I>) pairs. The <I><Tt claSS="monofont">m</TT></i>
+<tt class="monofont">.keys()</tt> method returns a list with all the key values and the <i><tt class="monofont">m</tt></I>
+<tt ClasS="monofont">.values()</tt> method returns a list with all the objects. The <i><tT claSS="monofont">m</TT></i>
+<tt cLASS="monofont">.update(</tt><i><tT CLAss="monofont">b</tt></I>
+<TT Class="monofont">)</tt> method updates the current mapping object by inserting all the (<i>key</i>,<i>value</i>) pairs found in the mapping object <i><tt class="monofont">b</tt></I>
+. The <i><tT claSs="monofont">m</tt></i>
+<Tt clASS="monofont">.get(</Tt><i><tt CLASs="monofont">k</tt></i>
+<TT CLass="monofont"> [,</tT><I><TT class="monofont">v</tt></i>
+<tt class="monofont">])</tt> method retrieves an object, but allows for an optional default value <i><tt ClaSs="monofont">v</tt></I>
+ that’s returned if no such object exists. The <i><tt cLass="monofont">m</TT></I>
+<Tt claSS="monofont">.setdefault(</TT><i><tt cLASS="monofont">k</tt></i>
+<tT CLAss="monofont"> [,</tt><i><tt class="monofont">v</tt></i>
+<tt claSs="monofont">])</tT> method is similar to <i><tt Class="monofont">m</Tt></i>
+<tT CLAss="monofont">.get()</tt> except that in addition to returning <I><TT Class="monofont">v</TT></I>
+ if no object exists, it sets <I><tt clASS="monofont">m</Tt></i>
+<tt class="monofont">[</tt><i><tt class="monofont">k</tT></i>
+<tT claSs="monofont">] = </tt><i><Tt clASS="monofont">v</Tt></i>
+. If <i><tT CLAss="monofont">v</tt></I>
+ is omitted, it defaults to <TT Class="monofont">None</TT>. The <I><Tt class="monofont">m</tt></i>
+<tt class="monofont">.popitem()</tt> method is used to iteratively destroy the contents of a dictionary.</p>
+
+
+<h4>Callable Types</H4>
+<p>Callable types represent objects that support the function call operation. There are several flavors of objects with this property, including user-defined functions, built-in functions, and methods associated with classes.</p>
+
+<P><i>User-defined functions</i> are callable objects created at the module level by using the <tT clasS="monofont">def</tt>  statement or <tT CLAss="monofont">lambda</tt>  operator. (Functions defined within class definitions are called <I>methods</I> and are described shortly.) Functions are first-class objects that behave just like any other Python object. As a result, you can assign them to variables or place them in lists, tuples, and dictionaries, as shown in the following example:</P>
+
+<Pre>
+
+def foo(x,y): 
+    print '%s + %s is %s' % (str(x), str(y), str(x+y)) 
+
+# Assign to a new variable 
+bar = foo 
+bar(3,4)            # Invokes 'foo' defined above 
+
+# Place in a container 
+d = { } 
+d['callback'] = foo 
+d['callback'](3,4)  # Invokes 'foo' </prE>
+
+<P>A user-defined function <I><Tt claSS="monofont">f</TT></i>
+ has the following attributes:</p>
+
+<p><table border="1" cellspAciNg="0" ceLlpadDing="1" WIDTh="100%">
+<colGROUp spaN="2">
+<TR>
+<Th valIGN="top">
+<Font size="2">
+<p><b>Attribute(s)</b></p>
+</font></th>
+<th vAliGn="top">
+<foNt sizE="2">
+<p><b>Description</b></P>
+</FONt></th>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt class="monofont">f</tt></i>
+<tt class="monofont">._ _doc_ _ or </tt><I><tt ClasS="monofont">f</tt></i>
+<tT claSS="monofont">.func_doc</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Documentation string</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><i><tt cLass="monofont">f</TT></I>
+<Tt claSS="monofont">._ _name_ _ or </TT><i><tt cLASS="monofont">f</tt></i>
+<tT CLAss="monofont">.func_name</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Function name</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">f</tt></i>
+<tt class="monofont">._ _dict_ _ or </tt><i><tt class="monofont">f</Tt></i>
+<Tt clAss="monofont">.func_dict</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Dictionary containing function attributes</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><I><tt ClasS="monofont">f</tt></i>
+<tT claSS="monofont">.func_code</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Byte-compiled code</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><i><tt cLass="monofont">f</TT></I>
+<Tt claSS="monofont">.func_defaults</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p>Tuple containing the default arguments</p>
+</font></td>
+</tr>
+<tr>
+<tD vaLign="top">
+<Font sIze="2">
+<p><I><TT Class="monofont">f</TT></I>
+<Tt claSS="monofont">.func_globals</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p>Dictionary defining the global namespace</p>
+</fonT></td>
+</Tr>
+<tr>
+<Td valIgn="top">
+<fONT Size="2">
+<p><I><TT Class="monofont">f</TT></I>
+<Tt claSS="monofont">.func_closure</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P>Tuple containing data related to nested scopes</p>
+</foNt></td>
+</tR>
+</colGROUp>
+</tabLE></P>
+
+<P><i>Methods</i> are functions that operate only on instances of an object. Typically, methods are defined inside a class definition, as shown in <a hREF="39#24.html">Listing 3.1</A>.</p>
+
+
+<h5>
+<a nAME="24"></A>Listing 3.1 Defining a Method</h5>
+<pre class="monofont">
+# A queue of objects ranked by priorities 
+class PriorityQueue: 
+    def _ _init_ _(self): 
+          self.items = [ ]           # List of (priority, item) 
+    def insert(self,priority,item): 
+          for i in range(len(self.items)): 
+                if self.items[i][0] &gt; priority: 
+                        self.items.insert(i,(priority,item)) 
+                        break 
+          else: 
+                self.items.append((priority,item)) 
+    def remove(self): 
+          try: 
+                return self.items.pop(0)[1] 
+          except IndexError: 
+                raise RuntimeError, 'Queue is empty' </pre>
+<p>An <i>unbound method object</i> is a method that hasn’t yet been associated with a specific instance of an object. The methods contained within a class definition are unbound until they’re attached to a specific object. For example:</p>
+
+<pre>
+
+m = PriorityQueue.insert         # Unbound method </pRe>
+
+<p>To invoke an unbound method, supply an instance of an object as the first argument:</P>
+
+<pre>
+
+pq = PriorityQueue() 
+m = PriorityQueue.insert 
+m(pq,5,"Python")                    # Invokes pq.insert(5,"Python") </Pre>
+
+<p>A <i>bound method object</I> is a function that has been bound to a specific object instance. For example:</p>
+
+<prE>
+
+pq = PriorityQueue()      # Create a PriorityQueue instance 
+n = pq.insert             # n is a method bound to pq </PRE>
+
+<p>A bound method implicitly contains a reference to the associated instance, so it can be invoked as follows:</p>
+
+<prE>
+
+n(5,"Python")                      # Invokes pq.insert(5,"Python") </PRE>
+
+<p>Bound and unbound methods are no more than a thin wrapper around an ordinary function object. The following attributes are defined for method objects:</p>
+
+<p><tABLE bordER="1" CEllspacing="0" cellpadding="1" WidTh="100%">
+<coLgrouP spaN="2">
+<TR>
+<Th valIGN="top">
+<Font sIZE="2">
+<P><b>Attribute</b></p>
+</fONT></Th>
+<th valign="top">
+<font size="2">
+<p><b>Description</b></P>
+</foNt></th>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">m</tt></i>
+<tT CLAss="monofont">._ _doc_ _</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Documentation string</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">m</tt></i>
+<tt class="monofont">._ _name_ _</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p>Method name</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt class="monofont">m</tt></i>
+<tt class="monofont">._ _dict_ _</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Method attributes</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><i><tt class="monofont">m</tt></i>
+<tT clAss="monofont">.im_class</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Class in which this method was defined</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><i><tt cLasS="monofont">m</tt></i>
+<Tt claSs="monofont">.im_func</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Function object implementing the method</P>
+</FONt></td>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><i><tt Class="monofont">m</Tt></i>
+<tT CLAss="monofont">.im_self</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Instance associated with the method (<tt class="monofont">None</tt> if unbound)</p>
+</font></td>
+</Tr>
+</cOlgrOup>
+</taBle></p>
+
+<P>So far, this discussion has focused on functions and methods, but class objects (described shortly) are also callable. When a class is called, a new class instance is created. In addition, if the class defines an <TT Class="monofont">_ _init_ _()</TT> method, it’s called to initialize the newly created instance. The creation of a <TT clasS="monofont">PriorityQueue</TT>  in the earlier example illustrates this behavior.</P>
+
+<p>A class instance is also callable if its class defines a special method <tt cLASS="monofont">_ _call_ _()</tt>. If this method is defined for a class instance <i><tt class="monofont">x</tt></i>
+, then <i><tt clasS="monofont">x</tt></I>
+<tt cLass="monofont">(</tT><i><tt CLASs="monofont">args</tt></i>
+<TT CLass="monofont">)</tT> invokes the method</P>
+
+<PRe>
+
+<i>x</i>._ _call_ _ (<i>args</I>). </PRE>
+
+<p>The final types of callable objects are <i>built-in functions</i> and <i>methods</i>. Built-in functions and methods correspond to code written in extension modules and are usually written in C or C++. The following attributes are available for built-in methods:</p>
+
+<p><table border="1" ceLlsPaciNg="0" celLpadDING="1" widtH="100%">
+<COLgrouP SPAn="2">
+<tr>
+<tH VALign="top">
+<font size="2">
+<p><b>Attribute</b></p>
+</font></tH>
+<th ValiGn="top">
+<fonT sizE="2">
+<P><B>Description</B></p>
+</fonT></TH>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><i><tt class="monofont">b</tt></i>
+<tt claSs="monofont">._ _doc_ _</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P>Documentation string</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><i><tt class="monofont">b</Tt></i>
+<Tt clAss="monofont">._ _name_ _</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Function/method name</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><I><tt ClasS="monofont">b</tt></i>
+<tT claSS="monofont">._ _self_ _</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Instance associated with the method</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><i><tt cLass="monofont">b</TT></I>
+<Tt claSS="monofont">._ _members_ _</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p>List of method attribute names</p>
+</font></td>
+</tr>
+</colGroUp>
+</taBle></p>
+
+<p>For built-in functions such as <Tt clASS="monofont">len()</Tt>, the <tt cLASS="monofont">_ _self_ _</tt> is set to <tt CLASs="monofont">None</tt>, indicating that the function isn’t bound to any specific object. For built-in methods such as <i><TT CLass="monofont">x</tt></i>
+<tt class="monofont">.append()</tt> where <i><tt clAss="monofont">x</Tt></i>
+ is a list object, <tT clasS="monofont">_ _self_ _</tt> is set to <i><TT CLass="monofont">x</tT></I>
+.</P>
+
+
+<H4>Modules</h4>
+<p>The <i>module</i> type is a container that holds objects loaded with the <TT CLass="monofont">import</tT>  statement. When the statement <TT Class="monofont">import foo</tt> appears in a program, for example, the name <tt class="monofont">foo</tt> is assigned to the corresponding module object. Modules define a namespace that’s implemented using a dictionary accessible in the attribute <tt claSs="monofont">_ _dict_ _</tT>. Whenever an attribute of a module is referenced (using the dot operator), it’s translated into a dictionary lookup. For example, <i><tt Class="monofont">m</Tt></i>
+<tT CLAss="monofont">.</tt><I><TT Class="monofont">x</TT></I>
+ is equivalent to <I><tt clASS="monofont">m</Tt></i>
+<tt class="monofont">._ _dict_ _["</tt><i><tt class="monofont">x</tT></i>
+<tT claSs="monofont">"]</tt>. Likewise, assignment to an attribute such as <i><Tt clASS="monofont">m</Tt></i>
+<tt CLASs="monofont">.</tt><i><TT CLass="monofont">x</tT></I>
+<TT class="monofont"> = </tt><i><tt class="monofont">y</tt></i>
+ is equivalent to <i><tT clAss="monofont">m</tT></i>
+<tt cLass="monofont">._ _dict_ _["x"] = </TT><I><Tt claSS="monofont">y</TT></i>
+. The following attributes are available:</p>
+
+<p><tABLE bordER="1" CEllspacing="0" cellpadding="1" WidTh="100%">
+<coLgrouP spaN="2">
+<TR>
+<Th valIGN="top">
+<Font sIZE="2">
+<P><b>Attribute</b></p>
+</fONT></Th>
+<th valign="top">
+<font size="2">
+<p><b>Description</b></P>
+</foNt></th>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">m</tt></i>
+<tT CLAss="monofont">._ _dict_ _</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Dictionary associated with the module</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt cLASS="monofont">m</tt></i>
+<tt class="monofont">._ _doc_ _</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p>Module documentation string</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt class="monofont">m</tt></i>
+<tt class="monofont">._ _name_ _</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Name of the module</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><i><tt class="monofont">m</tt></i>
+<tT clAss="monofont">._ _file_ _</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>File from which the module was loaded</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><i><tt cLasS="monofont">m</tt></i>
+<Tt claSs="monofont">._ _path_ _</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Fully qualified package name, defined when the module object refers to a package</P>
+</FONt></td>
+</tr>
+</colgroup>
+</table></p>
+
+
+<h4>Classes</H4>
+<p>Classes are created using the <tT claSs="monofont">class</tt>  statement, as described in <a Href="72.html">Chapter 7</A>. Like modules, classes are implemented using a dictionary that contains all the objects defined within the class, and defines a namespace. References to class attributes such as <I><TT clasS="monofont">c</TT></I>
+<tt clASS="monofont">.</Tt><i><tt CLASs="monofont">x</tt></i>
+ are translated into a dictionary lookup <i><tt class="monofont">c</tt></i>
+<tt claSs="monofont">._ _dict_ _["</tT><i><tt Class="monofont">x</Tt></i>
+<tT CLAss="monofont">"]</tt>. If an attribute isn’t found in this dictionary, the search continues in the list of base classes. This search is depth first, left to right, in the order that base classes were specified in the class definition. Attribute assignment such as <I><TT Class="monofont">c</TT></I>
+<Tt claSS="monofont">.</TT><i><tt class="monofont">y</tt></i>
+<tt class="monofont"> = 5</tt>  always updates the <Tt cLass="monofont">_ _dict_ _</Tt> attribute of <i><tt ClasS="monofont">c</TT></I>
+, not the dictionaries of any base class.</p>
+
+<p>The following attributes are defined by class objects:</p>
+
+<p><TABLe borDER="1" CellsPACIng="0" cellpadding="1" width="100%">
+<coLgrOup sPan="2">
+<tr>
+<Th vaLIGN="top">
+<font SIZE="2">
+<p><b>Attribute</b></p>
+</FONT></th>
+<th VALIgn="top">
+<font size="2">
+<p><b>Description</b></p>
+</font></th>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><i><tt CLASs="monofont">c</tt></i>
+<TT CLass="monofont">._ _dict_ _</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P>Dictionary associated with the class</p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt CLASs="monofont">c</tt></i>
+<TT CLass="monofont">._ _doc_ _</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>Class documentation string</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt CLASs="monofont">c</tt></i>
+<tt class="monofont">._ _name_ _</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Name of the class</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt class="monofont">c</tt></i>
+<tt class="monofont">._ _module_ _</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P>Name of the module in which the class was defined</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><i><tt class="monofont">c</tt></i>
+<Tt cLass="monofont">._ _bases_ _</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Tuple containing base classes</P>
+</FOnt></td>
+</TR>
+</COlgroup>
+</table></p>
+
+
+<h4>Class Instances</h4>
+<p>A <i>class instance</i> is an object created by calling a class object. Each instance has its own local namespace that’s implemented as a dictionary. This dictionary and the associated class object have the following attributes:</p>
+
+<p><tAblE borDer="1" ceLlspACINg="0" celLPADding="1" WIDTh="100%">
+<colGROUp span="2">
+<tr>
+<th valign="top">
+<font sIze="2">
+<P><b>Attribute</b></p>
+</Font></tH>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Description</b></P>
+</FONt></th>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><i><tt cLasS="monofont">x</tt></i>
+<Tt claSs="monofont">._ _dict_ _</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Dictionary associated with an instance</P>
+</FONt></td>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><i><tt Class="monofont">x</Tt></i>
+<tT CLAss="monofont">._ _class_ _</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Class to which an instance belongs</p>
+</font></td>
+</tr>
+</colgrouP>
+</taBle></p>
+
+<P>When the attribute of an object is referenced, such as in <i><tt cLass="monofont">x</TT></I>
+<Tt claSS="monofont">.</TT><i><tt cLASS="monofont">a</tt></i>
+, the interpreter first searches in the local dictionary for <i><TT CLass="monofont">x</tt></i>
+<tt class="monofont">._ _dict_ _["</tt><i><tt clAss="monofont">a</Tt></i>
+<tT clasS="monofont">"]</tt>. If it doesn’t find the name locally, the search continues by performing a lookup on the class defined in the <tT CLAss="monofont">_ _class_ _</tt> attribute. If no match is found, the search continues with base classes as described earlier. If still no match is found and the object’s class defines a <TT CLass="monofont">_ _getattr_ _()</tT> method, it’s used to perform the lookup. The assignment of attributes such as <I><TT clasS="monofont">x</TT></I>
+<tt class="monofont">.</tt><i><tt class="monofont">a</tt></i>
+<Tt cLass="monofont"> = 4</Tt>  always updates <i><tt ClasS="monofont">x</TT></I>
+<tt clASS="monofont">._ _dict_ _</Tt>, not the dictionaries of classes or base classes.</p>
+
+<a nAME="32"></A>
+<h4>Files</h4>
+<p>The file object represents an open file and is returned by the built-in <tT CLAss="monofont">open()</tt> function (as well as a number of functions in the standard library). For more details about this type, see <a href="89.html">Chapter 9</a>.</p>
+
+
+<h4>Internal Types</h4>
+<p>A number of objects used by the interpreter are exposed to the user. These include traceback objects, code objects, frame objects, slice objects, and the Ellipsis object.</p>
+
+<a name="36"></A>
+<h5>Code Objects</h5>
+<P><i>Code objects</i> represent raw byte-compiled executable code or bytecode and are typically returned by the built-in <tT clasS="monofont">compile()</tt> function. Code objects are similar to functions except that they don’t contain any context related to the namespace in which the code was defined, nor do code objects store information about default argument values. A code object <i><TT CLass="monofont">c</tT></I>
+ has the read-only attributes described in the following table:</P>
+
+<P><tablE BORder="1" cELLSpacing="0" cellpadding="1" widTh="100%">
+<cOlgrOup spAn="2">
+<tr>
+<TH VAlign="top">
+<FONT size="2">
+<P><B>Attribute</B></P>
+</font></TH>
+<TH valign="top">
+<font size="2">
+<p><b>Description</b></p>
+</foNt></tH>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><I><TT clasS="monofont">c</TT></I>
+<tt clASS="monofont">.co_name</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>Function name.</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT clasS="monofont">c</TT></I>
+<tt class="monofont">.co_argcount</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>Number of positional arguments (including default values).</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT class="monofont">c</tt></i>
+<tt class="monofont">.co_nlocals</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Number of local variables used by the function.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><i><tt class="monofont">c</tt></i>
+<tt clAss="monofont">.co_varnames</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Tuple containing names of local variables.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><i><tt clasS="monofont">c</tt></I>
+<tt cLass="monofont">.co_code</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>String representing raw bytecode.</p>
+</foNT></TD>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><i><tT claSs="monofont">c</tt></i>
+<Tt clASS="monofont">.co_consts</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Tuple containing the literals used by the bytecode.</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><i><tt ClasS="monofont">c</TT></I>
+<tt clASS="monofont">.co_names</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>Tuple containing names used by the bytecode.</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><I><TT clasS="monofont">c</TT></I>
+<tt clASS="monofont">.co_filename</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>Filename of the file in which the code was compiled.</p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><I><TT clasS="monofont">c</TT></I>
+<tt clASS="monofont">.co_firstlineno</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>First line number of the function.</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT clasS="monofont">c</TT></I>
+<tt class="monofont">.co_lnotab</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>String encoding bytecode offsets to line numbers.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT class="monofont">c</tt></i>
+<tt class="monofont">.co_stacksize</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Required stack size (including local variables).</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><i><tt class="monofont">c</tt></i>
+<tt clAss="monofont">.co_flags</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Integer containing interpreter flags. Bit 2 is set if the function uses a variable number of positional arguments using <tt cLASS="monofont">"*args"</tt>. Bit 3 is set if the function allows arbitrary keyword arguments using <tt CLASs="monofont">"**kwargs"</tt>. All other bits are reserved.</p>
+</font></td>
+</tr>
+</colgroup>
+</TabLe></p>
+
+
+<h5>Frame Objects</H5>
+<p><i>Frame objects</i> are used to represent execution frames and most frequently occur in traceback objects (described next). A frame object <i><Tt clASS="monofont">f</Tt></i>
+ has the following read-only attributes:</p>
+
+<p><TABLe borDER="1" CellsPACIng="0" cellpadding="1" width="100%">
+<coLgrOup sPan="2">
+<tr>
+<Th vaLIGN="top">
+<font SIZE="2">
+<p><b>Attribute</b></p>
+</FONT></th>
+<th VALIgn="top">
+<font size="2">
+<p><b>Description</b></p>
+</font></th>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><i><tt CLASs="monofont">f</tt></i>
+<TT CLass="monofont">.f_back</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P>Previous stack frame (toward the caller).</p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt CLASs="monofont">f</tt></i>
+<TT CLass="monofont">.f_code</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>Code object being executed.</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt CLASs="monofont">f</tt></i>
+<tt class="monofont">.f_locals</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Dictionary used for local variables.</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt class="monofont">f</tt></i>
+<tt class="monofont">.f_globals</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P>Dictionary used for global variables.</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><i><tt class="monofont">f</tt></i>
+<Tt cLass="monofont">.f_builtins</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Dictionary used for built-in names.</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><i><tt ClaSs="monofont">f</tt></I>
+<tt clAss="monofont">.f_restricted</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Set to <TT Class="monofont">1</tt> if executing in restricted execution mode.</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><i><tT CLAss="monofont">f</tt></I>
+<TT Class="monofont">.f_lineno</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p>Line number.</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><i><tT CLAss="monofont">f</tt></I>
+<TT Class="monofont">.f_lasti</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p>Current instruction. This is an index into the bytecode string of <tT claSs="monofont">f_code</tt>.</p>
+</Font></TD>
+</TR>
+</colgROUP>
+</tablE></P>
+
+<P>The following attributes can be modified (and are used by debuggers and other tools):</P>
+
+<p><tabLE BOrder="1" cellspacing="0" cellpAddIng="1" wIdth="100%">
+<cOlgrOUP Span="2">
+<tR>
+<TH ValigN="top">
+<FONt sizE="2">
+<P><B>Attribute</B></p>
+</font></th>
+<th valign="top">
+<font sIze="2">
+<P><b>Description</b></p>
+</Font></tH>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><I><Tt claSS="monofont">f</TT></i>
+<tt class="monofont">.f_trace</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Function called at the start of each source code line</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><I><Tt class="monofont">f</tt></i>
+<tt class="monofont">.f_exc_type</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>Most recent exception type</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p><i><tt class="monofont">f</tt></i>
+<tt cLasS="monofont">.f_exc_value</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Most recent exception value</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><i><tt claSs="monofont">f</tT></i>
+<tt Class="monofont">.f_exc_traceback</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Most recent exception traceback</p>
+</fONT></Td>
+</tr>
+</colgroup>
+</table></p>
+
+
+<h5>Traceback Objects</h5>
+<p><I>Traceback objects</i> are created when an exception occurs and contains stack trace information. When an exception handler is entered, the stack trace can be retrieved using the <tT claSs="monofont">sys.exc_info()</tt> function. The following read-only attributes are available in traceback objects:</p>
+
+<P><tabLE BOrder="1" CELLspacING="0" CellpADDIng="1" width="100%">
+<colgroup span="2">
+<tR>
+<th ValiGn="top">
+<fonT sizE="2">
+<P><B>Attribute</B></p>
+</fonT></TH>
+<Th valIGN="top">
+<Font sIZE="2">
+<P><b>Description</b></p>
+</font></th>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p><i><tT claSS="monofont">t</TT></i>
+<tt cLASS="monofont">.tb_next</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p>Next level in the stack trace (toward the execution frame where the exception occurred)</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><I><Tt claSS="monofont">t</TT></i>
+<tt cLASS="monofont">.tb_frame</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Execution frame object of the current level</p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><I><Tt claSS="monofont">t</TT></i>
+<tt cLASS="monofont">.tb_lineno</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>Line number where the exception occurred</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><I><Tt claSS="monofont">t</TT></i>
+<tt class="monofont">.tb_lasti</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>Instruction being executed in the current level</p>
+</fONT></Td>
+</tr>
+</cOLGRoup>
+</tABLE></p>
+
+
+<h5>Slice Objects</h5>
+<p><I>Slice objects</I> are used to represent slices given in extended slice syntax, such as <I><Tt class="monofont">a</tt></i>
+<tt class="monofont">[</tt><i><tT clAss="monofont">i</tT></i>
+<tt cLass="monofont">:</TT><I><Tt claSS="monofont">j</TT></i>
+<tt cLASS="monofont">:</tt><i><tT CLAss="monofont">stride</tt></i>
+<tt class="monofont">]</tt>, <i><tt claSs="monofont">a</tT></i>
+<tt Class="monofont">[</Tt><i><tT CLAss="monofont">i</tt></I>
+<TT Class="monofont">:</TT><I><Tt claSS="monofont">j</TT></i>
+<tt class="monofont">, </tt><i><tt class="monofont">n</tt></I>
+<tt ClasS="monofont">:</tt><i><tT claSS="monofont">m</TT></i>
+<tt cLASS="monofont">]</tt>, or <i><tT CLAss="monofont">a</tt></I>
+<TT Class="monofont">[…, </tt><i><tt class="monofont">i</tt></i>
+<tt cLasS="monofont">:</tt><i><Tt claSs="monofont">j</tt></I>
+<TT Class="monofont">]</TT>. Slice objects are also created using the built-in <TT clasS="monofont">slice([</TT><I><tt clASS="monofont">i</Tt></i>
+<tt class="monofont">,] </tt><i><tt class="monofont">j</tT></i>
+<tT claSs="monofont"> [,</tt><i><Tt clASS="monofont">stride</Tt></i>
+<tt CLASs="monofont">])</tt> function. The following read-only attributes are available:</p>
+
+<P><TABle boRDER="1" cellspacing="0" cellpaddiNg="1" wIdth="100%">
+<ColgrOup sPAN="2">
+<Tr>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Attribute</b></P>
+</FONt></th>
+<th valign="top">
+<font size="2">
+<p><B>Description</b></p>
+</Font></Th>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><i><tT CLAss="monofont">s</tt></I>
+<TT Class="monofont">.start</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>Lower bound of the slice; none if omitted</p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><i><tT CLAss="monofont">s</tt></i>
+<tt class="monofont">.stop</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P>Upper bound of the slice; none if omitted</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><i><tt class="monofont">s</tt></i>
+<tt class="monofont">.step</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>Stride of the slice; none if omitted</P>
+</Font></tD>
+</TR>
+</ColgrOUP>
+</Table></p>
+
+
+<h5>Ellipsis Object</h5>
+<p>The <i>Ellipsis object</i> is used to indicate the presence of an ellipsis (<tt class="monofont">…</tt>) in a slice. There is a single object of this type, accessed through the built-in name <tT clAss="monofont">Ellipsis</tT>. It has no attributes and evaluates as true.</p>
+</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="38.html" title="References and Copies"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=39" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="39.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="40.html" title="Special Methods"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

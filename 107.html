@@ -1,0 +1,749 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Built-in Functions and Exceptions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="105.html" class="navtitle">A. The Python Library</a> &gt; <span class="nonavtitle">Built-in Functions and Exceptions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="106.html" title="A. The Python Library"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=107" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="107.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="108.html" title="Python Services"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A04%3A54+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105082191052001041189214</font><a href="read5.asp?bookname=0735710910&snode=107&now=5%2F28%2F2002+9%3A04%3A54+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Built-in Functions and Exceptions</h3>
+<p>This section describes Python’s built-in functions and exceptions. Much of this material is covered less formally in the chapters of this book. Additional details and some of the more subtle aspects of many built-in functions can be found here.</p>
+
+
+<H4>Built-in Functions</H4>
+<P>The functions in this section are always available to the interpreter and are contained within the <Tt claSS="monofont">_ _builtin_ _</TT> module. In addition, the <tt clASS="monofont">_ _builtins_ _</Tt> attribute of each module usually refers to this module (except when running in a restricted execution environment as described in the “<a href="116.html">Restricted Execution</a>” section).</p>
+
+<p><tt class="monofont">_</tt> (Underscore)</p>
+
+<p>By default, the <Tt cLass="monofont">_</Tt> variable is set to the result of the last expression evaluated when the interpreter is running in interactive mode.</p>
+
+<p>? <b>See Also</B> <tt cLASS="monofont">sys.displayhook</tt> (118).</p>
+
+<pRE>
+
+_ _<B>import</B>_ _(<b><i>name</i></b> [, <B><I>globals</I></B> [, <b><i>locals</i></b> [, <B><I>fromlist</I></B><b>]]])</b> </pre>
+
+<p>This function is invoked by the <tt class="monofont">import</tt>  statement to load a module. <i><tt clAss="monofont">name</Tt></i>
+ is a string containing the module name, <i><Tt claSs="monofont">globals</tt></I>
+ is an optional dictionary defining the global namespace, <I><TT clasS="monofont">locals</TT></I>
+ is a dictionary defining the local namespace, and <i><tt cLASS="monofont">fromlist</tt></i>
+ is a list of targets given to the <tT CLAss="monofont">from</tt>  statement. For example, the statement <tt class="monofont">import spam</tt>  results in a call to <tt class="monofont">_ _import_ _('spam', globals(), locals(), [])</Tt>, while the statement <tT claSs="monofont">from spam import foo</tt>  results in a call <tT claSS="monofont">_ _import_ _ ('spam', globals(), locals(), ['foo'])</TT>. If the module name is prefixed by a package name such as <tt clASS="monofont">foo.bar</Tt>  and <i><tt CLASs="monofont">fromlist</tt></i>
+ is empty, the corresponding module object is returned. If <I><TT Class="monofont">fromlist</tt></i>
+ is not empty, only the top-level package is returned.</p>
+
+<p>This function is intended to be a low-level interface to the module loader. It doesn’t perform all the steps performed by an <tt class="monofont">import</tt>  statement (in particular, the local namespace is not updated with names referring to objects contained within the module). This function can be redefined by the user to implement new behaviors for <tt ClaSs="monofont">import</tt>. The default implementation doesn’t even look at the <Tt claSs="monofont">locals</tt> parameter, while <TT CLass="monofont">globals</tT>  is only used to determine package context (these parameters are supplied so that alternative implementations of <TT Class="monofont">_ _import_ _()</TT> have full access to the global and local namespace information where <TT clasS="monofont">import</TT>  statements appear).</P>
+
+<pre>
+
+<b>abs(</b><b><i>x</i></b><b>)</b> </pre>
+
+<p>Returns the absolute value of <i><tt clAss="monofont">x</Tt></i>
+.</p>
+
+<Pre>
+
+<b>apply(</b><B><i>func</i></b> <B>[,</B> <B><I>args</i></b> <b>[,</b> <B><I>keywords</I></B><b>]])</b> </prE>
+
+<P>Performs a function call operation on a callable object <I><Tt claSS="monofont">func. args</TT></i>
+ is a tuple containing positional arguments and <i><tt class="monofont">keywords</tt></i>
+ is a dictionary containing keyword arguments. The <tt class="monofont">apply()</tT> function can also be written as <i><tT claSs="monofont">func</tt></i>
+<Tt clASS="monofont">(*</Tt><i><tt CLASs="monofont">args</tt></i>
+<TT CLass="monofont">,**</tT><I><TT class="monofont">keywords</tt></i>
+<tt class="monofont">)</tt>.</p>
+
+<prE>
+
+<b>buffer(</b><B><i>sequence</i></b> <B>[,</b> <b><i>offset</i></B> <b>[,</b> <b><I>size</I></B><B>]])</b> </pre>
+
+<P>Creates a new buffer object. A buffer is typically a byte-oriented subsequence of another sequence such as a string. For the most part, buffers appear like strings except that they don’t support string methods and can’t be used with the functions in the <TT Class="monofont">string</TT>  module.</P>
+
+<Pre>
+
+<b>callable(</b><B><I>object</I></B><b>)</b> </pre>
+
+<p>Returns <tt class="monofont">1</tt>  if <i><tt clAss="monofont">object</Tt></i>
+ is a callable object, <tT clasS="monofont">0</tt> otherwise.</p>
+
+<PRE>
+
+<B>chr(</b><b><i>i</i></B><B>)</B> </Pre>
+
+<p>Converts an integer or long integer value <i><TT CLass="monofont">i</tT></I>
+, <TT class="monofont">0 &lt;= i &lt;= 255</tt>, into a one-character string.</p>
+
+<pre>
+
+<b>cmp(</b><b><i>x</i></b><b>,</b> <b><I>y</i></b><B>)</b> </prE>
+
+<p>Compares <i><tt ClasS="monofont">x</TT></I>
+ and <i><tt cLASS="monofont">y</tt></i>
+ and returns a negative number if <i><TT CLass="monofont">x</tT></I>
+<TT class="monofont"> &lt; </tt><i><tt class="monofont">y</tt></i>
+, <tt ClaSs="monofont">0</tt> if <I><tt clAss="monofont">x</tT></I>
+<TT clasS="monofont"> == </TT><I><tt clASS="monofont">y</Tt></i>
+, and a positive number if <i><tT CLAss="monofont">x</tt></i>
+<tt class="monofont"> &gt; </tt><i><tt claSs="monofont">y</tT></i>
+. Any two objects can be compared, although the result may be meaningless if the two objects have no meaningful comparison method defined (for example, comparing a number with a file object). In certain circumstances, such comparisons may also raise an exception.</p>
+
+<pRe>
+
+<b>coerce(</b><b><I>x</i></b><b>,</B> <B><I>y</I></b><b>)</b> </pRE>
+
+<P>Returns a tuple containing the values of <I><tt clASS="monofont">x</Tt></i>
+ and <i><tT CLAss="monofont">y</tt></i>
+ converted to a common numerical type. See the section “<a href="40#14.html">Mathematical Operations</a>” in <a href="33.html">Chapter 3</a>, “Types and Objects.”</p>
+
+<prE>
+
+<b>compile(</b><B><i>string</i></b><B>,</b> <b><i>filename</i></B><b>,</b> <b><I>kind</I></B><B>)</b> </pre>
+
+<P>Compiles <I><TT clasS="monofont">string</TT></I>
+ into a code object for use with <tt clASS="monofont">exec</Tt>  or <tt class="monofont">eval()</tt>. <i><tt class="monofont">filename</tt></I>
+ is a string containing the name of the file in which the string was defined. <i><tT claSs="monofont">kind</tt></i>
+ is <Tt clASS="monofont">'exec'</Tt> for a sequence of statements, <tt cLASS="monofont">'eval'</tt> for a single expression, or <tt CLASs="monofont">'single'</tt> for a single executable statement.</p>
+
+<PRE>
+
+<B>complex(</b><b><i>real</i></b> <b>[,</b> <b><i>imag</i></b><b>])</b> </pre>
+
+<p>Creates a complex number.</p>
+
+<prE>
+
+<b>delattr(</b><B><i>object</i></b><B>,</b> <b><i>attr</i></B><b>)</b> </pRE>
+
+<P>Deletes an attribute of an object. <I><tt clASS="monofont">attr</Tt></i>
+ is a string. Same as <tt CLASs="monofont">del </tt><i><TT CLass="monofont">object</tt></i>
+<tt class="monofont">.</tt><i><tt clAss="monofont">attr</Tt></i>
+.</p>
+
+<Pre>
+
+<b>dir([</b><B><i>object</i></b><B>])</B> </PRe>
+
+<p>Returns a sorted list of attribute names. These are taken from the object’s <tt CLASs="monofont">_ _dict_ _</tt>, <tT CLAss="monofont">_ _methods_ _</tt>, and <TT CLass="monofont">_ _members_ _</tt> attributes. If no argument is given, the names in the current local symbol table are returned.</p>
+
+<pre>
+
+<b>divmod(a, b)</b> </pre>
+
+<p>Returns the quotient and remainder of long division as a tuple. For integers, the value <tt claSs="monofont">(</tT><i><tt Class="monofont">a</Tt></i>
+<tT CLAss="monofont"> / </tt><I><TT Class="monofont">b</TT></I>
+<Tt claSS="monofont">, </TT><i><tt class="monofont">a</tt></i>
+<tt class="monofont"> % </tt><I><tt ClasS="monofont">b</tt></i>
+<tT claSS="monofont">)</TT> is returned. For floats, <tt clASS="monofont">(math.floor(</Tt><i><tt CLASs="monofont">a</tt></i>
+<TT CLass="monofont"> / </tt><i><tt class="monofont">b</tt></i>
+<tt clAss="monofont">), </Tt><i><tT clasS="monofont">a</tt></i>
+<TT CLass="monofont"> % </tT><I><TT clasS="monofont">b</TT></I>
+<tt clASS="monofont">)</Tt> is returned.</p>
+
+<pre>
+
+<b>eval(</b><b><i>expr</i></b> <b>[,</b> <b><i>globals</i></b> <b>[,</b> <b><I>locals</i></b><B>]])</b> </prE>
+
+<p>Evaluates an expression. <i><tt ClasS="monofont">expr</TT></I>
+ is a string or a code object created by <tt clASS="monofont">compile()</Tt>. <i><tt CLASs="monofont">globals</tt></i>
+ and <I><TT Class="monofont">locals</tt></i>
+ define the global and local namespaces for the operation. If omitted, the expression is evaluated in the namespace of the caller.</p>
+
+<pre>
+
+<b>execfile(</b><b><i>filename</i></b> <b>[,</b> <b><I>globals</i></b> <B>[,</b> <b><i>locals</I></b><b>]])</b> </pRe>
+
+<p>Executes the statements in the file <i><TT CLass="monofont">filename</tT></I>
+. <I><Tt claSS="monofont">globals</TT></i>
+ and <i><tt CLASs="monofont">locals</tt></i>
+ define the global and local namespaces in which the file is executed. If omitted, the file’s contents are executed in the namespace of the caller. This function should not be used inside a function body because it is incompatible with nested scopes.</p>
+
+<pre>
+
+<b>filter(</b><b><i>function</i></b><b>,</b> <b><i>list</i></b><B>)</b> </pRe>
+
+<p>Creates a new list consisting of the objects from <i><Tt claSs="monofont">list</tt></I>
+ for which <I><TT clasS="monofont">function</TT></I>
+ evaluates to true. If <i><tt cLASS="monofont">function</tt></i>
+ is <tT CLAss="monofont">None</tt>, the identity function is used and all the elements of <i><tt class="monofont">list</tt></i>
+ that are false are removed.</p>
+
+<pre>
+
+<b>float(</B><b><i>x</I></b><b>)</b> </Pre>
+
+<p>Converts <i><Tt clASS="monofont">x</Tt></i>
+ to a floating-point number.</p>
+
+<pRE>
+
+<B>getattr(</B><b><i>object</i></b><B>,</B> <B><I>name</i></b> <b>[,</b> <B><I>default</I></B><b>])</b> </pre>
+
+<p>Returns an attribute of an object. <i><tt class="monofont">name</tt></i>
+ is a string. <i><tt ClaSs="monofont">default</tt></I>
+ is an optional value to return if no such attribute exists. Same as <i><tt cLass="monofont">object</TT></I>
+<Tt claSS="monofont">.</TT><i><tt cLASS="monofont">name</tt></i>
+.</p>
+
+<PRE>
+
+<B>globals()</b> </pre>
+
+<p>Returns a dictionary corresponding to the global namespace of the caller.</p>
+
+<pre>
+
+<b>hasattr(</b><b><i>object</i></b><b>,</b> <b><i>name</i></B><b>)</b> </Pre>
+
+<p>Returns <Tt claSs="monofont">1</tt>  if <I><TT Class="monofont">name</TT></I>
+ is the name of an attribute of <I><tt clASS="monofont">object</Tt></i>
+, <tt CLASs="monofont">0</tt>  otherwise. <i><tt class="monofont">name</tt></i>
+ is a string.</p>
+
+<pre>
+
+<b>hash(</b><B><i>object</i></B><b>)</b> </pRe>
+
+<p>Returns an integer hash value for an object (if possible). The hash value is the same for any two objects that compare as equals. Mutable objects don’t define a hash value.</p>
+
+<pRe>
+
+<b>hex(</b><B><I>x</I></B><b>)</b> </prE>
+
+<P>Converts an integer or long integer <I><Tt claSS="monofont">x</TT></i>
+ to a hexadecimal string.</p>
+
+<prE>
+
+<B>id(</B><B><i>object</i></b><b>)</b> </pre>
+
+<p>Returns the unique integer identity of <i><tt class="monofont">object</tt></i>
+.</P>
+
+<prE>
+
+<b>input([</b><b><I>prompt</i></b><b>])</b> </Pre>
+
+<p>Same as <TT CLass="monofont">eval(raw_input(</tT><I><TT clasS="monofont">prompt</TT></I>
+<tt clASS="monofont">))</Tt>.</p>
+
+<pre>
+
+<b>int(</b><b><i>x</i></b> <b>[,</b> <b><i>base</i></b><b>])</b> </pRe>
+
+<p>Converts a number or string <I><tt cLass="monofont">x</tT></i>
+ to an integer. <i><tT CLAss="monofont">base</tt></I>
+ optionally specifies a base when converting from a string.</P>
+
+<PRe>
+
+<b>intern(</b><b><I>string</I></B><B>)</b> </pre>
+
+<P>Checks to see whether <I><TT class="monofont">string</tt></i>
+ is contained in an internal table of strings. If found, a copy of the internal string is returned. If not, <i><tt class="monofont">string</tt></i>
+ is added to the internal table and returned. This function is primarily used to get better performance in operations involving dictionary lookups. Interned strings are never garbage-collected. Not applicable to Unicode strings.</p>
+
+<Pre>
+
+<B>isinstance(</b><b><i>object</I></b><b>,</b> <b><I>classobj</i></b><b>)</B> </PRE>
+
+<p>Returns true if <i><tt CLASs="monofont">object</tt></i>
+ is an instance of <I><TT Class="monofont">classobj</TT></I>
+ or a subclass of <I><tt class="monofont">classobj</tt></i>
+. Can also be used for type checking if <i><tt class="monofont">classobj</tt></I>
+ is a type object.</p>
+
+<pRe>
+
+<b>issubclass(</b><B><i>class1</i></b><b>,</B> <b><i>class2</i></B><B>)</B> </Pre>
+
+<p>Returns true if <i><TT CLass="monofont">class1</tT></I>
+ is a subclass of (derived from) <I><Tt claSS="monofont">class2</TT></i>
+.</p>
+
+<p><i>Note:</i> <tt class="monofont">issubclass(</tt><i><tt claSs="monofont">A</tT></i>
+<tt Class="monofont">, </Tt><i><tT CLAss="monofont">A</tt></I>
+<TT Class="monofont">)</TT> is true.</P>
+
+<Pre>
+
+<b>len(</b><B><I>s</I></B><b>)</b> </pre>
+
+<p>Returns the number of items contained in the sequence <i><tt class="monofont">s</tt></i>
+.</p>
+
+<prE>
+
+<b>list(</b><B><i>s</i></b><B>)</b> </pre>
+
+<P>Returns a new list consisting of the items in the sequence <i><tt CLASs="monofont">s</tt></i>
+.</P>
+
+<PRE>
+
+<b>locals()</b> </prE>
+
+<P>Returns a dictionary corresponding to the local namespace of the caller.</P>
+
+<Pre>
+
+<b>long(</b><B><I>x</I></B> <b>[,</b> <b><i>base</i></b><b>])</b> </pre>
+
+<p>Converts a number or string <i><tt class="monofont">x</Tt></i>
+ to a long integer. <I><tt cLass="monofont">base</tT></i>
+ optionally specifies the base of the conversion when converting from a string.</p>
+
+<pRE>
+
+<B>map(</B><b><i>function</i></b><B>,</B> <B><I>list</i></b><b>, ...)</b> </PRE>
+
+<P>Applies <i><tt cLASS="monofont">function</tt></i>
+ to every item of <i><tt class="monofont">list</tt></i>
+ and returns a list of results. If multiple lists are supplied, <i><tt claSs="monofont">function</tT></i>
+ is assumed to take that many arguments, with each argument taken from a different list. If <i><tT clasS="monofont">function</tt></i>
+ is <TT CLass="monofont">None</tT>, the identity function is assumed. If <TT Class="monofont">None</TT> is mapped to multiple lists, a list of tuples is returned, wherein each tuple contains an element from each list. Short lists are extended with values of <TT clasS="monofont">None</TT> to match the length of the longest list, if necessary. Consider using list comprehensions instead of <Tt class="monofont">map</tt>. For example, <tt class="monofont">map(</tt><i><tt ClaSs="monofont">function</tt></I>
+<tt clAss="monofont">, </tT><I><TT clasS="monofont">alist</TT></I>
+<tt clASS="monofont">)</Tt> can be replaced by <tt cLASS="monofont">[</tt><i><tt class="monofont">function</tt></i>
+<tt class="monofont">(x) for x in </Tt><i><Tt clAss="monofont">alist</tt></I>
+<tt cLASS="monofont">]</tt>.</p>
+
+<p>? <B>See Also</B> <TT clasS="monofont">zip</TT> (105).</P>
+
+<pre>
+
+<b>max(</B><B><I>s</I></b> <b>[,</b> <b><i>args</i></b><b>, ...])</b> </pre>
+
+<p>For a single argument <i><tt clasS="monofont">s</tt></I>
+, returns the maximum value of the sequence <i><tt Class="monofont">s</Tt></i>
+. For multiple arguments, returns the largest of the arguments.</p>
+
+<PRE>
+
+<B>min(</b><b><i>s</i></B> <B>[,</B> <B><i>args</i></b><b>, ...])</B> </PRE>
+
+<p>For a single argument <i><tt CLASs="monofont">s</tt></i>
+, returns the minimum value of the sequence <i><tt class="monofont">s</tt></i>
+. For multiple arguments, returns the smallest of the arguments.</p>
+
+<pre>
+
+<b>oct(</B><b><i>x</I></b><b>)</b> </Pre>
+
+<p>Converts an integer or long integer <i><Tt clASS="monofont">x</Tt></i>
+ to an octal string.</p>
+
+<pRE>
+
+<B>open(</B><b><i>filename</i></b> <B>[,</B> <B><I>mode</i></b> <b>[,</b> <B><I>bufsize</I></B><b>]])</b> </pre>
+
+<p>Opens the file <i><tt class="monofont">filename</tt></i>
+ and returns a new file object (see <a hrEf="97.html">Chapter 10</a>, “Execution Environment”). <I><tt cLass="monofont">mode</tT></i>
+ indicates how the file should be opened: <tt CLASs="monofont">'r'</tt> for reading, <tT CLAss="monofont">'w'</tt> for writing, and <TT CLass="monofont">'a'</tT> for appending. An optional <TT Class="monofont">'+'</tt> can be added to the mode to open the file for updating (which allows both reading and writing). A mode of <tt class="monofont">'w+'</tt> truncates the file to zero length if it already exists. A mode of <tt claSs="monofont">'r+'</tT> or <tt cLass="monofont">'a+'</tT> opens the file for both reading and writing, but leaves the original contents intact when the file is opened. Append <tt cLASS="monofont">'b'</tt> to the mode to indicate binary mode on platforms such as Windows, where a distinction is made between text and binary files. If the mode is omitted, a mode of <tt CLASs="monofont">'r'</tt> is assumed. The <i><TT CLass="monofont">bufsize</tT></I>
+ argument specifies the buffering behavior, where <TT class="monofont">0</tt>  is unbuffered, <tt class="monofont">1</tt> is line buffered, and any other positive number indicates an approximate buffer size in bytes. A negative number indicates that the system default buffering should be used (this is the default behavior).</p>
+
+<pre>
+
+<B>ord(</b><b><I>c</i></b><b>)</B> </pre>
+
+<p>Returns the integer ordinal value of a single character <I><tt cLASS="monofont">c</tt></i>
+. For ordinary characters, a value in the range <tT CLAss="monofont">[0,255]</tt> is returned. For Unicode characters, a value in the range <TT CLass="monofont">[0,65535]</tT> is returned.</P>
+
+<PRe>
+
+<b>pow(</b><b><i>x</i></b><b>,</b> <b><i>y</i></b> <b>[,</b> <b><i>z</i></b><b>])</B> </prE>
+
+<p>Returns <i><tT clasS="monofont">x</tt></i>
+<TT CLass="monofont"> ** </tT><I><TT clasS="monofont">y</TT></I>
+. If <i><tt cLASS="monofont">z</tt></i>
+ is supplied, returns <tt class="monofont">(</tt><i><tt class="monofont">x</Tt></i>
+<Tt clAss="monofont"> ** </tt><I><tt cLASS="monofont">y</tt></i>
+<tT CLAss="monofont">) % </tt><I><TT Class="monofont">z</TT></I>
+.</P>
+
+<pre>
+
+<b>range([</b><b><i>start</i></b><b>,]</b> <b><i>stop</i></b> <b>[,</b> <b><i>step</i></B><b>])</b> </Pre>
+
+<p>Creates a list of integers from <I><tt clAss="monofont">start</tT></I>
+ to <I><Tt claSS="monofont">stop</TT></i>
+. <i><tt CLASs="monofont">step</tt></i>
+ indicates a stride and is set to <TT CLass="monofont">1</tt> if omitted. If <i><tt class="monofont">start</tt></i>
+ is omitted (when <tt clAss="monofont">range()</Tt> is called with one argument), it defaults to <tt Class="monofont">0</Tt>. A negative <i><tT CLAss="monofont">step</tt></I>
+ creates a list of numbers in descending order.</P>
+
+<P>? <B>See Also</b> <tt cLASS="monofont">xrange</tt> (105).</p>
+
+<pRE>
+
+<B>raw_input([</B><b><i>prompt</i></b><b>])</b> </pre>
+
+<p>Reads a line of input from standard input (<tt class="monofont">sys.stdin</tt>) and returns it as a string. If <i><Tt cLass="monofont">prompt</Tt></i>
+ is supplied, it’s first printed to standard output (<tt ClasS="monofont">sys.stdout</TT>). Trailing newlines are stripped and an <Tt claSS="monofont">EOFError</TT> exception is raised if an EOF is read. If the <tt clASS="monofont">readline</Tt> module is loaded, this function will use it to provide advanced line-editing and command-completion features.</p>
+
+<prE>
+
+<B>reduce(</B><B><i>func</i></b><b>,</b> <b><i>seq</i></b> <b>[,</b> <b><i>initializer</i></b><b>])</b> </pre>
+
+<P>Applies a function <i><tT claSs="monofont">func</tt></i>
+ cumulatively to the items in the sequence <I><tt cLASS="monofont">seq</tt></i>
+ and returns a single value. <i><TT CLass="monofont">func</tT></I>
+ is expected to take two arguments and is first applied to the first two items of <I><Tt claSS="monofont">seq</TT></i>
+. This result and subsequent elements of <i><tt class="monofont">seq</tt></i>
+ are then combined one at a time in a similar manner, until all elements of <i><tt class="monofont">seq</Tt></i>
+ have been consumed. <I><tt cLass="monofont">initializer</tT></i>
+ is an optional starting value used in the first computation and when <i><tT CLAss="monofont">seq</tt></I>
+ is empty.</P>
+
+<PRe>
+
+<b>reload(</b><b><I>module</I></B><B>)</b> </pre>
+
+<P>Reloads an already imported module. <I><TT class="monofont">module</tt></i>
+ must refer to an existing module object. The use of this function is discouraged except for debugging. Keep the following issues in mind:</p>
+
+<ul>
+<li>
+<p>When a module is reloaded, the dictionary defining its global namespace is retained. Thus, definitions in the old module that aren’t part of the newly reloaded module are retained. Modules can exploit this to see if they have been previously loaded.</p>
+</li>
+<li>
+<p>It’s usually illegal to reload dynamically loaded modules written in C.</P>
+</li>
+<Li>
+<p>If any other modules have imported this module by using the <tT clasS="monofont">from</tt>  statement, they’ll continue to use the definitions in the previously imported module. This problem can be avoided by either reissuing the <tT CLAss="monofont">from</tt>  statement after a module has been reloaded or using fully qualified names such as <I><TT Class="monofont">module</TT></I>
+<Tt claSS="monofont">.</TT><i><tt class="monofont">name</tt></i>
+.</p>
+</li>
+<li>
+<p>If there are any object instances created by classes in the old module, they’ll continue to use methods defined in the old module.</p>
+</li>
+</Ul>
+<pRe>
+
+<b>repr(</b><B><i>object</i></b><b>)</B> </pre>
+
+<P>Returns a string representation of <I><TT clasS="monofont">object</TT></I>
+. This is the same string generated by backquotes (<tt clASS="monofont">`object`</Tt>). In most cases, the returned string is an expression that can be passed to <tt cLASS="monofont">eval()</tt> to re-create the object.</p>
+
+<pre>
+
+<b>round(</b><b><i>x</i></b> <b>[,</b> <b><i>n</i></b><b>])</b> </Pre>
+
+<P>Returns the result of rounding the floating-point number <i><tt Class="monofont">x</Tt></i>
+ to the closest multiple of 10 to the power minus <i><TT CLass="monofont">n</tT></I>
+. If <I><Tt claSS="monofont">n</TT></i>
+ is omitted, it defaults to <tt cLASS="monofont">0</tt>. If two multiples are equally close, rounding is done away from <tt class="monofont">0</tt>  (for example, <tt class="monofont">0.5</tt> is rounded to <Tt cLass="monofont">1.0</Tt> and <tt cLass="monofont">-0.5</TT>  is rounded to <TT clasS="monofont">-1.0</TT>).</P>
+
+<pre>
+
+<b>setattr(</B><B><I>object</I></b><b>,</b> <b><I>name</I></B><B>,</b> <b><i>value</i></b><b>)</b> </pre>
+
+<p>Sets an attribute of an object. <i><tt class="monofont">name</tT></i>
+ is a string. Same as <i><Tt clAss="monofont">object</tt></I>
+<tt cLASS="monofont">.</tt><i><tT CLAss="monofont">name</tt></I>
+<TT Class="monofont"> = </TT><I><Tt class="monofont">value</tt></i>
+.</p>
+
+<pre>
+
+<b>slice([</b><b><i>start</i></b><b>,]</B> <b><i>stop</I></b> <b>[,</b> <B><i>step</i></b><b>])</B> </pre>
+
+<P>Returns a slice object representing integers in the specified range. Slice objects are also generated by extended slice syntax. See the section “<A HRef="40#10.html">Sequence and Mapping Methods</a>” in <a HREF="33.html">Chapter 3</a> for details.</p>
+
+<prE>
+
+<B>str(</B><B><i>object</i></b><b>)</B> </PRE>
+
+<p>Returns a string representing the printable form of an object. This is the same string as would be produced by the <tt class="monofont">print</tt>  statement.</p>
+
+<pre>
+
+<b>tuple(</b><b><i>s</i></b><B>)</b> </pRe>
+
+<p>Creates a tuple whose items are taken from the sequence <i><Tt claSs="monofont">s</tt></I>
+. If <I><TT clasS="monofont">s</TT></I>
+ is already a tuple, it’s returned unmodified.</p>
+
+<pre>
+
+<B>type(</B><B><I>object</i></b><b>)</b> </PRE>
+
+<P>Returns the type of <tt class="monofont">object</tt>. The type is returned as a type object as defined in the <tt class="monofont">types</tt>  module.</p>
+
+<p>? <B>See Also</b> <tT claSs="monofont">isinstance</tt> (102).</p>
+
+<Pre>
+
+<b>unichr(</B><B><I>i</I></b><b>)</b> </pRE>
+
+<P>Converts the integer or long integer <I><tt clASS="monofont">i</Tt></i>
+, <tt CLASs="monofont">0 &lt;= </tt><i><tt class="monofont">i</tt></i>
+<tt clasS="monofont"> &lt;= 65535</tt>, to a single Unicode character.</P>
+
+<pre>
+
+<B>unicode(</b><b><i>string</i></B> <b>[,</b> <b><I>encoding</I></B> <B>[,</b> <b><i>errors</i></B><B>]])</B> </Pre>
+
+<p>Converts <i><TT CLass="monofont">string</tT></I>
+ to a Unicode string. <I><Tt class="monofont">encoding</tt></i>
+ specifies the data encoding of <i><tt class="monofont">string</tt></i>
+. If omitted, the default encoding as returned by <Tt cLass="monofont">sys.getdefaultencoding()</Tt> is used. <i><tt ClasS="monofont">errors</TT></I>
+ specifies how encoding errors are handled and is one of <tt clASS="monofont">'strict'</Tt>, <tt cLASS="monofont">'ignore'</tt>, or <tt CLASs="monofont">'replace'</tt>. See <a href="89.html">Chapter 9</a> (“Input and Output”) and <a href="33.html">Chapter 3</a> (“Types and Objects”) for details.</p>
+
+<pre>
+
+<b>vars([</B><b><i>object</I></b><b>])</b> </Pre>
+
+<p>Returns the symbol table of <i><Tt clASS="monofont">object</Tt></i>
+ (usually found in its <tt CLASs="monofont">_ _dict_ _</tt> attribute). If no argument is given, a dictionary corresponding to the local namespace is returned.</p>
+
+<PRE>
+
+<B>xrange([</b><b><i>start</i></B><B>,]</B> <B><i>stop</i></b> <b>[,</b> <b><i>step</i></b><b>])</b> </pre>
+
+<p>Works like <tt claSs="monofont">range()</tT>  except that an <tt cLass="monofont">XRangeType</tT> object is returned. This object produces the same values as stored in the list created by <tt cLASS="monofont">range()</tt>, but without actually storing them. This is useful when working with very large ranges of integers that would consume a large amount of memory.</p>
+
+<pRE>
+
+<B>zip(</B><b><i>s1</i></b> <B>[,</B> <B><I>s2</i></b> <b>[,..]])</b> </PRE>
+
+<P>Returns a list of tuples where the <i>n</i>th tuple is <tt class="monofont">(</tt><i><tt class="monofont">s1</tT></i>
+<tT claSs="monofont">[</tt><i><Tt clASS="monofont">n</Tt></i>
+<tt CLASs="monofont">], </tt><i><TT CLass="monofont">s2</tT></I>
+<TT class="monofont">[</tt><i><tt class="monofont">n</tt></i>
+<tt ClaSs="monofont">], ...)</tt>. The resulting list is truncated to the length of the shortest argument sequence.</P>
+
+
+<h4>Built-in Exceptions</h4>
+<p>Built-in exceptions are contained in the <tT claSS="monofont">exceptions</TT>  module, which is always loaded prior to the execution of any program. Exceptions are defined as classes. The following exceptions serve as base classes for all the other exceptions:</p>
+
+<pre>
+
+<B>Exception</B> </PRe>
+
+<p>The root class for all exceptions. All built-in exceptions are derived from this class. User-defined exceptions are encouraged to use this as a base class.</p>
+
+<pRE>
+
+<B>StandardError</B> </pre>
+
+<p>The base class for all built-in exceptions except for <TT CLass="monofont">SystemExit</tt>.</p>
+
+<pre>
+
+<b>ArithmeticError</b> </pre>
+
+<p>Base class for arithmetic exceptions, including <tt claSs="monofont">OverflowError</tT>, <tt cLass="monofont">ZeroDivisionError</tT>, and <tt cLASS="monofont">FloatingPointError</tt>.</p>
+
+<pRE>
+
+<B>LookupError</B> </pre>
+
+<p>Base class for indexing and key errors, including <TT CLass="monofont">IndexError</tT>  and <TT Class="monofont">KeyError</tt>.</p>
+
+<pre>
+
+<b>EnvironmentError</b> </pre>
+
+<p>Base class for errors that occur outside Python, including <tt clAss="monofont">IOError</Tt>  and <tt Class="monofont">OSError</Tt>.</p>
+
+<p>The preceding exceptions are never raised explicitly. However, they can be used to catch certain classes of errors. For instance, the following code would catch any sort of numerical error:</P>
+
+<PRE>
+
+try: 
+    # Some operation 
+    ... 
+except ArithmeticError, e: 
+    # Math error </pre>
+
+<p>When an exception is raised, an instance of an exception class is created. This instance is placed in the optional variable supplied to the <TT CLass="monofont">except</tT>  statement. For example:</P>
+
+<PRe>
+
+except IOError, e: 
+    # Handle error 
+    # 'e' has an instance of IOError </pre>
+
+<P>Most exceptions have an associated value that can be found in the <TT Class="monofont">args</tt>  attribute of the exception instance (<tt class="monofont">'e.args'</tt> in the preceding example). In most cases, this is a string describing the error. For <tt claSs="monofont">EnvironmentError</tT>  exceptions, the value is a 2-tuple or 3-tuple containing an integer error number, string error message, and an optional filename (these values are also available as exception attributes as described below).</p>
+
+<p>The following exceptions are raised by programs:</p>
+
+<Pre>
+
+<b>AssertionError</b> </Pre>
+
+<p>Failed <TT CLass="monofont">assert</tT>  statement.</P>
+
+<PRe>
+
+<b>AttributeError</b> </pRE>
+
+<P>Failed attribute reference or assignment.</P>
+
+<pre>
+
+<b>EOFError</B> </PRE>
+
+<p>End of file. Generated by the built-in functions <tt class="monofont">input()</tt> and <tt class="monofont">raw_input()</tt>. <i>Note:</I> A number of I/O methods such as <tt ClasS="monofont">read()</tt> and <tt ClasS="monofont">readlines()</TT> return an empty string for EOF.</P>
+
+<pre>
+
+<b>FloatingPointError</B> </PRE>
+
+<p>Failed floating-point operation. A subclass of <tt cLASS="monofont">ArithmeticError</tt>.</p>
+
+<pRE>
+
+<B>IOError</B> </pre>
+
+<p>Failed I/O operation. The value is an <tt class="monofont">IOError</tt>  instance with attributes <tt class="monofont">errno</Tt>, <tT claSs="monofont">strerror</tt>, and <tT claSS="monofont">filename</TT>. <tt clASS="monofont">errno</Tt>  is an integer error number, <tt cLASS="monofont">strerror</tt>  is a string error message, and <tt CLASs="monofont">filename</tt>  is an optional filename. A subclass of <tt class="monofont">EnvironmentError</tt>.</p>
+
+<pre>
+
+<b>ImportError</b> </prE>
+
+<p>Raised when an <tT claSs="monofont">import</tt>  statement can’t find a module or when <tT claSS="monofont">from</TT>  can’t find a name in a module.</p>
+
+<pre>
+
+<B>IndentationError</B> </PRe>
+
+<p>Indentation error. A subclass of <tt CLASs="monofont">SyntaxError</tt>.</p>
+
+<PRE>
+
+<B>IndexError</b> </pre>
+
+<p>Sequence subscript out of range. A subclass of <tt class="monofont">LookupError</tt>.</p>
+
+<pre>
+
+<b>KeyError</b> </Pre>
+
+<P>Key not found in a dictionary. A subclass of <tt cLass="monofont">LookupError</tT>.</p>
+
+<prE>
+
+<B>KeyboardInterrupt</B> </Pre>
+
+<p>Raised when the user hits the interrupt key (usually Ctrl+C).</p>
+
+<PRE>
+
+<B>MemoryError</b> </pre>
+
+<P>Recoverable out-of-memory error.</P>
+
+<PRe>
+
+<b>NameError</b> </pRE>
+
+<P>Name not found in local or global namespaces.</P>
+
+<pre>
+
+<b>NotImplementedError</b> </pre>
+
+<p>Unimplemented feature. Can be raised by base classes that require derived classes to implement certain methods. A subclass of <tt class="monofont">RuntimeError</tt>.</p>
+
+<pRe>
+
+<b>OSError</B> </pre>
+
+<P>Operating system error. Primarily raised by functions in the <tt clAss="monofont">os</tT>  module. The value is the same as for <TT Class="monofont">IOError</TT>. A subclass of <TT clasS="monofont">EnvironmentError</TT>.</P>
+
+<pre>
+
+<b>OverflowError</B> </PRE>
+
+<p>Result of arithmetic operation is too large to be represented. A subclass of <tt class="monofont">ArithmeticError</tt>.</p>
+
+<pre>
+
+<b>RuntimeError</b> </pre>
+
+<p>A generic error not covered by any of the other categories.</P>
+
+<prE>
+
+<b>SyntaxError</b> </pRe>
+
+<p>Parser syntax error. Instances have the attributes <tt ClasS="monofont">filename</TT>, <Tt claSS="monofont">lineno</TT>, <tt clASS="monofont">offset</Tt>, and <tt cLASS="monofont">text</tt> that can be used to gather more information.</p>
+
+<pre>
+
+<b>SystemError</b> </pre>
+
+<p>Internal error in the interpreter. The value is a string indicating the problem.</p>
+
+<pre>
+
+<b>SystemExit</b> </prE>
+
+<p>Raised by the <tT claSs="monofont">sys.exit()</tt> function. The value is an integer indicating the return code. If it’s necessary to exit immediately, <tT claSS="monofont">os._exit()</TT> can be used.</p>
+
+<pre>
+
+<B>TabError</B> </PRe>
+
+<p>Inconsistent tab usage. Generated when Python is run with the <tt CLASs="monofont">-tt</tt>  option. A subclass of <tT CLAss="monofont">SyntaxError</tt>.</p>
+
+<pre>
+
+<b>TypeError</b> </pre>
+
+<p>Operation or function applied to an object of inappropriate type.</p>
+
+<pre>
+
+<b>UnboundLocalError</b> </Pre>
+
+<P>Unbound local variable referenced. This error occurs if a variable is referenced before it’s defined in a function. A subclass of <tt cLass="monofont">NameError</tT>.</p>
+
+<prE>
+
+<B>UnicodeError</B> </Pre>
+
+<p>Unicode encoding or decoding error. A subclass of <tT CLAss="monofont">ValueError</tt>.</P>
+
+<PRE>
+
+<b>ValueError</b> </prE>
+
+<P>Generated when the argument to a function or operation is the right type, but of inappropriate value.</P>
+
+<Pre>
+
+<b>WindowsError</b> </pre>
+
+<p>Generated by failed system calls on Windows. A subclass of <tt class="monofont">OSError</tt>.</p>
+
+<prE>
+
+<b>ZeroDivisionError</b> </Pre>
+
+<p>Dividing by zero. A subclass of <Tt claSs="monofont">ArithmeticError</tt>.</P>
+
+<P>The <TT clasS="monofont">exceptions</TT>  module also defines the exception objects <Tt claSS="monofont">Warning</TT>, <tt clASS="monofont">UserWarning</Tt>, <tt class="monofont">DeprecationWarning</tt>, <tt class="monofont">RuntimeWarning</tt>, and <tT clAss="monofont">SyntaxWarning</tT>. These exceptions are used as part of the Python warning framework and are described further in the <tt clAss="monofont">warnings</tT> module.</P>
+
+<P>? <B>See Also</b> <a hrEF="108#42.html">warnings</A> (121).</P>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="106.html" title="A. The Python Library"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=107" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="107.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="108.html" title="Python Services"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

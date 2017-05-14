@@ -1,0 +1,1419 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Low-Level Functions on Built-in Types</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="121.html" class="navtitle">B. Extending and Embedding Python</a> &gt; <span class="nonavtitle">Low-Level Functions on Built-in Types</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="130.html" title="Abstract Object Layer"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=131" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="131.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="132.html" title="Defining New Types"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A10%3A11+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161104058145059051143020002</font><a href="read7.asp?bookname=0735710910&snode=131&now=5%2F28%2F2002+9%3A10%3A11+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Low-Level Functions on Built-in Types</h3>
+<p>The functions in Tables B.9 through B.21 can be used to manipulate various built-in types. Functions of the form <tT CLAss="monofont">Py&lt;</tt><I><TT Class="monofont">type</TT></I>
+<Tt class="monofont">&gt;_Check()</tt> are used to check the type of an object and return <tt class="monofont">1</tt>  if an object is the correct type, <tt cLasS="monofont">0</tt> otherwise. Functions of the form <tT clasS="monofont">Py&lt;</tt><i><TT CLass="monofont">type</tT></I>
+<TT clasS="monofont">&gt;_From&lt;</TT><I><tt clASS="monofont">type</Tt></i>
+<tt class="monofont">&gt;</tt> are used to create a Python object from a C datatype. Functions of the form <tt class="monofont">Py&lt;</tt><I><tt ClasS="monofont">type</tt></i>
+<tT claSS="monofont">&gt;_As&lt;</TT><i><tt cLASS="monofont">type</tt></i>
+<tT CLAss="monofont">&gt;</tt> are used to convert from Python to C. These functions are presented without further description.</P>
+
+<P><TAble border="1" cellspacing="0" CelLpadDing="1" wIdth="100%">
+<CAPTion><h5>Table B.9.  Integers</H5></CAPtion><COLGroup SPAN="2">
+<tr>
+<th valign="top">
+<font size="2">
+<p><b>Type</B></p>
+</fOnt></tH>
+<th vaLign="top">
+<FONT size="2">
+<P><B>Function</B></P>
+</font></TH>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">long</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">PyInt_AsLong(PyObject *</tT><I><TT clasS="monofont">iobj</TT></I>
+<tt class="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">int</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">PyInt_Check(PyObject *</tt><i><tt clAss="monofont">obj</Tt></i>
+<tT clasS="monofont">)</tt></p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">PyObject *</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">PyInt_FromLong(long)</Tt></p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">long</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">PyInt_GetMax(void)</TT></P>
+</font></TD>
+</TR>
+</colgROUP>
+</table></p>
+
+<p><table border="1" ceLlsPaciNg="0" celLpadDING="1" widtH="100%">
+<CAPtion><H5>Table B.10.  Long Integers</H5></CAptioN><COLgroup span="2">
+<tr>
+<th valign="top">
+<fOnt Size="2">
+<P><b>Type</b></p>
+</fOnt></tH>
+<TH ValigN="top">
+<FONt sizE="2">
+<P><B>Function</B></p>
+</fonT></TH>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">double</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">PyLong_AsDouble(PyObject *</TT><I><Tt class="monofont">lobj</tt></i>
+<tt class="monofont">)</tt></p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">long</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">PyLong_AsLong(PyObject *</tT><i><tt Class="monofont">lobj</Tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">long long</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">PyLong_AsLongLong(PyObject *</tt><i><tT CLAss="monofont">lobj</tt></I>
+<TT Class="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">unsigned long</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">PyLong_AsUnsignedLong(PyObject *</tt><i><tt class="monofont">lobj</Tt></i>
+<Tt clAss="monofont">)</tt></P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">unsigned long long</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">PyLong_AsUnsignedLongLong(PyObject *</TT><I><Tt claSS="monofont">lobj</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">void *</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">PyLong_AsVoidPtr(PyObject *</TT><i><tt class="monofont">lobj</tt></i>
+<tt class="monofont">)</tt></P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">int</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">PyLong_Check(PyObject *</tt><i><Tt claSs="monofont">obj</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">PyObject *</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">PyLong_FromDouble(double)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">PyObject *</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">PyLong_FromLong(long)</tt></p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">PyObject *</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">PyLong_FromLongLong(long long)</TT></p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">PyObject *</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">PyLong_FromUnsignedLong(unsigned long)</tt></p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">PyObject *</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">PyLong_FromUnsignedLongLong(unsigned long long)</tt></p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">PyObject *</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">PyLong_FromVoidPtr(void *)</tt></p>
+</fOnt></Td>
+</tr>
+</ColgrOup>
+</tABLE></p>
+
+<p><taBLE BordeR="1" CELlspaCING="0" cellpadding="1" width="100%">
+<captIon><H5>Table B.11.  Floats</h5></caPtion><ColgROUP span="2">
+<TR>
+<TH valiGN="top">
+<FOnt siZE="2">
+<P><B>Type</b></p>
+</font></th>
+<th valign="top">
+<font SizE="2">
+<p><b>Function</b></P>
+</font></Th>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">int</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">PyFloat_Check(PyObject *</tT><i><tt CLASs="monofont">obj</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">double</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">PyFloat_AsDouble(PyObject *</tt><i><TT CLass="monofont">fobj</tt></i>
+<tt class="monofont">)</tt></p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">PyObject *</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">PyFloat_FromDouble(double)</tT></p>
+</fOnt></tD>
+</tr>
+</coLgroUP>
+</TAble></p>
+
+<P><TABle boRDER="1" cellSPACing="0" cellpadding="1" width="100%">
+<cAptIon><h5>Table B.12.  Complex</H5></captIon><cOLGRoup sPAN="2">
+<Tr>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Type</b></p>
+</font></th>
+<th valign="top">
+<fOnt Size="2">
+<P><b>Function</b></p>
+</fOnt></tH>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">Py_complex</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">PyComplex_AsCComplex(PyObject *</tt><I><TT Class="monofont">cobj</TT></I>
+<Tt claSS="monofont">)</TT></p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">int</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">PyComplex_Check(PyObject *</TT><I><Tt class="monofont">obj</tt></i>
+<tt class="monofont">)</tt></p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">PyObject *</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">PyComplex_FromCComplex(Py_complex *</tT><i><tt Class="monofont">cobj</Tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">PyObject *</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">PyComplex_FromDoubles(double </tt><i><tT CLAss="monofont">real</tt></I>
+<TT Class="monofont">, double </tt><i><tt class="monofont">imag</tt></i>
+<tt cLasS="monofont">)</tt></p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">double</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">PyComplex_ImagAsDouble(PyObject *</tt><I><tt cLASS="monofont">cobj</tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">double</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">PyComplex_RealAsDouble(PyObject *</tt><i><tT CLAss="monofont">cobj</tt></i>
+<tt class="monofont">)</tt></p>
+</font></tD>
+</tr>
+</ColgRoup>
+</tAble></P>
+
+<P><TAble bORDEr="1" celLSPAcing="0" CELLpadding="1" width="100%">
+<caption><h5>Table B.13.  Strings</H5></caPtioN><colgRoup SPAN="2">
+<tr>
+<th VALIgn="top">
+<foNT SIze="2">
+<p><b>Type</B></P>
+</FOnt></th>
+<th valign="top">
+<font size="2">
+<P><b>Function</b></P>
+</fonT></th>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">char *</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">PyString_AsString(PyObject *</Tt><i><tt ClasS="monofont">str</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">PyObject *</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">PyString_AsEncodedString(PyObject *</TT><I><tt clASS="monofont">unicode</Tt></i>
+<tt class="monofont">, const char *</tt><i><tt class="monofont">encoding</tT></i>
+<tT claSs="monofont">, const char *</tt><i><Tt clASS="monofont">errors</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">int</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">PyString_Check(PyObject *</Tt><i><tt CLASs="monofont">obj</tt></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">void</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">PyString_Concat(PyObject **</tt><i><Tt cLass="monofont">str</Tt></i>
+<tt ClasS="monofont">, PyObject *</TT><I><tt clASS="monofont">newpart</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</FONT></td>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">void</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">PyString_ConcatAndDel(PyObject **</Tt><i><tt class="monofont">str</tt></i>
+<tt class="monofont">, PyObject *</tT><i><tT claSs="monofont">newpart</tt></i>
+<Tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">PyObject *</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">PyString_Decode(const char *</TT><I><tt clASS="monofont">s</Tt></i>
+<tt CLASs="monofont">, int </tt><i><tt class="monofont">size</tt></i>
+<tt clasS="monofont">, const char *</tt><I><tt cLass="monofont">encoding</tT></i>
+<tt CLASs="monofont">, const char *</tt><i><TT CLass="monofont">errors</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">PyObject *</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">PyString_Encode(const Py_UNICODE *</tt><i><tt class="monofont">s</tt></i>
+<tt clAss="monofont">, int </Tt><i><tT clasS="monofont">size</tt></i>
+<TT CLass="monofont">, const char *</tT><I><TT clasS="monofont">encoding</TT></I>
+<tt clASS="monofont">, const char *</Tt><i><tt class="monofont">errors</tt></i>
+<tt class="monofont">)</tT></p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">PyObject *</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">PyString_Format(PyObject *</tt><I><tt clAss="monofont">format</tT></I>
+<TT clasS="monofont">, PyObject *</TT><I><tt clASS="monofont">args</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">PyObject *</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">PyString_FromString(char *</tt><i><tt class="monofont">str</tt></i>
+<Tt cLass="monofont">)</Tt></p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">PyObject *</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">PyString_FromStringAndSize(char *</tt><i><TT CLass="monofont">str</tT></I>
+<TT clasS="monofont">, int </TT><I><tt clASS="monofont">len</Tt></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><Tt claSS="monofont">int</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">PyString_Resize(PyObject **</tt><i><tt ClaSs="monofont">str</tt></I>
+<tt clAss="monofont">, int </tT><I><TT clasS="monofont">newsize</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">int</tt></p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">PyString_Size(PyObject *</TT><I><tt class="monofont">str</tt></i>
+<tt class="monofont">)</tt></p>
+</FonT></td>
+</tR>
+</colgRoup>
+</TABLe></p>
+
+<p><i>Note:</I> <TT Class="monofont">Encode</TT>  and <TT clasS="monofont">Decode</TT>  functions expect encoding and error parameters that are the same as the built-in <Tt class="monofont">unicode()</tt> function.</p>
+
+<p><table bordeR="1" ceLlspAcing="0" CellPADDing="1" wIDTH="100%">
+<captION><H5>Table B.14.  Unicode</h5></capTION><colgroup span="2">
+<tr>
+<th valiGn="top">
+<fOnt sIze="2">
+<p><b>Type</B></p>
+</foNT></TH>
+<th vaLIGN="top">
+<font SIZE="2">
+<p><b>Function</b></p>
+</FONT></th>
+</tr>
+<tr>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">int</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">PyUnicode_Check(PyObject *</Tt><i><tt class="monofont">o</tt></i>
+<tt class="monofont">)</tT></p>
+</fOnt></tD>
+</tr>
+<tr>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">PyObject *</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">PyUnicode_FromUnicode(Py_UNICODE *, int </tt><I><tt clAss="monofont">size</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">Py_UNICODE *</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">PyUnicode_AsUnicode(PyObject *</tT><I><TT clasS="monofont">o</TT></I>
+<tt class="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">int</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">PyUnicode_GetSize(PyObject *</tt><i><tt clAss="monofont">o</Tt></i>
+<tT clasS="monofont">)</tt></p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">PyObject *</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">PyUnicode_FromEncodedObject(PyObject *</Tt><i><tt CLASs="monofont">obj</tt></i>
+<TT CLass="monofont">, const char *</tT><I><TT class="monofont">encoding</tt></i>
+<tt class="monofont">, const char *</tt><i><tt ClaSs="monofont">errors</tt></I>
+<tt clAss="monofont">)</tT></P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">PyObject *</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">PyUnicode_FromObject(PyObject *</tt><i><TT CLass="monofont">o</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">PyObject *</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">PyUnicode_FromWideChar(const wchar_t *, int </tt><i><tt class="monofont">size</tt></i>
+<tt clAss="monofont">)</Tt></p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">int</TT></P>
+</Font></td>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">PyUnicode_AsWideChar(PyObject *</tt><i><Tt clASS="monofont">o</Tt></i>
+<tt CLASs="monofont">, wchar_t *</tt><i><TT CLass="monofont">buf</tT></I>
+<TT class="monofont">, int </tt><i><tt class="monofont">maxlen</tt></i>
+<tt ClaSs="monofont">)</tt></P>
+</font></Td>
+</tr>
+</COLGroup>
+</TABLe></p>
+
+<p><tABLE bordER="1" CEllspacing="0" cellpadding="1" WidTh="100%">
+<caPtion><H5>Table B.15.  Lists</h5></caPTIOn><colGROUp spaN="2">
+<TR>
+<Th valIGN="top">
+<Font size="2">
+<p><b>Type</b></p>
+</font></th>
+<th vAliGn="top">
+<foNt sizE="2">
+<p><b>Function</b></P>
+</FONt></th>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">int</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">PyList_Append(PyObject *</tt><i><tT CLAss="monofont">list</tt></I>
+<TT Class="monofont">, PyObject *</TT><I><Tt class="monofont">obj</tt></i>
+<tt class="monofont">)</tt></p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">PyObject *</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">PyList_AsTuple(PyObject *</tT><i><tt Class="monofont">list</Tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">int</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">PyList_Check(PyObject *</tt><i><tT CLAss="monofont">obj</tt></I>
+<TT Class="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">PyObject *</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">PyList_GetItem(PyObject *</tt><i><tt class="monofont">list</Tt></i>
+<Tt clAss="monofont">, int </tt><I><tt cLASS="monofont">index</tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">PyObject *</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">PyList_GetSlice(PyObject *</tt><i><tT CLAss="monofont">list</tt></i>
+<tt class="monofont">, int </tt><i><tt claSs="monofont">i</tT></i>
+<tt Class="monofont">, int </Tt><i><tT CLAss="monofont">j</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">int</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">PyList_Insert(PyObject *</tt><I><TT Class="monofont">list</tt></i>
+<tt class="monofont">, int </tt><i><tt cLasS="monofont">index</tt></i>
+<Tt claSs="monofont">, PyObject *</tt><I><TT Class="monofont">obj</TT></I>
+<Tt claSS="monofont">)</TT></p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">PyObject *</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">PyList_New(int </TT><I><Tt class="monofont">size</tt></i>
+<tt class="monofont">)</tt></p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">int</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">PyList_Reverse(PyObject *</tT><i><tt Class="monofont">list</Tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">int</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">PyList_SetItem(PyObject *</tt><i><tT CLAss="monofont">list</tt></I>
+<TT Class="monofont">, int </tt><i><tt class="monofont">index</tt></i>
+<tt cLasS="monofont">, PyObject *</tt><i><Tt claSs="monofont">obj</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">int</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">PyList_SetSlice(PyObject *</tt><I><TT Class="monofont">list</TT></I>
+<Tt class="monofont">, int </tt><i><tt class="monofont">i</tt></i>
+<tT clAss="monofont">, int </tT><i><tt cLass="monofont">j</TT></I>
+<Tt claSS="monofont">, PyObject *</TT><i><tt cLASS="monofont">slc</tt></i>
+<tT CLAss="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">int</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">PyList_Size(PyObject *</tt><i><tt class="monofont">list</tt></I>
+<tt ClasS="monofont">)</tt></p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">int</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">PyList_Sort(PyObject *</tt><I><TT Class="monofont">list</TT></I>
+<Tt claSS="monofont">)</TT></p>
+</fonT></TD>
+</Tr>
+</colgroup>
+</table></p>
+
+<p><i>Note:</i> <tt ClaSs="monofont">PyList_GetItem()</tt> returns a borrowed reference.</P>
+
+<p><tabLe boRDER="1" cellSPACing="0" cELLPaddiNG="1" WIdth="100%">
+<caption><h5>Table B.16.  Tuples</h5></caption><cOlgRoup Span="2">
+<tR>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Type</b></P>
+</FONt></th>
+<tH VALign="top">
+<font size="2">
+<p><b>Function</b></p>
+</font></tH>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">int</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">PyTuple_Check(PyObject *</tt><I><tt ClasS="monofont">obj</tt></i>
+<tT claSS="monofont">)</TT></p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">PyObject *</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">PyTuple_GetItem(PyObject *</TT><I><Tt claSS="monofont">tup</TT></i>
+<tt cLASS="monofont">, int </tt><i><tt class="monofont">index</tt></i>
+<tt class="monofont">)</Tt></p>
+</Font></Td>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">PyObject *</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">PyTuple_GetSlice(PyObject *</tT><i><tt cLass="monofont">tup</TT></I>
+<Tt claSS="monofont">, int </TT><i><tt cLASS="monofont">i</tt></i>
+<tT CLAss="monofont">, int </tt><i><tt class="monofont">j</tt></i>
+<tt claSs="monofont">)</tT></p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">PyObject *</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">PyTuple_New(int </tt><i><tT claSS="monofont">size</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+</tr>
+<tR>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">int</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">PyTuple_SetItem(PyObject *</TT><i><tt cLASS="monofont">tup</tt></i>
+<tt class="monofont">, int </tt><i><tt class="monofont">index</Tt></i>
+<Tt clAss="monofont">, PyObject *</tt><I><tt cLASS="monofont">obj</tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">int</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">PyTuple_Size(PyObject *</tt><i><tT CLAss="monofont">tup</tt></i>
+<tt class="monofont">)</tt></p>
+</font></tD>
+</tr>
+</ColgRoup>
+</tAble></P>
+
+<P><I>Note:</I> <tt clASS="monofont">PyTuple_SetItem()</Tt>  increments the reference count of <i><tt CLASs="monofont">obj</tt></i>
+ even if it fails, and <TT CLass="monofont">PyTuple_GetItem()</tt> returns a borrowed reference.</p>
+
+<p><table border="1" ceLlsPaciNg="0" celLpadDING="1" widtH="100%">
+<CAPtion><H5>Table B.17.  Dictionaries</H5></CAptioN><COLgroup span="2">
+<tr>
+<th valign="top">
+<fOnt Size="2">
+<P><b>Type</b></p>
+</fOnt></tH>
+<TH ValigN="top">
+<FONt sizE="2">
+<P><B>Function</B></p>
+</fonT></TH>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">int</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">PyDict_Check(PyObject *</TT><I><Tt class="monofont">obj</tt></i>
+<tt class="monofont">)</tt></p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">void</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">PyDict_Clear(PyObject *</tT><i><tt Class="monofont">dict</Tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">int</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">PyDict_DelItem(PyObject *</tt><i><tT CLAss="monofont">dict</tt></I>
+<TT Class="monofont">, PyObject *</tt><i><tt class="monofont">key</tt></i>
+<tt cLasS="monofont">)</tt></p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">int</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">PyDict_DelItemString(PyObject *</tt><I><tt cLASS="monofont">dict</tt></i>
+<tT CLAss="monofont">, char *</tt><I><TT Class="monofont">key</TT></I>
+<Tt class="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">PyObject *</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">PyDict_GetItem(PyObject *</tt><i><tt claSs="monofont">dict</tT></i>
+<tt Class="monofont">, PyObject *</Tt><i><tT CLAss="monofont">key</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">PyObject *</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">PyDict_GetItemString(PyObject *</tt><I><TT Class="monofont">dict</tt></i>
+<tt class="monofont">, char *</tt><i><tt cLasS="monofont">key</tt></i>
+<Tt claSs="monofont">)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">PyObject *</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">PyDict_Items(PyObject *</tt><i><tT CLAss="monofont">dict</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">PyObject *</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">PyDict_Keys(PyObject *</tt><i><tt class="monofont">dict</tt></i>
+<tt claSs="monofont">)</tT></p>
+</foNt></td>
+</tR>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">PyObject *</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">PyDict_New(void)</tt></p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">int</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p><Tt claSs="monofont">PyDict_SetItem(PyObject *</tt><I><TT Class="monofont">dict</TT></I>
+<Tt claSS="monofont">, PyObject *</TT><i><tt cLASS="monofont">key</tt></i>
+<tt class="monofont">, PyObject *</tt><i><tt class="monofont">value</Tt></i>
+<Tt clAss="monofont">)</tt></P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">int</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">PyDict_SetItemString(PyObject *</TT><I><Tt claSS="monofont">dict</TT></i>
+<tt cLASS="monofont">, char *</tt><i><tT CLAss="monofont">key</tt></i>
+<tt class="monofont">, PyObject *</tt><i><tt claSs="monofont">value</tT></i>
+<tt Class="monofont">)</Tt></p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">int</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">PyDict_Size(PyObject *</TT><i><tt cLASS="monofont">dict</tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">PyObject *</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">PyDict_Values(PyObject *</tt><i><tt class="monofont">dict</tt></i>
+<tt class="monofont">)</Tt></p>
+</Font></Td>
+</tr>
+</cOlgrOUP>
+</Table></P>
+
+<P><I>Note:</I> <tt clASS="monofont">PyDict_GetItem()</Tt> and <tt cLASS="monofont">PyDict_GetItemString()</tt> return borrowed references.</p>
+
+<p><table border="1" cellsPacIng="0" cEllpaDdinG="1" WIDth="100%">
+<caPTIOn><h5>Table B.18.  Buffer Objects</h5></cAPTIon><coLGROup span="2">
+<tr>
+<th valign="top">
+<font SizE="2">
+<p><b>Type</b></P>
+</font></Th>
+<th VALIgn="top">
+<foNT SIze="2">
+<p><b>Function</B></P>
+</FOnt></th>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">int</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">PyBuffer_check(PyObject *</tt><i><TT CLass="monofont">o</tt></i>
+<tt class="monofont">)</tt></p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">PyObject *</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">PyBuffer_FromObject(PyObject *</tT><i><tT claSs="monofont">base</tt></i>
+<Tt clASS="monofont">, int </Tt><i><tt CLASs="monofont">offset</tt></i>
+<TT CLass="monofont">, int </tT><I><TT class="monofont">size</tt></i>
+<tt class="monofont">)</tt></p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">PyObject *</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p><tt clasS="monofont">PyBuffer_FromReadWriteObject(PyObject *</tt><I><tt cLass="monofont">base</tT></i>
+<tt CLASs="monofont">, int </tt><i><TT CLass="monofont">offset</tT></I>
+<TT clasS="monofont">, int </TT><I><tt class="monofont">size</tt></i>
+<tt class="monofont">)</tt></p>
+</FonT></td>
+</tR>
+<tr>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">PyObject *</TT></p>
+</fonT></TD>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">PyBuffer_FromMemory(void *</Tt><i><tT clasS="monofont">ptr</tt></i>
+<TT CLass="monofont">, int </tT><I><TT clasS="monofont">size</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">PyObject *</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">PyBuffer_FromReadWriteMemory(void *</tt><i><tt class="monofont">ptr</tt></i>
+<tt ClaSs="monofont">, int </tt><I><tt clAss="monofont">size</tT></I>
+<TT clasS="monofont">)</TT></P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">PyObject *</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p><TT CLass="monofont">PyBuffer_New(int </tT><I><TT clasS="monofont">size</TT></I>
+<tt class="monofont">)</tt></p>
+</font></td>
+</tr>
+</coLgrOup>
+</tAble></p>
+
+<P><tabLE BOrder="1" CELLspacING="0" CellpADDIng="1" width="100%">
+<caption><h5>Table B.19.  Files</h5></captIon><ColgRoup sPan="2">
+<tR>
+<TH ValigN="top">
+<FONt sizE="2">
+<P><B>Type</B></p>
+</fonT></TH>
+<Th valign="top">
+<font size="2">
+<p><b>Function</b></p>
+</fOnt></Th>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">FILE *</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">PyFile_AsFile(PyObject *</tT><i><tt Class="monofont">file</Tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font size="2">
+<p><tt class="monofont">int</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p><tt cLASS="monofont">PyFile_Check(PyObject *</tt><i><tT CLAss="monofont">obj</tt></I>
+<TT Class="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">PyObject *</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">PyFile_FromFile(FILE *, char *, char *, int (*)(FILE *))</tt></p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">PyObject *</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">PyFile_FromString(char *</tt><i><tT clAss="monofont">name</tT></i>
+<tt cLass="monofont">, char *</TT><I><Tt claSS="monofont">mode</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">PyObject *</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">PyFile_GetLine(PyObject *</TT><i><tt class="monofont">file</tt></i>
+<tt class="monofont">, int)</tt></P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">PyObject *</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">PyFile_Name(PyObject *</tt><i><Tt claSs="monofont">file</tt></I>
+<TT Class="monofont">)</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">void</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">PyFile_SetBufSize(PyObject *</tt><I><TT Class="monofont">file</TT></I>
+<Tt class="monofont">, int </tt><i><tt class="monofont">size</tt></i>
+<tT clAss="monofont">)</tT></p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">int</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">PyFile_SoftSpace(PyObject *</Tt><i><tT CLAss="monofont">file</tt></I>
+<TT Class="monofont">, int)</TT></P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">int</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">PyFile_WriteObject(PyObject *</tt><I><TT Class="monofont">file</tt></i>
+<tt class="monofont">, PyObject *</tt><i><tt cLasS="monofont">obj</tt></i>
+<Tt claSs="monofont">, int)</tt></P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">int</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">PyFile_WriteString(char *</tt><i><tT CLAss="monofont">str</tt></I>
+<TT Class="monofont">, PyObject *</TT><I><Tt class="monofont">file</tt></i>
+<tt class="monofont">)</tt></p>
+</fOnt></Td>
+</tr>
+</ColgrOup>
+</tABLE></p>
+
+<p><taBLE BordeR="1" CELlspaCING="0" cellpadding="1" width="100%">
+<captIon><H5>Table B.20.  Modules</h5></caPtion><ColgROUP span="2">
+<TR>
+<TH valiGN="top">
+<FOnt siZE="2">
+<P><B>Type</b></p>
+</font></th>
+<th valign="top">
+<font SizE="2">
+<p><b>Function</b></P>
+</font></Th>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">int</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">PyModule_Check(PyObject *</tT><i><tt CLASs="monofont">obj</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">PyObject *</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">PyModule_GetDict(PyObject *</tt><i><TT CLass="monofont">mod</tt></i>
+<tt class="monofont">)</tt></p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">char *</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">PyModule_GetFilename(PyObject *</tT><i><tT claSs="monofont">mod</tt></i>
+<Tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">char *</tt></p>
+</font></tD>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">PyModule_GetName(PyObject *</TT><I><tt clASS="monofont">mod</Tt></i>
+<tt CLASs="monofont">)</tt></p>
+</font></td>
+</tr>
+<tr>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">PyObject *</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">PyModule_New(char *</tt><i><tt class="monofont">name</tt></i>
+<Tt cLass="monofont">)</Tt></p>
+</foNt></td>
+</TR>
+</COlgroUP>
+</TAble></p>
+
+<P><TABle boRDER="1" cellspacing="0" cellpaddiNg="1" wIdth="100%">
+<CaptiOn><h5>Table B.21.  CObjects</h5></CAPTion><cOLGRoup sPAN="2">
+<Tr>
+<th vALIGn="top">
+<font size="2">
+<p><b>Type</b></p>
+</font></th>
+<tH vaLign="top">
+<Font sIze="2">
+<p><B>Function</B></P>
+</Font></tH>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">int</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">PyCObject_Check(PyObject *</tt><I><TT Class="monofont">o</TT></I>
+<Tt claSS="monofont">)</TT></p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">PyObject *</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">PyCObject_FromVoidPtr(void *</tt><i><tt class="monofont">cobj</tt></i>
+<tt cLasS="monofont">, void (*destr)(void *))</tt></p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">PyObject *</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p><Tt clAss="monofont">PyCObject_FromVoidPtrAndDesc(void *</tt><I><tt cLASS="monofont">cobj</tt></i>
+<tT CLAss="monofont">, void *</tt><I><TT Class="monofont">desc</TT></I>
+<Tt class="monofont">, void (*destr)(void *, void *))</tt></p>
+</font></td>
+</tr>
+<tr>
+<tD vaLign="top">
+<Font sIze="2">
+<p><TT CLass="monofont">void *</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p><tt class="monofont">PyCObject_AsVoidPtr(PyObject *</tt><i><tt claSs="monofont">self</tT></i>
+<tt Class="monofont">)</Tt></p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">void *</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">PyCObject_GetDesc(PyObject *</TT><i><tt cLASS="monofont">self</tt></i>
+<tT CLAss="monofont">)</tt></P>
+</FONt></td>
+</tr>
+</colgroup>
+</table></p>
+
+<p><I>Note:</i> The CObject interface is typically used to provide a wrapper around an arbitrary C pointer. These objects are mostly used by extension-building tools such as SWIG.</p>
+</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="130.html" title="Abstract Object Layer"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=131" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="131.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="132.html" title="Defining New Types"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

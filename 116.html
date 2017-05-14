@@ -1,0 +1,269 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Restricted Execution</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="105.html" class="navtitle">A. The Python Library</a> &gt; <span class="nonavtitle">Restricted Execution</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="115.html" title="Internet Data Handling and Encoding"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=116" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="116.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="117.html" title="Miscellaneous Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A07%3A42+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105081080058112185106252</font><a href="read3.asp?bookname=0735710910&snode=116&now=5%2F28%2F2002+9%3A07%3A42+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Restricted Execution</h3>
+<p>Normally, a Python program has complete access to the machine on which it runs. In particular, it can open files and network connections, and perform other potentially sensitive operations. In certain applications, however, this is undesirable—especially in Internet applications, in which a program may be subject to attackers or when code from an untrusted source is executed.</p>
+
+<P>To provide some measure of safety, Python provides support for restricted execution. Restricted execution is based on the notion of separating trusted and untrusted code. In particular, a program running in trusted mode (a <I>supervisor</I>) can create an execution environment (or <I>sandbox</i>) in which untrusted code can be executed with limited privileges. The capabilities of the untrusted code are tightly controlled by the supervisor, which can restrict the set of objects that can be accessed as well as the behavior of individual functions.</p>
+
+<p>Python’s restricted execution mode is implemented by playing a number of tricks with dictionaries, namespaces, and the environment in which untrusted code executes. As a result, untrusted code uses the same set of function names and modules that would be used in a normal program (as opposed to separate, secure APIs). The only difference is that certain modules and built-in functions may be unavailable (or redefined to secure versions).</p>
+
+<P>Internally, the interpreter determines whether a piece of code is restricted by looking at the identity of the <TT Class="monofont">_ _builtins_ _</TT> object in its global namespace. If it’s the same as the standard <TT class="monofont">_ _builtin_ _</tt> module, the code is unrestricted. Otherwise, it’s restricted. When running in restricted mode, the interpreter imposes a number of further restrictions that are designed to prevent untrusted code from becoming privileged:</p>
+
+<ul>
+<li>
+<p>The <tt class="monofont">_ _dict_ _</Tt> attribute of classes and instances is not accessible.</p>
+</Li>
+<li>
+<P>The <tt clAss="monofont">func_globals</tT>  attribute of functions is not accessible.</P>
+</LI>
+</ul>
+<p>These restrictions are imposed to prevent untrusted code from altering its global namespace (which is used by the supervisor to restrict the set of objects that are accessible).</p>
+
+<P>Finally, it should be noted that although the Python restricted execution environment prevents access to critical operations, it doesn’t prevent denial-of-service attacks, in which an untrusted program might try to exhaust memory or use an unlimited amount of CPU time.</P>
+
+<P>Restricted execution is supported through the use of two modules: <Tt claSS="monofont">rexec</TT>  and <tt clASS="monofont">Bastion</Tt>. <tt class="monofont">rexec</tt>  restricts the environment in which code runs. <tt class="monofont">Bastion</tt>  restricts the access that untrusted code has to objects created by the supervisor.</p>
+
+
+<H4><tt ClasS="monofont">rexec</tt></h4>
+<p>The <Tt clASS="monofont">rexec</Tt>  module is used to run code in a restricted environment. The environment is encapsulated in a class <tt cLASS="monofont">RExec</tt>  that contains attributes specifying the capabilities for the code to execute.</p>
+
+<pRE>
+
+<B>RExec([</B><b><i>hooks</i></b> <B>[,</B> <B><I>verbose</i></b><b>]])</b> </pre>
+
+<p>Creates an instance of the <tt class="monofont">RExec</tt>  class that represents a restricted environment. <i><tt ClaSs="monofont">hooks</tt></I>
+ is an instance of a class used to implement nonstandard methods for importing modules and is not described here. <i><tt cLass="monofont">verbose</TT></I>
+ is a flag that causes some debugging output to be printed to standard output.</P>
+
+<p>The following class variables are used by the <tt cLASS="monofont">_ _init_ _()</tt> method when an instance of the <tt CLASs="monofont">RExec</tt>  class is created. Changing them on an instance has no effect, so it’s better to create a subclass of <tT CLAss="monofont">RExec</tt>  that modifies their values.</p>
+
+<pre>
+
+<b>RExec.nok_builtin_names</b> </pre>
+
+<p>A tuple of strings containing the names of built-in functions not available to restricted programs. The default value is (<tt clasS="monofont">'open', 'reload', '_ _import_ _'</tt>).</P>
+
+<pre>
+
+<B>RExec.ok_builtin_modules</b> </pre>
+
+<P>A tuple of strings containing the names of built-in modules that can be safely imported. The default value is as follows:</p>
+
+<prE>
+
+('audioop', 'array', 'binascii', 'cmath', 'errno', 'imageop', 'marshal', 
+'math', 'md5', 'operator', 'parser', 'pcre', 'regex', 'rotor', 
+'select', 'strop', 'struct', 'time') </PRE>
+
+<pre>
+
+<b>RExec.ok_path</B> </PRE>
+
+<p>The list of directories that are searched when an import is performed in the restricted environment. The default value is the same as <tt cLASS="monofont">sys.path</tt>.</p>
+
+<pRE>
+
+<B>RExec.ok_posix_names</B> </pre>
+
+<p>A tuple of names for functions in the <tt class="monofont">os</tt>  module that are available to restricted programs. The default value is as follows:</p>
+
+<pre>
+
+('error', 'fstat', 'listdir', 'lstat', 'readlink', 
+'stat', 'times', 'uname', 'getpid', 'getppid', 
+'getcwd', 'getuid', 'getgid', 'geteuid', 'getegid') </pre>
+
+<Pre>
+
+<B>RExec.ok_sys_names</b> </prE>
+
+<p>A tuple of names for functions and variables in the <tt cLass="monofont">sys</TT>  module that are available to restricted programs. The default value is as follows:</P>
+
+<Pre>
+
+('ps1', 'ps2', 'copyright', 'version', 'platform', 'exit', 'maxint') </prE>
+
+<P>An instance <I><Tt claSS="monofont">r</TT></i>
+ of <tt cLASS="monofont">RExec</tt>  uses the following methods to execute restricted code:</p>
+
+<pre>
+
+<b><i>r</i></b><b>.r_eval(</b><b><i>code</i></b><b>)</b> </prE>
+
+<p>Like <tT claSs="monofont">eval()</tt>  except that code is executed in the restricted environment. <i><Tt clASS="monofont">code</Tt></i>
+ is a string or a compiled code object. Returns the value of the resulting expression.</p>
+
+<pRE>
+
+<B><I>r</i></b><b>.r_exec(</b><B><I>code</I></B><b>)</b> </prE>
+
+<P>Like the <TT class="monofont">exec</tt>  statement except that execution is performed in the restricted environment. <i><tt class="monofont">code</tt></i>
+ is a string or a compiled code object.</p>
+
+<pRe>
+
+<b><I>r</i></b><b>.r_execfile(</B><b><i>filename</i></b><B>)</b> </prE>
+
+<P>Like <TT clasS="monofont">execfile()</TT> except that code is executed in the restricted environment.</P>
+
+<pre>
+
+<b><I>r</I></B><B>.s_eval(</b><b><i>code</i></B><B>)</B> </Pre>
+
+<p>Like <tt class="monofont">r_eval()</tt>  except that access to <tt class="monofont">sys.stdin</tT>, <tt ClasS="monofont">sys.stdout</tt>, and <tt ClasS="monofont">sys.stderr</TT> is allowed.</P>
+
+<pre>
+
+<b><I>r</I></B><B>.s_exec(</b><b><i>code</i></B><B>)</B> </Pre>
+
+<p>Like <tT CLAss="monofont">r_exec()</tt>  except that access to <tt class="monofont">sys.stdin</tt>, <tt class="monofont">sys.stdout</Tt>, and <tT claSs="monofont">sys.stderr</tt> is allowed.</p>
+
+<Pre>
+
+<b><I>r</I></B><B>.s_execfile(</b><b><i>code</i></B><B>)</B> </Pre>
+
+<p>Like <tT CLAss="monofont">r_execfile()</tt>  except that access to <TT CLass="monofont">sys.stdin</tt>, <tt class="monofont">sys.stdout</tt>, and <tt clasS="monofont">sys.stderr</tt> is allowed.</P>
+
+<p>The following methods are called implicitly by code executing in the restricted environment and can be redefined in subclasses of <tt Class="monofont">RExec</Tt>:</p>
+
+<pRE>
+
+<B><I>r</i></b><b>.r_import(</b><B><I>modulename</I></B> <b>[,</b> <b><i>globals</I></B> <B>[,</B> <b><i>locals</i></b> <B>[,</B> <B><I>fromlist</i></b><b>]]])</b> </pre>
+
+<p>Imports a module <i><tt class="monofont">modulename</tt></i>
+. An <tT clAss="monofont">ImportError</tT> exception should be raised if the module is unsafe.</p>
+
+<pre>
+
+<B><i>r</i></b><B>.r_open(</B><B><I>filename</i></b> <b>[,</b> <B><I>mode</I></B> <b>[,</b> <b><i>bufsize</I></B><B>]])</B> </pre>
+
+<p>Opens a file in the restricted environment. The arguments are the same as the built-in <TT CLass="monofont">open()</tt> function. By default, files can be opened for reading, but not for writing.</p>
+
+<pre>
+
+<b><i>r</i></b><b>.r_reload(</b><b><i>module</i></b><b>)</B> </prE>
+
+<p>Reloads the module object <i><tT clasS="monofont">module</tt></i>
+.</P>
+
+<PRE>
+
+<b><i>r</i></b><B>.r_unload(</B><B><I>module</i></b><b>)</b> </PRE>
+
+<P>Unloads the module object <i><tt cLASS="monofont">module</tt></i>
+.</p>
+
+<pre>
+
+<b><i>r</i></b><b>.s_import(</b><b><i>modulename</i></b> <b>[,</b> <b><I>globals</i></b> <B>[,</b> <b><i>locals</I></b> <b>[,</b> <b><I>fromlist</i></b><b>]]])</B> </PRE>
+
+<p>Like <tt cLASS="monofont">r_import()</tt>, but with access to standard I/O streams.</p>
+
+<pRE>
+
+<B><I>r</i></b><b>.s_reload(</b><B><I>module</I></B><b>)</b> </pre>
+
+<p>Like <tt class="monofont">r_reload()</tt>, but with access to standard I/O streams.</p>
+
+<pre>
+
+<b><I>r</i></b><B>.s_unload(</b><b><i>module</I></b><b>)</b> </pRe>
+
+<p>Like <tT CLAss="monofont">r_unload()</tt>, but with access to standard I/O streams.</P>
+
+
+<H5>Example</H5>
+<P>The following program executes Python code submitted through a CGI script in a restricted environment along with limits on CPU and memory usage:</p>
+
+<pre>
+
+#!/usr/local/bin/python 
+import rexec 
+import cgi, StringIO, sys, string, resource 
+form = cgi.FieldStorage() 
+code = form["code"].value         # Get some arbitrary code to execute 
+code = string.replace(code,"\015","") 
+sys.stderr = sys.stdout    # Make error messages appear 
+
+print "Content-type: text/plain\n\n" 
+print "The output of your program is : \n\n" 
+class CGIExec(rexec.RExec): 
+      def r_open(*args): 
+           raise SystemError, "open not supported" 
+r = CGIExec()              # Create sandbox 
+# Restrict memory usage to 4 Mbytes 
+resource.setrlimit(resource.RLIMIT_DATA,(4000000,4000000)) 
+# Set CPU time limit to 10 seconds 
+resource.setrlimit(resource.RLIMIT_CPU,(10,10)) 
+# Go run the code 
+r.s_exec(code)             # Execute the untrusted code </PRE>
+
+<P>? <b>See Also</b> <a hREF="116#6.html">Bastion</A> (283).</p>
+
+<a name="6"></a>
+<h4><tt class="monofont">Bastion</tt></h4>
+<p>The <tT clAss="monofont">Bastion</tT>  module restricts access to attributes of objects. It’s primarily used in conjunction with the <tt clAss="monofont">rexec</tT>  module when a privileged program wants to allow restricted programs to access attributes of unrestricted objects. The idea behind a <TT Class="monofont">Bastion</TT>  is simple—a wrapper is placed around an object, causing every method access to be redirected through a filter function that’s responsible for accepting or rejecting the access. Furthermore, all access to data attributes (non-methods) is prohibited.</P>
+
+<Pre>
+
+<b>Bastion(</b><B><I>object</I></B> <b>[,</b> <b><i>filter</I></B> <B>[,</B> <b><i>name</i></b> <b>[,</b> <b><i>class</i></b><b>]]])</b> </pre>
+
+<p>Returns a bastion for the object <i><tt cLasS="monofont">object</tt></i>
+. <I><tt clAss="monofont">filter</tT></I>
+ is a function that accepts a string containing a method name and returns true or false if access to the method is permitted or denied, respectively. <I><Tt claSS="monofont">name</TT></i>
+ is the name of the object that’s printed by the bastion’s <tt cLASS="monofont">str()</tt>  method. <i><tT CLAss="monofont">class</tt></i>
+ is the class object that implements Bastion objects and is not described here (it’s rarely necessary to supply this).</p>
+
+
+<h5>Example</h5>
+<p>In this example, you want to restrict access to a <tt class="monofont">StringIO</tt>  object so that only read operations are permitted (see the <a hRef="110#18.html">StringIO</A> module):</p>
+
+<prE>
+
+import StringIO, Bastion 
+
+str = StringIO("") 
+... 
+strbast = Bastion.Bastion(str, lambda x: x in ['read','readline','readlines']) 
+strbast.readline()           # Okay 
+strbast.write("Ha ha")       # Fails. AttributeError : write </pre>
+
+
+<h5>Notes</H5>
+<ul>
+<lI>
+<P>If the <I><Tt claSS="monofont">filter</TT></i>
+ function is omitted, a bastion limits access to all methods beginning with an underscore.</p>
+</li>
+<LI>
+<P>Bastions cannot be placed around built-in types such as files and sockets.</P>
+</li>
+</ul></FONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="115.html" title="Internet Data Handling and Encoding"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=116" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="116.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="117.html" title="Miscellaneous Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

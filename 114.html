@@ -1,0 +1,3811 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Network Programming</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="105.html" class="navtitle">A. The Python Library</a> &gt; <span class="nonavtitle">Network Programming</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="113.html" title="Threads"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=114" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="114.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="115.html" title="Internet Data Handling and Encoding"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A06%3A59+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105080005021224021244047</font><a href="read6.asp?bookname=0735710910&snode=114&now=5%2F28%2F2002+9%3A06%3A59+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Network Programming</h3>
+<p>This section describes the modules used to implement network servers and clients. Python provides extensive network support ranging from access to low-level network interfaces to high-level clients and frameworks for writing network  applications. Before beginning, a very brief (and admittedly terse) introduction to network programming is presented. Readers are advised to consult a book such as <i>UNIX Network Programming, Volume 1: Networking APIs - Sockets and XTI</I> by W. Richard Stevens (Prentice Hall, 1997, ISBN 0-13-490012-X) for many of the advanced details.</P>
+
+<P>Python’s network programming modules primarily support two Internet protocols: TCP and UDP. The TCP protocol is a reliable connection-oriented protocol used to establish a two-way communications stream between machines. UDP is a lower-level packet-based protocol (connectionless) in which machines send and receive discrete packets of information without formally establishing a connection. Unlike TCP, UDP communication is unreliable and thus inherently more complicated to manage in applications that require reliable communications. Consequently, most Internet protocols utilize TCP connections.</P>
+
+<p>Both network protocols are handled through a programming abstraction known as a <i>socket.</i> A socket is an object similar to a file that allows a program to accept incoming connections, make outgoing connections, and send and receive data. Before two machines can establish a connection, both must create a socket object.</p>
+
+<P>Furthermore, the machine receiving the connection (the server) must bind its socket object to a <I>port.</I> A port is a 16-bit number in the range 0–65535 that’s managed by the operating system and used by clients to uniquely identify servers. Ports 0–1023 are reserved by the system and used by common network protocols. The following table shows the port assignments for a number of common protocols:</P>
+
+<p><tabLE BOrder="1" cellspacing="0" cellpAddIng="1" wIdth="100%">
+<cOlgrOUP Span="2">
+<tR>
+<TH ValigN="top">
+<FONt sizE="2">
+<P><B>Service</B></p>
+</font></th>
+<th valign="top">
+<font sIze="2">
+<P><b>Port Number</b></p>
+</Font></tH>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>FTP-Data</P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p>20</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>FTP-Control</p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>21</p>
+</font></td>
+</tr>
+<tr>
+<td valigN="top">
+<foNt siZe="2">
+<p>Telnet</p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>23</P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p>SMTP (Mail)</p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>25</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p>Finger</p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>79</p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>HTTP (WWW)</p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>80</p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P>NNTP (News)</P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p>119</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>HTTPS (Secure WWW)</p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>443</p>
+</fONT></Td>
+</tr>
+</colgroup>
+</table></p>
+
+<p>The process of establishing a TCP connection involves a precise sequence of steps on both the server and client, as shown in <a hRef="114#2.html">Figure A.1</A>.</p>
+
+<ceNter>
+<h5>
+<A namE="2"></A>Figure A.1.  TCP connection protocol.</H5>
+
+
+<Img boRDER="0" widtH="341" HEIght="433" sRC="graphics/apafig01.gif" ALt="graphics/apafig01.gif"></center>
+
+
+<p>For TCP servers, the socket object used to receive connections is not the same socket used to perform subsequent communication with the client. In particular, the <tt class="monofont">accept()</tt> system call returns a new socket object that’s actually used for the connection. This allows a server to manage connections from a large number of clients simultaneously.</p>
+
+<p>UDP communication is performed in a similar manner except that clients and servers don’t establish a “connection” with each other, as shown in <a HreF="114#4.html">Figure A.2</a>.</p>
+
+<cEnter>
+<H5>
+<a naME="4"></A>Figure A.2.  UDP connection protocol.</H5>
+
+
+<img bORDEr="0" widTH="321" HEight="339" SRC="graphics/apafig02.gif" Alt="graphics/apafig02.gif"></center>
+
+
+<p>The following example illustrates the TCP protocol with a client and server written using the <tt class="monofont">socket</tt>  module. In this case, the server simply returns the current time to the client as a string.</p>
+
+<pRe>
+
+# Time server program 
+from socket import * 
+import time 
+
+s = socket(AF_INET, SOCK_STREAM)          # Create a TCP socket 
+s.bind(('',8888))                         # Bind to port 8888 
+s.listen(5)                               # Listen, but allow no more than 
+                                          # 5 pending connections. 
+while 1: 
+    client,addr = s.accept()    # Get a connection 
+    print 'Got a connection from ',addr 
+    client.send(time.ctime(time.time()))  # Send back to client 
+    client.close() </pRe>
+
+<p>Here’s the client program:</p>
+
+<Pre>
+
+# Time client program 
+from socket import * 
+s = socket(AF_INET,SOCK_STREAM)          # Create a TCP socket 
+s.connect(('foo.bar.com', 8888))         # Connect to the server 
+tm = s.recv(1024)                        # Receive no more than 1024 bytes 
+s.close() 
+print 'The time is ', tm </prE>
+
+<p>The remainder of this section describes modules of two different flavors. First are modules and frameworks related to socket programming. Second are a variety of modules that implement the client-side interface to common Internet protocols. With the exception of HTTP, the details of these protocols are not presented. However, details can be found in the online documentation and in relevant Internet Request for Comments (RFCs) available at <a tARGEt="_blank" hreF="http://www.ietf.org">http://www.ietf.org</A>. Where applicable, RFC numbers and sources for additional information are stated.</P>
+
+<A name="6"></A>
+<H4><TT clasS="monofont">asyncore</TT></H4>
+<p>The <tt class="monofont">asyncore</tt>  module is used to build network applications in which network activity is handled asynchronously as a series of events dispatched by an event loop, built using the <tt class="monofont">select()</tt> system call. Such an approach is useful in network programs that want to provide concurrency, but without the use of threads or processes. This method can also provide the best performance for short transactions. All the functionality of this module is provided by the <tT clAss="monofont">dispatcher</tT>  class, which is a thin wrapper around an ordinary socket object.</p>
+
+<pre>
+
+<B>dispatcher([</b><b><i>sock</I></B><B>])</B> </pre>
+
+<p>Base class defining an event-driven nonblocking socket object. <I><TT Class="monofont">sock</TT></I>
+ is an existing socket object. If omitted, a socket must be created using the <Tt claSS="monofont">create_socket()</TT> method (described shortly). Once created, network events are handled by special handler methods (described later). In addition, all open dispatcher objects are saved in an internal list that’s used by a number of polling functions.</p>
+
+<p>The following methods of the <tt class="monofont">dispatcher</tt>  class are called to handle network events. They should be defined in classes derived from <tt class="monofont">dispatcher</tt>.</P>
+
+<prE>
+
+<b><i>d</i></B><b>.handle_read()</b> </prE>
+
+<p>Called when new data is available to be read from a socket.</p>
+
+<pRE>
+
+<B><I>d</i></b><b>.handle_write()</b> </PRE>
+
+<P>Called when an attempt to write data is made.</p>
+
+<pre>
+
+<B><I>d</I></B><b>.handle_expt()</b> </prE>
+
+<P>Called when out-of-band (OOB) data for a socket is received.</P>
+
+<Pre>
+
+<b><i>d</i></b><b>.handle_connect()</b> </pre>
+
+<p>Called when a connection is made.</p>
+
+<pre>
+
+<b><i>d</i></b><B>.handle_close()</b> </pRe>
+
+<p>Called when the socket is closed.</p>
+
+<Pre>
+
+<b><i>d</I></b><b>.handle_accept()</b> </PRE>
+
+<P>Called on listening sockets when a new connection arrives.</p>
+
+<pre>
+
+<B><I>d</I></B><b>.readable()</b> </prE>
+
+<P>This function is used by the <TT clasS="monofont">select()</TT> loop to see whether the object is willing to read data. Returns <Tt class="monofont">1</tt>  if so, <tt class="monofont">0</tt> if not. This method is called to see if the <tt cLasS="monofont">handle_read()</tt> method should be called with new data.</p>
+
+<Pre>
+
+<b><i>d</I></b><b>.writable()</b> </PRE>
+
+<P>Called by the <tt clASS="monofont">select()</Tt> loop to see whether the object wants to write data. Returns <tt cLASS="monofont">1</tt>  if so, <tt CLASs="monofont">0</tt> otherwise. This method is always called to see whether the <tt class="monofont">handle_write()</tt> method should be called to produce output.</p>
+
+<p>In addition to the preceding methods, the following methods are used to perform low-level socket operations. They’re similar to those available on a socket object.</p>
+
+<pre>
+
+<b><i>d</I></b><b>.create_socket(</B><b><i>family</i></B><b>,</b> <b><i>type</I></b><b>)</b> </PRE>
+
+<P>Creates a new socket.Arguments are the same as for <tt clASS="monofont">socket.socket()</Tt>.</p>
+
+<prE>
+
+<B><I>d</I></b><b>.connect(</b><b><I>address</I></B><B>)</b> </pre>
+
+<p>Makes a connection. <i><tt class="monofont">address</tt></i>
+ is a tuple (<i><tt cLasS="monofont">host</tt></i>
+<Tt claSs="monofont">, </tt><I><TT Class="monofont">port</TT></I>
+).</P>
+
+<pre>
+
+<b><I>d</I></B><B>.send(</b><b><i>data</i></B><B>)</B> </Pre>
+
+<p>Sends <i><tt class="monofont">data</tt></i>
+.</p>
+
+<pre>
+
+<b><i>d</I></b><b>.recv(</B><b><i>size</i></B><b>)</b> </prE>
+
+<p>Receives at most <i><tT CLAss="monofont">size</tt></I>
+ bytes.</P>
+
+<PRe>
+
+<b><i>d</i></B><B>.listen([</B><B><i>backlog</i></b><b>])</B> </PRE>
+
+<p>Listens for incoming connections.</p>
+
+<pre>
+
+<b><i>d</i></b><b>.bind(</b><b><i>address</i></b><b>)</b> </pre>
+
+<P>Binds the socket to <i><tT claSs="monofont">address</tt></i>
+. <I><tt cLASS="monofont">address</tt></i>
+ is typically a tuple (<i><TT CLass="monofont">host</tT></I>
+<TT clasS="monofont">, </TT><I><tt class="monofont">port</tt></i>
+).</p>
+
+<pre>
+
+<b><i>d</i></b><b>.accept()</b> </Pre>
+
+<P>Accepts a connection. Returns a pair (<i><tt Class="monofont">client</Tt></i>
+<tT CLAss="monofont">, </tt><I><TT Class="monofont">addr</TT></I>
+) where <I><tt clASS="monofont">client</Tt></i>
+ is a socket object used to send and receive data on the connection and <i><tt class="monofont">addr</tt></i>
+ is the address of the client.</p>
+
+<pre>
+
+<b><i>d</i></B><b>.close()</b> </Pre>
+
+<p>Closes the socket.</P>
+
+<p>The following functions are used to handle events:</p>
+
+<prE>
+
+<b>poll([</b><b><I>timeout</I></B> <B>[,</b> <b><i>ignore_exception</i></B><B>]])</B> </Pre>
+
+<p>Polls all the open dispatcher objects for network events using <tT CLAss="monofont">select()</tt> and calls the appropriate handler functions if necessary. <I><TT Class="monofont">timeout</tt></i>
+ is an optional timeout, <tt class="monofont">0.0</tt> by default. <i><tt cLasS="monofont">ignore_exception</tt></i>
+, if set, causes all exceptions generated in event handlers to be ignored (the default).</P>
+
+<pre>
+
+<b>loop([</B><b><i>timeout</i></B><B>])</B> </Pre>
+
+<p>Polls for events indefinitely. Does nothing but repeatedly call <tT CLAss="monofont">poll()</tt>. <I><TT Class="monofont">timeout</TT></I>
+ is the timeout period and is set to 30 seconds by default.</P>
+
+
+<h5>Example</h5>
+<p>The following example implements a minimalistic Web server using <tt class="monofont">asyncore</tt>. It implements two classes— <tt class="monofont">asynhttp</tT>  for accepting connections and <tt ClasS="monofont">asynclient</tt>  for processing client requests.</p>
+
+<pRe>
+
+# A minimal HTTP server with no error checking. 
+import asyncore, socket 
+import string, os, stat, mimetypes 
+# Class that does nothing but accept connections 
+class asynhttp(asyncore.dispatcher): 
+      def __init__(self, port): 
+           asyncore.dispatcher.__init__(self) 
+           self.create_socket(socket.AF_INET,socket.SOCK_STREAM) 
+           self.bind(('',port)) 
+           self.listen(5) 
+      # Accept an incoming connection and create a client 
+      def handle_accept(self): 
+           client,addr = self.accept() 
+           print 'Connection from ', addr 
+           return asynclient(client) 
+# Handle clients 
+class asynclient(asyncore.dispatcher): 
+      def __init__(self, sock = None): 
+           asyncore.dispatcher.__init__(self,sock) 
+           self.got_request = 0       # Read HTTP request? 
+           self.request_data = [] 
+           self.responsef = None      # Response file 
+           self.sent_headers = 0      # Send HTTP headers? 
+           self.clientf = sock.makefile('r+',0) # Request file 
+      # Only readable if request header not read 
+      def readable(self): 
+           if not self.got_request: return 1 
+      # Read request header (until blank line) 
+      def handle_read(self): 
+           data = string.strip(self.clientf.readline()) 
+           if data: 
+                self.request_data.append(data) 
+                return 
+           self.got_request = 1 
+           request = string.split(self.request_data[0]) 
+           if request[0] == 'GET': 
+                filename = request[1][1:] 
+                self.responsef = open(filename)   
+                 self.content_type,enc = mimetypes.guess_type(filename) 
+                 self.content_length = os.stat(filename)[stat.ST_SIZE] 
+           else: 
+                 self.close() 
+      # Only writable if a response is ready 
+      def writable(self): 
+           if self.responsef: return 1 
+           return 0 
+      # Write response data 
+      def handle_write(self): 
+           # Send HTTP headers if not sent yet 
+           if not self.sent_headers: 
+                self.send('HTTP/1.0 200 OK\n') 
+                if not self.content_type: 
+                        self.content_type = 'text/plain' 
+                self.send('Content-type: %s\n' % (self.content_type,)) 
+                self.send('Content-length: %d\n\n' % (self.content_length,)) 
+                self.sent_headers = 1 
+           # Read some data and send it 
+           data = self.responsef.read(8192) 
+           if data: 
+                sent = self.send(data) 
+                # Adjust for unsent data 
+                self.responsef.seek(sent-len(data),1) 
+           else: 
+                self.responsef.close() 
+                self.close() 
+# Create the server 
+a = asynhttp(80) 
+# Poll forever 
+asyncore.loop() </prE>
+
+
+<H5>Notes</H5>
+<Ul>
+<li>
+<p>This module requires the <TT CLass="monofont">select</tT>  module.</P>
+</LI>
+</ul>
+<p>? <b>See Also</B> <A HRef="114#64.html">socket</a> (252), <a href="114#52.html">select</a> (250), <a href="114#34.html">httplib</a> (243), <a href="114#72.html">SocketServer</A> (258).</p>
+
+<a Name="12"></A>
+<h4><tt cLass="monofont">BaseHTTPServer</TT></H4>
+<P>The <tt clASS="monofont">BaseHTTPServer</Tt>  module defines two base classes used to implement HTTP servers.</p>
+
+<prE>
+
+<B>HTTPServer(</B><B><i>server_address</i></b><b>,</B> <B><I>request_handler</I></b><b>)</b> </pre>
+
+<p>Creates a new <tt class="monofont">HTTPServer</tt>  object. <i><tt cLasS="monofont">server_address</tt></i>
+ is a tuple of the form (<I><tt clAss="monofont">host</tT></I>
+<TT clasS="monofont">, </TT><I><tt clASS="monofont">port</Tt></i>
+) on which the server will listen. <i><tT CLAss="monofont">request_handler</tt></i>
+ is a class object used to handle requests (described shortly).</p>
+
+<p>The <tt class="monofont">HTTPServer</tt>  class is derived from <tt clAss="monofont">SocketServer.TCPServer</Tt>  and supports the same methods. In particular, the following functions are most relevant:</p>
+
+<p><Table BordER="1" CEllspACINg="0" celLPADding="1" WIDTh="100%">
+<colgroup span="2">
+<tr>
+<th valIgn="top">
+<Font Size="2">
+<p><B>Function</b></p>
+</fONT></Th>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Description</b></P>
+</FONt></th>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><i><tt Class="monofont">h</Tt></i>
+<tT CLAss="monofont">.handle_request()</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Processes a single request</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><I><tt cLASS="monofont">h</tt></i>
+<tT CLAss="monofont">.serve_forever()</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p>Handles an infinite number of requests</p>
+</font></td>
+</tR>
+</coLgroUp>
+</tabLe></p>
+
+<p>Requests are handled by defining a handler derived from the following class:</P>
+
+<PRE>
+
+<b>BaseHTTPRequestHandler(</b><b><i>request</I></B><B>,</B> <b><i>client_address</i></b><B>,</B> <B><I>server</i></b><b>)</b> </PRE>
+
+<P>This class is used to handle HTTP requests. When a connection is received, the request and HTTP headers are parsed. An attempt is then made to execute a method of the form <tt class="monofont">do_REQUEST</tt>  based on the request type. For example, a <tt class="monofont">'GET'</tt> method invokes <tt ClaSs="monofont">do_GET()</tt> and a <Tt claSs="monofont">'POST'</tt> method invokes <TT CLass="monofont">do_POST</tT>. By default, this class does nothing, so these methods must be defined in subclasses.</P>
+
+<P>The following class variables are defined for <Tt claSS="monofont">BaseHTTPRequestHandler</TT>:</p>
+
+<pre>
+
+<B>BaseHTTPRequestHandler.server_version</B> </PRe>
+
+<p>Specifies the server software version string—for example, <tt class="monofont">'ServerName/1.2'</tt>.</p>
+
+<pre>
+
+<b>BaseHTTPRequestHandler.sys_version</b> </pre>
+
+<P>Python system version, such as <tt ClasS="monofont">'Python/2.0'</tt>.</p>
+
+<pRe>
+
+<b>BaseHTTPRequestHandler.error_message_format</b> </PRE>
+
+<P>Format string used to build error messages sent to the client. The format string is applied to a dictionary containing the attributes <tt clASS="monofont">code</Tt>, <tt cLASS="monofont">message</tt>, and <tt CLASs="monofont">explain</tt>. For example:</p>
+
+<pre>
+
+'''&lt;head&gt; 
+  &lt;title&gt;Error response&lt;/title&gt; 
+  &lt;/head&gt; 
+  &lt;body&gt; 
+  &lt;h1&gt;Error response&lt;/h1&gt; 
+  &lt;p&gt;Error code %(code)d. 
+  &lt;p&gt;Message: %(message)s. 
+  &lt;p&gt;Error code explanation: %(code)s = %(explain)s. 
+  &lt;/body&gt;''' </pre>
+
+<pre>
+
+<b>BaseHTTPRequestHandler.protocol_version</b> </pre>
+
+<p>HTTP protocol version used in responses. The default is <tT clAss="monofont">'HTTP/1.0'</tT>.</p>
+
+<pre>
+
+<B>BaseHTTPRequestHandler.MessageClass</b> </prE>
+
+<P>Class used to parse HTTP headers.The default is <TT clasS="monofont">mimetools.Message</TT>.</P>
+
+<pre>
+
+<b>BaseHTTPRequestHandler.responses</B> </PRE>
+
+<p>Mapping of integer error codes to two-element tuples (<i><tt CLASs="monofont">message</tt></i>
+<tt class="monofont">, </tt><i><tt clasS="monofont">explain</tt></I>
+) that describe the problem.</p>
+
+<p>An instance <i><Tt claSs="monofont">b</tt></I>
+ of the <TT Class="monofont">BaseHTTPRequestHandler</TT> has the following attributes:</P>
+
+<P><tablE BORder="1" cELLSpacing="0" cellpadding="1" widTh="100%">
+<cOlgrOup spAn="2">
+<tr>
+<TH VAlign="top">
+<FONT size="2">
+<P><B>Attribute</B></P>
+</font></TH>
+<TH valign="top">
+<font size="2">
+<p><b>Description</b></p>
+</foNt></tH>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><I><TT clasS="monofont">b</TT></I>
+<tt clASS="monofont">.client_address</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>Client address as a tuple (<i><tT clasS="monofont">host</tt></i>
+, <I><TT Class="monofont">port</TT></I>
+)</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><i><tt class="monofont">b</tT></i>
+<tT claSs="monofont">.command</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Request type such as <Tt claSS="monofont">'GET'</TT>, <tt class="monofont">'POST'</tt>, <tt class="monofont">'HEAD'</tt>, and so on</p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><I><Tt claSS="monofont">b</TT></i>
+<tt cLASS="monofont">.path</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>Contains the request path</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><I><Tt claSS="monofont">b</TT></i>
+<tt class="monofont">.request_version</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p>HTTP version string from the request, such as <tt CLASs="monofont">'HTTP/1.0'</tt></p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><i><tt class="monofont">b</tt></i>
+<tt ClaSs="monofont">.headers</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>HTTP headers, typically represented as <tT CLAss="monofont">mimetools.Message</tt> object</P>
+</FONt></td>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><i><tt Class="monofont">b</Tt></i>
+<tT CLAss="monofont">.rfile</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Input stream for optional input data</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><I><tt cLASS="monofont">b</tt></i>
+<tT CLAss="monofont">.wfile</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p>Output stream for writing a response back to the client</p>
+</font></td>
+</tR>
+</coLgroUp>
+</tabLe></p>
+
+<p>The following methods are used:</P>
+
+<PRE>
+
+<b><i>b</i></b><B>.handle()</B> </PRe>
+
+<p>Request dispatcher. Parses the request and calls a method of the form <tt CLASs="monofont">do_*()</tt>.</p>
+
+<PRE>
+
+<B><i>b</i></b><b>.send_error(</b><b><i>code</i></b> <b>[,</b> <b><i>message</i></b><b>])</b> </pre>
+
+<P>Sends an error reply to the client. <i><tT claSs="monofont">code</tt></i>
+ is the numeric HTTP error code. <I><tt cLASS="monofont">message</tt></i>
+ is an optional error message.</p>
+
+<PRE>
+
+<B><i>b</i></b><b>.send_response(</B><B><I>code</I></b> <b>[,</b> <b><I>message</I></B><B>])</b> </pre>
+
+<p>Sends a response header. The HTTP response line is sent, followed by <tt class="monofont">Server</tt> and <tt clasS="monofont">Date</tt>  headers.</P>
+
+<pre>
+
+<B><i>b</i></b><b>.send_header(</B><b><i>keyword</i></B><B>,</B> <B><i>value</i></b><b>)</B> </PRE>
+
+<p>Writes a MIME header entry to the output stream. <i><tt CLASs="monofont">keyword</tt></i>
+ is the header keyword, <I><TT Class="monofont">value</tt></i>
+ is its value.</p>
+
+<pre>
+
+<b><i>b</i></b><b>.end_headers()</b> </pre>
+
+<P>Sends a blank line to signal the end of the MIME headers.</p>
+
+<pRe>
+
+<b><i>b</I></b><b>.log_request([</b><b><I>code</i></b> <b>[,</B> <B><I>size</I></b><b>]])</b> </pRE>
+
+<P>Logs a successful request. <I><tt clASS="monofont">code</Tt></i>
+ is the HTTP code and <i><tT CLAss="monofont">size</tt></i>
+ is the size of the response in bytes (if available).</p>
+
+<pre>
+
+<b><i>b</i></b><b>.log_error(</b><b><i>format</i></b><b>, ...)</B> </prE>
+
+<p>Logs an error message. By default, <i><tT clasS="monofont">b</tt></i>
+<TT CLass="monofont">.log_message()</tT> is called.</P>
+
+<PRe>
+
+<b><i>b</i></B><B>.log_message(</B><B><i>format</i></b><b>, ...)</B> </PRE>
+
+<p>Logs an arbitrary message to <tt class="monofont">sys.stderr</tt>. <i><tt class="monofont">format</tt></I>
+ is a format string applied to any additional arguments passed. The client address and current time are prefixed to every message.</p>
+
+<pRe>
+
+<b><i>b</I></b><b>.version_string()</b> </pRe>
+
+<p>Returns the server software’s version string—a combination of the <i><TT CLass="monofont">server_version</tT></I>
+ and <I><Tt claSS="monofont">sys_version</TT></i>
+ variables.</p>
+
+<prE>
+
+<B><I>b</I></b><b>.date_time_string()</b> </pre>
+
+<p>Returns the current date and time, formatted for a header.</p>
+
+<pre>
+
+<b><i>b</i></b><b>.log_date_time_string()</b> </pre>
+
+<P>Returns the current date and time, formatted for logging.</p>
+
+<pRe>
+
+<b><i>b</I></b><b>.address_string()</b> </pRe>
+
+<p>Performs a name lookup on the client’s IP address and returns a hostname formatted for logging.</p>
+
+
+<H5>Example</H5>
+<P>The following example handles <Tt claSS="monofont">GET</TT>  methods and simply echoes the request back to the client on a Web page.</p>
+
+<pre>
+
+import BaseHTTPServer 
+class EchoHandler(BaseHTTPServer.BaseHTTPRequestHandler): 
+      # Echo the request information back on a Web page 
+      def do_GET(self): 
+             self.send_response(200) 
+             self.send_header('Content-type','text/html') 
+             self.end_headers() 
+             self.wfile.write(''' 
+&lt;html&gt;&lt;head&gt;&lt;title&gt;Your Request&lt;/title&gt;&lt;/head&gt; 
+&lt;body&gt; 
+&lt;pre&gt; 
+You requested the following : %s 
+The request headers were : 
+%s 
+&lt;/pre&gt;&lt;/body&gt;&lt;/html&gt; 
+''' % (self.path, self.headers)) 
+
+server = BaseHTTPServer.HTTPServer(('',80),EchoHandler) 
+server.serve_forever() </PRE>
+
+
+<H5>Note</h5>
+<ul>
+<lI>
+<P>The contents of this module are rarely used directly. See the <A Href="114#58.html">SimpleHTTPServer</a> and <a href="114#22.html">CGIHTTPServer</a>  modules.</p>
+</li>
+</ul>
+<p>? <b>See Also</b> <a hRef="114#58.html">SimpleHTTPServer</A> (251), <a hrEf="114#22.html">CGIHTTPServer</a> (239), <a hRef="114#72.html">SocketServer</a> (258), <A HREf="114#34.html">httplib</a> (243), <a hREF="115#16.html">mimetools</A> (266).</p>
+
+<a naME="18"></A>
+<H4><tt clASS="monofont">cgi</Tt></h4>
+<p>The <tt class="monofont">cgi</tt>  module is used to implement CGI scripts in Web applications. CGI scripts are programs executed by a Web server when it wants to process user input submitted through an HTML form such as the following:</p>
+
+<pre>
+
+&lt;FORM ACTION='/cgi-bin/foo.cgi' METHOD='GET'&gt; 
+Your name : &lt;INPUT type='Text' name='name' size='30'&gt; 
+Your email address: &lt;INPUT type='Text' name='email' size='30'&gt; 
+&lt;INPUT type='Submit' name='submit-button' value='Subscribe'&gt; 
+&lt;/FORM&gt; </pre>
+
+<p>When the form is submitted, the Web server executes the CGI program <Tt cLass="monofont">foo.cgi</Tt>. CGI programs receive input from two sources: <tt cLass="monofont">sys.stdin</TT>  and environment variables set by the server. The following table lists common environment variables set by Web servers:</P>
+
+<P><tablE BORder="1" cELLSpaciNG="0" CEllpadding="1" width="100%">
+<colgroUp sPan="2">
+<tR>
+<th vaLign="top">
+<FONT size="2">
+<P><B>Variable</B></P>
+</font></TH>
+<TH valiGN="top">
+<FOnt size="2">
+<p><b>Description</b></p>
+</font></th>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">AUTH_TYPE</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p>Authentication method</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">CONTENT_LENGTH</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Length of data passed in <tt class="monofont">sys.stdin</tt></p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">CONTENT_TYPE</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>Type of query data</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">DOCUMENT_ROOT</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p>Document root directory</p>
+</font></td>
+</tr>
+<tr>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">GATEWAY_INTERFACE</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>CGI revision string</p>
+</font></td>
+</tr>
+<tr>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">HTTP_ACCEPT</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>MIME types accepted by the client</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">HTTP_COOKIE</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Netscape persistent cookie value</P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">HTTP_FROM</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Email address of client (often disabled)</p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">HTTP_REFERER</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Referring URL</P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">HTTP_USER_AGENT</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Client browser</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">PATH_INFO</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Extra path information passed</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">PATH_TRANSLATED</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>Translated version of <TT clasS="monofont">PATH_INFO</TT></P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">QUERY_STRING</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Query string</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">REMOTE_ADDR</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Remote IP address of the client</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">REMOTE_HOST</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>Remote hostname of the client</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">REMOTE_IDENT</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p>User making the request</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">REMOTE_USER</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>Authenticated username</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><tt class="monofont">REQUEST_METHOD</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Method (<TT Class="monofont">'GET'</TT> or <TT clasS="monofont">'POST'</TT>)</P>
+</font></TD>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">SCRIPT_NAME</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Name of the program</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">SERVER_NAME</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p>Server hostname</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<font size="2">
+<p><tt class="monofont">SERVER_PORT</Tt></p>
+</Font></Td>
+<td vAligN="top">
+<FONt sizE="2">
+<P>Server port number</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">SERVER_PROTOCOL</tt></p>
+</FonT></td>
+<tD valiGn="top">
+<foNT SIze="2">
+<p>Server protocol</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt size="2">
+<p><tt class="monofont">SERVER_SOFTWARE</tt></p>
+</fonT></td>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P>Name and version of the server software</p>
+</fonT></TD>
+</Tr>
+</colGROUp>
+</tabLE></P>
+
+<P>As output, a CGI program writes to standard output <tt class="monofont">sys.stdout</tt>. The gory details of CGI programming can be found in a book such as <i>CGI Programming with Perl, 2nd Edition</i> by Shishir Gundavaram (O’Reilly &amp; Associates, 1999). For our purposes, there are really only two things to know. First, the contents of an HTML form are passed to a CGI program in a sequence of text known as a <i>query string.</i> In Python, the contents of the query string are accessed using the <tt class="monofont">FieldStorage</Tt> class. For example:</p>
+
+<Pre>
+
+import cgi 
+form = cgi.FieldStorage() 
+name = form['name'].value      # Get 'name' field from a form 
+email = form['email'].value    # Get 'email' field from a form </pRe>
+
+<p>Second, the output of a CGI program consists of two parts: an HTTP header and the raw data (which is typically HTML).A simple HTTP header looks like this:</p>
+
+<pRe>
+
+print 'Content-type: text/html'     # HTML Output 
+print                               # Blank line (required!) </prE>
+
+<P>The rest of the output is the raw output. For example:</P>
+
+<Pre>
+
+print '&lt;TITLE&gt;My CGI Script&lt;/TITLE&gt;' 
+print '&lt;H1&gt;Hello World!&lt;/H1&gt;' 
+print 'You are %s (%s)' % (name, email) </prE>
+
+<P>Most of the work in the <TT clasS="monofont">cgi</TT>  module is performed by creating an instance of the <Tt claSS="monofont">FieldStorage</TT>  class. This class reads the contents of a form by reading and parsing the query string passed in an environment variable or standard input. Because input can be read from standard input, only one instance should be created. An instance <i><tt class="monofont">f</tt></i>
+ of <tt class="monofont">FieldStorage</tt> has the following attributes:</P>
+
+<p><tAble BordeR="1" celLSPAcing="0" CELLpaddING="1" Width="100%">
+<COLGroup span="2">
+<tr>
+<th valign="top">
+<foNt sIze="2">
+<p><B>Attribute</b></p>
+</foNt></th>
+<TH VAlign="top">
+<FONT size="2">
+<P><B>Description</B></P>
+</font></TH>
+</TR>
+<tr>
+<td valign="top">
+<font size="2">
+<p><i><Tt cLass="monofont">f</Tt></i>
+<tt ClasS="monofont">.name</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>The field name, if specified</P>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<foNt sIze="2">
+<p><I><tt clAss="monofont">f</tT></I>
+<TT clasS="monofont">.filename</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt size="2">
+<p>Client-side filename used in uploads</p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><i><TT CLass="monofont">f</tT></I>
+<TT clasS="monofont">.value</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>Value as a string</p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><i><TT CLass="monofont">f</tT></I>
+<TT clasS="monofont">.file</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>File-like object from which data can be read</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><TT CLass="monofont">f</tT></I>
+<TT class="monofont">.type</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>Content type</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><TT CLass="monofont">f</tt></i>
+<tt class="monofont">.type_options</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>Dictionary of options specified on the content-type line of the HTTP request</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><i><tt class="monofont">f</tt></i>
+<tt clasS="monofont">.disposition</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>The <Tt claSS="monofont">'content-disposition'</TT>  field; <tt clASS="monofont">None</Tt> if not specified</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><i><tt ClasS="monofont">f</TT></I>
+<tt clASS="monofont">.disposition_options</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>Dictionary of disposition options</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><I><TT clasS="monofont">f</TT></I>
+<tt clASS="monofont">.headers</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>A dictionary-like object containing all the HTTP header contents</p>
+</foNt></tD>
+</tr>
+</cOlgroUp>
+</taBLE></P>
+
+<p>In addition, the <tt cLASS="monofont">cgi</tt>  module defines a class <tt CLASs="monofont">MiniFieldStorage</tt>  that contains only the attribute’s name and value. This class is used to represent individual fields of a form passed in the query string, whereas <tT CLAss="monofont">FieldStorage</tt>  is used to contain multiple fields and multipart data.</p>
+
+<p>Instances of <tt class="monofont">FieldStorage</tt>  are accessed like a Python dictionary where the keys are the field names on the form. When accessed in this manner, the objects returned are themselves an instance of <tt claSs="monofont">FieldStorage</tT>  for multipart data or file uploads, an instance of <tt cLass="monofont">MiniFieldStorage</tT>  for simple fields, or a list of such instances in cases where a form contains multiple fields with the same name.</p>
+
+<p>If a field represents an uploaded file, accessing the <tT CLAss="monofont">value</tt>  attribute reads the entire file into memory as a string. Because this may consume a large amount of memory on the server, it may be preferable to read uploaded data in smaller pieces by reading from the <TT CLass="monofont">file</tT>  attribute directly. For instance, the following example reads uploaded data line by line:</P>
+
+<PRe>
+
+fileitem = form['userfile'] 
+if fileitem.file: 
+    # It's an uploaded file; count lines 
+    linecount = 0 
+    while 1: 
+        line = fileitem.file.readline() 
+        if not line: break 
+        linecount = linecount + 1 </pre>
+
+<P>The following functions provide a more low-level CGI interface:</P>
+
+<PRe>
+
+<b>escape(</b><b><i>s</i></b> <b>[,</b> <b><i>quote</i></b><b>])</b> </pre>
+
+<p>Converts the characters <tT clAss="monofont">'&amp;'</tT>, <tt clAss="monofont">'&lt;'</tT>, and <TT Class="monofont">'&gt;'</TT> in string <I><Tt claSS="monofont">s</TT></i>
+ to HTML-safe sequences such as <tt cLASS="monofont">'&amp;'</tt>, <tt class="monofont">'&lt;'</tt>, and <tt class="monofont">'&gt;'</tt>. If the optional flag <I><tt ClasS="monofont">quote</tt></i>
+ is true, the double-quote character (<tT claSS="monofont">"</TT>) is also translated.</p>
+
+<pre>
+
+<B>parse([</B><B><I>fp</i></b> <b>[,</b> <B><I>environ</I></B> <b>[,</b> <b><i>keep_blank_values</I></B> <B>[,</B> <b><i>strict_parsing</i></b><b>]]]])</b> </pre>
+
+<p>Parses a form into a dictionary. <i><tt class="monofont">fp</tt></I>
+ is a file object from which data is read (defaults to <tt ClasS="monofont">stdin</tt>). <i><tT claSS="monofont">environ</TT></i>
+ is a dictionary containing environment variables (defaults to <tt cLASS="monofont">os.environ</tt>). <i><tT CLAss="monofont">keep_blank_values</tt></I>
+, if set to <TT Class="monofont">1</tt>, instructs the parser to map blank entries into empty strings. Otherwise, blank entries are ignored (the default). The <i><tt class="monofont">strict_parsing</tt></i>
+ option specifies what to do with parsing errors. By default, errors are ignored. If set, parsing errors result in a <tt cLasS="monofont">ValueError</tt>  exception. Returns a dictionary mapping field names to lists of values.</p>
+
+<Pre>
+
+<b>parse_header(</b><B><i>string</i></b><B>)</B> </PRe>
+
+<p>Parses the data supplied after an HTTP header field such as <tt CLASs="monofont">'content-type'</tt>. The data is split into a primary value and a dictionary of secondary parameters that are returned in a tuple. For example, this command:</p>
+
+<PRE>
+
+parse_header("text/html; a=hello; b='world'") </Pre>
+
+<p>returns this result:</p>
+
+<PRE>
+
+('text/html', {'a':'hello', 'b':'world'}). </Pre>
+
+<pre>
+
+<b>parse_multipart(</b><b><i>fp</i></b><b>,</b><b><i>pdict</i></b><b>)</b> </pRe>
+
+<p>Parses input of type <Tt clAss="monofont">'multipart/form-data'</tt> as is commonly used with file uploads. <I><tt cLASS="monofont">fp</tt></i>
+ is the input file and <i><TT CLass="monofont">pdict</tT></I>
+ is a dictionary containing parameters of the content-type header. Returns a dictionary mapping field names to lists of values. This function doesn’t work with nested multipart data. The <TT clasS="monofont">FieldStorage</TT>  class should be used instead.</P>
+
+<pre>
+
+<b>parse_qs(</b><b><i>qs</i></b> <b>[,</b> <b><i>keep_blank_values</i></b> <b>[,</b> <b><i>strict_parsing</i></B><b>]]):</b> </Pre>
+
+<p>Parses a query string <I><tt clAss="monofont">qs</tT></I>
+<I>.</I> <i><tt cLASS="monofont">keep_blank_values</tt></i>
+ and <i><TT CLass="monofont">strict_parsing</tT></I>
+ have the same meaning as in <TT class="monofont">parse()</tt>. Returns a dictionary mapping field names to lists of values.</p>
+
+<pre>
+
+<b>parse_qsl(</b><b><i>qs</i></b> <b>[,</b> <b><I>keep_blank_values</i></b> <B>[,</b> <b><i>strict_parsing</I></b><b>]])</b> </pRe>
+
+<p>Like <tT CLAss="monofont">parse_qs()</tt> except that a list of <TT CLass="monofont">(</tT><I><TT clasS="monofont">name</TT></I>
+<tt class="monofont">, </tt><i><tt class="monofont">value</tt></i>
+<Tt cLass="monofont">)</Tt> pairs is returned.</p>
+
+<prE>
+
+<b>print_directory()</b> </pRE>
+
+<P>Formats the contents of the current working directory in HTML. Used for debugging.</P>
+
+<pre>
+
+<b>print_environ()</B> </PRE>
+
+<p>Formats the shell environment in HTML. Used for debugging.</p>
+
+<prE>
+
+<B>print_environ_usage()</B> </Pre>
+
+<p>Prints a list of useful environment variables in HTML. Used for debugging.</p>
+
+<PRE>
+
+<B>print_form(</b><b><i>form</i></b><b>)</b> </pre>
+
+<p>Formats the data supplied on a form in HTML. <i><tt class="monofont">form</tT></i>
+ must be an instance of <tT claSs="monofont">FieldStorage</tt>. Used for debugging.</p>
+
+<Pre>
+
+<b>test()</B> </PRE>
+
+<p>Writes a minimal HTTP header and prints all the information provided to the script in HTML format. Primarily used for debugging.</p>
+
+
+<h5>Notes</h5>
+<UL>
+<LI>
+<p>The process of installing a CGI program varies widely according to the type of Web server being used. Typically programs are placed in a special <tt cLASS="monofont">cgi-bin</tt> directory. A server may also require additional configuration.</p>
+</lI>
+<LI>
+<P>On UNIX, Python CGI programs may require a line such as the following as the first line of the program:</p>
+
+<pre>
+
+#!/usr/local/bin/python 
+import cgi 
+... </pre>
+</li>
+<li>
+<p>To simplify debugging, it’s sometimes useful to set <tt class="monofont">sys.stderr</tT>  to s <tt ClasS="monofont">ys.stdout</tt>. This will force Python error messages to be sent to the output stream (which will then appear in the text sent to the browser).</p>
+</lI>
+<li>
+<p>If you invoke an external program—for example, via the <TT CLass="monofont">os.system()</tT> or <TT Class="monofont">os.popen()</TT> function—be careful not to pass arbitrary strings received from the client to the shell. This is a well-known security hole that hackers can use to execute arbitrary shell commands on the server (because the command passed to these functions is first interpreted by the UNIX shell as opposed to being executed directly). In particular, never pass any part of a URL or form data to a shell command unless it has first been thoroughly checked by making sure that the string contains only alphanumeric characters, dashes, underscores, and periods.</P>
+</Li>
+<li>
+<p>On UNIX, don’t give a CGI program <TT CLass="monofont">setuid</tt>  mode. This is a security liability and not supported on all machines.</p>
+</li>
+<li>
+<p>Don’t use <tt class="monofont">'from cgi import *'</tt>  with this module. The <Tt cLass="monofont">cgi</Tt> module defines a wide variety of names and symbols that you probably don’t want in your namespace.</p>
+</li>
+<Li>
+<p>The original CGI specification can be found at <a TARGet="_blank" hrEF="http://hoohoo.ncsa.uiuc.edu/cgi/interface.html">http://hoohoo.ncsa.uiuc.edu/cgi/interface.html</A>.</P>
+</li>
+</ul>
+<P>? <B>See Also</B> <A href="114#22.html">CGIHTTPServer</A> (239).</P>
+
+<A Name="22"></a>
+<h4><tt class="monofont">CGIHTTPServer</tt></h4>
+<p>The <tt clAss="monofont">CGIHTTPServer</Tt>  module provides a simple HTTP server handler that can run CGI scripts. The server is defined by the following request handler class, intended for use with the <tt Class="monofont">BaseHTTPServer</Tt>  module:</p>
+
+<pRE>
+
+<B>CGIHTTPRequestHandler(</B><b><i>request</i></b><B>,</B> <B><I>client_address</i></b><b>,</b> <B><I>server</I></B><b>)</b> </prE>
+
+<P>Serves files from the current directory and all its subdirectories. In addition, the handler will run a file as a CGI script if it’s located in a special CGI directory. The handler supports both <TT class="monofont">GET</tt>  and <tt class="monofont">POST</tt>  methods.</p>
+
+<p>The list of valid CGI directories is contained in the following attribute:</p>
+
+<pRe>
+
+<b>CGIHTTPRequestHandler.cgi_directories</B> </pre>
+
+<P>List of CGI directories. Defaults to <tt clAss="monofont">['/cgi-bin', '/htbin']</tT>.</P>
+
+
+<H5>Example</H5>
+<pre>
+
+from BaseHTTPServer import HTTPServer 
+from CGIHTTPServer import CGIHTTPRequestHandler 
+import os 
+# Change to the document root 
+os.chdir('/home/httpd/html') 
+# Start the CGI server 
+serv = HTTPServer(('',80),CGIHTTPRequestHandler) 
+serv.serve_forever() </pRE>
+
+
+<H5>Notes</H5>
+<ul>
+<li>
+<P>For security, CGI scripts are executed with a UID of user <TT Class="monofont">nobody</TT>.</P>
+</Li>
+<li>
+<p>Problems with the CGI script will be translated to HTTP error 403.</p>
+</li>
+<li>
+<p>Requests are handled using the <tt class="monofont">do_GET</tt>  and <tT clAss="monofont">do_POST</tT>  methods, both of which can be redefined in subclasses.</p>
+</li>
+<lI>
+<p>To prevent problems in the execution of CGI scripts, it’s usually a good idea to use CGI directory names that don’t contain any embedded whitespace.</p>
+</lI>
+</UL>
+<P>? <b>See Also</b> <a hREF="114#12.html">BaseHTTPServer</A> (p. x), <a hreF="114#58.html">SimpleHTTPServer</A> (p. x), <A Href="114#18.html">cgi</a> (p. x), <A HREf="114#34.html">httplib</a> (p. x).</p>
+
+
+<h4><tt class="monofont">Cookie</tt></h4>
+<p>The <tt claSs="monofont">Cookie</tT>  module provides support for managing HTTP cookies. Cookies are used to provide state management in CGI scripts that implement sessions, user logins, shopping carts, and related features. To drop a cookie on a user’s browser, an HTTP server typically adds an HTTP header similar to the following to an HTTP response (see the <a hrEf="114#34.html">httplib</a>  module):</p>
+
+<pRe>
+
+Set-Cookie: session=8273612; expires=Sun, 18-Feb-2001 15:00:00 GMT; \ 
+             path=/; domain=cs.uchicago.edu </prE>
+
+<P>Alternatively, a cookie can be set by embedding JavaScript in an HTML document:</P>
+
+<Pre>
+
+&lt;SCRIPT LANGUAGE="JavaScript"&gt; 
+document.cookie = "session=8273612; expires=Sun, 18-Feb-2001 15:00:00 GMT; \ 
+   Path=/; Domain=cs.uchicago.edu;" 
+&lt;/SCRIPT&gt; </prE>
+
+<P>The <TT clasS="monofont">Cookie</TT>  module simplifies the task of generating cookie values by providing a special dictionary-like object that stores and manages collections of cookie values known as <I>morsels.</i> Each morsel has a name, a value, and a set of optional attributes containing meta-data to be supplied to the browser {<tt cLASS="monofont">expires</tt>, <tt class="monofont">path</tt>, <tt class="monofont">comment</tt>, <Tt cLass="monofont">domain</Tt>, <tt cLass="monofont">max-age</TT>, <TT clasS="monofont">secure</TT>, <Tt claSS="monofont">version</TT>}. The name is usually a simple identifier such as <tt clASS="monofont">"</Tt><i><tt class="monofont">name</tt></i>
+<tt class="monofont">"</tT> and must not be the same as one of the meta-data names such as <tt ClasS="monofont">"expires"</tt> or <tt ClasS="monofont">"path"</TT>. The value is usually a short string. To create a cookie, simply create a cookie object like this:</P>
+
+<pre>
+
+c = Cookie.SimpleCookie() </pRE>
+
+<P>Once created, cookie values (morsels) can be set using ordinary dictionary assignment:</P>
+
+<pre>
+
+c["session"] = 8273612 
+c["user"] = "beazley" </pRE>
+
+<P>Additional attributes of a specific morsel are set as follows:</P>
+
+<pre>
+
+c["session"]["path"] = "/" 
+c["session"]["domain"] = "cs.uchicago.edu" 
+c["session"]["expires"] = "18-Feb-2001 15:00:00 GMT" </pRE>
+
+<P>To output the cookie data as a set of HTTP headers, the <Tt class="monofont">c.output()</tt> method is used. For example:</p>
+
+<pre>
+
+print c.output() 
+# Produces two lines of output 
+# Set-Cookie: session=8273612; expires=...; path=/; domain=... 
+# Set-Cookie: user=beazley </pre>
+
+<p>When a browser sends a cookie back to an HTTP server, it is encoded as a string of <i><tt cLasS="monofont">key=value</tt></i>
+ pairs such as <Tt claSs="monofont">"session=8273612; user=beazley"</tt>. Optional attributes such as <TT CLass="monofont">expires</tT>, <TT Class="monofont">path</TT>, and <TT clasS="monofont">domain</TT> are not returned. The cookie string can usually be found in the <Tt class="monofont">HTTP_COOKIE</tt>  environment variable, which can be read by CGI applications. To recover cookie values, use code similar to the following:</p>
+
+<pre>
+
+c = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"]) 
+session = c["session"].value 
+user    = c["user"].value </pre>
+
+<p>In the above example, the cookie instance <i><tt cLasS="monofont">c</tt></i>
+ is derived from a class <Tt claSs="monofont">BaseCookie</tt> that provides the following common methods:</P>
+
+<PRE>
+
+<b><i>c</i></b><B>.value_decode(</B><B><I>val</i></b><b>)</b> </PRE>
+
+<P>Takes a string <i><tt cLASS="monofont">val</tt></i>
+ and returns a decoded cookie value. This function is used to interpret a cookie value returned to a server by a browser.</p>
+
+<pre>
+
+<b><i>c</i></b><b>.value_encode(</b><b><i>val</i></b><b>)</b> </pRe>
+
+<p>Takes an object <I><tt cLass="monofont">val</tT></i>
+ and returns it as an encoded string suitable for use in an HTTP header. A server would use this to encode cookie values being sent to the browser.</p>
+
+<pRE>
+
+<B><I>c</i></b><b>.output([</b><B><I>attrs</I></B> <b>[,</b><b><i>header</I></B> <B>[,</B><b><i>sep</i></b><B>]]])</B> </PRe>
+
+<p>Generates a string suitable for use in setting cookie values in HTTP headers. <i><tt class="monofont">attrs</tt></i>
+ is an optional list of the optional attributes to include (<tt class="monofont">"expires"</Tt>, <tT claSs="monofont">"path"</tt>, <tT claSS="monofont">"domain"</TT>, and so on). <i><tt cLASS="monofont">header</tt></i>
+ is the HTTP header to use, <tT CLAss="monofont">'Set-Cookie:'</tt> by default. <I><TT Class="monofont">sep</tt></i>
+ is the character used to join the headers together and is a newline by default.</p>
+
+<pre>
+
+<b><i>c</i></b><b>.js_output([</b><b><i>attrs</i></B><b>])</b> </Pre>
+
+<p>Generates a string containing JavaScript code that will set the cookie if executed on a browser supporting JavaScript. <I><tt clAss="monofont">attrs</tT></I>
+ is an optional list of the attributes to include.</P>
+
+<Pre>
+
+<b><i>c</I></B><B>.load(</B><b><i>rawdata</i></b><B>)</B> </PRe>
+
+<p>Loads the cookie <i><tT CLAss="monofont">c</tt></i>
+ with data found in <i><tt class="monofont">rawdata</tt></i>
+. If <i><tt cLasS="monofont">rawdata</tt></i>
+ is a string, it’s assumed to be in the same format as the <Tt claSs="monofont">HTTP_COOKIE</tt>  environment variable in a CGI program. If <I><TT Class="monofont">rawdata</TT></I>
+ is a dictionary, each <I><tt clASS="monofont">key-value</Tt></i>
+ pair is interpreted by setting <i><tT CLAss="monofont">c</tt></i>
+<tt class="monofont">[</tt><i><tt claSs="monofont">key</tT></i>
+<tt Class="monofont">]=</Tt><i><tT CLAss="monofont">value</tt></I>
+.</P>
+
+<P>The following classes provide specialized implementations of cookie objects. Each of these classes is derived from a class <Tt claSS="monofont">BaseCookie</TT>.</p>
+
+<pre>
+
+<B>SimpleCookie([</B><B><I>input</i></b><b>])</b> </pre>
+
+<p>Defines a cookie object in which cookie values are interpreted as simple strings. The <i><tt class="monofont">c</tt></i>
+<tT clAss="monofont">.value_decode()</tT> method is the identity function and the <i><tt cLass="monofont">c</TT></I>
+<Tt claSS="monofont">.value_encode()</TT> method uses the <tt clASS="monofont">str()</Tt> function to generate encoded values.</p>
+
+<prE>
+
+<B>SerialCookie([</B><B><i>input</i></b><b>])</b> </pre>
+
+<p>Defines a cookie object in which the cookie values are interpreted using the <tt class="monofont">pickle</tt>  module. The <i><tT clAss="monofont">c</tT></i>
+<tt cLass="monofont">.value_decode()</TT> method uses <TT clasS="monofont">pickle.loads()</TT> and the <I><tt clASS="monofont">c</Tt></i>
+<tt CLASs="monofont">.value_encode()</tt> method uses <tt class="monofont">pickle.dumps()</tt>. See the later security note.</p>
+
+<pre>
+
+<b>SmartCookie([</b><b><i>input</I></b><b>])</B> </pre>
+
+<P>Like <tt clAss="monofont">SerialCookie()</tT> except that strings are left unmodified. If the cookie value cannot be successfully unpickled, <I><TT clasS="monofont">c</TT></I>
+<tt clASS="monofont">.value_decode()</Tt> returns its value as a string. In addition, the <i><tt CLASs="monofont">c</tt></i>
+<tt class="monofont">.value_encode()</tt> method only calls <tt class="monofont">pickle.dumps()</Tt> if the value is not a string. See the later security note.</p>
+
+<P>Internally, the <i><tt Class="monofont">key/value</Tt></i>
+ pairs used to store a cookie value are instances of a <tT CLAss="monofont">Morsel</tt> class.An instance <I><TT Class="monofont">m</TT></I>
+ of <Tt claSS="monofont">Morsel</TT> behaves like a dictionary and allows the optional <tt class="monofont">"expires"</tt>, <tt class="monofont">"path"</tt>, <tt ClaSs="monofont">"comment"</tt>, <Tt claSs="monofont">"domain"</tt>, <TT CLass="monofont">"max-age"</tT>, <TT Class="monofont">"secure"</TT>, and <TT clasS="monofont">"version"</TT> keys to be set. In addition, a morsel <I><tt class="monofont">m</tt></i>
+ has the following methods and attributes:</p>
+
+<pre>
+
+<b><i>m</i></b><b>.value</b> </Pre>
+
+<P>The raw value of the cookie.</p>
+
+<prE>
+
+<b><i>m</i></b><B>.coded_value</b> </prE>
+
+<P>The encoded value of the cookie that would be sent to or received from the browser.</P>
+
+<Pre>
+
+<b><i>m</I></B><B>.key</B> </pre>
+
+<p>The cookie name.</P>
+
+<PRE>
+
+<b><i>m</i></b><B>.set(</B><B><I>key</i></b><b>,</b><b><i>value</i></b><b>,</b><b><i>coded_value</i></b><b>)</b> </pre>
+
+<p>Sets the values of <I><tt ClasS="monofont">m</tt></i>
+<tT claSS="monofont">.key</TT>, <i><tt cLASS="monofont">m</tt></i>
+<tT CLAss="monofont">.value</tt>, and <I><TT Class="monofont">m</tt></i>
+<tt class="monofont">.coded_value</tt>.</p>
+
+<pre>
+
+<B><i>m</i></B><b>.isReservedKey(</b><b><I>k</i></b><b>)</b> </Pre>
+
+<p>Tests whether <I><TT Class="monofont">k</TT></I>
+ is a reserved keyword such as <Tt claSS="monofont">"expires"</TT>, <tt clASS="monofont">path"</Tt>, <tt class="monofont">"domain"</tt>, etc.</p>
+
+<pre>
+
+<b><i>m</i></b><b>.output([</b><B><i>attrs</i></B> <b>[,</b><b><I>header</i></b><b>]])</b> </Pre>
+
+<p>Produces the HTTP header string for this morsel. <I><TT Class="monofont">attrs</TT></I>
+ is an optional list of the additional attributes to include (<Tt claSS="monofont">"expires"</TT>, <tt clASS="monofont">"path"</Tt>, and so on). <i><tt class="monofont">header</tt></i>
+ is the header string to use, <tt class="monofont">'Set-Cookie:'</tT> by default.</p>
+
+<pRe>
+
+<b><i>m</I></b><b>.js_output([</b><b><I>attrs</i></b><b>])</B> </PRE>
+
+<p>Outputs JavaScript code that sets the cookie when executed.</p>
+
+<prE>
+
+<B><I>m</I></b><b>.OutputString([</b><b><I>attrs</I></B><B>])</b> </pre>
+
+<P>Returns the cookie string without any HTTP headers or JavaScript code.</P>
+
+<P>If an error occurs during the parsing or generation of cookie values, a <Tt class="monofont">CookieError</tt> exception is raised.</p>
+
+
+<h5>Notes</h5>
+<ul>
+<li>
+<p>More information about persistent cookies can be found in almost any book on CGI programming. For an official specification, see RFC-2109.</p>
+</li>
+<lI>
+<p>The <tT claSs="monofont">SerialCookie()</tt> and <tT claSS="monofont">SmartCookie()</TT> classes have known security problems, since the <tt clASS="monofont">pickle</Tt>  module allows arbitrary client-code to be executed on the server during unpickling. These should not be used unless your application has a way to validate cookie values before unpickling.</p>
+</li>
+<LI>
+<P>Most browsers place limits on the size and number of cookie values. You should limit the size of cookie data to a few hundred bytes at most.</P>
+</li>
+</ul>
+<P>? <B>See Also</B> <A href="114#18.html">cgi</a> (235), <a href="114#34.html">httplib</a> (243).</p>
+
+<a name="32"></a>
+<h4><tT clAss="monofont">ftplib</tT></h4>
+<p>The <tt ClasS="monofont">ftplib</TT>  module is used to implement the client side of the FTP protocol. It’s rarely necessary to use this module directly, as the <Tt claSS="monofont">urllib</TT>  module provides a higher-level interface. The following example illustrates the use of this module:</p>
+
+<pre>
+
+&gt;&gt;&gt; import ftplib 
+&gt;&gt;&gt; ftp = ftplib.FTP('ftp.python.org') 
+&gt;&gt;&gt; ftp.login() 
+&gt;&gt;&gt; ftp.retrlines('LIST') 
+total 40 
+drwxrwxr-x  12 root     4127         512 Apr  6 19:57 . 
+drwxrwxr-x  12 root     4127         512 Apr  6 19:57 .. 
+drwxrwxr-x   2 root     4127         512 Aug 25  1998 RCS 
+lrwxrwxrwx   1 root     bin           11 Jun 29 18:34 README -&gt; welcome.msg 
+drwxr-xr-x   3 root     wheel        512 May 19  1998 bin 
+... 
+&gt;&gt;&gt; ftp.retrbinary('RETR README', open('README', 'wb').write) 
+'226 Transfer complete.' 
+&gt;&gt;&gt; ftp.quit() </PRE>
+
+<P>Consult the online documentation for a complete description of the functionality contained in this module.</p>
+
+<p>? <b>See Also</b> <A HREf="114#76.html">urllib</a> (260), Internet RFC 959, <a target="_blank" href="http://www.python.org/doc/lib/module-ftplib.html">http://www.python.org/doc/lib/module-ftplib.html</a>.</p>
+
+<a name="34"></A>
+<h4><tT claSs="monofont">httplib</tt></h4>
+<P>This module implements the client side of the Hypertext Transfer Protocol (HTTP) used in Web applications. Both HTTP/1.0 and HTTP/1.1 protocols are supported. In addition, if Python is configured with OpenSSL support, connections can be made using secure sockects. The HTTP/1.0 protocol is a simple text-based protocol that works as follows:</p>
+
+<ol TYPE="1">
+<li>
+
+<p>A client makes a connection to a Web server and sends a request header of the following form:</p>
+
+<PRE>
+
+GET /document.html HTTP/1.0 
+Connection: Keep-Alive 
+User-Agent: Mozilla/4.61 [en] (X11; U; SunOS 5.6 sun4u) 
+Host: rustler.cs.uchicago.edu:8000 
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, image/png, */* 
+Accept-Encoding: gzip 
+Accept-Language: en 
+Accept-Charset: iso-8859-1,*,utf-8 
+
+Data (optional) 
+... </Pre>
+
+<p>The first line defines the request type, document (the selector), and protocol version. Following the request line are a series of header lines containing various information about the client, such as passwords, cookies, cache preferences, and client software. Following the header lines, a single blank line indicates the end of the header lines. After the header, data may appear in the event that the request is sending from a form or uploading a file. Each of the lines in the header should be terminated by a carriage return and a newline (<tT CLAss="monofont">'\r\n'</tt>).</P>
+</LI>
+<Li>
+
+<p>The server sends a response of the following form:</p>
+
+<pre>
+
+HTTP/1.0 200 OK 
+Content-type: text/html 
+Content-length: 72883 bytes 
+... 
+Header: data 
+
+Data 
+... </pre>
+
+<p>The first line of the server response indicates the HTTP protocol version, a success code, and return message. Following the response line are a series of header fields that contain information about the type of the returned document, the document size, Web server software, cookies, and so forth. The header is terminated by a single blank line followed by the raw data of the requested document.</p>
+</li>
+</ol>
+
+<p>The following request methods are the most common:</p>
+
+<p><taBle BordEr="1" celLspaCING="0" cellPADDing="1" wIDTH="100%">
+<colgROUP span="2">
+<tr>
+<th valign="top">
+<font siZe="2">
+<p><B>Method</b></p>
+</fOnt></th>
+<Th vaLIGN="top">
+<font SIZE="2">
+<p><b>Description</b></p>
+</FONT></th>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">GET</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P>Get a document</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">POST</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P>Post data to a form</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">HEAD</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>Return header information only</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">PUT</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>Upload data to the server</P>
+</font></TD>
+</TR>
+</colgROUP>
+</tablE></P>
+
+<P>The following response codes are returned by servers:</P>
+
+<p><table border="1" cellspacIng="0" CellPaddiNg="1" wiDTH="100%">
+<ColgrOUP Span="2">
+<tR>
+<TH ValigN="top">
+<FONt size="2">
+<p><b>Code</b></p>
+</font></th>
+<th valIgn="top">
+<Font Size="2">
+<p><B>Description</b></p>
+</fONT></Th>
+</tr>
+<tR>
+<TD ValigN="top" COLspan="2">
+<FONT size="2">
+<p><i>Success Codes (2xx)</i></p>
+</font></td>
+</tr>
+<tr>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">200</tt></P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>OK</p>
+</font></td>
+</tr>
+<tr>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">201</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Created</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">202</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Accepted</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">204</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>No content</p>
+</FONT></td>
+</tr>
+<tr>
+<td valign="top" colspaN="2">
+<foNt siZe="2">
+<p><i>Redirection (3xx)</i></P>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<fONT Size="2">
+<p><TT CLass="monofont">300</tt></p>
+</font></td>
+<td valign="top">
+<FonT sizE="2">
+<p>Multiple choices</p>
+</foNt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">301</tt></p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>Moved permanently</p>
+</Font></tD>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">302</TT></P>
+</font></td>
+<td valign="top">
+<font siZe="2">
+<p>Moved temporarily</P>
+</fonT></td>
+</tr>
+<Tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">303</tt></P>
+</FONt></td>
+<td valign="top">
+<font size="2">
+<p>Not modified</P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top" ColspAN="2">
+<FOnt siZE="2">
+<P><I>Client Error (4xx)</i></p>
+</foNT></TD>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">400</tt></p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Bad request</P>
+</Font></tD>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">401</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Unauthorized</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">403</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P>Forbidden</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">404</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P>Not found</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top" colspan="2">
+<font size="2">
+<p><i>Server Error (5xx)</i></p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">500</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p>Internal server error</p>
+</font></Td>
+</tR>
+<tr>
+<tD valiGn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">501</tt></P>
+</FONt></td>
+<tD VALign="top">
+<font size="2">
+<p>Not implemented</p>
+</font></td>
+</tR>
+<tr>
+<Td vaLign="top">
+<fOnt sIZE="2">
+<P><tt clASS="monofont">502</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>Bad gateway</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">503</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p>Service unavailable</p>
+</font></td>
+</tr>
+</colgrOup>
+</TablE></p>
+
+<p>A wide range of optional header fields can appear in both the request and response headers. These headers are specified in a format known as RFC 822, in which headers are specified in the form <tt ClasS="monofont">Header: data</TT>. For example:</P>
+
+<pre>
+
+Date: Fri, 16 Jul 1999 17:09:33 GMT 
+Server: Apache/1.3.6 (Unix) 
+Last-Modified: Mon, 12 Jul 1999 19:08:14 GMT 
+ETag: "741d3-44ec-378a3d1e" 
+Accept-Ranges: bytes 
+Content-Length: 17644 
+Connection: close 
+Content-Type: text/html </pRE>
+
+<P>The following classes can be used to create HTTP/1.0 connections with a Web server:</P>
+
+<pre>
+
+<b>HTTP([</B><B><I>host</I></b> <b>[,</b> <b><I>port</I></B><B>]])</b> </pre>
+
+<p>Establishes an HTTP/1.0 connection with an HTTP server. <i><tt class="monofont">host</tt></i>
+ is the hostname and <i><tt cLasS="monofont">port</tt></i>
+ is an optional port number. If no port number is given, the port is extracted from the hostname if it’s of the form <Tt claSs="monofont">'</tt><I><TT Class="monofont">host:port</TT></I>
+<Tt claSS="monofont">'</TT>. Otherwise, port 80 is used. If no host is passed, no connection is made and the <tt clASS="monofont">connect()</Tt> method should be used to make the connection manually.</p>
+
+<pre>
+
+<b>HTTPS([</b><b><i>host</i></b> <b>[,</b> <b><i>port</i></b> <b>[, key_file=</b><b><I>kfile</i></b> <B>[, cert_file=</b><b><i>cfile</I></b><b>]])</b> </pRe>
+
+<p>Establishes a secure HTTP/1.0 connection. Works like <tT CLAss="monofont">HTTP()</tt> except that the default port is 443. In addition, optional keyword parameters <TT CLass="monofont">key_file</tT>  and <TT Class="monofont">cert_file</TT>  specify the names of a client private-key file and a client certificate file to be supplied to the server.</P>
+
+<P>An instance <i><tt class="monofont">h</tt></i>
+ of the <tt class="monofont">HTTP</tt>  or <Tt cLass="monofont">HTTPS</Tt> class has the following methods:</p>
+
+<prE>
+
+<b><i>h</i></B><B>.connect(</B><B><i>host</i></b> <b>[,</B> <B><I>port</I></b><b>])</b> </pRE>
+
+<P>Connects to the server given by <I><tt clASS="monofont">host</Tt></i>
+ and <i><tt class="monofont">port</tt></i>
+. This should be called only if the instance was created without a host.</p>
+
+<pre>
+
+<b><i>h</i></B><b>.send(</b><B><i>data</i></b><B>)</b> </pre>
+
+<P>Sends data to the server. This should only be used after the <tt cLASS="monofont">endheaders()</tt> method.</p>
+
+<pRE>
+
+<B><I>h</i></b><b>.putrequest(</b><B><I>request</I></B><b>,</b> <b><i>selector</I></B><B>)</B> </pre>
+
+<p>Sends a line to the server containing the request string, selector string, and the HTTP version (HTTP/1.0).</p>
+
+<pre>
+
+<b><i>h</i></b><b>.putheader(</b><b><i>header</i></b><b>,</b> <B><i>argument</i></B> <b>[, ...])</b> </pRe>
+
+<p>Sends an RFC 822–style header to the server. It sends a line to the server consisting of the header, a colon and a space, and the first argument. If more arguments are given, continuation lines are sent, each consisting of a tab and an argument.</p>
+
+<pRe>
+
+<b><i>h</I></B><B>.endheaders()</B> </pre>
+
+<p>Sends a blank line to the server, indicating the end of the headers.</P>
+
+<PRE>
+
+<b><i>h</i></b><B>.getreply()</B> </PRe>
+
+<p>Closes the sending end of the connection, reads the reply from the server, and returns a triple (<i><tT CLAss="monofont">replycode</tt></i>
+<tt class="monofont">, </tt><i><tt claSs="monofont">message</tT></i>
+<tt Class="monofont">, </Tt><i><tT CLAss="monofont">headers</tt></I>
+). <I><TT clasS="monofont">replycode</TT></I>
+ is the integer reply code from the request, such as <tt clASS="monofont">200</Tt>  on success. <i><tt class="monofont">message</tt></i>
+ is the message string corresponding to the reply code. <i><tt class="monofont">headers</Tt></i>
+ is an instance of the class <Tt clAss="monofont">mimetools.Message</tt>, containing the HTTP headers received from the server.</P>
+
+<pre>
+
+<B><I>h</I></B><b>.getfile()</b> </prE>
+
+<P>Returns a file object from which the data returned by the server can be read, using the <TT clasS="monofont">read()</TT>, <Tt claSS="monofont">readline()</TT>, or <tt class="monofont">readlines()</tt> method.</p>
+
+
+<h5>Example</h5>
+<pre>
+
+import httplib 
+h = httplib.HTTP('www.python.org') 
+h.putrequest('GET', '/index.html') 
+h.putheader('Accept', 'text/html') 
+h.putheader('Accept', 'text/plain') 
+h.endheaders() 
+errcode, errmsg, headers = h.getreply() 
+print errcode # Should be 200 
+f = h.getfile() 
+data = f.read() # Get the raw HTML 
+f.close() </pre>
+
+<p>HTTP/1.1 extends the HTTP/1.0 protocol by allowing multiple request/response data streams to be multiplexed over a single network connection. To handle multiple connections, HTTP/1.1 manages the network connection by putting it into one of three states:</p>
+
+<P><taBle bOrder="1" CellSPACing="0" cELLPaddiNG="1" WIdth="100%">
+<cOLGRoup span="2">
+<tr>
+<th valign="top">
+<fonT siZe="2">
+<p><b>State</B></p>
+</fonT></th>
+<tH VALign="top">
+<fONT Size="2">
+<p><B>Description</B></P>
+</Font></tH>
+</TR>
+<Tr>
+<td valign="top">
+<font size="2">
+<p><tt ClaSs="monofont">_CS_IDLE</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Connection idle</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">_CS_REQ_STARTED</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P>Request started</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">_CS_REQ_SENT</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P>Request sent</P>
+</FOnt></td>
+</TR>
+</COlgroUP>
+</TAble></p>
+
+<p>New requests can be sent only when the connection is in the <tt class="monofont">_CS_IDLE</tt>  state. Once an HTTP request has been sent, the connection doesn’t return to the idle state until the server response has been received and read on the client.</p>
+
+<p>To support HTTP/1.1, the following classes are provided:</p>
+
+<pre>
+
+<B>HTTPConnection(</b><b><I>host</i></b> <b>[,</B> <b><i>port</i></b><B>])</b> </prE>
+
+<P>Creates an HTTP/1.1 connection. <I><Tt claSS="monofont">host</TT></i>
+ is the hostname and <i><tt CLASs="monofont">port</tt></i>
+ is the remote port number. The default port is 80. Returns an <TT CLass="monofont">HTTPConnection</tt>  instance.</p>
+
+<pre>
+
+<b>HTTPSConnection(</b><b><i>host</i></b> <b>[,</b> <b><i>port</i></B> <b>[, key_file=</b> <B><i>kfile</i></b> <B>[, cert_file=</b> <b><i>cfile</i></B><b>]]])</b> </pRE>
+
+<P>Like HTTP/1.1, but uses a secure socket connection. The default port is 443. <Tt claSS="monofont">key_file</TT>  and <tt clASS="monofont">cert_file</Tt>  are optional keyword arguments that specify client private-key and certificate files. Returns an <tt cLASS="monofont">HTTPSConnection</tt>  instance.</p>
+
+<p>An instance <i><tt class="monofont">h</tt></i>
+ of <tt claSs="monofont">HTTPConnection</tT>  or <tt cLass="monofont">HTTPSConnection</tT> supports the following methods:</p>
+
+<prE>
+
+<B><I>h</I></b><b>.connect()</b> </pRE>
+
+<P>Initializes the connection to the host and port given to <Tt claSS="monofont">HTTPConnection()</TT> or <tt clASS="monofont">HTPPSConnection()</Tt>.</p>
+
+<pre>
+
+<b><i>h</i></b><b>.close()</b> </pre>
+
+<p>Closes the connection.</p>
+
+<pre>
+
+<b><I>h</i></b><B>.send(</b><b><i>str</I></b><b>)</b> </pRe>
+
+<p>Sends a string <i><TT CLass="monofont">str</tT></I>
+ to the server. Direct use of this function with HTTP/1.1 is discouraged, because it may break the underlying response/request protocol. It’s most commonly used to send data to the server after <I><Tt claSS="monofont">h</TT></i>
+<tt cLASS="monofont">.endheaders()</tt> has been called.</p>
+
+<pre>
+
+<b><i>h</i></b><b>.putrequest(</b><b><i>method</i></b><b>,</b> <b><i>url</I></b><b>)</B> </pre>
+
+<P>Sends a request to the server. <i><tt cLass="monofont">method</TT></I>
+ is the HTTP method, such as <Tt claSS="monofont">'GET'</TT> or <tt clASS="monofont">'POST'</Tt>. <i><tt CLASs="monofont">url</tt></i>
+ specifies the object to be returned, such as <tt class="monofont">'/index.html'</tt>. If <i><tt clasS="monofont">h</tt></I>
+ is not in  the <tt cLass="monofont">_CS_IDLE</tT>  state, a <tt cLASS="monofont">CannotSendRequest</tt>  exception is generated. Otherwise, <i><tT CLAss="monofont">h</tt></I>
+ is moved to <TT Class="monofont">_CS_REQ_STARTED</TT>  state, in which additional headers can be added to the request.</P>
+
+<Pre>
+
+<b><i>h</i></b><b>.putheader(</b><b><i>header</i></b><b>,</b> <b><i>value</i></b><b>)</b> </Pre>
+
+<P>Sends an RFC 822–style header to the server. It sends a line to the server, consisting of the header, a colon and a space, and the value. Raises a <tt cLass="monofont">CannotSendHeader</tT> exception if <i><tt CLASs="monofont">h</tt></i>
+ is not in the <TT CLass="monofont">_CS_REQ_STARTED</tT> state.</P>
+
+<PRe>
+
+<b><i>h</i></B><B>.endheaders()</B> </Pre>
+
+<p>Sends a blank line to the server, indicating the end of the header lines. Changes the connection state to <tt class="monofont">_CS_REQ_SENT</tt>.</p>
+
+<pre>
+
+<b><i>h</i></b><B>.request(</b><b><I>method</i></b><b>,</B> <b><i>url</i></b> <B>[,</b> <b><i>body</I></B> <B>[,</B> <b><i>headers</i></b><B>]])</B> </PRe>
+
+<p>Sends a complete HTTP request to the server. <i><tT CLAss="monofont">method</tt></I>
+ and <I><TT class="monofont">url</tt></i>
+ have the same meaning as for <i><tt class="monofont">h</tt></i>
+<tT clAss="monofont">.putrequest()</tT>. <i><tt cLass="monofont">body</TT></I>
+ is an optional string containing data to upload to the server after the request has been sent. <I><tt clASS="monofont">headers</Tt></i>
+ is a dictionary containing <i><tT CLAss="monofont">header</tt></I>
+<TT Class="monofont">:</tt><i><tt class="monofont">value</tt></i>
+ pairs to be given to the <i><tt ClaSs="monofont">h</tt></I>
+<tt clAss="monofont">.putheader()</tT> method.</P>
+
+<PRe>
+
+<b><i>h</i></B><B>.getresponse()</B> </Pre>
+
+<p>Gets a response from the server and returns an <tT CLAss="monofont">HTTPResponse</tt>  instance that can be used to read data. Raises a <TT CLass="monofont">ResponseNotReady</tt>  exception if <i><tt class="monofont">h</tt></i>
+ is not in the <tt clAss="monofont">_CS_REQ_STATE</Tt>.</p>
+
+<p>An <Tt claSs="monofont">HTTPResponse</tt>  instance as returned by the <TT CLass="monofont">getresponse()</tT> method supports the following methods:</P>
+
+<PRe>
+
+<b><i>r</i></B><B>.close()</B> </Pre>
+
+<p>Closes the connection. This doesn’t close the underlying HTTP connection. Only the file object used to read data in this specific response is closed.</p>
+
+<PRE>
+
+<B><i>r</i></b><b>.isclosed()</b> </pre>
+
+<p>Returns true if the underlying connection has been closed.</p>
+
+<pre>
+
+<b><i>r</i></b><b>.read([</b><b><I>size</i></b><B>])</b> </prE>
+
+<p>Reads up to <i><tt ClasS="monofont">size</TT></I>
+ bytes from the server. If <i><tt cLASS="monofont">size</tt></i>
+ is omitted, all the data for this request is returned.</p>
+
+<PRE>
+
+<B><i>r</i></b><b>.getheader(</B><B><I>name</I></b> <b>[,</b> <b><i>default</i></b><b>])</b> </pre>
+
+<p>Gets a response header. <i><tt clasS="monofont">name</tt></I>
+ is the name of the header. <i><tt Class="monofont">default</Tt></i>
+ is the default value to return if not found.</p>
+
+<PRE>
+
+<B><i>r</i></b><b>.version</B> </PRE>
+
+<p>HTTP version used by server.</p>
+
+<prE>
+
+<B><I>r</I></b><b>.status</b> </pRE>
+
+<P>HTTP status code returned by the server.</P>
+
+<pre>
+
+<b><i>r</i></b><b>.reason</b> </pre>
+
+<p>HTTP error message returned by the server.</p>
+
+<pre>
+
+<b><i>r</i></B><b>.length</b> </Pre>
+
+<p>Number of bytes left in the response.</P>
+
+<pre>
+
+<b><I>r</i></b><b>.will_close</B> </PRE>
+
+<p>Set if the server will close the connection after the response has been sent.</p>
+
+
+<h5>Example</h5>
+<P>The following example shows how the <TT Class="monofont">HTTPConnection</TT>  class can be used to open an HTTP/1.1 connection and fetch several files.</P>
+
+<Pre>
+
+import httplib 
+
+files = [ '/index.html', '/doc/index.html', '/News.html' ] 
+h = httplib.HTTPConnection("www.python.org",80) 
+h.connect() 
+
+for f in files: 
+    h.putrequest('GET','f') 
+    h.putheader('Accept','text/html') 
+    h.putheader('Accept','text/plain') 
+    h.endheaders() 
+
+    r = h.getresponse() 
+    if r.status == 200: 
+        data = r.read() 
+        print ":::: %s ::::" % f 
+        print data 
+    r.close() 
+
+h.close() </prE>
+
+
+<H5>Notes</H5>
+<Ul>
+<li>
+<p>This module is used by the <tt class="monofont">urllib</tt>  module, which provides a higher-level interface for accessing URLs.</p>
+</li>
+<li>
+<p>Secure HTTP is not available unless Python has also been compiled with OpenSSL support.</p>
+</Li>
+</uL>
+<p>? <b>See Also</b> <A href="114#76.html">urllib</A> (260), <a hrEF="115#16.html">mimetools</A> (266), <A href="114#6.html">asyncore</A> (229), <A HRef="114#12.html">BaseHTTPServer</a> (232), <a HREF="114#58.html">SimpleHTTPServer</a> (251), <a hrEF="114#22.html">CGIHTTPServer</A> (239).</P>
+
+<a name="42"></a>
+<h4><tt class="monofont">imaplib</tt></h4>
+<p>The <tt ClaSs="monofont">imaplib</tt>  module provides a low-level client-side interface for connecting to an IMAP4 mail server using the IMAP4rev1 protocol. Documents describing the protocol, as well as sources and binaries for servers implementing it, can be found at the University of Washington’s IMAP Information Center (<A targEt="_blank" hrEF="http://www.cac.washington.edu/imap">http://www.cac.washington.edu/imap</A>).</P>
+
+<p>The following example shows how the module is used by opening a mailbox and printing all messages:</p>
+
+<prE>
+
+import getpass, imaplib, string 
+m = imaplib.IMAP4() 
+m.login(getpass.getuser(), getpass.getpass()) 
+m.select() 
+typ, data = m.search(None, 'ALL') 
+for num in string.split(data[0]): 
+    typ, data = m.fetch(num, '(RFC822)') 
+    print 'Message %s\n%s\n' % (num, data[0][1]) 
+m.logout() </PRE>
+
+<p>? <b>See Also</b> <a HREF="114#46.html">poplib</a> (249), <a taRGET="_blank" href="http://www.python.org/doc/lib/module-imaplib.html">http://www.python.org/doc/lib/module-imaplib.html</a>, <a target="_blank" href="http://www.cac.washington.edu/imap">http://www.cac.washington.edu/imap</a>, Internet RFC 1730, RFC 2060.</p>
+
+
+<h4><tT clAss="monofont">nntplib</tT></h4>
+<p>The <tt ClasS="monofont">nntplib</TT>  module provides a low-level interface to the client side of NNTP (Network News Transfer Protocol). For details about using this module, see the online documentation (<A targET="_blank" HRef="http://www.python.org/doc/lib/module-nntplib.html">http://www.python.org/doc/lib/module-nntplib.html</a>). The following example shows how the module can be used to post a news message from a file containing valid news headers:</p>
+
+<PRE>
+
+s = NNTP('news.foo.com') 
+f = open('article') 
+s.post(f) 
+s.quit() </Pre>
+
+<p>? <b>See Also</B> <A TArget="_blank" href="http://www.python.org/doc/lib/module-nntplib.html">http://www.python.org/doc/lib/module-nntplib.html</a>, Internet RFC 977.</p>
+
+<a name="46"></a>
+<h4><tt cLasS="monofont">poplib</tt></h4>
+<P>The <tt clAss="monofont">poplib</tT>  module provides a low-level client-side connection to a POP3 mail server. Consult the online reference at <A TArget="_blank" HREF="http://www.python.org/doc/lib/module-poplib.html">http://www.python.org/doc/lib/module-poplib.html</a> for specific details. The following example opens a mailbox and retrieves all messages:</p>
+
+<prE>
+
+import getpass, poplib 
+M = poplib.POP3('localhost') 
+M.user(getpass.getuser()) 
+M.pass_(getpass.getpass()) 
+numMessages = len(M.list()[1]) 
+for i in range(numMessages): 
+    for j in M.retr(i+1)[1]: 
+         print j </PRE>
+
+<p>? <b>See Also</b> <a TARGet="_blank" href="http://www.python.org/doc/lib/module-poplib.html">http://www.python.org/doc/lib/module-poplib.html</a>, Internet RFC 1725.</p>
+
+
+<h4><tt class="monofont">robotparser</tt></h4>
+<p>The <Tt cLass="monofont">robotparser</Tt>  module provides a class that can be used to fetch and query information contained in the <tt cLass="monofont">robots.txt</TT>  files that Web sites use to instruct Web crawlers and spiders. The contents of this file typically look like this:</P>
+
+<Pre>
+
+# robots.txt 
+User-agent: * 
+Disallow: /warheads/designs   # Don't allow robots here </prE>
+
+<PRE>
+
+<b>RobotFileParser()</b> </prE>
+
+<P>Creates an object that can be used to read and query a single <TT clasS="monofont">robots.txt</TT>  file.</P>
+
+<p>An instance <i><tt class="monofont">r</tt></i>
+ of <tt class="monofont">RobotFileParser</tT>  has the following attributes and methods:</p>
+
+<pRe>
+
+<b><i>r</I></b><b>.set_url(</b><b><I>url</i></b><b>)</B> </PRE>
+
+<p>Sets the URL of the <tt cLASS="monofont">robots.txt</tt>  file.</p>
+
+<pRE>
+
+<B><I>r</i></b><b>.read()</b> </PRE>
+
+<P>Reads the <tt class="monofont">robots.txt</tt>  file and parses it.</p>
+
+<pre>
+
+<b><i>r</i></b><b>.parse(</b><b><I>lines</i></b><B>)</b> </prE>
+
+<p>Parses a list of lines obtained from a <tt cLass="monofont">robots.txt</TT>  file.</P>
+
+<Pre>
+
+<b><i>r</I></B><B>.can_fetch(</B><b><i>useragent</i></b><B>,</B> <B><I>url</i></b><b>)</b> </PRE>
+
+<P>Returns true if <i><tt class="monofont">useragent</tt></i>
+ is allowed to fetch <i><tt class="monofont">url</tT></i>
+.</p>
+
+<Pre>
+
+<b><I>r</i></b><b>.mtime()</b> </Pre>
+
+<p>Returns the time at which the <TT CLass="monofont">robots.txt</tT>  file was last fetched.</P>
+
+<PRe>
+
+<b><i>r</i></B><B>.modified()</B> </Pre>
+
+<p>Sets the time at which <tT CLAss="monofont">robots.txt</tt>  was last fetched to the current time.</p>
+
+
+<h5>Note</h5>
+<ul>
+<li>
+<p>Details about the <tt class="monofont">robots.txt</tT>  format can be found at <a tArgeT="_blank" href="http://info.webcrawler.com/mak/projects/robots/norobots.html">http://info.webcrawler.com/mak/projects/robots/norobots.html</A>.</p>
+</li>
+</UL>
+<A Name="52"></a>
+<H4><TT Class="monofont">select</TT></H4>
+<P>The <tt clASS="monofont">select</Tt>  module provides access to the <tt class="monofont">select()</tt> system call. <tt class="monofont">select()</tt> is typically used to implement polling or to multiplex processing across multiple input/output streams without using threads or subprocesses. On UNIX and Macintosh, it works for files, sockets, pipes, and most other file types. On Windows, it only works for sockets.</p>
+
+<Pre>
+
+<B>select(</b><b><i>iwtd</I></b><b>,</b> <b><I>owtd</i></b><b>,</B> <B><I>ewtd</I></b> <b>[,</b> <b><I>timeout</I></B><B>])</b> </pre>
+
+<P>Queries the input, output, and exceptional status of a group of file descriptors. The first three arguments are lists containing either integer file descriptors or objects with a method <TT Class="monofont">fileno()</TT> that can be used to return a file descriptor. The <I><Tt class="monofont">iwtd</tt></i>
+ parameter specifies objects waiting for input, <i><tt class="monofont">owtd</tt></i>
+ specifies objects waiting for output, and <I><tt ClasS="monofont">ewtd</tt></i>
+ specifies objects waiting for an exceptional condition. Each list may be empty. <i><Tt clASS="monofont">timeout</Tt></i>
+ is a floating-point number specifying a timeout period in seconds. If omitted, the function waits until at least one file descriptor is ready. If <tt CLASs="monofont">0</tt>, the function merely performs a poll and returns immediately. The return value is a triple of lists containing the objects that are ready. These are subsets of the first three arguments. If none of the objects is ready before the timeout occurs, three empty lists are returned. If an error occurs, a <tT CLAss="monofont">select.error</tt>  exception raised. Its value is the same as that returned by <TT CLass="monofont">IOError</tt>  and <tt class="monofont">OSError</tt>.</p>
+
+
+<h5>Example</h5>
+<p>The following code shows how <tt ClaSs="monofont">select()</tt> could be used in an event loop that wants to periodically query a collection of sockets for an incoming connection:</P>
+
+<pre>
+
+import socket, select 
+# Create a few sockets 
+s1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+s1.bind(("",8888)) 
+s1.listen(5) 
+s2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+s2.bind(("",8889)) 
+s2.listen(5) 
+# Event loop 
+while 1: 
+      ... processing ... 
+      # Poll the sockets for activity 
+      input,output,exc = select.select([s1,s2],[],[],0) 
+      # Loop over all of the sockets that have pending input 
+      for sock in input: 
+           # Accept an incoming connection 
+     client = sock.accept() 
+     ... handle client ... 
+     client.close() 
+# Done. Carry on. 
+... more processing ... </pRe>
+
+
+<h5>Note</h5>
+<UL>
+<LI>
+<p>There’s usually an upper limit on the number of file selectors that can be given to <tt cLASS="monofont">select()</tt>. It’s often 64 for Windows and 256 for UNIX.</p>
+</lI>
+</UL>
+<P>? <b>See Also</b> <a hREF="114#6.html">asyncore</A> (229), <a href="114#64.html">socket</a> (252), <a href="112#90.html">os</a> (180).</p>
+
+<a name="58"></a>
+<h4><Tt cLass="monofont">SimpleHTTPServer</Tt></h4>
+<p>The <tT claSS="monofont">SimpleHTTPServer</TT>  module provides a simple HTTP server handler that can serve files from the current directory. The module defines the following handler class, intended for use with the <tt clASS="monofont">BaseHTTPServer</Tt>  module:</p>
+
+<prE>
+
+<B>SimpleHTTPRequestHandler(</B><B><i>request</i></b><b>,</B> <B><I>client_address</I></b><b>,</b> <b><i>server</i></b><b>)</b> </pre>
+
+<p>Serves files from the current directory and all its subdirectories. The class implements the <tt class="monofont">do_HEAD()</Tt>  and <tT claSs="monofont">do_GET()</tt>  methods to support <tT claSS="monofont">HEAD</TT> and <tt clASS="monofont">GET</Tt> requests, respectively. All <tt cLASS="monofont">IOError</tt>  exceptions result in a <tt CLASs="monofont">404 File not found</tt>  error. Attempts to access a directory result in a <tt class="monofont">403 Directory listing not supported</tt>  error.</p>
+
+<p>The following class attributes are available:</p>
+
+<pre>
+
+<b>SimpleHTTPRequestHandler.server_version</b> </Pre>
+
+<P>Server version string.</p>
+
+<prE>
+
+<b>SimpleHTTPRequestHandler.extensions_map</b> </prE>
+
+<p>A dictionary mapping suffixes into MIME types. Unrecognized file types are considered to be of type <tt CLASs="monofont">'text/plain'</tt>.</p>
+
+
+<H5>Example</H5>
+<PRe>
+
+from BaseHTTPServer import HTTPServer 
+from SimpleHTTPServer import SimpleHTTPRequestHandler 
+import os 
+# Change to the document root 
+os.chdir("/home/httpd/html") 
+# Start the SimpleHTTP server 
+serv = HTTPServer(("",80),SimpleHTTPRequestHandler) 
+serv.serve_forever() </pre>
+
+<P>? <B>See Also</B> <A href="114#12.html">BaseHTTPServer</A> (232), <A HRef="114#22.html">CGIHTTPServer</a> (239), <a href="114#34.html">httplib</a> (243).</p>
+
+
+<h4><tt class="monofont">smtplib</tt></H4>
+<p>The <tT claSs="monofont">smtplib</tt>  module provides a low-level SMTP client interface that can be used to send mail. For specific details about the module, see the online reference at <a TargET="_blank" HRef="http://www.python.org/doc/lib/module-smtplib.html">http://www.python.org/doc/lib/module-smtplib.html</a>. The following example shows how the module might be used by prompting the user for an address and sending a message:</p>
+
+<PRE>
+
+import string, sys 
+import smtplib 
+def prompt(prompt): 
+    sys.stdout.write(prompt + ": ") 
+    return string.strip(sys.stdin.readline()) 
+fromaddr = prompt("From") 
+toaddrs = string.splitfields(prompt("To"), ',') 
+print "Enter message, end with ^D:" 
+msg = "" 
+while 1: 
+    line = sys.stdin.readline() 
+    if not line: 
+        break 
+    msg = msg + line 
+print "Message length is " + `len(msg)` 
+server = smtplib.SMTP('localhost') 
+server.sendmail(fromaddr, toaddrs, msg) 
+server.quit() </Pre>
+
+<p>? <b>See Also</B> <A HRef="114#46.html">poplib</a> (249), <a TARGet="_blank" href="http://www.python.org/doc/lib/module-smtplib.html">http://www.python.org/doc/lib/module-smtplib.html</a>, <a href="114#42.html">imaplib</a> (248), Internet RFC 821 (Simple Mail Transfer Protocol), Internet RFC 1869 (SMTP Service Extensions).</p>
+
+<a name="64"></a>
+<H4><tt ClasS="monofont">socket</tt></h4>
+<p>The <Tt clASS="monofont">socket</Tt>  module provides access to the BSD socket interface. Although it’s based on UNIX, this module is available on all platforms.</p>
+
+<prE>
+
+<B>fromfd(</B><B><i>fd</i></b><b>,</B> <B><I>family</I></b><b>,</b> <b><I>type</I></B> <B>[,</b> <b><i>proto</i></b><b>])</b> </pre>
+
+<p>Creates a socket object from an integer file descriptor <i><tt class="monofont">fd</tT></i>
+. The address family, socket type, and protocol number are the same as for <tT claSs="monofont">socket()</tt>. The file descriptor must refer to a previously created socket. Returns an instance of <tT claSS="monofont">SocketType</TT>.</p>
+
+<pre>
+
+<B>getfqdn([</B><B><I>name</i></b><b>])</b> </PRE>
+
+<P>Returns the fully qualified domain name of <i><tt cLASS="monofont">name</tt></i>
+. If <i><tt class="monofont">name</tt></i>
+ is omitted, the local machine is assumed. For example, <tt clasS="monofont">getfqdn("stonecrusher")</tt> might return <Tt clAss="monofont">"stonecrusher.cs.uchicago.edu"</tt>.</P>
+
+<pre>
+
+<B>gethostbyname(</B><B><I>hostname</i></b><b>)</b> </PRE>
+
+<P>Translates a hostname such as <tt clASS="monofont">'www.python.org'</Tt> to an IP address. The IP address is returned as a string, such as <tt cLASS="monofont">'132.151.1.90'</tt>.</p>
+
+<pre>
+
+<b>gethostbyname_ex(</b><b><i>hostname</i></b><b>)</b> </pre>
+
+<p>Translates a hostname to an IP address, but returns a triple (<i><tT clAss="monofont">hostname</tT></i>
+<tt cLass="monofont">, </TT><I><Tt claSS="monofont">aliaslist</TT></i>
+<tt cLASS="monofont">, </tt><i><tT CLAss="monofont">ipaddrlist</tt></i>
+) in which <i><tt class="monofont">hostname</tt></i>
+ is the primary hostname, <i><tt cLasS="monofont">aliaslist</tt></i>
+ is a list of alternative hostnames for the same address, and <I><tt clAss="monofont">ipaddrlist</tT></I>
+ is a list of IP addresses for the same interface on the same host. For example, <TT clasS="monofont">gethostbyname_ex('www.python.org')</TT> returns <Tt claSS="monofont">('parrot.python.org', ['www.python.org'], ['132.151.1.90'])</TT>.</p>
+
+<pre>
+
+<B>gethostname()</B> </PRe>
+
+<p>Returns the hostname of the local machine.</p>
+
+<pre>
+
+<b>gethostbyaddr(</b><b><i>ip_address</i></b><b>)</b> </pre>
+
+<p>Returns the same information as <tt ClaSs="monofont">gethostbyname_ex()</tt>, given an IP address such as <Tt claSs="monofont">'132.151.1.90'</tt>.</P>
+
+<PRE>
+
+<b>getprotobyname(</b><b><i>protocolname</I></B><B>)</B> </pre>
+
+<p>Translates an Internet protocol name such as <TT CLass="monofont">'icmp'</tT> to a protocol number (such as the value of <TT Class="monofont">IPPROTO_ICMP</tt>) that can be passed to the third argument of the <tt class="monofont">socket()</tt> function.</p>
+
+<pre>
+
+<b>getservbyname(</B><b><i>servicename</I></b><b>,</b> <B><i>protocolname</i></b><b>)</B> </pre>
+
+<P>Translates an Internet service name and protocol name to a port number for that service. For example, <TT Class="monofont">getservbyname('ftp', 'tcp')</TT> returns <TT clasS="monofont">21</TT>. The protocol name should be <Tt claSS="monofont">'tcp'</TT> or <tt class="monofont">'udp'</tt>.</p>
+
+<pre>
+
+<b>ntohl(</b><b><i>x</i></b><b>)</B> </prE>
+
+<p>Converts 32-bit integers from network (big-endian) to host byte order.</p>
+
+<pRe>
+
+<b>ntohs(</b><b><I>x</i></b><b>)</B> </PRE>
+
+<p>Converts 16-bit integers from network to host byte order.</p>
+
+<prE>
+
+<B>htonl(</B><B><i>x</i></b><b>)</B> </PRE>
+
+<p>Converts 32-bit integers from host to network byte order.</p>
+
+<prE>
+
+<B>htons(</B><B><i>x</i></b><b>)</b> </pre>
+
+<p>Converts 16-bit integers from host to network byte order.</p>
+
+<pre>
+
+<b>ssl(</b><b><i>sock</i></b><b>,</B> <b><i>key_file</I></b><b>,</b> <B><i>cert_file</i></b><b>)</B> </pre>
+
+<P>Creates a client-side secure socket. <I><TT clasS="monofont">sock</TT></I>
+ is an existing socket instance that has already established a connection using its <tt clASS="monofont">connect()</Tt>  method. <i><tt CLASs="monofont">key_file</tt></i>
+ is the name of a client private-key file. <i><tt class="monofont">cert_file</tt></i>
+ is the name of a client certificate file. <i><tt clAss="monofont">key_file</Tt></i>
+ and <i><Tt claSs="monofont">cert_file</tt></I>
+ must both be set to <TT Class="monofont">None</TT>  or set to the names of PEM format files containing the client key and certificate. This function is available only if Python has been configured with OpenSSL support. In addition, this function cannot be used to create server-side secure sockets. See the notes.</P>
+
+<Pre>
+
+<b>socket(</b><B><I>family</I></B><b>,</b> <b><i>type</I></B> <B>[,</B> <b><i>proto</i></b><b>])</b> </pre>
+
+<p>Creates a new socket using the given address family, socket type, and protocol number. <i><tt class="monofont">family</tt></I>
+ is one of the following constants:</p>
+
+<p><TablE bordEr="1" ceLLSPacinG="0" CELlpadDING="1" widtH="100%">
+<COLgroup span="2">
+<tr>
+<th valign="top">
+<fOnt Size="2">
+<P><b>Constant</b></p>
+</fOnt></tH>
+<TH ValigN="top">
+<FONt sizE="2">
+<P><B>Description</B></p>
+</fonT></TH>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">AF_INET</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>IPv4 protocols (TCP, UDP)</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">AF_UNIX</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>UNIX domain protocols</p>
+</fONT></Td>
+</tr>
+</cOLGRoup>
+</table></p>
+
+<p>The socket type is one of the following constants:</p>
+
+<p><table borDer="1" CellSpaciNg="0" ceLLPAddinG="1" WIDth="100%">
+<coLGROup spAN="2">
+<TR>
+<th valign="top">
+<font size="2">
+<p><b>Constant</b></p>
+</FonT></th>
+<tH valiGn="top">
+<foNT SIze="2">
+<p><b>Description</B></P>
+</FOnt></th>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">SOCK_STREAM</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>Stream socket (TCP)</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">SOCK_DGRAM</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>Datagram socket (UDP)</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">SOCK_RAW</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p>Raw socket (available with <TT CLass="monofont">AF_INET</tT>  only)</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">SOCK_SEQPACKET</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>Sequenced connection-mode transfer of records</p>
+</fONT></Td>
+</tr>
+</cOLGRoup>
+</tABLE></p>
+
+<p>The protocol number is usually omitted (and defaults to <tt class="monofont">0</tt>). It’s usually used only in conjunction with raw sockets (<tt class="monofont">SOCK_RAW</tt>) and is set to one of the following constants when used: <Tt cLass="monofont">IPPROTO_ICMP</Tt>, <tt cLass="monofont">IPPROTO_IP</TT>, <TT clasS="monofont">IPPROTO_RAW</TT>, <Tt claSS="monofont">IPPROTO_TCP</TT>, <tt clASS="monofont">IPPROTO_UDP</Tt>.</p>
+
+<p>To open a TCP connection, use <tt class="monofont">socket(AF_INET, SOCK_STREAM)</tt>. To open a UDP connection, use <tt class="monofont">socket(AF_INET, SOCK_DGRAM)</tT>. To open a raw IP socket, use <tt ClasS="monofont">socket(AF_INET, SOCK_RAW)</tt>. Access to raw sockets is privileged and will only succeed if the effective user ID is <tt ClasS="monofont">0</TT> (root) on UNIX systems. The function returns an instance of <Tt claSS="monofont">SocketType</TT> (described shortly).</p>
+
+<p>Sockets are represented by an instance of type <tt CLASs="monofont">SocketType</tt>. The following methods are available on a socket <i><TT CLass="monofont">s</tt></i>
+:</p>
+
+<pre>
+
+<b><i>s</i></b><b>.accept()</b> </pre>
+
+<p>Accepts a connection and returns a pair (<I><tt ClasS="monofont">conn</tt></i>
+<tT claSS="monofont">, </TT><i><tt cLASS="monofont">address</tt></i>
+) where <i><TT CLass="monofont">conn</tT></I>
+ is a new socket object that can be used to send and receive data on the connection, and <I><Tt class="monofont">address</tt></i>
+ is the address of the socket on the other end of the connection.</p>
+
+<pre>
+
+<b><i>s</i></b><b>.bind(</b><b><I>address</i></b><B>)</b> </prE>
+
+<p>Binds the socket to an address. The format of <i><tt ClasS="monofont">address</TT></I>
+ depends on the address family. In most cases, it’s a tuple of the form (<i><tt cLASS="monofont">hostname</tt></i>
+<tT CLAss="monofont">, </tt><I><TT Class="monofont">port</tt></i>
+). For IP addresses, the empty string represents <tt class="monofont">INADDR_ANY</tt>, and the string <tt clAss="monofont">'&lt;broadcast&gt;'</Tt> represents <tt Class="monofont">INADDR_BROADCAST</Tt>. The <tt CLASs="monofont">INADDR_ANY</tt>  hostname (the empty string) is used to indicate that the server allows connections on any Internet interface on the system. This is often used when a server is multihomed. The <tT CLAss="monofont">INADDR_BROADCAST</tt>  hostname (<TT CLass="monofont">'&lt;broadcast&gt;'</tT>) is used when a socket is being used to send a broadcast message.</P>
+
+<PRe>
+
+<b><i>s</i></b><b>.close()</b> </pre>
+
+<p>Closes the socket. Sockets are also closed when they’re garbage-collected.</p>
+
+<pre>
+
+<b><i>s</i></b><b>.connect(</B><b><i>address</I></b><b>)</b> </Pre>
+
+<p>Connects to a remote socket at <i><Tt clASS="monofont">address</Tt></i>
+. The format of <i><tT CLAss="monofont">address</tt></I>
+ depends on the address family, but it’s normally a pair (<I><TT clasS="monofont">hostname</TT></I>
+<tt class="monofont">, </tt><i><tt class="monofont">port</tt></i>
+). Raises <Tt cLass="monofont">socket.error</Tt> if an error occurs.</p>
+
+<p>If you’re connecting to a server on the same computer, you can use the name <tT claSS="monofont">'localhost'</TT> as the first argument to <i><tt cLASS="monofont">s</tt></i>
+<tT CLAss="monofont">.connect()</tt>.</P>
+
+<PRE>
+
+<b><i>s</i></b><b>.connect_ex(</b><b><i>address</i></b><b>)</b> </pre>
+
+<p>Like <tt clAss="monofont">connect(</Tt><i><tT clasS="monofont">address</tt></i>
+<TT CLass="monofont">)</tT>, but returns <TT Class="monofont">0</TT>  on success or the value of <I><Tt claSS="monofont">errno</TT></i>
+ on failure.</p>
+
+<pre>
+
+<b><i>s</i></b><b>.fileno()</b> </pre>
+
+<p>Returns the socket’s file descriptor.</p>
+
+<pre>
+
+<b><I>s</i></b><B>.getpeername()</b> </prE>
+
+<p>Returns the remote address to which the socket is connected as a pair (<i><tt ClasS="monofont">ipaddr</TT></I>
+<tt clASS="monofont">, </Tt><i><tt CLASs="monofont">port</tt></i>
+). Not supported on all systems.</P>
+
+<PRE>
+
+<b><i>s</i></b><b>.getsockname()</b> </pre>
+
+<p>Return the socket’s own address as a pair (<i><tt class="monofont">ipaddr</tt></I>
+<tt ClasS="monofont">, </tt><i><tT claSS="monofont">port</TT></i>
+).</p>
+
+<prE>
+
+<B><I>s</I></b><b>.getsockopt(</b><b><I>level</I></B><B>,</b> <b><i>optname</i></B> <B>[,</B> <B><i>buflen</i></b><b>])</b> </pre>
+
+<p>Returns the value of a socket option. <i><tt class="monofont">level</tt></i>
+ defines the level of the option and is <Tt cLass="monofont">SOL_SOCKET</Tt>  for socket-level options or a protocol number such as <tt cLass="monofont">IPPROTO_IP</TT>  for protocol-related options. <I><Tt claSS="monofont">optname</TT></i>
+ selects a specific option. If <i><tt CLASs="monofont">buflen</tt></i>
+ is omitted, an integer option is assumed and its integer value is returned. If <I><TT Class="monofont">buflen</tt></i>
+ is given, it specifies the maximum length of the buffer used to receive the option. This buffer is returned as a string, where it’s up to the caller to decode its contents using the <tt class="monofont">struct</tt>  module or other means. The following list shows commonly used option names for level <tt clAss="monofont">SOL_SOCKET</Tt>:</p>
+
+<p><Table BordER="1" CEllspACINg="0" celLPADding="1" WIDTh="100%">
+<colgroup span="3">
+<tr>
+<th valIgn="top">
+<Font Size="2">
+<p><B>Option Name</b></p>
+</fONT></Th>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Value</b></P>
+</FONt></th>
+<th valign="top">
+<font size="2">
+<p><B>Description</b></p>
+</Font></Th>
+</tr>
+<tR>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">SO_KEEPALIVE</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p><tT clAss="monofont">0, 1</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Periodically probes the other end of the connection and terminates if it’s half-open</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">SO_RCVBUF</Tt></p>
+</fOnt></td>
+<Td vaLIGN="top">
+<font SIZE="2">
+<p><tt cLASS="monofont">int</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Size of receive buffer (in bytes)</p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">SO_SNDBUF</TT></P>
+</font></TD>
+<TD valign="top">
+<font size="2">
+<p><tt claSs="monofont">int</tT></p>
+</foNt></td>
+<tD valIGN="top">
+<Font sIZE="2">
+<P>Size of send buffer (in bytes)</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">SO_REUSEADDR</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P><TT Class="monofont">0, 1</TT></P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p>Allows local address reuse</p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">SO_RCVLOWAT</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">int</tt></P>
+</foNt></td>
+<Td valIgn="top">
+<fONT Size="2">
+<p>Number of bytes read before <TT CLass="monofont">select()</tT> returns the socket as readable</P>
+</FOnt></td>
+</TR>
+<TR>
+<td valign="top">
+<font size="2">
+<p><tt cLasS="monofont">SO_SNDLOWAT</tt></p>
+</Font></tD>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">int</tt></p>
+</FONT></td>
+<td valign="top">
+<font size="2">
+<p>Number of bytes available in send buffer before <tT clAss="monofont">select()</tT> returns the socket as writable</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">SO_RCVTIMEO</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p><i><tT clasS="monofont">tvalue</tt></i>
+</P>
+</FONt></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Timeout on receive calls in seconds</P>
+</FONt></td>
+</tr>
+<tr>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">SO_SNDTIMEO</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><i><tt CLASs="monofont">tvalue</tt></i>
+</p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Timeout on send calls in seconds</p>
+</fonT></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">SO_OOBINLINE</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">0, 1</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p>Places out-of-band data into the input queue</p>
+</fONT></Td>
+</tr>
+<tr>
+<td valign="top">
+<font sizE="2">
+<p><tT claSs="monofont">SO_LINGER</tt></p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><I><tt clASS="monofont">linger</Tt></i>
+</p>
+</font></td>
+<td valign="top">
+<fonT siZe="2">
+<p>Lingers on <tT clasS="monofont">close()</tt> if the send buffer contains data</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">SO_DONTROUTE</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">0, 1</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Bypasses routing table lookups</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">SO_ERROR</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">int</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>Gets error status</p>
+</Font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tT CLAss="monofont">SO_BROADCAST</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P><tt clAss="monofont">0, 1</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Allows sending of broadcast datagrams</P>
+</FOnt></td>
+</tr>
+<tr>
+<td valign="top">
+<font SizE="2">
+<p><tt Class="monofont">SO_TYPE</Tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">int</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p>Gets socket type</P>
+</font></Td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">SO_USELOOPBACK</TT></p>
+</font></td>
+<td valign="top">
+<font sIze="2">
+<P><tt cLass="monofont">0, 1</tT></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Routing socket gets copy of what it sends</p>
+</foNT></TD>
+</tr>
+</colgroup>
+</table></p>
+
+<p><i><tt ClaSs="monofont">tvalue</tt></I>
+ is a binary structure that’s decoded as</p>
+
+<pre>
+
+(<I>second</i>, <i>microsec</i>) = struct.unpack("ll", tvalue). </PRE>
+
+<P><i><tt cLASS="monofont">linger</tt></i>
+ is a binary structure that’s decoded as</p>
+
+<PRE>
+
+(<I>linger_onoff</i>, <i>linger_sec</i>) = struct.unpack("ii", linger). </pRE>
+
+<P>The following options are available for level <Tt class="monofont">IPPROTO_IP</tt>:</p>
+
+<p><table bordeR="1" ceLlspAcing="0" CellPADDing="1" wIDTH="100%">
+<colgROUP span="3">
+<TR>
+<TH valign="top">
+<font size="2">
+<p><b>Option Name</b></p>
+</foNt></tH>
+<th vAlign="top">
+<Font SIZE="2">
+<p><b>Value</b></p>
+</FONT></th>
+<th VALIgn="top">
+<foNT SIze="2">
+<p><b>Description</b></p>
+</font></th>
+</tr>
+<tr>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">IP_ADD_MEMBERSHIP</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><i><tt class="monofont">ipmreg</tt></i>
+</p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Join multicast group (set only)</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font SIZE="2">
+<p><tt class="monofont">IP_DROP_MEMBERSHIP</tt></p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><i><tT CLAss="monofont">ipmreg</tt></I>
+</P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p>Leave a multicast group (set only)</p>
+</font></td>
+</tr>
+<tr>
+<td vaLigN="top">
+<fonT size="2">
+<P><tt cLASS="monofont">IP_HDRINCL</tt></p>
+</fONT></Td>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt class="monofont">int</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>IP header included with data</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">IP_MULTICAST_IF</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p><I><tt cLASS="monofont">inaddr</tt></i>
+</p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Outgoing interface</p>
+</font></td>
+</tr>
+<tr>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">IP_MULTICAST_LOOP</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt class="monofont">uchar</tt></i>
+</p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>Loopback</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">IP_MULTICAST_TTL</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p><I><tt cLASS="monofont">uchar</tt></i>
+</p>
+</FONT></td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Time to live</p>
+</font></td>
+</tr>
+<tr>
+<td valiGn="top">
+<fOnt sIze="2">
+<p><tT claSS="monofont">IP_OPTIONS</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><i><tt class="monofont">char[44]</tt></i>
+</p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>IP header options</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">IP_TOS</tt></p>
+</font></td>
+<td valIgn="top">
+<Font Size="2">
+<p><Tt clASS="monofont">int</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Type of service</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">IP_TTL</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT class="monofont">int</tt></p>
+</font></td>
+<td valiGn="top">
+<fOnt sIze="2">
+<p>Time to live</p>
+</Font></TD>
+</TR>
+</colgROUP>
+</tablE></P>
+
+<P><I><tt clASS="monofont">inaddr</Tt></i>
+ is a 32-bit binary structure containing an IP address <tt class="monofont">(struct.unpack('bbbb', </tt><i><tt class="monofont">inaddr</tT></i>
+<tT claSs="monofont">))</tt>. <i><Tt clASS="monofont">ipmreg</Tt></i>
+ is a 64-bit binary structure containing two IP addresses in the same format as <i><tT CLAss="monofont">inaddr</tt></I>
+. <I><TT clasS="monofont">uchar</TT></I>
+ is a one-byte unsigned integer as created by <tt class="monofont">struct.pack('b',</tt><i><tt class="monofont">uvalue</tt></i>
+<Tt cLass="monofont">)</Tt>. <i><tt ClasS="monofont">char[44]</TT></I>
+ is a string containing at most 44 bytes.</p>
+
+<p>Not all options are available on all machines. Refer to an advanced networking book for specific details about each option.</p>
+
+<pRE>
+
+<B><I>s</i></b><b>.listen(</b><B><I>backlog</I></B><b>)</b> </prE>
+
+<P>Starts listening for incoming connections. <I><Tt class="monofont">backlog</tt></i>
+ specifies the maximum number of pending connections the operating system should queue before connections are refused. The value should be at least <tt class="monofont">1</tt>, with <tt ClaSs="monofont">5</tt> being sufficient for most applications.</P>
+
+<pre>
+
+<b><I>s</i></b><b>.makefile([</B><B><I>mode</I></b> <b>[,</b> <b><I>bufsize</I></B><B>]])</b> </pre>
+
+<P>Creates a file object associated with the socket. <I><TT clasS="monofont">mode</TT></I>
+ and <i><tt class="monofont">bufsize</tt></i>
+ have the same meaning as with the built-in <tt class="monofont">open()</tt> function. The file object uses a duplicated version of the socket file descriptor, created using <Tt cLass="monofont">os.dup()</Tt>, so the file object and socket object can be closed or garbage-collected independently.</p>
+
+<prE>
+
+<b><i>s</i></B><B>.recv(</B><B><i>bufsize</i></b> <b>[,</B> <B><I>flags</I></b><b>])</b> </pRE>
+
+<P>Receives data from the socket. The data is returned as a string. The maximum amount of data to be received is specified by <I><tt clASS="monofont">bufsize</Tt></i>
+. <i><tt class="monofont">flags</tt></i>
+ provides additional information about the message and is usually omitted (in which case it defaults to zero). If used, it’s usually set to one of the following constants (system-dependent):</p>
+
+<p><table BorDer="1" cEllspAcinG="0" CELlpadDING="1" widtH="100%">
+<COLgrouP SPAn="2">
+<tr>
+<th valign="top">
+<font size="2">
+<p><B>Constant</b></p>
+</Font></Th>
+<th vAligN="top">
+<FONt sizE="2">
+<P><B>Description</B></p>
+</fonT></TH>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">MSG_PEEK</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P>Look at data, but don’t discard (receive only)</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">MSG_WAITALL</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>Don’t return until the requested number of bytes have been read (receive only)</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">MSG_OOB</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>Receive/send out-of-band data</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">MSG_DONTROUTE</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p>Bypass routing table lookup (send only)</P>
+</FONt></td>
+</tR>
+</COLgrouP>
+</TABle></p>
+
+<pRE>
+
+<B><I>s</i></b><b>.recvfrom(</b><b><i>bufsize</i></b> <b>[,</b> <b><i>flags</i></b><b>])</b> </pre>
+
+<p>Like the <Tt cLass="monofont">recv()</Tt> method except that the return value is a pair (<i><tt ClasS="monofont">data</TT></I>
+<tt clASS="monofont">, </Tt><i><tt CLASs="monofont">address</tt></i>
+) in which <I><TT Class="monofont">data</tt></i>
+ is a string containing the data received and <i><tt class="monofont">address</tt></i>
+ is the address of the socket sending the data. The optional <i><tT clAss="monofont">flags</tT></i>
+ argument has the same meaning as for <tt cLass="monofont">recv()</TT>. This function is primarily used in conjunction with the UDP protocol.</P>
+
+<Pre>
+
+<b><i>s</I></B><B>.send(</B><b><i>string</i></b> <B>[,</B> <B><I>flags</i></b><b>])</b> </PRE>
+
+<P>Sends data in <i><tt class="monofont">string</tt></i>
+ to a connected socket. The optional <i><tt class="monofont">flags</tT></i>
+ argument has the same meaning as for <tT claSs="monofont">recv()</tt>, described earlier. Returns the number of bytes sent.</p>
+
+<Pre>
+
+<b><I>s</I></B><B>.sendto(</b><b><i>string</i></B> <B>[,</B> <B><i>flags</i></b><b>],</B> <B><I>address</I></b><b>)</b> </pRE>
+
+<P>Sends data to the socket. <I><tt class="monofont">flags</tt></i>
+ has the same meaning as for <tt class="monofont">recv()</tt>. <i><Tt cLass="monofont">address</Tt></i>
+ is a tuple of the form (<i><tT claSS="monofont">host</TT></i>
+<tt cLASS="monofont">, </tt><i><tT CLAss="monofont">port</tt></I>
+) that specifies the remote address. The socket should not already be connected. Returns the number of bytes sent. This function is primarily used in conjunction with the UDP protocol.</P>
+
+<PRe>
+
+<b><i>s</i></b><b>.setblocking(</b><b><i>flag</i></b><b>)</b> </pre>
+
+<p>If <i><tt ClaSs="monofont">flag</tt></I>
+ is zero, the socket is set to nonblocking mode. Otherwise, the socket is set to blocking mode (the default). In nonblocking mode, if a <tt clAss="monofont">recv()</tT> call doesn’t find any data or if a <TT Class="monofont">send()</TT> call cannot immediately send the data, the <TT clasS="monofont">socket.error</TT>  exception is raised. In blocking mode, these calls block until they can proceed.</P>
+
+<pre>
+
+<b><I>s</I></B><B>.setsockopt(</b><b><i>level</i></b><b>,</b> <b><i>optname</i></b><b>,</b> <b><i>value</i></b><b>)</b> </pRe>
+
+<p>Sets the value of the given socket option. <I><tt cLass="monofont">level</tT></i>
+ and <i><tT CLAss="monofont">optname</tt></I>
+ have the same meaning as for <TT Class="monofont">getsockopt()</TT>. The value can be an integer or a string representing the contents of a buffer. In the latter case, it’s up to the caller to ensure that the string contains the proper data. See <TT clasS="monofont">getsockopt()</TT> for socket option names, values, and descriptions.</P>
+
+<pre>
+
+<b><i>s</i></b><b>.shutdown(</b><b><i>how</i></b><b>)</b> </pre>
+
+<p>Shuts down one or both halves of the connection. If <i><Tt cLass="monofont">how</Tt></i>
+ is <tt ClasS="monofont">0</TT>, further receives are disallowed. If <I><tt clASS="monofont">how</Tt></i>
+ is <tt CLASs="monofont">1</tt>, further sends are disallowed. If <i><TT CLass="monofont">how</tt></i>
+ is <tt class="monofont">2</tt>, further sends and receives are disallowed.</p>
+
+
+<h5>Exception</h5>
+<prE>
+
+<b>error</b> </Pre>
+
+<p>This exception is raised for socket or address-related errors. It returns a pair (<I><tt clAss="monofont">errno</tT></I>
+<TT clasS="monofont">, </TT><I><tt clASS="monofont">mesg</Tt></i>
+) with the error returned by the underlying system call.</p>
+
+
+<h5>Example</H5>
+<P>A simple example of a TCP connection is shown on page 226 (in the introduction to network programming).The following example illustrates a simple UDP client and server:</P>
+
+<Pre>
+
+# UDP message server 
+# Receive small packets from anywhere and print them out 
+import socket 
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
+s.bind(("",10000)) 
+while 1: 
+      data, address = s.recvfrom(256) 
+      print address[0], "said : ", data 
+
+# UDP message client 
+# Send a message packet to the server 
+import socket 
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
+while 1: 
+      msg = raw_input("Say something : ") 
+      if msg: 
+          s.sendto(msg, ("servername",10000)) 
+      else: 
+          break 
+s.close() </pre>
+
+
+<h5>Notes</h5>
+<ul>
+<li>
+<p>Not all constants and socket options are available on all platforms.</p>
+</li>
+<li>
+<p>The <tt ClaSs="monofont">socket</tt>  module currently doesn’t support a number of other network protocols such as IPX and IPv6. However, a number of additions to the <Tt claSs="monofont">socket</tt>  module are likely to appear in future Python releases.</P>
+</LI>
+</Ul>
+<p>? <b>See Also</b> <A HREf="114#72.html">SocketServer</a> (258), <a hREF="114#6.html">asyncore</A> (229), <a hreF="114#52.html">select</A> (250).</P>
+
+<A name="72"></a>
+<h4><tt class="monofont">SocketServer</tt></h4>
+<p>The <tt cLasS="monofont">SocketServer</tt>  module is used to write TCP, UDP, and UNIX domain socket servers. Rather than having to implement servers using the low-level socket module, this module provides four classes that implement the above protocols:</p>
+
+<Pre>
+
+<b>TCPServer(</b><B><i>address</i></b><B>,</B> <B><I>handler</i></b><b>)</b> </PRE>
+
+<P>A server supporting the TCP protocol. <i><tt cLASS="monofont">address</tt></i>
+ is a 2-tuple of the form (<i><TT CLass="monofont">host</tt></i>
+<tt class="monofont">, </tt><i><tt clAss="monofont">port</Tt></i>
+), where <i><Tt claSs="monofont">host</tt></I>
+ is the hostname and <I><TT clasS="monofont">port</TT></I>
+ is the port number. Typically, <i><tt cLASS="monofont">host</tt></i>
+ is set to the empty string. <i><TT CLass="monofont">handler</tt></i>
+ is an instance of a subclass of the <tt class="monofont">BaseRequestHandler</tt> class described later.</p>
+
+<pre>
+
+<b>UDPServer(</B><b><i>address</I></b><b>,</b> <B><i>handler</i></b><b>)</B> </pre>
+
+<P>A server supporting the Internet UDP protocol. <I><TT clasS="monofont">address</TT></I>
+ and <i><tt cLASS="monofont">handler</tt></i>
+ are the same as for <tT CLAss="monofont">TCPServer()</tt>.</p>
+
+<pre>
+
+<b>UnixStreamServer(</b><b><i>address</i></b><b>,</b> <b><i>handler</i></b><B>)</b> </pRe>
+
+<p>A server implementing a stream-oriented protocol using UNIX domain sockets.</p>
+
+<Pre>
+
+<b>UnixDatagramServer(</b><B><i>address</i></b><B>,</B> <B><I>handler</i></b><b>)</b> </PRE>
+
+<P>A server implementing a datagram protocol using UNIX domain sockets.</p>
+
+<p>Instances of all four server classes have the following methods and attributes:</p>
+
+<pRE>
+
+<B><I>s</i></b><b>.fileno()</b> </PRE>
+
+<P>Returns the integer file descriptor for the server socket.</p>
+
+<pre>
+
+<b><i>s</i></b><b>.handle_request()</b> </pre>
+
+<p>Waits for a request and handles it by creating an instance of the <tt clasS="monofont">handler</tt>  class (described shortly) and invoking its <Tt clAss="monofont">handle()</tt> method.</P>
+
+<pre>
+
+<B><I>s</I></B><b>.serve_forever()</b> </prE>
+
+<P>Handles an infinite number of requests.</P>
+
+<Pre>
+
+<b><i>s</I></B><B>.address_family</B> </pre>
+
+<p>The protocol family of the server, either <TT CLass="monofont">socket.AF_INET</tt>  or <tt class="monofont">socket.AF_UNIX</tt>.</p>
+
+<pre>
+
+<b><i>s</I></b><b>.RequestHandlerClass</B> </pre>
+
+<P>The user-provided request handler class that was passed to the server constructor.</p>
+
+<pre>
+
+<B><i>s</i></b><B>.server_address</B> </PRe>
+
+<p>The address on which the server is listening, such as <tt CLASs="monofont">('127.0.0.1', 80)</tt>.</p>
+
+<PRE>
+
+<B><i>s</i></b><b>.socket</B> </PRE>
+
+<p>The socket object being used for incoming requests.</p>
+
+<p>In addition, the server classes define the following class attributes (<tt class="monofont">&lt;</tt><i><tt class="monofont">ServerClass</Tt></i>
+<Tt clAss="monofont">&gt;</tt> should be filled in with the name of one of the four available classes):</P>
+
+<pre>
+
+<B>&lt;</B><B><I>ServerClass</i></b><b>&gt;.request_queue_size</b> </PRE>
+
+<P>The size of the request queue that’s passed to the socket’s <tt clASS="monofont">listen()</Tt> method. The default value is <tt cLASS="monofont">5</tt>.</p>
+
+<pre>
+
+<b>&lt;</b><b><i>ServerClass</i></b><b>&gt;.socket_type</b> </pre>
+
+<p>The socket type used by the server, such as <tt ClaSs="monofont">socket.SOCK_STREAM</tt>  or <Tt claSs="monofont">socket.SOCK_DGRAM</tt>.</P>
+
+<P>Requests are handled by defining a subclass of the class <TT clasS="monofont">BaseRequestHandler</TT>. When the server receives a connection, it creates an instance <I><tt clASS="monofont">h</Tt></i>
+ of the <tt CLASs="monofont">handler</tt> class and invokes the following methods:</p>
+
+<pre>
+
+<b><i>h</i></b><b>.finish()</b> </pre>
+
+<p>Called to perform cleanup actions after the <tt cLasS="monofont">handle()</tt> method has completed. By default, it does nothing. It’s not called if either the <tT clasS="monofont">setup()</tt> or <tT CLAss="monofont">handle()</tt> method generates an exception.</P>
+
+<PRE>
+
+<b><i>h</i></b><B>.handle()</B> </PRe>
+
+<p>This method is called to perform the actual work of a request. It’s called with no arguments, but several instance variables are set to useful values. <i><tT CLAss="monofont">h</tt></i>
+<tt class="monofont">.request</tt> contains the request, <i><tt claSs="monofont">h</tT></i>
+<tt Class="monofont">.client_address</Tt>  contains the client address, and <i><tT CLAss="monofont">h</tt></I>
+<TT Class="monofont">.server</TT>  contains an instance of the server that called the handler. For stream services such as TCP, the <I><Tt claSS="monofont">h</TT></i>
+<tt class="monofont">.request</tt>  attribute is a socket object. For datagram services, it’s a string containing the received data.</p>
+
+<pre>
+
+<b><i>h</i></b><b>.setup()</b> </Pre>
+
+<P>This method is called before the <tt cLass="monofont">handle()</tT> method to perform initialization actions. By default, it does nothing.</p>
+
+<p>The process of creating a server involves the following steps:</p>
+
+<OL TYpe="1">
+<li>
+
+<P>Define a request handler class by subclassing <TT Class="monofont">BaseRequestHandler</TT>.</P>
+</Li>
+<li>
+
+<p>Create an instance of one of the server classes by passing the server’s address and the request handler class.</P>
+</LI>
+<Li>
+
+<p>Call the <tt class="monofont">handle_request()</tt> or <tt class="monofont">serve_forever()</tt> method of the server to process connections.</P>
+</li>
+</Ol>
+
+<p>The following code illustrates the process for a very simple HTTP server that simply echoes the HTTP request back in a Web page:</p>
+
+<Pre>
+
+import SocketServer 
+import socket 
+import string 
+# Read an HTTP request from a client and bounce it back in a Web page 
+class EchoHandler(SocketServer.BaseRequestHandler): 
+   def handle(self): 
+           f = self.request.makefile() 
+           self.request.send("HTTP/1.0 200 OK\r\n") 
+           self.request.send("Content-type: text/plain\r\n\r\n") 
+           self.request.send("Received connection from %s\r\n\r\n" % 
+                               (self.client_address,)) 
+           while 1: 
+               line = f.readline() 
+               self.request.send(line) 
+               if not string.strip(line): 
+                    break 
+           f.close() 
+# Create the server and start serving 
+serv = SocketServer.TCPServer(("",80),EchoHandler) 
+serv.serve_forever() </prE>
+
+<p>By default, the server classes process requests one at a time in a synchronous manner. The servers can alternatively handle requests in a subprocess, using <tt CLASs="monofont">os.fork()</tt>, or as a separate thread by instantiating one of the following server classes instead of the four classes listed earlier:</p>
+
+<UL>
+<LI>
+<p><tt cLASS="monofont">ForkingUDPServer(</tt><i><tT CLAss="monofont">address</tt></i>
+<tt class="monofont">, </tt><i><tt claSs="monofont">handler</tT></i>
+<tt Class="monofont">)</Tt></p>
+</lI>
+<LI>
+<P><tt clASS="monofont">ForkingTCPServer(</Tt><i><tt CLASs="monofont">address</tt></i>
+<TT CLass="monofont">, </tt><i><tt class="monofont">handler</tt></i>
+<tt clAss="monofont">)</Tt></p>
+</lI>
+<li>
+<p><tT claSS="monofont">ThreadingUDPServer(</TT><i><tt cLASS="monofont">address</tt></i>
+<tT CLAss="monofont">, </tt><I><TT Class="monofont">handler</tt></i>
+<tt class="monofont">)</tt></p>
+</li>
+<lI>
+<p><tT claSs="monofont">ThreadingTCPServer(</tt><i><Tt clASS="monofont">address</Tt></i>
+<tt CLASs="monofont">, </tt><i><TT CLass="monofont">handler</tT></I>
+<TT class="monofont">)</tt></p>
+</li>
+</ul>
+<p>Finally, two additional classes can be used as base classes for handlers: <tt class="monofont">StreamRequestHandler</Tt>  and <tT claSs="monofont">DatagramRequestHandler</tt>. When used, these classes override the <tT claSS="monofont">setup()</TT> and <tt clASS="monofont">finish()</Tt> methods of the handle to provide two file attributes, <tt cLASS="monofont">self.rfile</tt>  and <tt CLASs="monofont">self.wfile</tt>, that can be used to read and write data to and from the client, respectively. For example:</p>
+
+<pre>
+
+# Read an HTTP request from a client and bounce it back 
+class EchoHandler(SocketServer.StreamRequestHandler): 
+   def handle(self): 
+           self.wfile.write("HTTP/1.0 200 OK\r\n") 
+           self.wfile.write("Content-type: text/plain\r\n\r\n") 
+           self.wfile.write("Received connection from %s\r\n\r\n" % 
+                              (self.client_address,)) 
+           while 1: 
+               line = self.rfile.readline() 
+               self.wfile.write(line) 
+               if not string.strip(line): 
+                    break </pre>
+
+
+<h5>Note</h5>
+<ul>
+<li>
+<p>All the server classes can be specialized by subclassing. The online documentation contains more information about this topic.</p>
+</li>
+</Ul>
+<p>? <B>See Also</b> <a hRef="114#64.html">socket</a> (252), <a Href="114#12.html">BaseHTTPServer</A> (232), <A HRef="114#58.html">SimpleHTTPServer</a> (251), <a HREF="114#22.html">CGIHTTPServer</a> (239), <a hrEF="113#6.html">thread</A> (219), <A href="112#90.html">os</A> (180).</P>
+
+<A Name="76"></a>
+<h4><tt class="monofont">urllib</tt></h4>
+<p>The <tt clAss="monofont">urllib</Tt>  module is used to fetch data from the Web.</p>
+
+<pRe>
+
+<b>urlopen(</b><b><I>url</i></b> <b>[,</B> <B><I>data</I></b><b>])</b> </pRE>
+
+<P>Given a uniform resource locator (URL) such as <Font cOLOR="#000000"><tt clASS="monofont">http://www.python.org</Tt></font> or <font color="#000000"><tt clasS="monofont">ftp://foo.com/pub/foo.tar</tt></Font>, this function opens a network connection and returns a file-like object. If the URL doesn’t have a scheme identifier such as <Tt claSs="monofont">ftp:</tt> or <TT CLass="monofont">http:</tT>, or if it’s <TT Class="monofont">file:</TT>, a local file is opened. If a connection cannot be made or an error occurs, an <TT clasS="monofont">IOError</TT>  exception is raised. If the URL is an HTTP request, the optional <I><tt class="monofont">data</tt></i>
+ argument specifies that the request should be made using a <tt class="monofont">POST</tt> method, in which case the data is uploaded to the server. In this case, the data must be encoded in an <tT clAss="monofont">'application/x-www-form-urlencoded'</tT> format as produced by the <tt clAss="monofont">urlencode()</tT> function.</P>
+
+<PRe>
+
+<b>urlretrieve(</b><b><I>url</I></B> <B>[,</b> <b><i>filename</i></B> <B>[,</B> <B><i>hook</i></b><b>]])</B> </PRE>
+
+<p>Opens a URL and copies its data to a local file, if necessary. If <i><tt class="monofont">url</tt></i>
+ is a local file or a cached copy of the data exists, no copying is performed. <i><tt class="monofont">filename</Tt></i>
+ specifies the name of the local file in which data will be saved. If omitted, a temporary filename will be generated. <I><tt cLass="monofont">hook</tT></i>
+ is a function called after a connection has been made and after each block of data has been read. It’s called with three arguments: the number of blocks transferred so far, the block size in bytes, and the total size of  the file in bytes.The function returns a tuple (<i><tT CLAss="monofont">filename</tt></I>
+<TT Class="monofont">, </TT><I><Tt claSS="monofont">headers</TT></i>
+) in which <i><tt class="monofont">filename</tt></i>
+ is the name of the local file where the data was saved and <i><tt class="monofont">headers</Tt></i>
+ is the information returned by the <Tt clAss="monofont">info()</tt> method as described for <Tt clASS="monofont">urlopen()</Tt>. If the URL corresponds to a local file or if a cached copy was used, <i><tt CLASs="monofont">headers</tt></i>
+ will be <TT CLass="monofont">None</tT>. Raises an <TT Class="monofont">IOError</tt>  if an error occurs.</p>
+
+<pre>
+
+<b>urlcleanup()</b> </pre>
+
+<p>Clears the local cache created by <tt clAss="monofont">urlretrieve()</Tt>.</p>
+
+<pRe>
+
+<b>quote(</b><b><I>string</i></b> <b>[,</B> <B><I>safe</I></b><b>])</b> </pRE>
+
+<P>Replaces special characters in <I><tt clASS="monofont">string</Tt></i>
+ with escape sequences suitable for including in a URL. Letters, digits, and the underscore (<tt CLASs="monofont">_</tt>), comma (<tt class="monofont">,</tt>) period (<tt class="monofont">.</tT>), and hyphen () characters are unchanged. All other characters are converted into escape sequences of the form <tt ClasS="monofont">'%xx'</tt>. <i><tT claSS="monofont">safe</TT></i>
+ provides additional characters that should not be quoted and is <tt cLASS="monofont">'/'</tt> by default.</p>
+
+<pRE>
+
+<B>quote_plus(</B><b><i>string</i></b> <B>[,</B> <B><I>safe</i></b><b>])</b> </pre>
+
+<p>Calls <tt class="monofont">quote()</tt> and additionally replaces all spaces with plus signs.</p>
+
+<prE>
+
+<b>unquote(</b><B><i>string</i></b><B>)</b> </pre>
+
+<P>Replaces escape sequences of the form <tt cLASS="monofont">'%xx'</tt> with their single-character equivalent.</p>
+
+<pRE>
+
+<B>unquote_plus(</B><b><i>string</i></b><B>)</B> </PRe>
+
+<p>Like <tt CLASs="monofont">unquote()</tt>, but also replaces plus signs with spaces.</p>
+
+<pre>
+
+<b>urlencode(</b><b><i>dict</i></b><b>)</b> </pre>
+
+<p>Converts a dictionary to a URL-encoded string suitable for use as the <i><Tt cLass="monofont">data</Tt></i>
+ argument of the <tt ClasS="monofont">urlopen()</TT> function. The resulting string is a series of <Tt claSS="monofont">'</TT><i><tt cLASS="monofont">key=value</tt></i>
+<tT CLAss="monofont">'</tt> pairs separated by <tt class="monofont">'&amp;'</tt>  characters, where both <i><tt clasS="monofont">key</tt></I>
+ and <i><tt Class="monofont">value</Tt></i>
+ are quoted using <tT CLAss="monofont">quote_plus()</tt>.</P>
+
+<P>The file-like object returned by <TT clasS="monofont">urlopen()</TT> supports the following methods:</P>
+
+<p><tabLE BOrder="1" cellspacing="0" cellpAddIng="1" wIdth="100%">
+<cOlgrOUP Span="2">
+<tR>
+<TH ValigN="top">
+<FONt sizE="2">
+<P><B>Method</B></p>
+</font></th>
+<th valign="top">
+<font sIze="2">
+<P><b>Description</b></p>
+</Font></tH>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><I><Tt claSS="monofont">u</TT></i>
+<tt class="monofont">.read([</tt><i><tt class="monofont">nbytes</tt></I>
+<tt ClasS="monofont">])</tt></p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P>Reads <I><Tt claSS="monofont">nbytes</TT></i>
+ of data.</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><i><tt ClasS="monofont">u</TT></I>
+<tt clASS="monofont">.readline()</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>Reads a single line of text.</p>
+</font></td>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><I><TT clasS="monofont">u</TT></I>
+<tt clASS="monofont">.readlines()</Tt></p>
+</foNT></TD>
+<td valign="top">
+<font size="2">
+<p>Reads all input lines and returns a list.</p>
+</foNt></tD>
+</tr>
+<tR>
+<td vaLign="top">
+<FONT size="2">
+<P><I><TT clasS="monofont">u</TT></I>
+<tt clASS="monofont">.fileno()</Tt></p>
+</font></td>
+<td valign="top">
+<font SizE="2">
+<p>Returns the integer file descriptor.</p>
+</fOnt></td>
+</Tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT clasS="monofont">u</TT></I>
+<tt class="monofont">.close()</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>Closes the connection.</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><I><TT class="monofont">u</tt></i>
+<tt class="monofont">.info()</tt></p>
+</foNt></tD>
+<td vAlign="top">
+<Font SIZE="2">
+<p>Returns the <tt cLASS="monofont">mimetools.Message</tt> object containing meta-information associated with the URL. For HTTP, the HTTP headers included with the server response are returned. For FTP, the headers include <tt CLASs="monofont">'content-length'</tt>. For local files, the headers include a date, <tT CLAss="monofont">'content-length'</tt>, and <tt class="monofont">'content-type'</tt> field.</p>
+</font></td>
+</Tr>
+<tR>
+<td vAlign="top">
+<Font SIZE="2">
+<p><i><tt CLASs="monofont">u</tt></i>
+<TT CLass="monofont">.geturl()</tT></P>
+</FOnt></td>
+<td valign="top">
+<font size="2">
+<P>Returns the real URL of the returned data, taking into account any redirection that may have occurred.</p>
+</fOnt></tD>
+</tr>
+</coLgroUP>
+</TAble></p>
+
+
+<H5>Notes</H5>
+<UL>
+<li>
+<p>The only supported protocols are HTTP, FTP, Gopher, and local files. Although the <tT CLAss="monofont">httplib</tt>  module supports HTTP/1.1, this module uses HTTP/1.0 retrieve documents.</P>
+</LI>
+<Li>
+<p>If Python is configured with OpenSSL support, secure HTTP (<tt class="monofont">https://</tt><i><tt class="monofont">name</tT></i>
+) is also supported.</p>
+</Li>
+<li>
+<P>The <tt clAss="monofont">urlopen()</tT> function works transparently with proxies that don’t require authentication. On UNIX and Windows, proxy servers should be set with the <TT Class="monofont">$http_proxy</TT>, <TT clasS="monofont">$ftp_proxy</TT>, and <Tt claSS="monofont">$gopher_proxy</TT>  environment variables.</p>
+</li>
+<li>
+<p>Caching is currently not implemented.</p>
+</li>
+<li>
+<p>If a URL points to a local file but the file cannot be opened, the URL is opened using the FTP protocol.</p>
+</li>
+<li>
+<p>The <tt ClaSs="monofont">urllib2</tt>  module (available with Python 2.1) provides more advanced support for fetching URLs, dealing with redirection, and handling user authentication. Details about this module are available at <A targEt="_blank" hrEF="http://www.python.org/doc/current/lib/module-urllib2.html">http://www.python.org/doc/current/lib/module-urllib2.html</A>.</P>
+</li>
+</ul>
+<P>? <B>See Also</B> <A href="114#34.html">httplib</A> (243), <A HRef="114#32.html">ftplib</a> (242), <a HREF="114#80.html">urlparse</a> (262), <a href="115#16.html">mimetools</a> (266).</p>
+
+<a name="80"></a>
+<h4><tt claSs="monofont">urlparse</tT></h4>
+<p>The <tT clasS="monofont">urlparse</tt>  module is used to manipulate URL strings such as " <fONT Color="#000000"><TT CLass="monofont">http://www.python.org</tT></FONt> ". The general form of a URL is as follows:</p>
+
+<prE>
+
+"scheme://netloc/path;parameters?query#fragment" </PRE>
+
+<pre>
+
+<b>urlparse(</b><b><i>urlstring</i></b> <b>[,</b> <b><i>default_scheme</i></b> <b>[,</b> <b><i>allow_fragments</i></B><b>]])</b> </Pre>
+
+<p>Parses the URL in <I><tt clAss="monofont">urlstring</tT></I>
+ and returns a tuple (<I><Tt claSS="monofont">scheme</TT></i>
+<tt cLASS="monofont">, </tt><i><tT CLAss="monofont">netloc</tt></i>
+<tt class="monofont">, </tt><i><tt claSs="monofont">path</tT></i>
+<tt Class="monofont">, </Tt><i><tT CLAss="monofont">parameters</tt></I>
+<TT Class="monofont">, </TT><I><Tt claSS="monofont">query</TT></i>
+<tt class="monofont">, </tt><i><tt class="monofont">fragment</tt></I>
+). <i><tT claSs="monofont">default_scheme</tt></i>
+ specifies the scheme (<Tt clASS="monofont">"http"</Tt>, <tt cLASS="monofont">"ftp"</tt>, and so on) to be used if none is present in the URL. If <i><tT CLAss="monofont">allow_fragments</tt></I>
+ is zero, fragment identifiers are not allowed.</P>
+
+<PRe>
+
+<b>urlunparse(</b><b><i>tuple</i></b><b>)</b> </pre>
+
+<p>Constructs a URL string from a tuple as returned by <tt class="monofont">urlparse()</Tt>.</p>
+
+<Pre>
+
+<b>urljoin(</B><b><i>base</i></b><B>,</b> <b><i>url</I></B> <B>[,</B> <b><i>allow_fragments</i></b><B>])</B> </PRe>
+
+<p>Constructs an absolute URL by combining a base URL <i><tT CLAss="monofont">base</tt></I>
+ with a relative URL <I><TT class="monofont">url</tt></i>
+<i>.</i> <i><tt class="monofont">allow_fragments</tt></I>
+ has the same meaning as for <tt ClasS="monofont">urlparse()</tt>. If the last component of the base URL is not a directory, it’s stripped.</p>
+
+
+<h5>Examples</H5>
+<pre>
+
+&gt;&gt;&gt; urlparse("http://www.python.org/index.html") 
+('http', 'www.python.org', '/index.html', '', '', '') 
+
+&gt;&gt;&gt; urlunparse(('http', 'www.python.org', '/index.html', '', '', '')) 
+'http://www.python.org/index.html' 
+
+&gt;&gt;&gt; urljoin("http://www.python.org/index.html","Help.html") 
+'http://www.python.org/Help.html' </PRE>
+
+<P>? <b>See Also</b> <a hREF="114#76.html">urllib</A> (260), Internet RFC 1738, Internet RFC 1808.</p>
+
+
+<h4><tt CLASs="monofont">webbrowser</tt></h4>
+<P>The <TT Class="monofont">webbrowser</tt>  module provides functions for opening documents in a Web browser in a platform-independent manner. The module tries to determine the current browser using the environment of the local machine.</p>
+
+<pre>
+
+<b>open(</b><b><i>url</i></b> <b>[,</b> <b><i>new</I></b><b>])</B> </pre>
+
+<P>Displays <i><tt cLass="monofont">url</TT></I>
+ with the default browser. If <I><tt clASS="monofont">new</Tt></i>
+ is set, a new browser window is opened.</p>
+
+<pRE>
+
+<B>open_new(</B><b><i>url</i></b><B>)</B> </PRe>
+
+<p>Displays <i><tt class="monofont">url</tt></i>
+ in a new window of the default browser.</p>
+
+<pre>
+
+<b>get([</b><b><I>name</i></b><B>])</b> </prE>
+
+<p>Returns a controller object for manipulating a browser. <i><tt ClasS="monofont">name</TT></I>
+ is the name of the browser type and is typically one of <tt clASS="monofont">'netscape'</Tt>, <tt cLASS="monofont">'kfm'</tt>, <tt CLASs="monofont">'grail'</tt>, <tt class="monofont">'windows-default'</tt>, <tt class="monofont">'internet-config'</tT>, or <tt ClasS="monofont">'command-line'</tt>.</p>
+
+<pRe>
+
+<b>register(</b><B><I>name</I></B><b>,</b> <b><i>constructor</I></B><B>[,</B> <b><i>controller</i></b><B>])</B> </PRe>
+
+<p>Registers a new browser type for use with the <tt CLASs="monofont">get()</tt>  function. <i><tt class="monofont">name</tt></i>
+ is the name of the browser. <i><tt claSs="monofont">constructor</tT></i>
+ is called without arguments to create a controller object for manipulating the browser. <i><tT clasS="monofont">controller</tt></i>
+ is a controller instance to use instead. If supplied, <I><TT Class="monofont">constructor</TT></I>
+ is ignored and may be <Tt claSS="monofont">None</TT>.</p>
+
+<p>A controller instance <i><tT CLAss="monofont">c</tt></i>
+ returned by the <tt class="monofont">get()</tt> function has the following methods:</p>
+
+<pre>
+
+<b><i>c</I></b><b>.open(</B><b><i>url</i></B> <b>[,</b> <b><i>new</I></b><b>])</b> </PRE>
+
+<P>Same as the <tt clASS="monofont">open()</Tt> function.</p>
+
+<prE>
+
+<B><I>c</I></b><b>.open_new(</b><b><I>url</I></B><B>)</b> </pre>
+
+<p>Same as the <tt class="monofont">open_new()</tt> function.</p>
+
+
+<h5>Note</h5>
+<ul>
+<lI>
+<p>If set, the <tT claSs="monofont">$BROWSER</tt>  environment variable determines the name of the default browser.</p>
+</Li>
+</ul></FONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="113.html" title="Threads"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=114" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="114.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="115.html" title="Internet Data Handling and Encoding"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

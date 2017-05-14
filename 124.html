@@ -1,0 +1,115 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Compilation of Extensions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="121.html" class="navtitle">B. Extending and Embedding Python</a> &gt; <span class="nonavtitle">Compilation of Extensions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="123.html" title="Enabling Optional Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=124" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="124.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="125.html" title="Converting Data from Python to C"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A08%3A55+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105094192217201128182154</font><a href="read4.asp?bookname=0735710910&snode=124&now=5%2F28%2F2002+9%3A08%3A55+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Compilation of Extensions</h3>
+<p>Extension modules are usually compiled into shared libraries or DLLs that can be dynamically loaded by the interpreter. The low-level details of this process vary by machine, but the <tT CLAss="monofont">distutils</tt>  module in the Python library can be used to simplify the process. To create an extension module using <TT CLass="monofont">distutils</tT>, follow these steps:</P>
+
+<OL type="1">
+<li>
+
+<p>Create a file called <tt class="monofont">setup.py</tt>  that starts with the following code:</p>
+
+<pre>
+
+# setup.py 
+from distutils.core import setup, Extension </Pre>
+</Li>
+<li>
+
+<P>Add some source information about your extension as follows:</p>
+
+<pre>
+
+setup(name="spam", version="1.0", 
+      ext_modules=[Extension("spam", ["spam.c", "spamwrapper.c"])]) </Pre>
+</lI>
+<LI>
+
+<P>To build your extension, type the following:</p>
+
+<pre>
+
+python setup.py build </PRE>
+</Li>
+</ol>
+
+<p>At this point, a shared library such as <TT CLass="monofont">spammodule.so</tT> (or some variant of this name such as <TT Class="monofont">spammodule.sl</tt>  or <tt class="monofont">spammodule.dll</tt>) will be created in a special “build” directory. If you want to install the extension, you can type <tt claSs="monofont">python setup.py install</tT>. This command will copy the shared library to the <tt cLass="monofont">site-packages</tT>  directory (for example, <tt cLASS="monofont">/usr/local/lib/python2.1/site-packages</tt>).</p>
+
+<p>If you need to supply additional build information such as include directories, libraries, and preprocessor macros, they can also be included in the <TT CLass="monofont">setup.py</tT>  file as follows:</P>
+
+<PRe>
+
+setup(name="spam", version="1.0", 
+   ext_modules=[
+     Extension(
+        "spam", 
+        ["spam.c", "spamwrapper.c"], 
+        include_dirs = ["/usr/include/X11","/opt/include"], 
+        define_macros = [('DEBUG',1'), 
+                         ('NEED_CPLUSPLUS',0)], 
+        undef_macros = ['HAVE_FOO','HAVE_NOT'], 
+        library_dirs= ["/usr/lib/X11", "/opt/lib"], 
+        libraries = ["X11", "Xt", "blah"] 
+      ) 
+   ] 
+) </pre>
+
+<P>At this point, it’s worth noting that the <TT Class="monofont">distutils</tt>  module can more generally be used to create Python packages suitable for distribution and installation by other users. For instance, it allows packages to be distributed as a mix of scripts and compiled extensions. It also knows how to create RPM spec files and self-extracting  ZIP files on Windows. Further details about the <tt class="monofont">distutils</tt>  module are available at <a targEt="_blank" hRef="http://www.python.org/doc/current/dist/dist.html">http://www.python.org/doc/current/dist/dist.html</a>.</P>
+
+<p>In some situations, you may want to build an extension module manually. This almost always requires advanced knowledge of various compiler and linker options. The following is an example on Linux:</p>
+
+<prE>
+
+linux % gcc -c -fpic -I/usr/local/include/python2.1 spam.c spamwrapper.c 
+linux % gcc -shared spam.o spamwrapper.o -o spammodule.so </pre>
+
+<P>When building a module, it’s important to note that the name of the shared library must match the name of the module used in the wrapper code. For example, if the module is named <TT Class="monofont">spam</TT>, the initialization function must be named <TT clasS="monofont">initspam</TT>  and the shared library must be called <Tt claSS="monofont">spammodule.so</TT> (possibly with a different file extension, depending on your machine).</p>
+
+<p>Once compiled, an extension module is used like any other module, by simply using the <tt class="monofont">import</tt>  statement:</p>
+
+<pre>
+
+% python 
+Python 2.0 (#1, Oct 27 2000, 14:34:45) 
+[GCC 2.95.2 19991024 (release)] on sunos5 
+Type "copyright", "credits" or "license" for more information.. 
+&gt;&gt;&gt; import spam 
+&gt;&gt;&gt; spam.gcd(63,56) 
+7 
+&gt;&gt;&gt; spam.gcd(71,89) 
+1 
+&gt;&gt;&gt; spam.print_data(name="Dave",phone="555-1212") 
+Name    : Dave 
+Email   : None 
+Phone   : 555-1212 
+&gt;&gt;&gt; </pre>
+
+<p>When searching for an extension module, Python uses the same search path as it uses for <tT clAss="monofont">.py</tT>  files. Thus, to properly find an extension module, it should be located in the current working directory or in one of the directories in <tt clAss="monofont">sys.path</tT>.</P>
+</FOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="123.html" title="Enabling Optional Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=124" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="124.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="125.html" title="Converting Data from Python to C"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,225 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Type Conversion</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="42.html" class="navtitle">4. Operators and Expressions</a> &gt; <span class="nonavtitle">Type Conversion</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="48.html" title="The Attribute ( . ) Operator"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=49" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="49.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="50.html" title="Unicode Strings"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A56%3A35+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137104030195078083247235198</font><a href="read2.asp?bookname=0735710910&snode=49&now=5%2F28%2F2002+8%3A56%3A35+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Type Conversion</h3>
+<p>Sometimes it’s necessary to perform conversions between the built-in types. The following built-in functions perform explicit type conversions:</p>
+
+<P><TABle boRDER="1" cellSPACing="0" cellpadding="1" width="100%">
+<cOlgRoup Span="2">
+<tR>
+<th vALIGn="top">
+<fonT SIZe="2">
+<p><b>Function</b></P>
+</FONt></th>
+<tH VALign="top">
+<font size="2">
+<p><b>Description</b></p>
+</font></tH>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">int(</tt><i><TT CLass="monofont">x</tT></I>
+<TT class="monofont"> [,</tt><i><tt class="monofont">base</tt></i>
+<tt ClaSs="monofont">])</tt></P>
+</font></Td>
+<td VALIgn="top">
+<foNT SIze="2">
+<p>Converts <i><TT CLass="monofont">x</tT></I>
+ to an integer</P>
+</Font></td>
+</tr>
+<tr>
+<td valign="top">
+<fonT siZe="2">
+<p><tT clasS="monofont">long(</tt><i><TT CLass="monofont">x</tT></I>
+<TT clasS="monofont"> [,</TT><I><tt clASS="monofont">base</Tt></i>
+<tt class="monofont">])</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>Converts <i><TT CLass="monofont">x</tT></I>
+ to a long integer</P>
+</Font></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<font size="2">
+<p><tt class="monofont">float(</tt><i><Tt cLass="monofont">x</Tt></i>
+<tt ClasS="monofont">)</TT></P>
+</font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P>Converts <I><tt class="monofont">x</tt></i>
+ to a floating-point number</p>
+</font></td>
+</tr>
+<tR>
+<td ValiGn="top">
+<fonT sizE="2">
+<P><TT clasS="monofont">complex(</TT><I><tt clASS="monofont">real</Tt></i>
+<tt CLASs="monofont"> [,</tt><i><tt class="monofont">imag</tt></i>
+<tt clasS="monofont">])</tt></P>
+</fonT></td>
+<td ValiGN="top">
+<FOnt siZE="2">
+<P>Creates a complex number</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">str(</tt><I><tt ClasS="monofont">x</tt></i>
+<tT claSS="monofont">)</TT></p>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Converts object <i><tt class="monofont">x</tt></i>
+ to a string representation</p>
+</font></td>
+</tr>
+<Tr>
+<tD valIgn="top">
+<foNt siZE="2">
+<P><Tt claSS="monofont">repr(</TT><i><tt cLASS="monofont">x</tt></i>
+<tT CLAss="monofont">)</tt></p>
+</font></td>
+<td valign="top">
+<fOnt Size="2">
+<P>Converts object <i><tt cLass="monofont">x</TT></I>
+ to an expression string</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">eval(</tt><i><tt class="monofont">str</Tt></i>
+<Tt clAss="monofont">)</tt></P>
+</fonT></TD>
+<Td valIGN="top">
+<Font sIZE="2">
+<P>Evaluates a string and returns an object</p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">tuple(</Tt><i><tt ClasS="monofont">s</TT></I>
+<tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font size="2">
+<p>Converts sequence <i><tt class="monofont">s</tt></i>
+ to a tuple</P>
+</foNt></td>
+</Tr>
+<tr>
+<tD valIGN="top">
+<Font sIZE="2">
+<P><tt clASS="monofont">list(</Tt><i><tt CLASs="monofont">s</tt></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+<Td vAligN="top">
+<font Size="2">
+<P>Converts sequence <I><TT clasS="monofont">s</TT></I>
+ to a list</p>
+</fonT></TD>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">chr(</tT><i><tT claSs="monofont">x</tt></i>
+<Tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+<td vaLIGN="top">
+<font SIZE="2">
+<p>Converts an integer to a character</p>
+</font></td>
+</tr>
+<tr>
+<td valign="top">
+<FonT sizE="2">
+<p><tt cLass="monofont">unichr(</TT><I><Tt claSS="monofont">x</TT></i>
+<tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td valign="top">
+<font size="2">
+<p>Convert an integer to a Unicode character</p>
+</fOnt></Td>
+</tr>
+<Tr>
+<td vAligN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">ord(</TT><I><tt clASS="monofont">x</Tt></i>
+<tt class="monofont">)</tt></p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p>Converts a single character to its integer value</p>
+</FONT></td>
+</tr>
+<TR>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt class="monofont">hex(</tt><i><tt class="monofont">x</tt></i>
+<tT clAss="monofont">)</tT></p>
+</fonT></td>
+<tD VALign="top">
+<fONT Size="2">
+<p>Converts an integer to a hexadecimal string</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valign="top">
+<font size="2">
+<p><tt clAss="monofont">oct(</Tt><i><tT clasS="monofont">x</tt></i>
+<TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<TD VAlign="top">
+<FONT size="2">
+<p>Converts an integer to an octal string</p>
+</font></td>
+</tr>
+</colgroUp>
+</tAble></P>
+
+<p>You also can write the <tt cLass="monofont">repr(</TT><I><Tt claSS="monofont">x</TT></i>
+<tt cLASS="monofont">)</tt> function using backquotes as <tt CLASs="monofont">`</tt><i><tt class="monofont">x</tt></i>
+<tt clasS="monofont">`</tt>. Note that the <Tt clAss="monofont">str()</tt> and <Tt clASS="monofont">repr()</Tt> functions may return different results. <tt cLASS="monofont">repr()</tt> typically creates an expression string that can be evaluated with <tt CLASs="monofont">eval()</tt> to re-create the object. On the other hand, <tT CLAss="monofont">str()</tt> produces a concise or nicely formatted representation of the object (and is used by the <tt class="monofont">print</tt>  statement). The <tt class="monofont">ord()</Tt> function returns the integer ordinal value for a standard or Unicode character. The <tT claSs="monofont">chr()</tt> and <tT claSS="monofont">unichr()</TT> functions convert integers back into standard or Unicode characters, respectively.</p>
+
+<p>To convert strings back into numbers and other objects, use the <tt CLASs="monofont">int()</tt>, <tT CLAss="monofont">long()</tt>, and <TT CLass="monofont">float()</tt> functions. The <tt class="monofont">eval()</tt> function can also convert a string containing a valid expression to an object. For example:</p>
+
+<pre>
+
+a = int("34")             # a = 34 
+b = long("0xfe76214", 16) # b = 266822164L (0xfe76214L) 
+b = float("3.1415926")    # b = 3.1415926 
+c = eval("3, 5, 6")       # c = (3,5,6) </prE>
+</foNt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="48.html" title="The Attribute ( . ) Operator"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=49" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="49.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="50.html" title="Unicode Strings"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

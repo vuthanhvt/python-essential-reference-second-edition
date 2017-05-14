@@ -1,0 +1,559 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Threads</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="105.html" class="navtitle">A. The Python Library</a> &gt; <span class="nonavtitle">Threads</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="112.html" title="Operating System Services"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=113" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="113.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="114.html" title="Network Programming"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A06%3A34+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105080005019029193022105</font><a href="read7.asp?bookname=0735710910&snode=113&now=5%2F28%2F2002+9%3A06%3A34+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Threads</h3>
+<p>This section describes modules that can be used to develop multithreaded applications. First, a little terminology and background.</p>
+
+
+<H4>Thread Basics</H4>
+<P>A running program is called a <I>process.</i> Associated with each process is a system state including memory, lists of open files, a program counter that keeps track of the instruction being executed, and a call stack used to hold the local variables of functions. Normally, a process executes statements in a single sequence of control flow. This sequence is sometimes called a <i>thread</i> (or <i>main thread</I>).</P>
+
+<P>When a program creates new processes by using the <Tt claSS="monofont">os.system()</TT>, <tt class="monofont">os.fork()</tt>, <tt class="monofont">os.spawnv()</tt>, and similar system calls, these processes run as independent programs, each with its own set of system resources and main thread of execution. However, it’s also possible for a program to create additional threads of execution that exist inside the calling process and share data and system resources with the original thread of execution. Threads are particularly useful when an application wants to perform tasks concurrently without spawning child processes, or when subtasks need to read and write shared data.</p>
+
+<p>A multithreaded program executes by dividing its processing time between all active threads. For example, a program with 10 active threads of execution would allocate approximately 1/10 of its CPU time to each thread and cycle between threads in rapid succession.</P>
+
+<p>Since threads share the same data, an extreme degree of caution is required whenever shared data structures are updated by one of the threads. In particular,  attempts to update a data structure by multiple threads at approximately the same time can lead to a corrupted and inconsistent program state (a problem formally known as a <i>race condition</I>). To fix these problems, threaded programs need to lock critical sections of code by using mutual-exclusion locks and other similar synchronization primitives.</p>
+
+<p>More information regarding the theory and implementation of threads and locks can be found in most operating system textbooks.</p>
+
+
+<H4>Python Threads</h4>
+<p>Python supports threads on Windows, Solaris, and systems that support the POSIX threads library (<tt ClasS="monofont">pthreads</TT>). However, threads are often disabled by default, so it may be necessary to rebuild the interpreter with thread support before using any of the modules in this section. (Beginning with Python 2.1, thread support is enabled by default.)</P>
+
+<p>The scheduling of threads and thread switching is tightly controlled by a global interpreter lock that allows only a single thread of execution to be running in the interpreter at once. Furthermore, thread switching can only occur between the execution of individual bytecodes in the interpreter. The frequency with which the interpreter checks for thread switching is set by the <tt cLASS="monofont">sys.setcheckinterval()</tt> function. By default, the interpreter checks for thread switching after every 10 bytecode instructions.</p>
+
+<p>When working with extension modules, the interpreter may invoke functions written in C. Unless specifically written to interact with a threaded Python interpreter, these functions block the execution of all other threads until they complete execution. Thus, a long-running calculation in an extension module may limit the effectiveness of using threads. However, most of the I/O functions in the standard library have been written to work in a threaded environment.</P>
+
+<P>Finally, programmers need to be aware that threads can interact strangely with signals and interrupts. For instance, the <TT clasS="monofont">KeyboardInterrupt</TT>  exception can be received by an arbitrary thread, while signals used in conjunction with the <Tt class="monofont">signal</tt>  module are only received by the main thread.</p>
+
+<a name="6"></a>
+<h4><tt clAss="monofont">thread</Tt></h4>
+<p>The <Tt claSs="monofont">thread</tt>  module provides low-level functions for working with threads. This module is available only on UNIX and Windows.</P>
+
+<PRE>
+
+<b>allocate_lock()</b> </prE>
+
+<P>Creates a new lock object of type <TT clasS="monofont">LockType</TT>. Locks are initially unlocked.</P>
+
+<pre>
+
+<b>exit()</B> </PRE>
+
+<p>Raises the <tt class="monofont">SystemExit</tt>  exception. Forces a thread to exit.</p>
+
+<pre>
+
+<b>get_ident()</b> </pre>
+
+<p>Returns the integer “thread identifier” of the current thread.</P>
+
+<prE>
+
+<b>start_new_thread(</b><b><I>func</i></b><b>,</b> <B><i>args</i></b> <B>[,</B> <B><I>kwargs</i></b><b>])</b> </PRE>
+
+<P>Executes the function <i><tt cLASS="monofont">func</tt></i>
+ in a new thread. <i><TT CLass="monofont">func</tt></i>
+ is called using <tt class="monofont">apply(</tt><i><tt clAss="monofont">func</Tt></i>
+<tT clasS="monofont">, </tt><i><TT CLass="monofont">args</tT></I>
+<TT clasS="monofont">, </TT><I><tt clASS="monofont">kwargs</Tt></i>
+<tt class="monofont">)</tt>. On success, control is immediately returned to the caller. When the function <i><tt class="monofont">func</tT></i>
+ returns, the thread exits silently. If the function terminates with an unhandled exception, a stack trace is printed and the thread exits (other threads continue to run, however).</p>
+
+<P>A lock object <i><tt Class="monofont">lck</Tt></i>
+ returned by <tT CLAss="monofont">allocate_lock()</tt> has the following methods:</P>
+
+<PRE>
+
+<b><i>lck</i></b><B>.acquire([</B><B><I>waitflag</i></b><b>])</b> </PRE>
+
+<P>Acquires the lock, waiting until the lock is released by another thread if necessary. If <i><tt class="monofont">waitflag</tt></i>
+ is omitted, the function returns <tt class="monofont">None</tt>  when the lock is acquired. If <I><tt ClasS="monofont">waitflag</tt></i>
+ is set to <tT claSS="monofont">0</TT>, the lock is acquired only if it can be acquired immediately without waiting. If <i><tt cLASS="monofont">waitflag</tt></i>
+ is nonzero, the method blocks until the lock is released. When <i><TT CLass="monofont">waitflag</tT></I>
+ is supplied, the function returns <TT class="monofont">1</tt> if the lock was acquired successfully, <tt class="monofont">0</tt>  if not.</p>
+
+<pre>
+
+<B><i>lck</i></B><b>.release()</b> </pRe>
+
+<p>Releases the lock.</p>
+
+<pRe>
+
+<b><i>lck</I></B><B>.locked()</B> </pre>
+
+<p>Returns the lock status: <TT CLass="monofont">1</tT>  if locked, <TT Class="monofont">0</TT>  if not.</P>
+
+
+<H5>Example</h5>
+<p>The following example shows a simple thread that prints the current time every five seconds:</p>
+
+<pre>
+
+import thread 
+import time 
+def print_time(delay): 
+    while 1: 
+        time.sleep(delay) 
+        print time.ctime(time.time()) 
+
+# Start the new thread 
+thread.start_new_thread(print_time,(5,)) 
+# Now go do something else while the thread runs 
+while 1: 
+      pass </pre>
+
+
+<h5>Exception</h5>
+<pre>
+
+<b>error</b> </pre>
+
+<p>Exception raised on thread-specific errors.</P>
+
+
+<h5>Notes</h5>
+<Ul>
+<li>
+<P>Calling <tt clAss="monofont">sys.exit()</tT>  or raising the <TT Class="monofont">SystemExit</TT> exception is equivalent to calling <TT clasS="monofont">thread.exit()</TT>.</P>
+</li>
+<li>
+<P>The <TT Class="monofont">acquire()</tt> method on a lock cannot be interrupted.</p>
+</li>
+<li>
+<p>When the main thread exits, whether the other threads survive depends on the system. On most systems, they’re killed immediately without executing  any cleanup. Furthermore, the cleanup actions of the main thread are somewhat limited. In particular, standard I/O files are not flushed, nor are object destructors invoked.</p>
+</li>
+</ul>
+<p>? <b>See Also</b> <A hrEf="113#14.html">threading</a> (221).</p>
+
+<A name="14"></A>
+<h4><tt CLASs="monofont">threading</tt></h4>
+<P>The <TT Class="monofont">threading</TT>  module provides high-level thread support with a <TT clasS="monofont">Thread</TT>  class and classes for various synchronization primitives. It’s built using the lower-level <Tt class="monofont">thread</tt> module.</p>
+
+<p>The following utility functions are available:</p>
+
+<pre>
+
+<b>activeCount()</b> </pre>
+
+<p>Returns the number of currently active <Tt cLass="monofont">Thread</Tt>  objects.</p>
+
+<prE>
+
+<b>currentThread()</b> </pRE>
+
+<P>Returns the <Tt claSS="monofont">Thread</TT>  object corresponding to the caller’s thread of control.</p>
+
+<pre>
+
+<B>enumerate()</B> </PRe>
+
+<p>Returns a list of all currently active <tt CLASs="monofont">Thread</tt>  objects.</p>
+
+
+<h5>Thread Objects</h5>
+<p>The <tt class="monofont">Thread</tt>  class is used to represent a separate thread of control. A new thread can be created as follows:</p>
+
+<pre>
+
+<B>Thread(</b><b><I>group</i></b><b>=None,</B> <b><i>target</i></b><B>=None,</b> <b><i>name</I></B><B>=None,</B> <b><i>args</i></b><B>=(),</B> <B><I>kwargs</i></b><b>={})</b> </PRE>
+
+<P>Creates a new <tt clASS="monofont">Thread</Tt>  instance. <i><tt class="monofont">group</tt></i>
+ is <tt class="monofont">None</tT>  and is reserved for future extensions. <i><tT claSs="monofont">target</tt></i>
+ is a callable object invoked by the <Tt clASS="monofont">run()</Tt> method when the thread starts. By default, it’s <tt cLASS="monofont">None</tt>, meaning that nothing is called. <i><tT CLAss="monofont">name</tt></I>
+ is the thread name. By default, a unique name of the form <TT Class="monofont">"Thread-</tt><i><tt class="monofont">N</tt></i>
+<tt cLasS="monofont">"</tt>  is created. <i><Tt claSs="monofont">args</tt></I>
+ is a tuple of arguments that are passed to the <I><TT clasS="monofont">target</TT></I>
+ function. <i><tt cLASS="monofont">kwargs</tt></i>
+ is a dictionary of keyword arguments that are passed to <i><TT CLass="monofont">target</tt></i>
+.</p>
+
+<p>A <tt class="monofont">Thread</tt>  object <i><tt ClaSs="monofont">t</tt></I>
+ supports the following methods:</p>
+
+<pre>
+
+<B><i>t</i></b><B>.start()</B> </PRe>
+
+<p>Starts the thread by invoking the <tt CLASs="monofont">run()</tt> method in a separate thread of control. This method can be invoked only once.</p>
+
+<PRE>
+
+<B><i>t</i></b><b>.run()</B> </PRE>
+
+<p>This method is called when the thread starts. By default, it calls the target function passed in the constructor. This method can also be redefined in subclasses of <tt class="monofont">Thread</tt>.</p>
+
+<pre>
+
+<b><i>t</i></b><b>.join([</b><B><i>timeout</i></B><b>])</b> </pRe>
+
+<p>Waits until the thread terminates or a timeout occurs. <i><tT claSS="monofont">timeout</TT></i>
+ is a floating-point number specifying a timeout in seconds. A thread cannot join itself, and it’s an error to join a thread before it has been started.</p>
+
+<prE>
+
+<B><I>t</I></b><b>.getName()</b> </pRE>
+
+<P>Returns the thread name.</P>
+
+<pre>
+
+<b><I>t</I></B><B>.setName(</b><b><i>name</i></b><b>)</b> </pre>
+
+<p>Sets the thread name.</p>
+
+<pre>
+
+<b><i>t</i></b><b>.isAlive()</B> </prE>
+
+<p>Returns <tt Class="monofont">1</Tt>  if the thread is alive, <tt CLASs="monofont">0</tt> otherwise. A thread is alive from the moment the <tT CLAss="monofont">start()</tt> method returns until its <TT CLass="monofont">run()</tT> method terminates.</P>
+
+<PRe>
+
+<b><i>t</i></b><b>.isDaemon()</b> </pre>
+
+<p>Returns the thread’s daemon flag.</p>
+
+<pre>
+
+<b><i>t</i></b><b>.setDaemon(</B><b><i>daemonic</I></b><b>)</b> </Pre>
+
+<p>Sets the thread’s daemon flag to the Boolean value <i><Tt clASS="monofont">daemonic</Tt></i>
+. This must be called before <tt CLASs="monofont">start()</tt> is called. The initial value is inherited from the creating thread. The entire Python program exits when no active non-daemon threads are left.</p>
+
+<P>A thread can be flagged as a “daemon thread” using the <TT Class="monofont">setDaemon()</TT> method. If only daemon threads remain, a program will exit.All programs have a main thread that represents the initial thread of control. It’s not a daemon thread.</P>
+
+<P>In some cases, dummy thread objects are created. These are threads of control started outside the <tt class="monofont">threading</tt>  module such as from a C extension module. Dummy threads are always considered alive, active, and daemonic, and cannot be joined. Furthermore, they’re never deleted, so it’s impossible to detect the termination of such threads.</p>
+
+<p>As an alternative to explicitly creating a <tt class="monofont">Thread</tt>  object, the <Tt cLass="monofont">Thread</Tt>  class can also be subclassed. If this approach is used, the <tt cLass="monofont">run()</TT> method can be overridden to perform the activity of the thread. The constructor can also be overridden, but it’s very important to invoke the base class constructor <TT clasS="monofont">Thread._ _init_ _()</TT> in this case. It’s an error to override any other methods of the <Tt claSS="monofont">Thread</TT>  class.</p>
+
+
+<h5>Lock Objects</h5>
+<p>A <I>primitive lock</I> (or <I>mutual exclusion lock</I>) is a synchronization primitive that’s in either a “locked” or “unlocked” state. Two methods, <tt class="monofont">acquire()</tt> and <tt class="monofont">release()</tt>, are used to change the state of the lock. If the state is locked, attempts to acquire the lock are blocked until the lock is released. If more than one thread is waiting to acquire the lock, only one is allowed to proceed when the lock is released. The order in which waiting threads proceed is undefined.</p>
+
+<p>A new <Tt cLass="monofont">Lock</Tt>  instance is created using the following constructor:</p>
+
+<prE>
+
+<b>Lock()</b> </pRE>
+
+<P>Creates a new lock object, initially unlocked.</P>
+
+<p>A <tt cLASS="monofont">Lock</tt>  object <i><tT CLAss="monofont">lck</tt></I>
+ supports the following methods:</P>
+
+<PRe>
+
+<b><i>lck</i></b><b>.acquire([</b><b><i>blocking</i></b> <b>= 1])</b> </pre>
+
+<p>Acquires the lock, blocking until the lock is released if necessary. If <i><tt ClaSs="monofont">blocking</tt></I>
+ is supplied and set to zero, the function returns immediately with a value of <tt clAss="monofont">0</tT> if the lock could not be acquired, or <TT Class="monofont">1</TT> if locking was successful.</P>
+
+<Pre>
+
+<b><i>lck</I></B><B>.release()</B> </pre>
+
+<p>Releases a lock. It’s an error to call this method when the lock is in an unlocked state.</P>
+
+
+<H5>RLock</H5>
+<P>A <i>reentrant lock</i> is a synchronization primitive that’s similar to a <tt class="monofont">Lock</tt>, but that can be acquired multiple times by the same thread. This allows the thread owning the lock to perform nested <tt class="monofont">acquire()</tt> and <Tt cLass="monofont">release()</Tt> operations. In this case, only the outermost <tt cLass="monofont">release()</TT> operation resets the lock to its unlocked state.</P>
+
+<P>A new <tt clASS="monofont">RLock</Tt>  object is created using the following constructor:</p>
+
+<prE>
+
+<B>RLock()</B> </Pre>
+
+<p>Creates a new reentrant lock object.</p>
+
+<P>An <TT Class="monofont">RLock</tt>  object <i><tt class="monofont">rlck</tt></i>
+ supports the following methods:</p>
+
+<prE>
+
+<b><i>rlck</I></b><b>.acquire([</b><B><i>blocking</i></b> <b>= 1])</B> </pre>
+
+<P>Acquires the lock, blocking until the lock is released if necessary. If no thread owns the lock, it’s locked and the recursion level is set to <TT Class="monofont">1</TT>. If this thread already owns the lock, the recursion level of the lock is increased by one and the function returns immediately.</P>
+
+<Pre>
+
+<b><i>rlck</I></B><B>.release()</B> </pre>
+
+<p>Releases a lock by decrementing its recursion level. If the recursion level is zero after the decrement, the lock is reset to the unlocked state. Otherwise, the lock remains locked. This function should only be called by the thread that currently owns the lock.</P>
+
+
+<H5>ConditionVariables</H5>
+<P>A <i>condition variable</i> is a synchronization primitive, built on top of another lock, that’s used when a thread is interested in a particular change of state or event to occur. A typical use is a producer-consumer problem where one thread is producing data to be consumed by another thread. A new <tt class="monofont">Condition</tt>  instance is created using the following constructor:</p>
+
+<pre>
+
+<b>Condition([</b><b><i>lock</i></B><b>])</b> </Pre>
+
+<p>Creates a new condition variable. <I><tt clAss="monofont">lock</tT></I>
+ is an optional <TT clasS="monofont">Lock</TT>  or <Tt claSS="monofont">RLock</TT>  instance. If not supplied, a new <tt clASS="monofont">RLock</Tt>  instance is created for use with the condition variable.</p>
+
+<p>A condition variable <i><tt class="monofont">cv</tt></i>
+ supports the following methods:</p>
+
+<pre>
+
+<b><i>cv</I></b><b>.acquire(*</B><b><i>args</i></B><b>)</b> </prE>
+
+<p>Acquires the underlying lock. This method calls the corresponding <tt CLASs="monofont">acquire(*</tt><i><TT CLass="monofont">args</tT></I>
+<TT clasS="monofont">)</TT> method on the underlying lock and returns its return value.</P>
+
+<pre>
+
+<b><i>cv</i></b><b>.release()</b> </pre>
+
+<p>Releases the underlying lock. This method calls the corresponding <tt class="monofont">release()</Tt> method on the underlying lock.</p>
+
+<Pre>
+
+<b><I>cv</i></b><b>.wait([</b><B><i>timeout</i></b><B>])</B> </PRe>
+
+<p>Waits until notified or until a timeout occurs. This method is called after the calling thread has already acquired the lock. When called, the underlying lock is released, and the thread goes to sleep until it’s awakened by a <tt CLASs="monofont">notify()</tt> or <tT CLAss="monofont">notifyAll()</tt> call performed on the condition variable by another thread. Once awakened, the thread reacquires the lock and the method returns. <I><TT Class="monofont">timeout</tt></i>
+ is a floating-point number in seconds. If this time expires, the thread is awakened, the lock reacquired, and control returned.</p>
+
+<pre>
+
+<b><i>cv</i></b><b>.notify([</b><b><i>n</i></B><b>])</b> </Pre>
+
+<p>Wakes up one or more threads waiting on this condition variable. This method is called only after the calling thread has acquired the lock, and does nothing if no threads are waiting. <I><tt clAss="monofont">n</tT></I>
+ specifies the number of threads to awaken and defaults to <TT clasS="monofont">1</TT>. Awakened threads don’t return from the <Tt claSS="monofont">wait()</TT> call until they can reacquire the lock.</p>
+
+<pre>
+
+<B><I>cv</I></B><b>.notifyAll()</b> </pre>
+
+<p>Wakes up all threads waiting on this condition.</p>
+
+
+<h5>Examples</h5>
+<p>The following examples show a producer-consumer problem using condition variables:</p>
+
+<pre>
+
+# Consume one item 
+def consumer(): 
+   cv.acquire() 
+   while not item_is_available(): 
+         cv.wait()     # Wait for item 
+   cv.release() 
+   consume_item()      # Consume the item 
+
+# Produce one item 
+def produce(): 
+   produce_item()      # Produce the item 
+   cv.acquire() 
+   make_item_available() 
+   cv.notify()         # Notify the consumer 
+   cv.release() </pre>
+
+
+<h5>Semaphore</h5>
+<p>A <I>semaphore</i> is a synchronization primitive based on a counter that’s decremented by each <tT claSs="monofont">acquire()</tt> call and incremented by each <tT claSS="monofont">release()</TT> call. If the counter ever reaches zero, the <tt clASS="monofont">acquire()</Tt> method blocks until some other thread calls <tt cLASS="monofont">release()</tt>.</p>
+
+<pRE>
+
+<B>Semaphore([</B><b><i>value</i></b><b>])</b> </pre>
+
+<p>Creates a new semaphore. <i><tt class="monofont">value</tt></I>
+ is the initial value for the counter. If omitted, the counter is set to a value of <tt ClasS="monofont">1</tt>.</p>
+
+<p>A <Tt clASS="monofont">Semaphore</Tt>  instance <i><tt CLASs="monofont">s</tt></i>
+ supports the following methods:</P>
+
+<PRE>
+
+<b><i>s</i></b><B>.acquire([</B><B><I>blocking</i></b><b>])</b> </pre>
+
+<p>Acquires the semaphore. If the internal counter is larger than zero on entry, decrements it by one and returns immediately. If it’s zero, blocks until another thread calls <tt class="monofont">release()</tt>. The <i><tt ClaSs="monofont">blocking</tt></I>
+ argument has the same behavior as described for <tt clAss="monofont">Lock</tT>  and <TT Class="monofont">RLock</TT>  objects.</P>
+
+<Pre>
+
+<b><i>s</I></B><B>.release()</B> </pre>
+
+<p>Releases a semaphore by incrementing the internal counter by one. If the counter is zero and another thread is waiting, that thread is awakened. If multiple threads are waiting, only one will be returned from its <TT CLass="monofont">acquire()</tt> call. The order in which threads are released is not deterministic.</p>
+
+
+<h5>Events</h5>
+<p><i>Events</i> are used to communicate between threads. One thread signals an “event” and one or more other threads wait for it. An <tt class="monofont">Event</tt>  instance manages an internal flag that can be set to true with the <Tt cLass="monofont">set()</Tt> method and reset to false with the <tt cLass="monofont">clear()</TT> method. The <TT clasS="monofont">wait()</TT> method blocks until the flag is true.</P>
+
+<pre>
+
+<b>Event()</B> </PRE>
+
+<p>Creates a new <tt cLASS="monofont">Event</tt>  instance with the internal flag set to false.</p>
+
+<p>An <tt class="monofont">Event</tt>  instance <i><tt clasS="monofont">e</tt></I>
+ supports the following methods:</p>
+
+<prE>
+
+<b><i>e</i></b><B>.isSet()</b> </prE>
+
+<P>Returns true only if the internal flag is true.</P>
+
+<Pre>
+
+<b><i>e</I></B><B>.set()</B> </pre>
+
+<p>Sets the internal flag to true. All threads waiting for it to become true are awakened.</P>
+
+<PRE>
+
+<b><i>e</i></b><B>.clear()</B> </PRe>
+
+<p>Resets the internal flag to false.</p>
+
+<pre>
+
+<b><i>e</i></b><b>.wait([</b><b><i>timeout</i></b><b>])</b> </prE>
+
+<p>Blocks until the internal flag is true. If the internal flag is true on entry, returns immediately. Otherwise, blocks until another thread calls <tT claSs="monofont">set()</tt> to set the flag to true, or until the optional timeout occurs. <i><Tt clASS="monofont">timeout</Tt></i>
+ is a floating-point number specifying a timeout period in seconds.</p>
+
+
+<h5>Example</H5>
+<P>The following example illustrates the use of the threading module by fetching a collection of URLs in separate threads. In this example, threads are defined by subclassing the <TT clasS="monofont">Thread</TT>  class.</P>
+
+<pre>
+
+import threading 
+import urllib 
+class FetchUrlThread(threading.Thread): 
+     def __init__(self, url,filename): 
+            threading.Thread.__init__(self) 
+            self.url = url 
+            self.filename = filename 
+     def run(self): 
+            print self.getName(), 'Fetching ', self.url 
+            urllib.urlretrieve(self.url,self.filename) 
+            print self.getName(), 'Saved in ', self.filename 
+urls = [ ('http://www.python.org','/tmp/index.html'), 
+          ('ftp://ftp.python.org/pub/python/2.1/Python-2.1.tgz', '/tmp/py21.tgz'), 
+          ('http://www.petaflop.org/p.png','/tmp/p.png'), 
+          ('http://www.pud.com','/tmp/pud.html') 
+       ] 
+
+# Go fetch a bunch of URLs in separate threads 
+for url,file in urls: 
+    t = FetchUrlThread(url,file) 
+    t.start() </pRE>
+
+<P>? <B>See Also</b> <a href="113#6.html">thread</a> (219), <a href="113#32.html">Queue</a> (226).</p>
+
+<a name="32"></a>
+<H4><tt ClasS="monofont">Queue</tt></h4>
+<p>The <Tt clASS="monofont">Queue</Tt>  module implements a multi-producer, multi-consumer FIFO queue that can be used to safely exchange information between multiple threads of execution. It’s available only if thread support has been enabled.</p>
+
+<p>The <tT CLAss="monofont">Queue</tt>  module defines the following class:</P>
+
+<PRE>
+
+<b>Queue(</b><b><i>maxsize</I></B><B>)</B> </pre>
+
+<p>Creates a new queue in which <i><tt class="monofont">maxsize</tt></i>
+ is the maximum number of items that can be placed in the queue. If <i><tt clAss="monofont">maxsize</Tt></i>
+ is less than or equal to zero, the queue size is infinite.</p>
+
+<P>A <tt clAss="monofont">Queue</tT>  object <I><TT clasS="monofont">q</TT></I>
+ has the following methods:</p>
+
+<pre>
+
+<B><I>q</I></B><b>.qsize()</b> </prE>
+
+<P>Returns the approximate size of the queue. Because other threads may be updating the queue, this number is not entirely reliable.</P>
+
+<Pre>
+
+<b><i>q</i></b><b>.empty()</b> </pre>
+
+<p>Returns <tt class="monofont">1</tT>  if the queue is empty, <tt ClasS="monofont">0</tt> otherwise.</p>
+
+<pRe>
+
+<b>q.full()</b> </PRE>
+
+<P>Returns <tt clASS="monofont">1</Tt>  if the queue is full, <tt cLASS="monofont">0</tt> otherwise.</p>
+
+<pRE>
+
+<B><I>q</i></b><b>.put(</b><b><i>item</i></b> <b>[,</b> <b><i>block</i></b><b>])</b> </pre>
+
+<p>Puts <I><tt ClasS="monofont">item</tt></i>
+ into the queue. If optional argument <i><Tt clASS="monofont">block</Tt></i>
+ is <tt CLASs="monofont">1</tt> (the default), the caller blocks until a free slot is available. Otherwise (<i><TT CLass="monofont">block</tT></I>
+ is <TT class="monofont">0</tt>), the <tt class="monofont">Full</tt> exception is raised if the queue is full.</p>
+
+<pre>
+
+<B><i>q</i></B><b>.put_nowait(</b><b><I>item</i></b><b>)</b> </Pre>
+
+<p>Equivalent to <I><TT Class="monofont">q</TT></I>
+<Tt claSS="monofont">.put(</TT><i><tt cLASS="monofont">item</tt></i>
+<tt class="monofont">, 0)</tt>.</p>
+
+<pre>
+
+<b><i>q</i></b><B>.get([</b><b><I>block</i></b><b>])</B> </pre>
+
+<p>Removes and returns an item from the queue. If optional argument <I><tt cLASS="monofont">block</tt></i>
+ is <tT CLAss="monofont">1</tt> (the default), the caller blocks until an item is available. Otherwise (<I><TT Class="monofont">block</TT></I>
+ is <Tt class="monofont">0</tt>), the <tt class="monofont">Empty</tt>  exception is raised if the queue is empty.</p>
+
+<prE>
+
+<b><i>q</I></b><b>.get_nowait()</b> </Pre>
+
+<p>Equivalent to <i><Tt clASS="monofont">q</Tt></i>
+<tt CLASs="monofont">.get(0)</tt>.</p>
+
+
+<H5>Exceptions</H5>
+<PRe>
+
+<b>Empty</b> </pRE>
+
+<P>Exception raised when nonblocking <Tt class="monofont">get()</tt> or <tt class="monofont">get_nowait()</tt> is called on a <tt cLasS="monofont">Queue</tt> object that’s empty or locked.</p>
+
+<Pre>
+
+<b>Full</b> </Pre>
+
+<p>Exception raised when nonblocking <TT CLass="monofont">put()</tT> or <TT Class="monofont">put_nowait()</TT> is called on a <TT clasS="monofont">Queue</TT> object that’s full or locked.</P>
+
+<p>? <b>See Also</b> <a href="113#6.html">thread</a> (219), <a href="113#14.html">threading</a> (221).</p>
+</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="112.html" title="Operating System Services"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=113" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="113.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="114.html" title="Network Programming"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

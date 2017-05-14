@@ -1,0 +1,354 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Unicode I/O</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="89.html" class="navtitle">9. Input and Output</a> &gt; <span class="nonavtitle">Unicode I/O</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="95.html" title="Persistence"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=96" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="96.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="98.html" title="10. Execution Environment"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+9%3A03%3A27+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238111161105085094126174128119118</font><a href="read0.asp?bookname=0735710910&snode=96&now=5%2F28%2F2002+9%3A03%3A27+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Unicode I/O</h3>
+<p>Internally, Unicode strings are represented as sequences of 16-bit integer character values.As in 8-bit strings, all characters are the same size, and most common string operations are simply extended to handle strings with a larger range of character values. However, whenever Unicode strings are converted to a stream of bytes, a number of issues arise. First, to preserve compatibility with existing software, it may be desirable to convert Unicode to an 8-bit representation compatible with software that expects to receive ASCII or other 8-bit data. Second, the use of 16-bit characters introduces problems related to byte ordering. For a Unicode character <tT CLAss="monofont">U+HHLL</tt>, little endian encoding places the low-order byte first, as in <TT CLass="monofont">LL HH</tT>.  Big endian encoding places the high-order byte first, as in <TT Class="monofont">HH LL</tt>.  Because of this difference, it’s generally not possible to simply write raw Unicode data to a file without also specifying the encoding used.</p>
+
+<p>To address these problems, external representation of Unicode strings is always done according to a specific encoding rule. This rule precisely defines how Unicode characters are to be represented as a byte sequence. In <a href="42.html">Chapter 4</a>, encoding rules were first described for the <tt clasS="monofont">unicode()</tt> function and the <I><tt cLass="monofont">s</tT></i>
+<tt CLASs="monofont">.encode()</tt> string method. For example:</p>
+
+<PRE>
+
+a = u"M\u00fcller" 
+b = "Hello World" 
+c = a.encode('utf-8')     # Convert a to a UTF-8 string 
+d = unicode(b)            # Convert b to a Unicode string </Pre>
+
+<p>For Unicode I/O, a similar technique is implemented through the use of the built-in <tT CLAss="monofont">codecs</tt>  module. The <TT CLass="monofont">codecs</tt>  module contains a collection of functions for converting byte-oriented data to and from Unicode strings under a variety of different data-encoding schemes.A specific codec is selected by calling the <tt class="monofont">codecs.lookup(</tt><i><tt claSs="monofont">encoding</tT></i>
+<tt Class="monofont">)</Tt> function. This function returns a four-element tuple <tt CLASs="monofont">(</tt><i><TT CLass="monofont">enc_func, decode_func, stream_reader, stream_writer</tT></I>
+<TT clasS="monofont">)</TT>. For example:</P>
+
+<pre>
+
+import codecs 
+(utf8_encode, utf8_decode, utf8_reader, utf8_writer) = \ 
+          codecs.lookup('utf-8') </pre>
+
+<p>The <i><tt class="monofont">enc_func</tt></i>
+<tt ClaSs="monofont"> (</tt><I><tt clAss="monofont">u</tT></I>
+<TT clasS="monofont"> [,</TT><I><tt clASS="monofont">errors</Tt></i>
+<tt CLASs="monofont">])</tt> function takes a Unicode string <i><tt class="monofont">u</tt></i>
+ and returns a tuple <tt clasS="monofont">(</tt><I><tt cLass="monofont">s</tT></i>
+<tt CLASs="monofont">, </tt><i><TT CLass="monofont">len</tT></I>
+<TT clasS="monofont">)</TT> in which <I><tt class="monofont">s</tt></i>
+ is an 8-bit string containing a portion or all of the Unicode string <i><tt class="monofont">u</tt></I>
+, converted into the desired encoding, and <i><tT claSs="monofont">len</tt></i>
+ contains the number of Unicode characters converted. The <I><tt cLASS="monofont">decode_func</tt></i>
+<tT CLAss="monofont"> (</tt><I><TT Class="monofont">s</TT></I>
+<Tt class="monofont"> [,</tt><i><tt class="monofont">errors</tt></i>
+<tT clAss="monofont">])</tT> function takes an 8-bit string <i><tt cLass="monofont">s</TT></I>
+ and returns a tuple <Tt claSS="monofont">(</TT><i><tt cLASS="monofont">u</tt></i>
+<tT CLAss="monofont">, </tt><i><tt class="monofont">len</tt></i>
+<tt claSs="monofont">)</tT> containing a Unicode string <i><tt Class="monofont">u</Tt></i>
+ and the number of characters in <i><TT CLass="monofont">s</tT></I>
+ that were converted. The <I><Tt claSS="monofont">errors</TT></i>
+ parameter determines how errors are handled and is one of <tt cLASS="monofont">'strict'</tt>, <tt class="monofont">'ignore'</tt>, or <tt class="monofont">'replace'</tt>. In <Tt cLass="monofont">'strict'</Tt> mode, encoding errors raise a <tt cLass="monofont">UnicodeError</TT>  exception. In <TT clasS="monofont">'ignore'</TT> mode, encoding errors are ignored. In <Tt claSS="monofont">'replace'</TT> mode, characters that can’t be converted are replaced by a replacement character. The replacement character is <tt clASS="monofont">U+FFFD</Tt>  in Unicode and <tt class="monofont">'?'</tt> in 8-bit strings.</p>
+
+<p><i><tt class="monofont">stream_reader</Tt></i>
+ is a class that implements a wrapper for reading Unicode data from a file object. Calling <I><tt cLass="monofont">stream_reader</tT></i>
+<tt CLASs="monofont"> (</tt><i><TT CLass="monofont">file</tT></I>
+<TT clasS="monofont">)</TT> returns an object in which the <Tt class="monofont">read()</tt>, <tt class="monofont">readline()</tt>, and <tt cLasS="monofont">readlines()</tt>  methods read Unicode string data. <i><Tt claSs="monofont">stream_writer</tt></I>
+ is a class that provides a wrapper for writing Unicode to a file object. Calling <I><TT clasS="monofont">stream_writer</TT></I>
+<tt clASS="monofont"> (</Tt><i><tt CLASs="monofont">file</tt></i>
+<tt class="monofont">)</tt> returns a file object in which the <tt class="monofont">write()</Tt> and <tT claSs="monofont">writelines()</tt> methods translate Unicode strings to the given encoding on the output stream.</p>
+
+<P>The following example illustrates how to read and write UTF-8 encoded Unicode data using these functions:</p>
+
+<prE>
+
+# Output Unicode data to a file 
+ustr = u'M\u00fcller'         # A Unicode string 
+
+outf = utf8_writer(open('foo','w'))   # Create UTF-8 output stream 
+outf.write(ustr) 
+outf.close() 
+
+# Read Unicode data from a file 
+infile = utf8_reader(open('bar')) 
+ustr = infile.read() 
+infile.close() </PRE>
+
+<p>When working with Unicode files, the data encoding is usually embedded in the file itself. For example, XML parsers may look at the first few bytes of the string <tt cLASS="monofont">'&lt;?xml ...&gt;'</tt> to determine the document encoding. If the first four values are <tt CLASs="monofont">3C 3F 78 6D</tt> (<tT CLAss="monofont">'&lt;?xm'</tt>), the encoding is assumed to be UTF-8. If the first four values are <tt class="monofont">00 3C 00 3F</tt>  or <tt class="monofont">3C 00 3F 00</Tt>, the encoding is assumed to be UTF-16 big endian or UTF-16 little endian, respectively. Alternatively, a document encoding may appear in MIME headers or as an attribute of other document elements. For example:</p>
+
+<Pre>
+
+&lt;?xml ... encoding="ISO-8859-1" .... ?&gt; </pRe>
+
+<p>When the encoding is read from a document, code similar to the following might be used:</p>
+
+<pRe>
+
+f = open("somefile") 
+# Determine encoding 
+... 
+(encoder,decoder,reader,writer) = codecs.lookup(encoding) 
+f = reader(f)    # Wrap file with Unicode reader 
+data = f.read()  # Read Unicode data 
+f.close() </prE>
+
+
+<H4>Unicode Data Encoding</H4>
+<P><a hreF="96#4.html">Table 9.2</A> lists all of the currently available encoders in the <TT clasS="monofont">codecs</TT>  module.</P>
+
+<a namE="4"></A><P><Table border="1" cellspacinG="0" ceLlpaDding="1" WidtH="100%">
+<CAPtion><H5>Table 9.2.  Encoders in the codecs Module</H5></CAptioN><COLgrouP SPAn="2">
+<tr>
+<th valign="top">
+<font size="2">
+<p><B>Encoder</b></p>
+</Font></Th>
+<th vAligN="top">
+<FONt sizE="2">
+<P><B>Description</B></p>
+</fonT></TH>
+</Tr>
+<tr>
+<tD VALign="top">
+<font size="2">
+<p><tt class="monofont">'ascii'</tT></p>
+</fOnt></tD>
+<td vaLign="top">
+<FONT size="2">
+<P>ASCII encoding</P>
+</FOnt></td>
+</TR>
+<TR>
+<td vaLIGN="top">
+<font size="2">
+<p><tt class="monofont">'latin-1', 'iso-8859-1'</tt></p>
+</fOnt></Td>
+<td ValigN="top">
+<fonT SIZe="2">
+<p>Latin-1 or ISO-8859-1 encoding</p>
+</fONT></Td>
+</tr>
+<tR>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">'utf-8'</tt></p>
+</font></Td>
+<tD valIgn="top">
+<foNt siZE="2">
+<P>8-bit variable length encoding</P>
+</font></TD>
+</TR>
+<tr>
+<td VALIgn="top">
+<foNT SIze="2">
+<p><tt class="monofont">'utf-16'</tt></p>
+</font></td>
+<tD vaLign="top">
+<Font sIze="2">
+<p>16-bit variable length encoding</P>
+</FONt></td>
+</tR>
+<TR>
+<Td valIGN="top">
+<Font sIZE="2">
+<P><tt class="monofont">'utf-16-le'</tt></p>
+</font></td>
+<td vaLigN="top">
+<fonT size="2">
+<P>UTF-16, but with explicit little endian encoding</p>
+</foNT></TD>
+</tr>
+<tr>
+<TD VAlign="top">
+<FONT size="2">
+<P><TT Class="monofont">'utf-16-be'</tt></p>
+</font></td>
+<td valigN="top">
+<foNt siZe="2">
+<p>UTF-16, but with explicit big endian encoding</p>
+</fOnt></tD>
+</TR>
+<Tr>
+<td vALIGn="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">'unicode-escape'</tt></p>
+</font></td>
+<td valign="top">
+<foNt sIze="2">
+<p>Same format as <Tt claSs="monofont">u"</tt><I><TT Class="monofont">string</TT></I>
+<Tt claSS="monofont">"</TT></p>
+</fonT></TD>
+</Tr>
+<tr>
+<td valign="top">
+<font size="2">
+<p><Tt cLass="monofont">'raw-unicode-escape'</Tt></p>
+</foNt></td>
+<TD VAlign="top">
+<FONT size="2">
+<P>Same format as <TT Class="monofont">ur"</TT><I><Tt class="monofont">string</tt></i>
+<tt class="monofont">"</tt></p>
+</fOnt></Td>
+</tr>
+</ColgrOup>
+</tABLE></p>
+
+<p>The following paragraphs describe each of the encoders in more detail.</p>
+
+<p><B><TT Class="monofont">'ascii'</TT></B>
+ <B>encoding:</b></p>
+
+<p>In <tT CLAss="monofont">'ascii'</tt> encoding, character values are confined to the ranges <tt class="monofont">[0,0x7f]</tt> and <tt class="monofont">[U+0000, U+007F]</Tt>. Any character outside this range is invalid.</p>
+
+<P><b><tt Class="monofont">'iso-8859-1'</Tt></b>
+ <b>or</B> <B><TT clasS="monofont">'latin-1'</TT></B>
+ <b>encoding:</b></p>
+
+<p>Characters can be any 8-bit value in the ranges <TT CLass="monofont">[0,0xff]</tT> and <TT Class="monofont">[U+0000, U+00FF]</tt>. Values in the range <tt class="monofont">[0,0x7f]</tt> correspond to characters from the ASCII character set.Values in the range <tt claSs="monofont">[0x80,0xff]</tT> correspond to characters from the ISO-8859-1 or extended ASCII character set. Any characters with values outside the range <tt cLass="monofont">[0,0xff]</tT> result in an error.</p>
+
+<p><b><TT CLass="monofont">'utf-8'</tT></B>
+ <B>encoding:</B></p>
+
+<p>UTF-8 is a variable-length encoding that allows all Unicode characters to be represented. A single byte is used to represent ASCII characters in the range 0–127. All other characters are represented by multibyte sequences of two or three bytes. The encoding of these bytes is shown in the following table.</p>
+
+<p><TABLe borDER="1" Cellspacing="0" cellpaddinG="1" wiDth="100%">
+<cOlgroUp spAN="4">
+<TR>
+<th vaLIGN="top">
+<font SIZE="2">
+<p><b>Unicode Characters</b></p>
+</FONT></th>
+<th valign="top">
+<font size="2">
+<p><b>Byte 0</B></p>
+</fOnt></tH>
+<th vaLign="top">
+<FONT size="2">
+<P><B>Byte 1</B></P>
+</font></TH>
+<TH valiGN="top">
+<FOnt size="2">
+<p><b>Byte 2</b></p>
+</font></th>
+</tr>
+<tr>
+<Td vAligN="top">
+<font Size="2">
+<P><TT Class="monofont">U+0000 - U+007F</TT></P>
+</Font></tD>
+<TD ValigN="top">
+<FONt size="2">
+<p><tt class="monofont">0</tt><i><tt clAss="monofont">nnnnnnn</Tt></i>
+</p>
+</Font></tD>
+<td vALIGn="top" colSPAN="2">
+<font SIZE="2">
+<p> </p>
+</foNT></TD>
+</tr>
+<tr>
+<td valign="top">
+<font size="2">
+<P><tt ClasS="monofont">U+007F - U+07FF</tt></p>
+</fOnt></tD>
+<TD ValigN="top">
+<FONt sizE="2">
+<P><TT clasS="monofont">110</TT><I><tt class="monofont">nnnnn</tt></i>
+</p>
+</font></td>
+<td vAliGn="top">
+<foNt sizE="2">
+<p><tt CLASs="monofont">10</tt><i><TT CLass="monofont">nnnnnn</tT></I>
+</P>
+</Font></tD>
+<TD Valign="top">
+<font size="2">
+<p> </p>
+</font></tD>
+</tr>
+<Tr>
+<td ValigN="top">
+<fonT SIZe="2">
+<p><tt CLASs="monofont">U+0800 - U+FFFF</tt></p>
+</FONT></td>
+<td VALIgn="top">
+<font size="2">
+<p><tt class="monofont">1110</tt><I><tt ClasS="monofont">nnnn</tt></i>
+</p>
+</Font></TD>
+<TD valiGN="top">
+<FOnt siZE="2">
+<P><Tt claSS="monofont">10</TT><i><tt class="monofont">nnnnnn</tt></i>
+</p>
+</font></td>
+<td ValIgn="top">
+<fOnt siZe="2">
+<p><tT CLAss="monofont">10</tt><I><TT Class="monofont">nnnnnn</TT></I>
+</P>
+</font></TD>
+</TR>
+</colgroup>
+</table></p>
+
+<p>For two-byte sequences, the first byte always starts with the bit sequence <tt claSs="monofont">110</tT>. For three-byte sequences, the first byte starts with the bit sequence <tt cLass="monofont">1110</tT>. All subsequent data bytes in multibyte sequences start with the bit sequence <tt cLASS="monofont">10</tt>.</p>
+
+<p>In full generality, the UTF-8 format allows for multibyte sequences of up to six bytes. In Python, four-byte UTF-8 sequences are used to encode a pair of Unicode characters known as a <I>surrogate pair</I>. Both characters have values in the range <TT clasS="monofont">[U+D800, U+DFFF]</TT> and are combined to encode a 20-bit character value. The surrogate encoding is as follows:The four-byte sequence <Tt claSS="monofont">111100</TT><i><tt class="monofont">nn</tt></i>
+<tt class="monofont"> 10</tt><I><tt ClasS="monofont">nnnnnn</tt></i>
+<tT claSS="monofont"> 10</TT><i><tt cLASS="monofont">nnmmmm</tt></i>
+<tT CLAss="monofont"> 10</tt><I><TT Class="monofont">mmmmmm</tt></i>
+ is encoded as the pair <tt class="monofont">U+D800 + </tt><i><tt cLasS="monofont">N</tt></i>
+, <Tt claSs="monofont">U+DC00 + </tt><I><TT Class="monofont">M</TT></I>
+, where <I><tt clASS="monofont">N</Tt></i>
+ is the upper 10 bits and <i><tT CLAss="monofont">M</tt></i>
+ is the lower 10 bits of the 20-bit character encoded in the four-byte UTF-8 sequence. Five- and six-byte UTF-8 sequences (denoted by starting bit sequences of <tt class="monofont">111110</tt>  and <tt clasS="monofont">1111110</tt>, respectively) are used to encode character values up to 32 bits in length. These values are not supported by Python and currently result in a <Tt clAss="monofont">UnicodeError</tt>  exception if they appear in an encoded data stream.</P>
+
+<p>UTF-8 encoding has a number of useful properties that allow it to be used by older software. First, the standard ASCII characters are represented in their standard encoding. This means that a UTF-8 encoded ASCII string is indistinguishable from a traditional ASCII string. Second, UTF-8 doesn’t introduce embedded null bytes for multibyte character sequences. Thus, existing software based on the C library and programs that expect null-terminated 8-bit strings will work with UTF-8 strings. Finally, UTF-8 encoding preserves the lexicographic ordering of strings. That is, if <tt CLASs="monofont">a</tt>  and <tT CLAss="monofont">b</tt> are Unicode strings and <TT CLass="monofont">a &lt; b</tT>, then <TT Class="monofont">a &lt; b</tt> also holds when <tt class="monofont">a</tt> and <tt claSs="monofont">b</tT> are converted to UTF-8. Therefore, sorting algorithms and other ordering algorithms written for 8-bit strings will also work for UTF-8.</p>
+
+<p><b><Tt claSs="monofont">'utf-16'</tt></B>
+<B>,</B> <B><tt clASS="monofont">'utf-16-be'</Tt></b>
+<b>, and</b> <B><TT Class="monofont">'utf-16-le'</TT></B>
+ <B>encoding:</b></p>
+
+<p>UTF-16 is a variable-length 16-bit encoding in which Unicode characters are written as 16-bit values. Unless a byte ordering is specified, big endian encoding is assumed. In addition, a byte-order marker of <tt class="monofont">U+FEFF</tt>  can be used to explicitly specify the byte ordering in a UTF-16 data stream. In big endian encoding, <tt class="monofont">U+FEFF</tT>  is the Unicode character for a zero-width nonbreaking space, whereas the reversed value <tt ClasS="monofont">U+FFFE</tt>  is an illegal Unicode character. Thus, the encoder can use the byte sequence <tt ClasS="monofont">FE FF</TT> or <Tt claSS="monofont">FF FE</TT> to  determine the byte ordering of a data stream. When reading Unicode data, Python removes the byte-order markers from the final Unicode string.</p>
+
+<p><tt CLASs="monofont">'utf-16-be'</tt> encoding explicitly selects UTF-16 big endian encoding. <tT CLAss="monofont">'utf-16-le'</tt> encoding explicitly selects UTF-16 little ending encoding.</p>
+
+<p>Although there are extensions to UTF-16 to support character values greater than 16 bits, none of these extensions are currently supported.</p>
+
+<p><b><tt class="monofont">'unicode-escape'</tt></b>
+ <b>and</B> <b><tT claSs="monofont">'raw-unicode-escape'</tt></b>
+ <B>encoding:</b></p>
+
+<p>These encoding methods are used to convert Unicode strings to the same format as used in Python Unicode string literals and Unicode raw string literals. For example:</P>
+
+<PRE>
+
+s = u'u\14a8\u0345\u2a34' 
+t = s.encode('unicode-escape')   #t = '\u14a8\u0345\u2a34' </pre>
+
+
+<h4>Unicode Character Properties</H4>
+<P>In addition to performing I/O, programs that use Unicode may need to test Unicode characters for various properties such as capitalization, numbers, and whitespace. The <TT clasS="monofont">unicodedata</TT>  module provides access to a database of character properties. General character properties can be obtained with the <Tt claSS="monofont">unicodedata.category(</TT><i><tt class="monofont">c</tt></i>
+<tt class="monofont">)</tt> function. For example, <Tt cLass="monofont">unicodedata.category(u"A")</Tt> returns <tt cLass="monofont">'Lu'</TT>, signifying that the character is an uppercase letter. Further details about the Unicode character database and the <TT clasS="monofont">unicodedata</TT>  module can be found in <A href="105.html">Appendix A</A>.</P>
+</FOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="95.html" title="Persistence"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=96" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="96.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="98.html" title="10. Execution Environment"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

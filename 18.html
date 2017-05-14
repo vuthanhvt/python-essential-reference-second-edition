@@ -1,0 +1,87 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Python Essential Reference, Second Edition -&gt; Strings</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="2.html" class="navtitle">Linux/Unix</a> &gt; <a href="0735710910.html" class="navtitle">Python Essential Reference, Second Edition</a> &gt; <a href="12.html" class="navtitle">1. A Tutorial Introduction</a> &gt; <span class="nonavtitle">Strings</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="17.html" title="File Input and Output"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=18" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="18.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="19.html" title="Lists and Tuples"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F28%2F2002+8%3A33%3A10+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>155117184014003188065099048180054212144238241179195140058238110137110162165011202136172174</font><a href="read1.asp?bookname=0735710910&snode=18&now=5%2F28%2F2002+8%3A33%3A10+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+<h3>Strings</h3>
+<p>To create <i>string literals</I>, enclose them in single, double, or triple quotes as follows:</P>
+
+<PRe>
+
+a = 'Hello World' 
+b = "Python is groovy" 
+c = """What is footnote 5?""" </pre>
+
+<P>The same type of quote used to start a string must be used to terminate it. Triple-quoted strings capture all the text that appears prior to the terminating triple quote, as opposed to single- and double-quoted strings, which must be specified on one logical line. Triple quotes can be done with either single quotes (as in the following example) or double quotes (as in the above example). Triple-quoted strings are useful when the contents of a string literal span multiple lines of text such as the following:</P>
+
+<PRe>
+
+print '''Content-type: text/html 
+
+&lt;h1&gt; Hello World &lt;/h1&gt; 
+Click &lt;a href="http://www.python.org"&gt;here&lt;/a&gt;. 
+''' </pre>
+
+<P><I>Strings</I> are sequences of characters indexed by integers starting at zero. To extract a single character, use the indexing operator <I><tt class="monofont">s</tt></i>
+<tt class="monofont">[</tt><i><Tt cLass="monofont">i</Tt></i>
+<tt ClasS="monofont">]</TT> like this:</P>
+
+<pre>
+
+a = "Hello World" 
+b = a[4]                # b = 'o' </pRE>
+
+<P>To extract a <I>substring</i>, use the <i>slicing operator</i> <i><TT CLass="monofont">s</tT></I>
+<TT class="monofont">[</tt><i><tt class="monofont">i</tt></i>
+<tt ClaSs="monofont">:</tt><I><tt clAss="monofont">j</tT></I>
+<TT clasS="monofont">]</TT>. This extracts all elements from s whose index <I><tt clASS="monofont">k</Tt></i>
+ is in the range <i><tT CLAss="monofont">i &lt;= k &lt; j</tt></i>
+. If either index is omitted, the beginning or end of the string is assumed, respectively:</p>
+
+<pre>
+
+c = a[0:5]              # c = "Hello" 
+d = a[6:]               # d = "World" 
+e = a[3:8]              # e = "lo Wo" </pre>
+
+<p>Strings are concatenated with the plus (<tt class="monofont">+</Tt>) operator:</p>
+
+<Pre>
+
+g = a + " This is a test" </pRe>
+
+<p>Other datatypes can be converted into a string by using either the <tt ClasS="monofont">str()</TT> or <Tt claSS="monofont">repr()</TT> function or backquotes (<tt clASS="monofont">`</Tt>), which are a shortcut notation for <tt cLASS="monofont">repr()</tt>. For example:</p>
+
+<pre>
+
+s = "The value of x is " + str(x) 
+s = "The value of y is " + repr(y) 
+s = "The value of y is " + `y` </pre>
+
+<p>In many cases, <tt class="monofont">str()</tt> and <tT clAss="monofont">repr()</tT> return identical results. However, there are subtle differences in semantics that are described in later chapters.</p>
+</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 3/28/2002<br>Python Essential Reference, Second Edition, &copy;&nbsp;2002 New Riders Publishing</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="17.html" title="File Input and Output"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0735710910&snode=18" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="18.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="19.html" title="Lists and Tuples"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>
